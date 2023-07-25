@@ -1,2 +1,3 @@
-# towers-of-survival-beetpx
-Towers of Survival – a low-rez tower defense BeetPx game
+# Towers of Survival (BeetPx)
+
+> a low-rez tower defense [BeetPx](https://github.com/beetrootpaul/beetpx) game
