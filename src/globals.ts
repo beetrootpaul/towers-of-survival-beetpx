@@ -22,5 +22,7 @@ export const g = {
   sprites: {
     groundTextured: v_(0, 8),
     groundPlain: v_(4, 8),
+    road: v_(0, 24),
+    roadEdgeBottom: v_(0, 28),
   },
 };

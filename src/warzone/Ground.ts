@@ -1,6 +1,7 @@
-import { BeetPx, BpxSprite } from "beetpx";
+import { BeetPx } from "beetpx";
 import { Vector2d } from "beetpx/ts_output/Vector2d";
-import { g, p8c } from "../globals";
+import { g } from "../globals";
+import { TileSprite } from "../misc/TileSprite";
 
 export class Ground {
   // TODO: migrate from Lua
@@ -48,7 +49,7 @@ export class Ground {
         // local s = sprites[tile_x .. "|" .. tile_y]
         BeetPx.sprite(
           g.assets.spritesheet,
-          new BpxSprite(spriteXy1, spriteXy1.add(g.tileSize)),
+          new TileSprite(spriteXy1),
           tileXy.add(g.warzoneBorderTiles).mul(g.tileSize)
         );
       }

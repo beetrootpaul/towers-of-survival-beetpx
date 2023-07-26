@@ -1,4 +1,4 @@
-import { BeetPx } from "beetpx";
+import { BeetPx, transparent_ } from "beetpx";
 import { Screen } from "./screens/Screen";
 import { ScreenTitle } from "./screens/ScreenTitle";
 import { g, p8c } from "./globals";
@@ -58,7 +58,7 @@ export class Game {
         // TODO: migrate from Lua
         // pal(a.palette, 1)
         BeetPx.mapSpriteColors([
-          { from: p8c.black, to: p8c.brownDark },
+          { from: p8c.black, to: transparent_ },
           { from: p8c.darkBlue, to: p8c.blueDark },
           { from: p8c.darkPurple, to: p8c.redDark },
           { from: p8c.darkGreen, to: p8c.brownMid },
