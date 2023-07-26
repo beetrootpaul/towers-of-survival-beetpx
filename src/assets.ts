@@ -215,4 +215,24 @@
 //
 // a.font_template_color = a.colors.green
 //
-//
+// a.palette = {
+//     [a.colors.brown_dark] = 128,
+//     [a.colors.blue_dark] = 140,
+//     [a.colors.red_dark] = 136,
+//     [a.colors.brown_mid] = 133,
+//     --
+//     [a.colors.brown_light] = 4,
+//     [a.colors.grey_dark] = 5,
+//     [a.colors.grey_light] = 6,
+//     [a.colors.white] = 7,
+//     --
+//     [a.colors.red_light] = 8,
+//     [a.colors.salmon] = 142,
+//     [a.colors.yellow] = 135,
+//     [a.colors.green] = 139,
+//     --
+//     [a.colors.blue_light] = 12,
+//     [a.colors.grey_violet] = 13,
+//     [a.colors.brown_purple] = 141,
+//     [a.colors.sand] = 134,
+// }
