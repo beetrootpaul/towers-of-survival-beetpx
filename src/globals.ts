@@ -9,4 +9,18 @@ export const g = {
   fps: 60,
 
   screenSize: v_(64, 64),
+  warzoneSizeTiles: v_(12, 12),
+  tileSize: v_(4, 4),
+
+  warzoneBorderTiles: 2,
+
+  assets: {
+    spritesheet: "spritesheet.png",
+  },
+
+  // each value is sprite's xy1 corner on the spritesheet
+  sprites: {
+    groundTextured: v_(0, 8),
+    groundPlain: v_(4, 8),
+  },
 };

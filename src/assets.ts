@@ -155,8 +155,6 @@
 //         laser = { priority = 1, track = 16 },
 //     },
 //     tiles = {
-//         ground_textured = { x = 0, y = 8 },
-//         ground_plain = { x = 4, y = 8 },
 //         road = { x = 0, y = 24 },
 //         road_edge_bottom = { x = 0, y = 28 },
 //         road_edge_top = { x = 0, y = 20 },
@@ -190,11 +188,8 @@
 //             shooting_time_boost = .1,
 //         },
 //     },
-//     warzone_size_tiles = 12,
 //     -- warzone border
 //     wb = 8,
-//     -- warzone border tiles
-//     wbt = 2,
 //     waves = {
 //         -- TODO: fix edge case of 1-long wave: progress drawn wrong, wave never ends
 //         { wait = 4, spawns = "s,-,-,s,-,-,s" },

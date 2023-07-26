@@ -6,21 +6,18 @@ import { Ground } from "./Ground";
 export class Warzone {
   // TODO: migrate from Lua
   // private readonly lives: Lives;
-  // private readonly road: Road;
-  // private readonly cores: Cores;
-  // private readonly ground: Ground;
+  private readonly road: Road;
+  private readonly cores: Cores;
+  private readonly ground: Ground;
 
-  constructor(params: {
-    // TODO: migrate from Lua
-    // lives: number
-  }) {
+  constructor(params: { lives: Lives }) {
     // TODO: migrate from Lua
     // local lives = u.r(params.lives)
-    //     local road = new_road()
-    //     local cores = new_cores {
-    //         lives = lives,
-    //     }
-    //     local ground = new_ground()
+    this.road = new Road();
+    this.cores = new Cores({
+      lives: params.lives,
+    });
+    this.ground = new Ground();
   }
 
   // TODO: migrate from Lua
@@ -33,10 +30,10 @@ export class Warzone {
   //         can_have_tower_at = function(tile)
   //             return not road.is_at(tile) and ground.is_at(tile)
   //         end,
-  //
-  //         draw = function()
-  //             ground.draw()
-  //             road.draw()
-  //             cores.draw()
-  //         end,
+
+  draw(): void {
+    this.ground.draw();
+    this.road.draw();
+    this.cores.draw();
+  }
 }

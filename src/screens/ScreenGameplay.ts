@@ -1,10 +1,12 @@
 import { Screen } from "./Screen";
+import { Warzone } from "../warzone/Warzone";
+import { GameState } from "../game_state/GameState";
 
 export class ScreenGameplay implements Screen {
+  private readonly gameState: GameState;
+  private readonly warzone: Warzone;
+
   // TODO: migrate from Lua
-  //     local game_state = params.game_state
-  //     local warzone = params.warzone
-  //
   //     local enemies = new_enemies {
   //         path = warzone.path(),
   //         on_enemy_reached_path_end = function()
@@ -72,9 +74,12 @@ export class ScreenGameplay implements Screen {
   //         button_o = button_o,
   //     }
 
-  constructor() {
+  constructor(params: { gameState: GameState; warzone: Warzone }) {
     // TODO: REMOVE
     console.log(ScreenGameplay.name);
+
+    this.gameState = params.gameState;
+    this.warzone = params.warzone;
   }
 
   update(): Screen {
@@ -135,8 +140,8 @@ export class ScreenGameplay implements Screen {
   }
 
   draw(): void {
+    this.warzone.draw();
     // TODO: migrate from Lua
-    //         warzone.draw()
     //         towers.draw()
     //         enemies.draw()
     //         fight.draw()

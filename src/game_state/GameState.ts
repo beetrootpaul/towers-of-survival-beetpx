@@ -1,8 +1,11 @@
+import { Lives } from "./Lives";
+
 export class GameState {
   // TODO: migrate from Lua
   //     local s = {
   //         building_state = "idle",
-  //         lives = new_lives(),
+  readonly lives: Lives = new Lives();
+  // TODO: migrate from Lua
   //         money = new_money(),
   //         tower_choice = new_tower_choice(),
   //     }

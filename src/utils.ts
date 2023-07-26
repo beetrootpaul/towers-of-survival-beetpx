@@ -9,9 +9,6 @@
 //     -- text height
 //     th = 4,
 //
-//     -- tile size
-//     ts = 4,
-//
 //     -- viewport size
 //     vs = 64,
 // }

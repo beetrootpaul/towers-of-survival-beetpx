@@ -21,7 +21,7 @@ export class Game {
           : undefined,
       },
       {
-        images: [],
+        images: [{ url: g.assets.spritesheet }],
         fonts: [],
         sounds: [],
       }

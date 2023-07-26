@@ -58,34 +58,33 @@ export class Road {
   //         end
   //         return tt[tile_to_check.x .. "|" .. tile_to_check.y]
   //     end
-  //
-  //     function s.draw()
-  //         local tt = {}
-  //         for st in all(serialized_tiles) do
-  //             tt[st] = true
-  //         end
-  //         for tile_x = -a.wbt, a.warzone_size_tiles + a.wbt - 1 do
-  //             for tile_y = -a.wbt, a.warzone_size_tiles + a.wbt - 1 do
-  //                 local tile
-  //                 if tt[tile_x .. "|" .. tile_y] then
-  //                     tile = a.tiles.road
-  //                 elseif tt[tile_x .. "|" .. (tile_y - 1)] then
-  //                     tile = a.tiles.road_edge_bottom
-  //                 end
-  //                 if tile then
-  //                     sspr(tile.x, tile.y, u.ts, u.ts, (a.wbt + tile_x) * u.ts, (a.wbt + tile_y) * u.ts)
-  //                 end
-  //             end
-  //         end
-  //
-  //         if d.enabled then
-  //             local color_toggle = true
-  //             for point in all(path.points) do
-  //                 pset(point.x, point.y, color_toggle and a.colors.white or a.colors.blue_light)
-  //                 color_toggle = not color_toggle
-  //             end
-  //         end
-  //     end
-  //
-  //     return s
+
+  draw(): void {
+    // TODO: migrate from Lua
+    //         local tt = {}
+    //         for st in all(serialized_tiles) do
+    //             tt[st] = true
+    //         end
+    //         for tile_x = -a.wbt, a.warzone_size_tiles + a.wbt - 1 do
+    //             for tile_y = -a.wbt, a.warzone_size_tiles + a.wbt - 1 do
+    //                 local tile
+    //                 if tt[tile_x .. "|" .. tile_y] then
+    //                     tile = a.tiles.road
+    //                 elseif tt[tile_x .. "|" .. (tile_y - 1)] then
+    //                     tile = a.tiles.road_edge_bottom
+    //                 end
+    //                 if tile then
+    //                     sspr(tile.x, tile.y, u.ts, u.ts, (a.wbt + tile_x) * u.ts, (a.wbt + tile_y) * u.ts)
+    //                 end
+    //             end
+    //         end
+    //
+    //         if d.enabled then
+    //             local color_toggle = true
+    //             for point in all(path.points) do
+    //                 pset(point.x, point.y, color_toggle and a.colors.white or a.colors.blue_light)
+    //                 color_toggle = not color_toggle
+    //             end
+    //         end
+  }
 }

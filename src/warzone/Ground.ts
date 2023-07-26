@@ -1,3 +1,7 @@
+import { BeetPx, BpxSprite, BpxUtils, spr_, v_ } from "beetpx";
+import { Vector2d } from "beetpx/ts_output/Vector2d";
+import { g, p8c } from "../globals";
+
 export class Ground {
   // TODO: migrate from Lua
   //     local sprites = {}
@@ -31,13 +35,24 @@ export class Ground {
   //                 end
   //             end
   //         end,
-  //         draw = function()
-  //             for tile_x = 0, a.warzone_size_tiles - 1 do
-  //                 for tile_y = 0, a.warzone_size_tiles - 1 do
-  //                     local s = sprites[tile_x .. "|" .. tile_y]
-  //                     sspr(s.x, s.y, u.ts, u.ts, (a.wbt + tile_x) * u.ts, (a.wbt + tile_y) * u.ts)
-  //                 end
-  //             end
-  //         end,
   //     }
+
+  draw(): void {
+    Vector2d.forEachIntXyWithinRectOf(
+      Vector2d.zero,
+      g.warzoneSizeTiles,
+      true,
+      (tileXy) => {
+        // TODO: migrate from Lua
+        const spriteXy1 = g.sprites.groundTextured;
+        // local s = sprites[tile_x .. "|" .. tile_y]
+        BeetPx.sprite(
+          g.assets.spritesheet,
+          new BpxSprite(spriteXy1, spriteXy1.add(g.tileSize)),
+          tileXy.add(g.warzoneBorderTiles).mul(g.tileSize)
+          // TODO: apply palette mapping
+        );
+      }
+    );
+  }
 }
