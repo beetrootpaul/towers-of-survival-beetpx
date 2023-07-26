@@ -1,10 +1,11 @@
 import { BeetPx } from "beetpx";
-import { GameState } from "./game_states/GameState";
-import { GameStateSplash } from "./game_states/GameStateSplash";
+import { Screen } from "./screens/Screen";
+import { ScreenTitle } from "./screens/ScreenTitle";
 import { g, p8c } from "./globals";
 
 export class Game {
-  #gameState: GameState | undefined;
+  #currentScreen: Screen | undefined;
+  #nextScreen: Screen | undefined;
 
   start(): void {
     BeetPx.init(
@@ -25,15 +26,37 @@ export class Game {
         sounds: [],
       }
     ).then(({ startGame }) => {
-      this.#gameState = new GameStateSplash();
+      this.#nextScreen = new ScreenTitle();
+      this.#currentScreen = this.#nextScreen;
+
+      // TODO: migrate from Lua
+      // music(0)
 
       BeetPx.setOnUpdate(() => {
-        this.#gameState = this.#gameState?.update();
+        this.#currentScreen = this.#currentScreen?.update();
+
+        // TODO: migrate from Lua
+        // d.update()
+        // if (not d.enabled) or (d.enabled and d.is_next_frame) then
+
+        // We intentionally reassign screen on the next update iteration
+        //   then the current one, because we still need to use the previous one
+        //   for a drawing.
+        this.#currentScreen = this.#nextScreen;
+        this.#nextScreen = this.#currentScreen?.update();
+
+        // TODO: migrate from Lua
+        //     audio.play()
+        // end
       });
 
       BeetPx.setOnDraw(() => {
-        BeetPx.clearCanvas(p8c.blue);
-        this.#gameState?.draw();
+        BeetPx.clearCanvas(p8c.brownDark);
+
+        this.#currentScreen?.draw();
+
+        // TODO: migrate from Lua
+        // pal(a.palette, 1)
 
         if (BeetPx.debug) {
           // TODO: uncomment once we provide BeetPx with a font

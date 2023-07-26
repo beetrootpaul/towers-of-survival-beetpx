@@ -6,7 +6,7 @@ export const p8c = Pico8Colors;
 export const g = {
   __debug: !__BEETPX_IS_PROD__,
 
-  fps: 30,
+  fps: 60,
 
   screenSize: v_(64, 64),
 };
