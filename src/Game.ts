@@ -57,6 +57,17 @@ export class Game {
 
         // TODO: migrate from Lua
         // pal(a.palette, 1)
+        BeetPx.mapSpriteColors([
+          { from: p8c.black, to: p8c.brownDark },
+          { from: p8c.darkBlue, to: p8c.blueDark },
+          { from: p8c.darkPurple, to: p8c.redDark },
+          { from: p8c.darkGreen, to: p8c.brownMid },
+          { from: p8c.orange, to: p8c.salmon },
+          { from: p8c.yellowOld, to: p8c.yellow },
+          { from: p8c.greenOld, to: p8c.green },
+          { from: p8c.pink, to: p8c.brownPurple },
+          { from: p8c.lightPeach, to: p8c.sand },
+        ]);
 
         if (BeetPx.debug) {
           // TODO: uncomment once we provide BeetPx with a font

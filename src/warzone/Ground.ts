@@ -1,4 +1,4 @@
-import { BeetPx, BpxSprite, BpxUtils, spr_, v_ } from "beetpx";
+import { BeetPx, BpxSprite } from "beetpx";
 import { Vector2d } from "beetpx/ts_output/Vector2d";
 import { g, p8c } from "../globals";
 
@@ -50,7 +50,6 @@ export class Ground {
           g.assets.spritesheet,
           new BpxSprite(spriteXy1, spriteXy1.add(g.tileSize)),
           tileXy.add(g.warzoneBorderTiles).mul(g.tileSize)
-          // TODO: apply palette mapping
         );
       }
     );
