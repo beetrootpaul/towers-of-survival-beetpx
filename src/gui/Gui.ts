@@ -4,23 +4,34 @@ import { GameState } from "../game_state/GameState";
 import { BeetPx, v_ } from "beetpx";
 import { Vector2d } from "beetpx/ts_output/Vector2d";
 import { g, p8c, u } from "../globals";
+import { Button } from "./Button";
 
 export class Gui {
   private readonly gameState: GameState;
+  private readonly buttonX: Button;
+  private readonly buttonO: Button;
+
   private readonly waveStatus: WaveStatus;
 
-  constructor(params: { gameState: GameState; waves: Waves }) {
+  constructor(params: {
+    gameState: GameState;
+    waves: Waves;
+    buttonX: Button;
+    buttonO: Button;
+  }) {
     this.gameState = params.gameState;
+    this.buttonX = params.buttonX;
+    this.buttonO = params.buttonO;
+
     // TODO: migrate from Lua
-    // local button_x = u.r(params.button_x)
-    // local button_o = u.r(params.button_o)
-    //
     // local tower_info = new_tower_info {
     //     tower_choice = game_state.tower_choice,
     // }
+
     this.waveStatus = new WaveStatus({
       waves: params.waves,
     });
+
     // TODO: migrate from Lua
     // local tower_choice_gui = new_tower_choice_gui {
     //     tower_choice = game_state.tower_choice,
@@ -28,24 +39,22 @@ export class Gui {
   }
 
   draw(): void {
+    const isOPressed = this.buttonO.isPressed;
+    const isXPressed = this.buttonX.isPressed;
     // TODO: migrate from Lua
-    //     local is_o_pressed = button_o.is_pressed()
-    //     local is_x_pressed = button_x.is_pressed()
     //     local is_x_enabled = button_x.is_enabled()
     //     local has_enough_money = game_state.money.available >= game_state.tower_choice.chosen_tower().cost
 
     if (this.gameState.buildingState === "idle") {
       this.waveStatus.draw();
 
+      const menuText = "menu";
+      BeetPx.print(
+        menuText,
+        v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
+        isOPressed ? p8c.greyLight : p8c.brownPurple
+      );
       // TODO: migrate from Lua
-      //         local menu_text = new_text("menu")
-      //         menu_text.draw(
-      //             a.wb,
-      //             u.vs - a.wb + 2,
-      //             is_o_pressed
-      //                 and a.colors.grey_light
-      //                 or a.colors.brown_purple
-      //         )
       //         local menu_button = new_button_glyph(
       //             is_o_pressed
       //                 and a.button_sprites.o.pressed
@@ -59,15 +68,17 @@ export class Gui {
       //                 or a.colors.brown_purple,
       //             a.colors.brown_mid
       //         )
-      //
-      //         local build_text = new_text("build")
-      //         build_text.draw(
-      //             u.vs - a.wb - build_text.w,
-      //             u.vs - a.wb + 2,
-      //             is_x_pressed
-      //                 and a.colors.grey_light
-      //                 or a.colors.brown_purple
-      //         )
+
+      const buildText = "build";
+      BeetPx.print(
+        buildText,
+        v_(
+          g.canvasSize.x - g.warzoneBorder - u.measureTextSize(buildText).x,
+          g.canvasSize.y - g.warzoneBorder + 2
+        ),
+        isXPressed ? p8c.greyLight : p8c.brownPurple
+      );
+      // TODO: migrate from Lua
       //         local build_button = new_button_glyph(
       //             is_x_pressed
       //                 and a.button_sprites.x.pressed
@@ -81,8 +92,7 @@ export class Gui {
       //                 or a.colors.brown_purple,
       //             a.colors.brown_mid
       //         )
-      // TODO: BRING BACK ELSE IF
-      // } else if (this.gameState.buildingState === "tower-choice") {
+    } else if (this.gameState.buildingState === "tower-choice") {
       // TODO: migrate from Lua
       //         tower_info.draw()
 
@@ -100,15 +110,13 @@ export class Gui {
         p8c.greyViolet
       );
 
+      const backText = "<";
+      BeetPx.print(
+        backText,
+        v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
+        isOPressed ? p8c.greyLight : p8c.brownPurple
+      );
       // TODO: migrate from Lua
-      //         local back_text = new_text("<")
-      //         back_text.draw(
-      //             a.wb,
-      //             u.vs - a.wb + 2,
-      //             is_o_pressed
-      //                 and a.colors.grey_light
-      //                 or a.colors.brown_purple
-      //         )
       //         local back_button = new_button_glyph(
       //             is_o_pressed
       //                 and a.button_sprites.o.pressed

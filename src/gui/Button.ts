@@ -1,25 +1,21 @@
 export class Button {
+  private readonly onRelease: () => void;
+
+  private _isPressed = false;
+  private _wasJustReleased = false;
+
   // TODO: migrate from Lua
-  // local on_release = params.on_release
-  //
-  // local is_pressed = false
-  // local was_just_released = false
-  //
   // local is_enabled = true
-  //
-  // local s = {}
-  //
-  // function s.set_pressed(value)
-  //     if is_pressed and not value then
-  //         was_just_released = true
-  //     end
-  //     is_pressed = value
-  // end
-  //
-  // function s.is_pressed()
-  //     return is_pressed
-  // end
-  //
+
+  constructor(params: { onRelease: () => void }) {
+    this.onRelease = params.onRelease;
+  }
+
+  get isPressed(): boolean {
+    return this._isPressed;
+  }
+
+  // TODO: migrate from Lua
   // function s.set_enabled(value)
   //     is_enabled = value
   // end
@@ -27,24 +23,22 @@ export class Button {
   // function s.is_enabled()
   //     return is_enabled
   // end
-  //
-  // function s.set_pressed(value)
-  //     if is_pressed and not value then
-  //         was_just_released = true
-  //     end
-  //     is_pressed = value
-  // end
-  //
+
+  setPressed(value: boolean): void {
+    if (this._isPressed && !value) {
+      this._wasJustReleased = true;
+    }
+    this._isPressed = value;
+  }
+
   // function s.is_pressed()
   //     return is_pressed
   // end
-  //
-  // function s.update()
-  //     if was_just_released and on_release then
-  //         on_release(s)
-  //     end
-  //     was_just_released = false
-  // end
-  //
-  // return s
+
+  update(): void {
+    if (this._wasJustReleased) {
+      this.onRelease();
+    }
+    this._wasJustReleased = false;
+  }
 }

@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@jest/globals": "29.5.0",
-    "beetpx": "git+ssh://git@github.com:beetrootpaul/beetpx#5ded22fbf204c8e0ec80a67033c11215f34399be",
+    "beetpx": "git+ssh://git@github.com:beetrootpaul/beetpx#a57fc0990ea51f7bc05149bd124fe3bbc635993d",
     "cross-zip-cli": "1.0.0",
     "husky": "8.0.3",
     "prettier": "2.8.8",
