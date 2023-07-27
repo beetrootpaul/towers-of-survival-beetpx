@@ -1,5 +1,5 @@
-import { g } from "../globals";
-import { BeetPx, BpxSprite, BpxUtils, v_ } from "beetpx";
+import { g, u } from "../globals";
+import { BeetPx, BpxSprite, v_ } from "beetpx";
 import { Path } from "./Path";
 import { Vector2d } from "beetpx/ts_output/Vector2d";
 
@@ -81,9 +81,7 @@ export class Road {
         if (spriteName) {
           const sprite: BpxSprite =
             g.road.sprites[spriteName] ??
-            BpxUtils.throwError(
-              `No "road.sprites.${spriteName}" sprite defined.`
-            );
+            u.throwError(`No "road.sprites.${spriteName}" sprite defined.`);
           BeetPx.sprite(
             g.assets.spritesheet,
             sprite,

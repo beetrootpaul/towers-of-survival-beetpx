@@ -1,10 +1,13 @@
+import { g } from "../globals";
+
 export class Lives {
-  // TODO: migrate from Lua
-  //   local s = {
-  //         left = a.lives_max,
-  //     }
-  //
-  //     function s.take_one()
-  //         s.left = max(0, s.left - 1)
-  //     end
+  private _left: number = g.cores.length;
+
+  get left(): number {
+    return this._left;
+  }
+
+  takeOne(): void {
+    this._left = Math.max(0, this.left - 1);
+  }
 }

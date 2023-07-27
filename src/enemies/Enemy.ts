@@ -2,19 +2,23 @@ import { EnemyType } from "./Enemies";
 import { Path } from "../warzone/Path";
 import { PathProgression } from "./PathProgression";
 import { BeetPx, BpxSprite } from "beetpx";
-import { g } from "../globals";
+import { g, u } from "../globals";
 
 export class Enemy {
   private readonly type: EnemyType;
+  private onReachedPathEnd: () => void;
 
   private readonly pathProgression: PathProgression;
 
-  constructor(params: { type: EnemyType; path: Path }) {
+  constructor(params: {
+    type: EnemyType;
+    path: Path;
+    onReachedPathEnd: () => void;
+  }) {
     this.type = params.type;
     // TODO: migrate from Lua
     //     local path = u.r(params.path)
-    //     local on_reached_path_end = u.r(params.on_reached_path_end)
-    //
+    this.onReachedPathEnd = params.onReachedPathEnd;
 
     this.pathProgression = new PathProgression({
       path: params.path,
@@ -64,13 +68,13 @@ export class Enemy {
 
   update(): void {
     this.pathProgression.update();
+
+    if (this.pathProgression.hasReachedEnd()) {
+      this.onReachedPathEnd();
+      this.onReachedPathEnd = u.noop;
+    }
+
     // TODO: migrate from Lua
-    //         path_progression.update()
-    //         if path_progression.has_reached_end() then
-    //             on_reached_path_end()
-    //             on_reached_path_end = u.noop
-    //         end
-    //
     //         range = new_enemy_range {
     //             xy = center_xy(),
     //             r = u.r(a.enemies[enemy_type].hitbox_r),

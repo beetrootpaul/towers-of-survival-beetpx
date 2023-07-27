@@ -1,7 +1,6 @@
 import { Path } from "../warzone/Path";
 import { Vector2d } from "beetpx/ts_output/Vector2d";
-import { BpxUtils } from "beetpx";
-import { g } from "../globals";
+import { g, u } from "../globals";
 
 export class PathProgression {
   private readonly pathPoints: Vector2d[];
@@ -21,7 +20,7 @@ export class PathProgression {
   currentXy(): Vector2d {
     return (
       this.pathPoints[this.pointIndex] ??
-      BpxUtils.throwError(
+      u.throwError(
         `Tried to access non-existent path point at index ${this.pointIndex}.`
       )
     );
@@ -42,10 +41,10 @@ export class PathProgression {
   //     end
   //     return "right"
   // end
-  //
-  // function s.has_reached_end()
-  //     return point_index >= #path_points
-  // end
+
+  hasReachedEnd(): boolean {
+    return this.pointIndex >= this.pathPoints.length - 1;
+  }
 
   update(): void {
     if (this.counter === 0) {

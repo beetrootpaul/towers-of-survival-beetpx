@@ -31,11 +31,11 @@ export class ScreenGameplay implements Screen {
 
     this.enemies = new Enemies({
       path: this.warzone.path(),
-      // TODO: migrate from Lua
-      //         on_enemy_reached_path_end = function()
-      //             audio.sfx(a.sfx.live_lost)
-      //             game_state.lives.take_one()
-      //         end,
+      onEnemyReachedPathEnd: () => {
+        // TODO: migrate from Lua
+        //             audio.sfx(a.sfx.live_lost)
+        this.gameState.lives.takeOne();
+      },
     });
     this.fight = new Fight();
     // TODO: migrate from Lua

@@ -1,4 +1,4 @@
-import { g } from "../globals";
+import { g, u } from "../globals";
 
 export class Timer<TEvent = never> {
   private readonly start: number;
@@ -14,7 +14,7 @@ export class Timer<TEvent = never> {
   }) {
     this.start = params.start;
     this.keyMoments = params.keyMoments ?? {};
-    this.onKeyMoment = params.onKeyMoment ?? g.noop;
+    this.onKeyMoment = params.onKeyMoment ?? u.noop;
 
     this.t = this.start;
   }

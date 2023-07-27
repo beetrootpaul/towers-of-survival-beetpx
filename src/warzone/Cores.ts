@@ -1,23 +1,21 @@
 import { Lives } from "../game_state/Lives";
 import { g } from "../globals";
-import { BeetPx, BpxUtils, v_ } from "beetpx";
+import { BeetPx, v_ } from "beetpx";
 
 export class Cores {
-  constructor(params: { lives: Lives }) {}
+  private readonly lives: Lives;
+
+  constructor(params: { lives: Lives }) {
+    this.lives = params.lives;
+  }
 
   draw(): void {
-    [4, 11, 25, 32, 39].forEach((coreY, index) => {
+    g.cores.forEach((core, index) => {
       const coreNumber = index + 1;
-      const spriteName = `healthy${coreNumber}`;
-      // TODO: migrate from Lua
-      //                 local sprite = params.lives.left >= live and a.cores.sprites["healthy_" .. live] or a.cores.sprites["broken_" .. live]
-      const sprite =
-        g.cores.sprites[spriteName] ??
-        BpxUtils.throwError(`No "cores.sprites.${spriteName}" sprite defined.`);
       BeetPx.sprite(
         g.assets.spritesheet,
-        sprite,
-        v_(g.canvasSize.x - g.warzoneBorder, g.warzoneBorder + coreY)
+        this.lives.left >= coreNumber ? core.spriteHealthy : core.spriteBroken,
+        v_(g.canvasSize.x - g.warzoneBorder, g.warzoneBorder + core.y)
       );
     });
   }

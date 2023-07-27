@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
-import { BpxUtils } from "beetpx";
 import { Timer } from "./Timer";
+import { u } from "../globals";
 
 describe("Timer", () => {
   test("#hasFinished", () => {
@@ -42,7 +42,7 @@ describe("Timer", () => {
     expect(timer.progress()).toBeCloseTo(0.01, 2);
     timer.update();
     expect(timer.progress()).toBeCloseTo(0.02, 2);
-    BpxUtils.repeatN(96, () => {
+    u.repeatN(96, () => {
       timer.update();
     });
     expect(timer.progress()).toBeCloseTo(0.98, 2);

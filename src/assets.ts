@@ -83,7 +83,6 @@
 //         -- back arrow:
 //         ["<"] = { 121, 32, 4 },
 //     },
-//     lives_max = 5,
 //     money_increase_seconds = 0.5,
 //     money_initial = 40,
 //     sfx = {

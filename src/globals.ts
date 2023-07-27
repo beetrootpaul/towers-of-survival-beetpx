@@ -1,7 +1,9 @@
-import { BpxSprite, spr_, v_ } from "beetpx";
+import { BpxSprite, BpxUtils, spr_, v_ } from "beetpx";
 import { Pico8Colors } from "./Pico8Color";
 
 export const p8c = Pico8Colors;
+
+export const u = BpxUtils;
 
 const tileSize = 4;
 const warzoneBorderTiles = 2;
@@ -36,23 +38,38 @@ export const g = {
     } as Record<string, BpxSprite>,
   },
 
-  cores: {
-    sprites: {
-      healthy1: spr_(120, 0, 8, 8),
-      healthy2: spr_(120, 8, 8, 8),
-      healthy3: spr_(120, 8, 8, 8),
-      healthy4: spr_(120, 16, 8, 8),
-      healthy5: spr_(120, 24, 8, 8),
-      broken1: spr_(112, 0, 8, 8),
-      broken2: spr_(112, 8, 8, 8),
-      broken3: spr_(112, 8, 8, 8),
-      broken4: spr_(112, 16, 8, 8),
-      broken5: spr_(112, 24, 8, 8),
-    } as Record<string, BpxSprite>,
-  },
+  cores: [
+    {
+      y: 4,
+      spriteHealthy: spr_(120, 0, 8, 8),
+      spriteBroken: spr_(112, 0, 8, 8),
+    },
+    {
+      y: 11,
+      spriteHealthy: spr_(120, 8, 8, 8),
+      spriteBroken: spr_(112, 8, 8, 8),
+    },
+    {
+      y: 25,
+      spriteHealthy: spr_(120, 8, 8, 8),
+      spriteBroken: spr_(112, 8, 8, 8),
+    },
+    {
+      y: 32,
+      spriteHealthy: spr_(120, 16, 8, 8),
+      spriteBroken: spr_(112, 16, 8, 8),
+    },
+    {
+      y: 39,
+      spriteHealthy: spr_(120, 24, 8, 8),
+      spriteBroken: spr_(112, 24, 8, 8),
+    },
+  ],
 
   enemies: {
-    speed: 10,
+    // TODO: REVERT
+    // speed: 10,
+    speed: 60,
     small: {
       // TODO: migrate from Lua
       //             hitbox_r = 1,
@@ -102,6 +119,4 @@ export const g = {
       //             sprite_damage_down = { 33, 15, 4, 6, 0, -1 },
     },
   },
-
-  noop: () => {},
 };

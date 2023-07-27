@@ -1,6 +1,6 @@
-import { BeetPx, BpxUtils } from "beetpx";
+import { BeetPx } from "beetpx";
 import { Vector2d } from "beetpx/ts_output/Vector2d";
-import { g } from "../globals";
+import { g, u } from "../globals";
 
 export class Ground {
   // TODO: migrate from Lua
@@ -46,7 +46,7 @@ export class Ground {
         // TODO: migrate from Lua
         const sprite =
           g.ground.sprites.textured ??
-          BpxUtils.throwError(`No "ground.sprites.textured" sprite defined.`);
+          u.throwError(`No "ground.sprites.textured" sprite defined.`);
         // local s = sprites[tile_x .. "|" .. tile_y]
         BeetPx.sprite(
           g.assets.spritesheet,

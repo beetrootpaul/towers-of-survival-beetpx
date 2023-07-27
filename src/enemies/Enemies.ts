@@ -7,11 +7,11 @@ export class Enemies {
   private readonly enemies: Enemy[] = [];
 
   private readonly path: Path;
+  private readonly onEnemyReachedPathEnd: () => void;
 
-  constructor(params: { path: Path }) {
+  constructor(params: { path: Path; onEnemyReachedPathEnd: () => void }) {
     this.path = params.path;
-    // TODO: migrate from Lua
-    //     local on_enemy_reached_path_end = u.r(params.on_enemy_reached_path_end)
+    this.onEnemyReachedPathEnd = params.onEnemyReachedPathEnd;
   }
 
   spawn(type: EnemyType): void {
@@ -19,8 +19,7 @@ export class Enemies {
       new Enemy({
         type,
         path: this.path,
-        // TODO: migrate from Lua
-        //             on_reached_path_end = on_enemy_reached_path_end,
+        onReachedPathEnd: this.onEnemyReachedPathEnd,
       })
     );
   }
