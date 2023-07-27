@@ -71,6 +71,39 @@ export const g = {
     },
   ],
 
+  towers: {
+    laser: {
+      label: "laser",
+      // TODO: migrate from Lua
+      //             cost = 20,
+      sprite: spr_(48, 0, tileSize, tileSize),
+      // TODO: migrate from Lua
+      //             dps = 20,
+      //             charging_time = .9,
+      //             shooting_time = .1,
+      //             charging_time_boost = -.1,
+      //             shooting_time_boost = .1,
+    },
+    booster: {
+      label: "booster",
+      // TODO: migrate from Lua
+      //             cost = 30,
+      sprite: spr_(48, 8, tileSize, tileSize),
+    },
+    v_beam: {
+      label: "v-beam",
+      // TODO: migrate from Lua
+      //             cost = 70,
+      sprite: spr_(48, 16, tileSize, tileSize),
+      // TODO: migrate from Lua
+      //             dps = 40,
+      //             charging_time = 2,
+      //             shooting_time = .5,
+      //             charging_time_boost = -.2,
+      //             shooting_time_boost = .1,
+    },
+  },
+
   enemies: {
     // TODO: REVERT
     // speed: 10,

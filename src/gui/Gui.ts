@@ -5,12 +5,13 @@ import { BeetPx, v_ } from "beetpx";
 import { Vector2d } from "beetpx/ts_output/Vector2d";
 import { g, p8c, u } from "../globals";
 import { Button } from "./Button";
+import { TowerInfo } from "./TowerInfo";
 
 export class Gui {
   private readonly gameState: GameState;
   private readonly buttonX: Button;
   private readonly buttonO: Button;
-
+  private readonly towerInfo: TowerInfo;
   private readonly waveStatus: WaveStatus;
 
   constructor(params: {
@@ -23,10 +24,9 @@ export class Gui {
     this.buttonX = params.buttonX;
     this.buttonO = params.buttonO;
 
-    // TODO: migrate from Lua
-    // local tower_info = new_tower_info {
-    //     tower_choice = game_state.tower_choice,
-    // }
+    this.towerInfo = new TowerInfo({
+      towerChoice: this.gameState.towerChoice,
+    });
 
     this.waveStatus = new WaveStatus({
       waves: params.waves,
@@ -93,8 +93,7 @@ export class Gui {
       //             a.colors.brown_mid
       //         )
     } else if (this.gameState.buildingState === "tower-choice") {
-      // TODO: migrate from Lua
-      //         tower_info.draw()
+      this.towerInfo.draw();
 
       const moneyText = this.gameState.money.available.toFixed(0);
       const moneyTextSize = u.measureTextSize(moneyText);
@@ -147,9 +146,9 @@ export class Gui {
       //             a.colors.brown_mid
       //         )
     } else if (this.gameState.buildingState === "tower-placement") {
+      this.towerInfo.draw();
+
       // TODO: migrate from Lua
-      //         tower_info.draw()
-      //
       //         local money_text = new_text(tostr(game_state.money.available))
       //         money_text.draw(
       //             u.vs - a.wb - money_text.w,

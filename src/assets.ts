@@ -50,33 +50,6 @@
 //         road_edge_right = { x = 4, y = 24 },
 //         road_edge_left = { x = 4, y = 28 },
 //     },
-//     towers = {
-//         laser = {
-//             label = "laser",
-//             cost = 20,
-//             sprite = { x = 48, y = 0 },
-//             dps = 20,
-//             charging_time = .9,
-//             shooting_time = .1,
-//             charging_time_boost = -.1,
-//             shooting_time_boost = .1,
-//         },
-//         booster = {
-//             label = "booster",
-//             cost = 30,
-//             sprite = { x = 48, y = 8 },
-//         },
-//         v_beam = {
-//             label = "v-beam",
-//             cost = 70,
-//             sprite = { x = 48, y = 16 },
-//             dps = 40,
-//             charging_time = 2,
-//             shooting_time = .5,
-//             charging_time_boost = -.2,
-//             shooting_time_boost = .1,
-//         },
-//     },
 //     -- warzone border
 //     waves = {
 //         -- TODO: fix edge case of 1-long wave: progress drawn wrong, wave never ends

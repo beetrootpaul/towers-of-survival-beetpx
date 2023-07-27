@@ -1,3 +1,5 @@
+export type TowerType = "laser" | "booster" | "v_beam";
+
 export class Tower {
   // TODO: migrate from Lua
   // local tower_descriptor = u.r(params.tower_descriptor)

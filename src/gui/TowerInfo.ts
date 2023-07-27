@@ -1,14 +1,17 @@
+import { TowerChoice } from "../game_state/TowerChoice";
+import { BeetPx, v_ } from "beetpx";
+import { g, p8c } from "../globals";
+
 export class TowerInfo {
-  // TODO: migrate from Lua
-  // return {
-  //     draw = function()
-  //         local chosen_tower = params.tower_choice.chosen_tower()
-  //
-  //         local s = chosen_tower.sprite
-  //         sspr(s.x, s.y, u.ts, u.ts, 2, 2)
-  //
-  //         local name_text = new_text(chosen_tower.label)
-  //         name_text.draw(a.wb, 2, a.colors.grey_violet)
-  //     end,
-  // }
+  private readonly towerChoice: TowerChoice;
+
+  constructor(params: { towerChoice: TowerChoice }) {
+    this.towerChoice = params.towerChoice;
+  }
+
+  draw(): void {
+    const chosenTower = this.towerChoice.chosenTower;
+    BeetPx.sprite(g.assets.spritesheet, chosenTower.sprite, v_(2, 2));
+    BeetPx.print(chosenTower.label, v_(g.warzoneBorder, 2), p8c.greyViolet);
+  }
 }
