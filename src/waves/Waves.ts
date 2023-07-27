@@ -38,10 +38,12 @@ export class Waves {
   // function s.wave_number()
   //     return wave_number
   // end
-  //
-  // function s.have_spawn_all_enemies()
-  //     return is_last_wave() and wave and wave.progress() >= 1
-  // end
+
+  haveSpawnAllEnemies() {
+    // TODO: migrate from Lua
+    //     return is_last_wave() and wave and wave.progress() >= 1
+    return false;
+  }
 
   update(): void {
     if (this.wait && this.wait.progress() >= 1) {

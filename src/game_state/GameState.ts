@@ -9,11 +9,12 @@ export class GameState {
   //         money = new_money(),
   //         tower_choice = new_tower_choice(),
   //     }
-  //
-  //     function s.has_lost_all_lives()
-  //         return s.lives.left <= 0
-  //     end
-  //
+
+  hasLostAllLives(): boolean {
+    return this.lives.left <= 0;
+  }
+
+  // TODO: migrate from Lua
   //     function s.update()
   //         s.money.update()
   //     end

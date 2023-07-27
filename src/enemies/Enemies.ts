@@ -24,15 +24,16 @@ export class Enemies {
     );
   }
 
-  //
+  // TODO: migrate from Lua
   //     function s.for_each_from_furthest(callback)
   //         foreach(enemies, callback)
   //     end
-  //
-  //     function s.are_none_left()
-  //         return #enemies <= 0
-  //     end
-  //
+
+  areNoneLeft(): boolean {
+    return this.enemies.length <= 0;
+  }
+
+  // TODO: migrate from Lua
   //     function s.pre_update()
   //         for enemy in all(enemies) do
   //             enemy.pre_update()

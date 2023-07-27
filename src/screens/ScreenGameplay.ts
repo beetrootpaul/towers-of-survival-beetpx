@@ -8,6 +8,8 @@ import { Waves } from "../waves/Waves";
 import { Placement } from "../placement/Placement";
 import { Button } from "../gui/Button";
 import { Gui } from "../gui/Gui";
+import { ScreenOver } from "./ScreenOver";
+import { ScreenWin } from "./ScreenWin";
 
 export class ScreenGameplay implements Screen {
   private readonly gameState: GameState;
@@ -109,15 +111,17 @@ export class ScreenGameplay implements Screen {
   update(): Screen {
     let nextScreen: Screen = this;
 
+    if (this.gameState.hasLostAllLives()) {
+      // TODO: migrate from Lua
+      nextScreen = new ScreenOver();
+      //             next_screen = new_screen_over {
+      //                 waves_survived = waves.wave_number() - 1
+      //             }
+    } else if (this.waves.haveSpawnAllEnemies() && this.enemies.areNoneLeft()) {
+      nextScreen = new ScreenWin();
+    }
+
     // TODO: migrate from Lua
-    //           if game_state.has_lost_all_lives() then
-    //             next_screen = new_screen_over {
-    //                 waves_survived = waves.wave_number() - 1
-    //             }
-    //         elseif waves.have_spawn_all_enemies() and enemies.are_none_left() then
-    //             next_screen = new_screen_win()
-    //         end
-    //
     //         enemies.pre_update()
     //
     //         if btn(u.button_x) then

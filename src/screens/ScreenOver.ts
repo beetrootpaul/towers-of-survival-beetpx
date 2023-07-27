@@ -1,31 +1,34 @@
 import { Screen } from "./Screen";
+import { Timer } from "../misc/Timer";
+import { g } from "../globals";
+import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenOver implements Screen {
-  // TODO: migrate from Lua
-  //       local waves_survived = params.waves_survived
-  //
-  //     local timer = new_timer {
-  //         start = 3 * u.fps,
-  //     }
-  //     local text_defeat = new_text("@ defeat @")
-  //     local text_waves_1 = new_text("survived")
-  //     local text_waves_2 = new_text(tostr(waves_survived))
-  //     local text_waves_3 = new_text(waves_survived == 1 and "wave" or "waves")
+  private readonly timer: Timer;
 
   constructor() {
     // TODO: REMOVE
     console.log(ScreenOver.name);
+
+    // TODO: migrate from Lua
+    //       local waves_survived = params.waves_survived
+
+    this.timer = new Timer({ start: 3 * g.fps });
+    // TODO: migrate from Lua
+    //     local text_defeat = new_text("@ defeat @")
+    //     local text_waves_1 = new_text("survived")
+    //     local text_waves_2 = new_text(tostr(waves_survived))
+    //     local text_waves_3 = new_text(waves_survived == 1 and "wave" or "waves")
   }
 
   update(): Screen {
     let nextScreen: Screen = this;
 
-    // TODO: migrate from Lua
-    //         if timer.has_finished() then
-    //             next_screen = new_screen_pre_gameplay()
-    //         end
-    //
-    //         timer.update()
+    if (this.timer.hasFinished()) {
+      nextScreen = new ScreenPreGameplay();
+    }
+
+    this.timer.update();
 
     return nextScreen;
   }
