@@ -108,11 +108,9 @@ export class ScreenGameplay implements Screen {
     let nextScreen: Screen = this;
 
     if (this.gameState.hasLostAllLives()) {
-      // TODO: migrate from Lua
-      nextScreen = new ScreenOver();
-      //             next_screen = new_screen_over {
-      //                 waves_survived = waves.wave_number() - 1
-      //             }
+      nextScreen = new ScreenOver({
+        wavesSurvived: this.waves.waveNumber - 1,
+      });
     } else if (this.waves.haveSpawnAllEnemies() && this.enemies.areNoneLeft()) {
       nextScreen = new ScreenWin();
     }

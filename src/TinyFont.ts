@@ -72,7 +72,7 @@ export class TinyFont implements BpxFont {
       let char = text[i]!.toLowerCase();
       let sprite = TinyFont.sprites[char] ?? null;
       if (sprite) {
-        charSprites.push({ positionInText, sprite });
+        charSprites.push({ positionInText, sprite, char });
       }
       const jumpX = (sprite ?? c_(-1, -1)).size().x + 1;
       positionInText = positionInText.add(v_(jumpX, 0));
