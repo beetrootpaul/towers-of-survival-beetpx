@@ -25,9 +25,6 @@ export class ScreenGameplay implements Screen {
   private readonly gui: Gui;
 
   constructor(params: { gameState: GameState; warzone: Warzone }) {
-    // TODO: REMOVE
-    console.log(ScreenGameplay.name);
-
     this.gameState = params.gameState;
     this.warzone = params.warzone;
 
@@ -98,14 +95,13 @@ export class ScreenGameplay implements Screen {
     //             end
     //         end
     //     }
-    // TODO: migrate from Lua
-    this.gui = new Gui();
-    //     local gui = new_gui {
-    //         waves = waves,
-    //         game_state = game_state,
-    //         button_x = button_x,
-    //         button_o = button_o,
-    //     }
+    this.gui = new Gui({
+      waves: this.waves,
+      // TODO: migrate from Lua
+      //         game_state = game_state,
+      //         button_x = button_x,
+      //         button_o = button_o,
+    });
   }
 
   update(): Screen {
@@ -178,6 +174,6 @@ export class ScreenGameplay implements Screen {
     //         if placement then
     //             placement.draw()
     //         end
-    //         gui.draw()
+    this.gui.draw();
   }
 }

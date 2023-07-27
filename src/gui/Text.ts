@@ -1,3 +1,4 @@
+// TODO: do we even need this class?
 export class Text {
   // TODO: migrate from Lua
   // local sprites = {}

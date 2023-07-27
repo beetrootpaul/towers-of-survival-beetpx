@@ -7,9 +7,6 @@ export class ScreenOver implements Screen {
   private readonly timer: Timer;
 
   constructor() {
-    // TODO: REMOVE
-    console.log(ScreenOver.name);
-
     // TODO: migrate from Lua
     //       local waves_survived = params.waves_survived
 

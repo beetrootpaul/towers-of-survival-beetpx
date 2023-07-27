@@ -10,11 +10,6 @@ export class ScreenTitle implements Screen {
     start: 0,
   });
 
-  constructor() {
-    // TODO: REMOVE
-    console.log(ScreenTitle.name);
-  }
-
   update(): Screen {
     let nextScreen: Screen = this;
 

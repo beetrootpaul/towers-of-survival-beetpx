@@ -16,9 +16,6 @@ export class ScreenPreGameplay implements Screen {
   private readonly warzone: Warzone;
 
   constructor() {
-    // TODO: REMOVE
-    console.log(ScreenPreGameplay.name);
-
     this.gameState = new GameState();
     this.warzone = new Warzone({
       lives: this.gameState.lives,

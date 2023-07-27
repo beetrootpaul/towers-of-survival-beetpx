@@ -6,8 +6,6 @@
 //
 //     fps = 60,
 //
-//     -- text height
-//     th = 4,
 // }
 //
 // u.arrow_buttons_to_directions = {
@@ -16,8 +14,4 @@
 //     [2] = { x = 0, y = -1 },
 //     [3] = { x = 0, y = 1 },
 // }
-//
-// function u.noop()
-//     -- do nothing
-// end
 //

@@ -4,14 +4,15 @@ import { Wave } from "./Wave";
 
 export class Waves {
   private readonly enemies: Enemies;
+  // TODO: consider going back to # private convention for sake of no such inconsistencies in field naming
+  private readonly _waveNumber: number;
   private wave: Wave | null;
   private wait: Wait | null;
 
   constructor(params: { enemies: Enemies }) {
     this.enemies = params.enemies;
 
-    // TODO: migrate from Lua
-    // local wave_number = 1
+    this._waveNumber = 1;
     this.wave = null;
     this.wait = new Wait({
       // TODO: migrate from Lua
@@ -34,10 +35,10 @@ export class Waves {
   // function s.current_wave()
   //     return wave
   // end
-  //
-  // function s.wave_number()
-  //     return wave_number
-  // end
+
+  get waveNumber(): number {
+    return this._waveNumber;
+  }
 
   haveSpawnAllEnemies() {
     // TODO: migrate from Lua

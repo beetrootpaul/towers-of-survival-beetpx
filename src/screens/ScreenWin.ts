@@ -9,11 +9,6 @@ export class ScreenWin implements Screen {
   //     local text_2 = new_text("* victory *")
   //     local text_3 = new_text("* * *")
 
-  constructor() {
-    // TODO: REMOVE
-    console.log(ScreenWin.name);
-  }
-
   update(): Screen {
     let nextScreen: Screen = this;
 

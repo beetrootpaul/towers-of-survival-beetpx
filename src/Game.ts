@@ -1,7 +1,9 @@
-import { BeetPx, transparent_ } from "beetpx";
+import { BeetPx, BpxFont, transparent_ } from "beetpx";
 import { Screen } from "./screens/Screen";
 import { ScreenTitle } from "./screens/ScreenTitle";
 import { g, p8c } from "./globals";
+import { CharSprite } from "beetpx/ts_output/font/Font";
+import { TinyFont } from "./TinyFont";
 
 export class Game {
   #currentScreen: Screen | undefined;
@@ -22,7 +24,15 @@ export class Game {
       },
       {
         images: [{ url: g.assets.spritesheet }],
-        fonts: [],
+        fonts: [
+          {
+            font: new TinyFont(),
+            // TODO: consider coupling URL with Font, since they rather won't be used separately or exchanged
+            url: g.assets.spritesheet,
+            imageBgColor: p8c.black,
+            imageTextColor: p8c.greenOld,
+          },
+        ],
         sounds: [],
       }
     ).then(({ startGame }) => {
@@ -66,6 +76,9 @@ export class Game {
           { from: p8c.pink, to: p8c.brownPurple },
           { from: p8c.lightPeach, to: p8c.sand },
         ]);
+
+        // TODO: here we kinda cannot use a single spritesheet with 2 fonts on it. Do something about it
+        BeetPx.setFont(g.assets.spritesheet);
 
         if (BeetPx.debug) {
           // TODO: uncomment once we provide BeetPx with a font
