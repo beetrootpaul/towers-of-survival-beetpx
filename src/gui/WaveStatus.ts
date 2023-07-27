@@ -1,6 +1,5 @@
 import { Waves } from "../waves/Waves";
 import { BeetPx, v_ } from "beetpx";
-import { Vector2d } from "beetpx/ts_output/Vector2d";
 import { g, p8c, u } from "../globals";
 
 export class WaveStatus {

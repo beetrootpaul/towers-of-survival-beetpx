@@ -96,9 +96,9 @@ export class ScreenGameplay implements Screen {
     //         end
     //     }
     this.gui = new Gui({
+      gameState: this.gameState,
       waves: this.waves,
       // TODO: migrate from Lua
-      //         game_state = game_state,
       //         button_x = button_x,
       //         button_o = button_o,
     });
