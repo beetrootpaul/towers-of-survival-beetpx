@@ -6,15 +6,15 @@ export class Waves {
   private readonly enemies: Enemies;
   // TODO: consider going back to # private convention for sake of no such inconsistencies in field naming
   private readonly _waveNumber: number;
-  private wave: Wave | null;
-  private wait: Wait | null;
+  private _wave: Wave | null;
+  private _wait: Wait | null;
 
   constructor(params: { enemies: Enemies }) {
     this.enemies = params.enemies;
 
     this._waveNumber = 1;
-    this.wave = null;
-    this.wait = new Wait({
+    this._wave = null;
+    this._wait = new Wait({
       // TODO: migrate from Lua
       //     duration = a.waves[wave_number].wait,
       duration: 1,
@@ -25,16 +25,14 @@ export class Waves {
   // local function is_last_wave()
   //     return wave_number >= #a.waves
   // end
-  //
-  // local s = {}
-  //
-  // function s.current_wait()
-  //     return wait
-  // end
-  //
-  // function s.current_wave()
-  //     return wave
-  // end
+
+  get wait(): Wait | null {
+    return this._wait;
+  }
+
+  get wave(): Wave | null {
+    return this._wave;
+  }
 
   get waveNumber(): number {
     return this._waveNumber;
@@ -47,9 +45,9 @@ export class Waves {
   }
 
   update(): void {
-    if (this.wait && this.wait.progress() >= 1) {
-      this.wait = null;
-      this.wave = new Wave({
+    if (this._wait && this._wait.progress() >= 1) {
+      this._wait = null;
+      this._wave = new Wave({
         // TODO: migrate from Lua
         //             descriptor = a.waves[wave_number],
         descriptor: "s,m,b,-,-,-,s,b,-,-,m,m",
@@ -66,7 +64,7 @@ export class Waves {
     //         }
     //     end
 
-    this.wait?.update();
-    this.wave?.update();
+    this._wait?.update();
+    this._wave?.update();
   }
 }
