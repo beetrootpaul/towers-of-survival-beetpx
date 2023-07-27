@@ -8,9 +8,6 @@
 //
 //     -- text height
 //     th = 4,
-//
-//     -- viewport size
-//     vs = 64,
 // }
 //
 // u.arrow_buttons_to_directions = {

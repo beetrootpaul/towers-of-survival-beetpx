@@ -7,7 +7,9 @@ import { GameState } from "../game_state/GameState";
 
 export class ScreenPreGameplay implements Screen {
   private readonly timer = new Timer({
-    start: 0.5 * g.fps,
+    // TODO: REVERT
+    // start: 0.5 * g.fps,
+    start: 0,
   });
 
   private readonly gameState: GameState;

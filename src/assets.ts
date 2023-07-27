@@ -32,21 +32,6 @@
 //         brown_purple = 14,
 //         sand = 15,
 //     },
-//     cores = {
-//         sprites = {
-//             -- format: { x, y, width, height }
-//             healthy_1 = { 120, 0, 8, 8 },
-//             healthy_2 = { 120, 8, 8, 8 },
-//             healthy_3 = { 120, 8, 8, 8 },
-//             healthy_4 = { 120, 16, 8, 8 },
-//             healthy_5 = { 120, 24, 8, 8 },
-//             broken_1 = { 112, 0, 8, 8 },
-//             broken_2 = { 112, 8, 8, 8 },
-//             broken_3 = { 112, 8, 8, 8 },
-//             broken_4 = { 112, 16, 8, 8 },
-//             broken_5 = { 112, 24, 8, 8 },
-//         }
-//     },
 //     enemies = {
 //         small = {
 //             hitbox_r = 1,
@@ -189,7 +174,6 @@
 //         },
 //     },
 //     -- warzone border
-//     wb = 8,
 //     waves = {
 //         -- TODO: fix edge case of 1-long wave: progress drawn wrong, wave never ends
 //         { wait = 4, spawns = "s,-,-,s,-,-,s" },

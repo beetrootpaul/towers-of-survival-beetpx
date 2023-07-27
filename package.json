@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@jest/globals": "29.5.0",
-    "beetpx": "git+ssh://git@github.com:beetrootpaul/beetpx#7c9fd25648c679eb82f031efed51275007687f2c",
+    "beetpx": "git+ssh://git@github.com:beetrootpaul/beetpx#e55b7aa7bec35a91ca03a2dc932a0fb2c1cd7375",
     "cross-zip-cli": "1.0.0",
     "husky": "8.0.3",
     "npm-run-all": "4.1.5",

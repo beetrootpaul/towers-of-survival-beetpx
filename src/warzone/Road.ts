@@ -1,6 +1,5 @@
 import { g } from "../globals";
-import { BeetPx, BpxSprite, v_ } from "beetpx";
-import { TileSprite } from "../misc/TileSprite";
+import { BeetPx, BpxSprite, BpxUtils, v_ } from "beetpx";
 
 export class Road {
   private readonly serializedTiles = [
@@ -79,13 +78,16 @@ export class Road {
         tileY < g.warzoneSizeTiles.x + g.warzoneBorderTiles;
         ++tileY
       ) {
-        let sprite: BpxSprite | null = null;
+        let spriteName: string | null = null;
         if (tt[`${tileX}|${tileY}`]) {
-          sprite = new TileSprite(g.sprites.road);
+          spriteName = "road";
         } else if (tt[`${tileX}|${tileY - 1}`]) {
-          sprite = new TileSprite(g.sprites.roadEdgeBottom);
+          spriteName = "roadEdgeBottom";
         }
-        if (sprite) {
+        if (spriteName) {
+          const sprite: BpxSprite =
+            g.sprites[spriteName] ??
+            BpxUtils.throwError(`No "${spriteName}" sprite defined.`);
           BeetPx.sprite(
             g.assets.spritesheet,
             sprite,

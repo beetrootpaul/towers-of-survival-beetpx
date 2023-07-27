@@ -1,7 +1,6 @@
-import { BeetPx } from "beetpx";
+import { BeetPx, BpxUtils } from "beetpx";
 import { Vector2d } from "beetpx/ts_output/Vector2d";
 import { g } from "../globals";
-import { TileSprite } from "../misc/TileSprite";
 
 export class Ground {
   // TODO: migrate from Lua
@@ -45,11 +44,13 @@ export class Ground {
       true,
       (tileXy) => {
         // TODO: migrate from Lua
-        const spriteXy1 = g.sprites.groundTextured;
+        const sprite =
+          g.sprites.groundTextured ??
+          BpxUtils.throwError(`No "groundTextured" sprite defined.`);
         // local s = sprites[tile_x .. "|" .. tile_y]
         BeetPx.sprite(
           g.assets.spritesheet,
-          new TileSprite(spriteXy1),
+          sprite,
           tileXy.add(g.warzoneBorderTiles).mul(g.tileSize)
         );
       }

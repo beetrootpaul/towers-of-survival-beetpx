@@ -5,7 +5,9 @@ import { g } from "../globals";
 
 export class ScreenTitle implements Screen {
   private readonly timer = new Timer({
-    start: 2.8 * g.fps,
+    // TODO: REVERT
+    // start: 2.8 * g.fps,
+    start: 0,
   });
 
   constructor() {
