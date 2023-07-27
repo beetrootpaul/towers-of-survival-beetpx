@@ -1,5 +1,7 @@
 import { g } from "../globals";
 import { BeetPx, BpxSprite, BpxUtils, v_ } from "beetpx";
+import { Path } from "./Path";
+import { Vector2d } from "beetpx/ts_output/Vector2d";
 
 export class Road {
   private readonly serializedTiles = [
@@ -25,35 +27,27 @@ export class Road {
     ["10|5", "11|5", "12|5", "13|5"],
   ].flatMap((t) => t);
 
+  readonly path: Path;
+
+  constructor() {
+    const waypoints: Vector2d[] = [];
+    this.serializedTiles.forEach((st, index) => {
+      let tileXy = v_(
+        parseInt(st.split("|")[0]!, 10),
+        parseInt(st.split("|")[1]!, 10)
+      );
+      if (index === 0) {
+        tileXy = tileXy.sub(v_(1, 0));
+      } else if (index == this.serializedTiles.length - 1) {
+        tileXy = tileXy.add(v_(2, 0));
+      }
+      waypoints.push(tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
+    });
+
+    this.path = new Path({ waypoints });
+  }
+
   // TODO: migrate from Lua
-  //     local waypoints = (function()
-  //         local ww = {}
-  //         for i = 1, #serialized_tiles do
-  //             local tile_x = tonum(split(serialized_tiles[i], '|')[1])
-  //             local tile_y = tonum(split(serialized_tiles[i], '|')[2])
-  //             if i == 1 then
-  //                 tile_x = tile_x - 1
-  //             elseif i == #serialized_tiles then
-  //                 tile_x = tile_x + 2
-  //             end
-  //             add(ww, new_xy(
-  //                 (a.wbt + tile_x) * u.ts,
-  //                 (a.wbt + tile_y) * u.ts
-  //             ))
-  //         end
-  //         return ww
-  //     end)()
-  //
-  //     local path = new_path {
-  //         waypoints = waypoints,
-  //     }
-  //
-  //     local s = {}
-  //
-  //     function s.path()
-  //         return path
-  //     end
-  //
   //     function s.is_at(tile_to_check)
   //         local tt = {}
   //         for st in all(serialized_tiles) do
@@ -80,14 +74,16 @@ export class Road {
       ) {
         let spriteName: string | null = null;
         if (tt[`${tileX}|${tileY}`]) {
-          spriteName = "road";
+          spriteName = "main";
         } else if (tt[`${tileX}|${tileY - 1}`]) {
-          spriteName = "roadEdgeBottom";
+          spriteName = "bottomEdge";
         }
         if (spriteName) {
           const sprite: BpxSprite =
-            g.sprites[spriteName] ??
-            BpxUtils.throwError(`No "${spriteName}" sprite defined.`);
+            g.road.sprites[spriteName] ??
+            BpxUtils.throwError(
+              `No "road.sprites.${spriteName}" sprite defined.`
+            );
           BeetPx.sprite(
             g.assets.spritesheet,
             sprite,

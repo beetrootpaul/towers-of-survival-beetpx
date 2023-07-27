@@ -1,78 +1,26 @@
 import { Screen } from "./Screen";
 import { Warzone } from "../warzone/Warzone";
 import { GameState } from "../game_state/GameState";
+import { Enemies } from "../enemies/Enemies";
+import { Fight } from "../fight/Fight";
+import { Towers } from "../towers/Towers";
+import { Waves } from "../waves/Waves";
+import { Placement } from "../placement/Placement";
+import { Button } from "../gui/Button";
+import { Gui } from "../gui/Gui";
 
 export class ScreenGameplay implements Screen {
   private readonly gameState: GameState;
   private readonly warzone: Warzone;
 
-  // TODO: migrate from Lua
-  //     local enemies = new_enemies {
-  //         path = warzone.path(),
-  //         on_enemy_reached_path_end = function()
-  //             audio.sfx(a.sfx.live_lost)
-  //             game_state.lives.take_one()
-  //         end,
-  //     }
-  //     local fight = new_fight()
-  //     local towers = new_towers {
-  //         enemies = enemies,
-  //         fight = fight,
-  //         warzone = warzone,
-  //     }
-  //     local waves = new_waves {
-  //         enemies = enemies,
-  //     }
-  //     local placement
-  //     local button_o = new_button {
-  //         on_release = function(self)
-  //             if game_state.building_state == "idle" then
-  //                 extcmd("pause")
-  //             elseif game_state.building_state == "tower-choice" then
-  //                 game_state.building_state = "idle"
-  //             elseif game_state.building_state == "tower-placement" then
-  //                 game_state.building_state = "tower-choice"
-  //                 placement = nil
-  //             end
-  //         end
-  //     }
-  //     local button_x = new_button {
-  //         on_release = function(self)
-  //             audio.sfx(a.sfx.button_press)
-  //             if game_state.building_state == "idle" then
-  //                 game_state.building_state = "tower-choice"
-  //             elseif game_state.building_state == "tower-choice" then
-  //                 game_state.building_state = "tower-placement"
-  //                 placement = new_placement {
-  //                     tower_choice = game_state.tower_choice,
-  //                     warzone = warzone,
-  //                     other_towers = towers,
-  //                     money = game_state.money,
-  //                 }
-  //                 self.set_enabled(placement.can_build())
-  //             elseif game_state.building_state == "tower-placement" then
-  //                 if placement.can_build() then
-  //                     audio.sfx(a.sfx.tower_placed)
-  //                     local tower = game_state.tower_choice.chosen_tower()
-  //                     game_state.money.subtract(tower.cost)
-  //                     towers.build_tower {
-  //                         tile = placement.chosen_tile(),
-  //                         tower_descriptor = tower,
-  //                     }
-  //                     game_state.building_state = "idle"
-  //                     placement = nil
-  //                 else
-  //                     audio.sfx(a.sfx.cannot_place)
-  //                 end
-  //             end
-  //         end
-  //     }
-  //     local gui = new_gui {
-  //         waves = waves,
-  //         game_state = game_state,
-  //         button_x = button_x,
-  //         button_o = button_o,
-  //     }
+  private readonly enemies: Enemies;
+  private readonly fight: Fight;
+  private readonly towers: Towers;
+  private readonly waves: Waves;
+  private readonly placement: Placement | null;
+  private readonly buttonO: Button;
+  private readonly buttonX: Button;
+  private readonly gui: Gui;
 
   constructor(params: { gameState: GameState; warzone: Warzone }) {
     // TODO: REMOVE
@@ -80,6 +28,82 @@ export class ScreenGameplay implements Screen {
 
     this.gameState = params.gameState;
     this.warzone = params.warzone;
+
+    this.enemies = new Enemies({
+      path: this.warzone.path(),
+      // TODO: migrate from Lua
+      //         on_enemy_reached_path_end = function()
+      //             audio.sfx(a.sfx.live_lost)
+      //             game_state.lives.take_one()
+      //         end,
+    });
+    this.fight = new Fight();
+    // TODO: migrate from Lua
+    this.towers = new Towers();
+    //     local towers = new_towers {
+    //         enemies = enemies,
+    //         fight = fight,
+    //         warzone = warzone,
+    //     }
+    this.waves = new Waves({
+      enemies: this.enemies,
+    });
+    this.placement = null;
+    // TODO: migrate from Lua
+    this.buttonO = new Button();
+    //     local button_o = new_button {
+    //         on_release = function(self)
+    //             if game_state.building_state == "idle" then
+    //                 extcmd("pause")
+    //             elseif game_state.building_state == "tower-choice" then
+    //                 game_state.building_state = "idle"
+    //             elseif game_state.building_state == "tower-placement" then
+    //                 game_state.building_state = "tower-choice"
+    //                 placement = nil
+    //             end
+    //         end
+    //     }
+    // TODO: migrate from Lua
+    this.buttonX = new Button();
+    //     local button_x = new_button {
+    //         on_release = function(self)
+    //             audio.sfx(a.sfx.button_press)
+    //             if game_state.building_state == "idle" then
+    //                 game_state.building_state = "tower-choice"
+    //             elseif game_state.building_state == "tower-choice" then
+    //                 game_state.building_state = "tower-placement"
+    //                 placement = new_placement {
+    //                     tower_choice = game_state.tower_choice,
+    //                     warzone = warzone,
+    //                     other_towers = towers,
+    //                     money = game_state.money,
+    //                 }
+    //                 self.set_enabled(placement.can_build())
+    //             elseif game_state.building_state == "tower-placement" then
+    //                 if placement.can_build() then
+    //                     audio.sfx(a.sfx.tower_placed)
+    //                     local tower = game_state.tower_choice.chosen_tower()
+    //                     game_state.money.subtract(tower.cost)
+    //                     towers.build_tower {
+    //                         tile = placement.chosen_tile(),
+    //                         tower_descriptor = tower,
+    //                     }
+    //                     game_state.building_state = "idle"
+    //                     placement = nil
+    //                 else
+    //                     audio.sfx(a.sfx.cannot_place)
+    //                 end
+    //             end
+    //         end
+    //     }
+    // TODO: migrate from Lua
+    this.gui = new Gui();
+    //     local gui = new_gui {
+    //         waves = waves,
+    //         game_state = game_state,
+    //         button_x = button_x,
+    //         button_o = button_o,
+    //     }
   }
 
   update(): Screen {
@@ -132,8 +156,9 @@ export class ScreenGameplay implements Screen {
     //         button_x.update()
     //         game_state.update()
     //         fight.update()
-    //         waves.update()
-    //         enemies.update()
+    this.waves.update();
+    this.enemies.update();
+    // TODO: migrate from Lua
     //         towers.update()
 
     return nextScreen;
@@ -143,7 +168,8 @@ export class ScreenGameplay implements Screen {
     this.warzone.draw();
     // TODO: migrate from Lua
     //         towers.draw()
-    //         enemies.draw()
+    this.enemies.draw();
+    // TODO: migrate from Lua
     //         fight.draw()
     //         if placement then
     //             placement.draw()

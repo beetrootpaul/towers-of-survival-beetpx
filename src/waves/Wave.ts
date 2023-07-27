@@ -1,43 +1,45 @@
+import { Enemies, EnemyType } from "../enemies/Enemies";
+import { g } from "../globals";
+import { Timer } from "../misc/Timer";
+
 export class Wave {
-  // TODO: migrate from Lua
-  // local descriptor = u.r(params.descriptor)
-  // local enemies = u.r(params.enemies)
-  //
-  // local spawns = split(descriptor.spawns)
-  //
-  // local key_moments = {}
-  // for i = 1, #spawns do
-  //     local spawn = spawns[i]
-  //     if spawn == "-" then
-  //         -- do nothing
-  //     elseif spawn == "s" then
-  //         key_moments[u.fps * (#spawns - i)] = "small"
-  //     elseif spawn == "m" then
-  //         key_moments[u.fps * (#spawns - i)] = "medium"
-  //     elseif spawn == "b" then
-  //         key_moments[u.fps * (#spawns - i)] = "big"
-  //     else
-  //         assert(false, "unexpected spawn descriptor found: " .. spawn)
-  //     end
-  // end
-  //
-  // local timer = new_timer {
-  //     start = u.fps * (#spawns - 1),
-  //     key_moments = key_moments,
-  //     on_key_moment = function(type)
-  //         enemies.spawn(type)
-  //     end,
+  private readonly enemies: Enemies;
+  private readonly timer: Timer<EnemyType>;
+
+  constructor(params: { descriptor: string; enemies: Enemies }) {
+    this.enemies = params.enemies;
+
+    const keyMoments: Record<number, EnemyType> = {};
+    const spawns = params.descriptor.split(",");
+    spawns.forEach((spawn, index) => {
+      const moment = g.fps * (spawns.length - 1 - index);
+      if (spawn === "-") {
+      } else if (spawn === "s") {
+        keyMoments[moment] = "small";
+      } else if (spawn === "m") {
+        keyMoments[moment] = "medium";
+      } else if (spawn === "b") {
+        keyMoments[moment] = "big";
+      } else {
+        throw Error(`Unexpected spawn descriptor found: "${spawn}".`);
+      }
+    });
+
+    this.timer = new Timer({
+      start: g.fps * (spawns.length - 1),
+      keyMoments,
+      onKeyMoment: (enemyType: EnemyType) => {
+        this.enemies.spawn(enemyType);
+      },
+    });
+  }
+
+  // TODO: USED?
+  // progress(): void {
+  //   this.timer.progress();
   // }
-  //
-  // local s = {}
-  //
-  // function s.progress()
-  //     return timer.progress()
-  // end
-  //
-  // function s.update()
-  //     timer.update()
-  // end
-  //
-  // return s
+
+  update(): void {
+    this.timer.update();
+  }
 }

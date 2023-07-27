@@ -22,23 +22,86 @@ export const g = {
     spritesheet: "spritesheet.png",
   },
 
-  // each value is sprite's xy1 corner on the spritesheet
-  sprites: {
-    groundTextured: spr_(0, 8, tileSize, tileSize),
-    groundPlain: spr_(4, 8, tileSize, tileSize),
+  ground: {
+    sprites: {
+      textured: spr_(0, 8, tileSize, tileSize),
+      plain: spr_(4, 8, tileSize, tileSize),
+    } as Record<string, BpxSprite>,
+  },
 
-    road: spr_(0, 24, tileSize, tileSize),
-    roadEdgeBottom: spr_(0, 28, tileSize, tileSize),
+  road: {
+    sprites: {
+      main: spr_(0, 24, tileSize, tileSize),
+      bottomEdge: spr_(0, 28, tileSize, tileSize),
+    } as Record<string, BpxSprite>,
+  },
 
-    coreHealthy1: spr_(120, 0, 8, 8),
-    coreHealthy2: spr_(120, 8, 8, 8),
-    coreHealthy3: spr_(120, 8, 8, 8),
-    coreHealthy4: spr_(120, 16, 8, 8),
-    coreHealthy5: spr_(120, 24, 8, 8),
-    coreBroken1: spr_(112, 0, 8, 8),
-    coreBroken2: spr_(112, 8, 8, 8),
-    coreBroken3: spr_(112, 8, 8, 8),
-    coreBroken4: spr_(112, 16, 8, 8),
-    coreBroken5: spr_(112, 24, 8, 8),
-  } as Record<string, BpxSprite>,
+  cores: {
+    sprites: {
+      healthy1: spr_(120, 0, 8, 8),
+      healthy2: spr_(120, 8, 8, 8),
+      healthy3: spr_(120, 8, 8, 8),
+      healthy4: spr_(120, 16, 8, 8),
+      healthy5: spr_(120, 24, 8, 8),
+      broken1: spr_(112, 0, 8, 8),
+      broken2: spr_(112, 8, 8, 8),
+      broken3: spr_(112, 8, 8, 8),
+      broken4: spr_(112, 16, 8, 8),
+      broken5: spr_(112, 24, 8, 8),
+    } as Record<string, BpxSprite>,
+  },
+
+  enemies: {
+    speed: 10,
+    small: {
+      // TODO: migrate from Lua
+      //             hitbox_r = 1,
+      //             health = 20,
+      //             -- format: {x, y, w, h, offset_x, offset_y, hitbox_offset_x, hitbox_offset_y }
+      spriteRight: spr_(16, 0, 3, 3),
+      //             sprite_right = { 16, 0, 3, 3, 0, 0, 1, 1 },
+      //             sprite_left = { 16, 0, 3, 3, 0, 0, 1, 1 },
+      //             sprite_up = { 20, 0, 2, 4, 1, -1, 1, 0 },
+      //             sprite_down = { 20, 0, 2, 4, 1, -1, 1, 0 },
+      //             -- format: {x, y, w, h, offset_x, offset_y }
+      //             sprite_damage_right = { 16, 4, 3, 3, 0, 0 },
+      //             sprite_damage_left = { 16, 4, 3, 3, 0, 0 },
+      //             sprite_damage_up = { 20, 4, 2, 4, 1, -1 },
+      //             sprite_damage_down = { 20, 4, 2, 4, 1, -1 },
+    },
+    medium: {
+      // TODO: migrate from Lua
+      //             hitbox_r = 1.5,
+      //             health = 65,
+      //             -- format: {x, y, w, h, offset_x, offset_y, hitbox_offset_x, hitbox_offset_y }
+      spriteRight: spr_(24, 0, 4, 5),
+      //             sprite_right = { 24, 0, 4, 5, 0, -1, 1.5, .5 },
+      //             sprite_left = { 24, 0, 4, 5, 0, -1, 1.5, .5 },
+      //             sprite_up = { 24, 0, 4, 5, 0, -1, 1.5, .5 },
+      //             sprite_down = { 24, 0, 4, 5, 0, -1, 1.5, .5 },
+      //             -- format: {x, y, w, h, offset_x, offset_y }
+      //             sprite_damage_right = { 28, 0, 4, 5, 0, -1 },
+      //             sprite_damage_left = { 28, 0, 4, 5, 0, -1 },
+      //             sprite_damage_up = { 28, 0, 4, 5, 0, -1 },
+      //             sprite_damage_down = { 28, 0, 4, 5, 0, -1 },
+    },
+    big: {
+      // TODO: migrate from Lua
+      //             hitbox_r = 2,
+      //             health = 130,
+      //             -- format: {x, y, w, h, offset_x, offset_y, hitbox_offset_x, hitbox_offset_y }
+      spriteRight: spr_(16, 9, 5, 5),
+      //             sprite_right = { 16, 9, 5, 5, -1, -1, 1.5, .5 },
+      //             sprite_left = { 22, 9, 5, 5, -1, -1, 1.5, .5 },
+      //             sprite_up = { 28, 8, 4, 6, 0, -1, 1.5, 1.5 },
+      //             sprite_down = { 33, 9, 4, 6, 0, -1, 1.5, .5 },
+      //             -- format: {x, y, w, h, offset_x, offset_y }
+      //             sprite_damage_right = { 16, 15, 5, 5, -1, -1 },
+      //             sprite_damage_left = { 22, 15, 5, 5, -1, -1 },
+      //             sprite_damage_up = { 28, 14, 4, 6, 0, -1 },
+      //             sprite_damage_down = { 33, 15, 4, 6, 0, -1 },
+    },
+  },
+
+  noop: () => {},
 };

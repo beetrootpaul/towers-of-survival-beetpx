@@ -45,8 +45,8 @@ export class Ground {
       (tileXy) => {
         // TODO: migrate from Lua
         const sprite =
-          g.sprites.groundTextured ??
-          BpxUtils.throwError(`No "groundTextured" sprite defined.`);
+          g.ground.sprites.textured ??
+          BpxUtils.throwError(`No "ground.sprites.textured" sprite defined.`);
         // local s = sprites[tile_x .. "|" .. tile_y]
         BeetPx.sprite(
           g.assets.spritesheet,

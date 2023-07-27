@@ -2,6 +2,7 @@ import { Road } from "./Road";
 import { Cores } from "./Cores";
 import { Lives } from "../game_state/Lives";
 import { Ground } from "./Ground";
+import { Path } from "./Path";
 
 export class Warzone {
   // TODO: migrate from Lua
@@ -22,11 +23,12 @@ export class Warzone {
 
   // TODO: migrate from Lua
   //         ground = ground,
-  //
-  //         path = function()
-  //             return road.path()
-  //         end,
-  //
+
+  path(): Path {
+    return this.road.path;
+  }
+
+  // TODO: migrate from Lua
   //         can_have_tower_at = function(tile)
   //             return not road.is_at(tile) and ground.is_at(tile)
   //         end,

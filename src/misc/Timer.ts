@@ -1,31 +1,37 @@
-export class Timer {
+import { g } from "../globals";
+
+export class Timer<TEvent = never> {
+  private readonly start: number;
+  private readonly keyMoments: Record<number, TEvent>;
+  private readonly onKeyMoment: (event: TEvent) => void;
+
   private t: number;
 
-  constructor(params: { start: number }) {
-    // TODO: migrate from Lua
-    //     local start = u.r(params.start)
-    let start = params.start;
+  constructor(params: {
+    start: number;
+    keyMoments?: Record<number, TEvent>;
+    onKeyMoment?: (event: TEvent) => void;
+  }) {
+    this.start = params.start;
+    this.keyMoments = params.keyMoments ?? {};
+    this.onKeyMoment = params.onKeyMoment ?? g.noop;
 
-    // TODO: migrate from Lua
-    //     local key_moments = params.key_moments or {}
-    //     local on_key_moment = params.on_key_moment or u.noop
-
-    this.t = start;
+    this.t = this.start;
   }
 
   hasFinished(): boolean {
     return this.t < 0;
   }
 
-  //     function s.progress()
-  //         return 1 - (max(0, t) / start)
-  //     end
+  progress(): number {
+    return this.start > 0 ? 1 - Math.max(0, this.t) / this.start : 1;
+  }
 
   update(): void {
-    // TODO: migrate from Lua
-    //         if key_moments[t] then
-    //             on_key_moment(key_moments[t])
-    //         end
+    const event = this.keyMoments[this.t];
+    if (event) {
+      this.onKeyMoment(event);
+    }
 
     this.t = Math.max(-1, this.t - 1);
   }

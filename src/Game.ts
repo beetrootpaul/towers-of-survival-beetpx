@@ -33,8 +33,6 @@ export class Game {
       // music(0)
 
       BeetPx.setOnUpdate(() => {
-        this.#currentScreen = this.#currentScreen?.update();
-
         // TODO: migrate from Lua
         // d.update()
         // if (not d.enabled) or (d.enabled and d.is_next_frame) then

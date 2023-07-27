@@ -8,12 +8,12 @@ export class Cores {
   draw(): void {
     [4, 11, 25, 32, 39].forEach((coreY, index) => {
       const coreNumber = index + 1;
-      const spriteName = `coreHealthy${coreNumber}`;
+      const spriteName = `healthy${coreNumber}`;
       // TODO: migrate from Lua
       //                 local sprite = params.lives.left >= live and a.cores.sprites["healthy_" .. live] or a.cores.sprites["broken_" .. live]
       const sprite =
-        g.sprites[spriteName] ??
-        BpxUtils.throwError(`No "${spriteName}" sprite defined.`);
+        g.cores.sprites[spriteName] ??
+        BpxUtils.throwError(`No "cores.sprites.${spriteName}" sprite defined.`);
       BeetPx.sprite(
         g.assets.spritesheet,
         sprite,

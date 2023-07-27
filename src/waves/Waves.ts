@@ -1,13 +1,26 @@
+import { Enemies } from "../enemies/Enemies";
+import { Wait } from "./Wait";
+import { Wave } from "./Wave";
+
 export class Waves {
+  private readonly enemies: Enemies;
+  private wave: Wave | null;
+  private wait: Wait | null;
+
+  constructor(params: { enemies: Enemies }) {
+    this.enemies = params.enemies;
+
+    // TODO: migrate from Lua
+    // local wave_number = 1
+    this.wave = null;
+    this.wait = new Wait({
+      // TODO: migrate from Lua
+      //     duration = a.waves[wave_number].wait,
+      duration: 1,
+    });
+  }
+
   // TODO: migrate from Lua
-  // local enemies = u.r(params.enemies)
-  //
-  // local wave_number = 1
-  // local wave
-  // local wait = new_wait {
-  //     duration = a.waves[wave_number].wait,
-  // }
-  //
   // local function is_last_wave()
   //     return wave_number >= #a.waves
   // end
@@ -29,32 +42,28 @@ export class Waves {
   // function s.have_spawn_all_enemies()
   //     return is_last_wave() and wave and wave.progress() >= 1
   // end
-  //
-  // function s.update()
-  //     if wait and wait.progress() >= 1 then
-  //         wait = nil
-  //         wave = new_wave {
-  //             descriptor = a.waves[wave_number],
-  //             enemies = enemies,
-  //         }
-  //     end
-  //
-  //     if wave and wave.progress() >= 1 and not is_last_wave() and enemies.are_none_left() then
-  //         wave = nil
-  //         wave_number = wave_number + 1
-  //         wait = new_wait {
-  //             duration = a.waves[wave_number].wait,
-  //         }
-  //     end
-  //
-  //     if wait then
-  //         wait.update()
-  //     end
-  //
-  //     if wave then
-  //         wave.update()
-  //     end
-  // end
-  //
-  // return s
+
+  update(): void {
+    if (this.wait && this.wait.progress() >= 1) {
+      this.wait = null;
+      this.wave = new Wave({
+        // TODO: migrate from Lua
+        //             descriptor = a.waves[wave_number],
+        descriptor: "s,m,b,-,-,-,s,b,-,-,m,m",
+        enemies: this.enemies,
+      });
+    }
+
+    // TODO: migrate from Lua
+    //     if wave and wave.progress() >= 1 and not is_last_wave() and enemies.are_none_left() then
+    //         wave = nil
+    //         wave_number = wave_number + 1
+    //         wait = new_wait {
+    //             duration = a.waves[wave_number].wait,
+    //         }
+    //     end
+
+    this.wait?.update();
+    this.wave?.update();
+  }
 }

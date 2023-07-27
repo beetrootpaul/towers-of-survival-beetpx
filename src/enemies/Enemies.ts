@@ -1,19 +1,30 @@
+import { Enemy } from "./Enemy";
+import { Path } from "../warzone/Path";
+
+export type EnemyType = "small" | "medium" | "big";
+
 export class Enemies {
-  // TODO: migrate from Lua
-  //     local path = u.r(params.path)
-  //     local on_enemy_reached_path_end = u.r(params.on_enemy_reached_path_end)
-  //
-  //     local enemies = {}
-  //
-  //     local s = {}
-  //
-  //     function s.spawn(enemy_type)
-  //         add(enemies, new_enemy {
-  //             enemy_type = enemy_type,
-  //             path = path,
-  //             on_reached_path_end = on_enemy_reached_path_end,
-  //         })
-  //     end
+  private readonly enemies: Enemy[] = [];
+
+  private readonly path: Path;
+
+  constructor(params: { path: Path }) {
+    this.path = params.path;
+    // TODO: migrate from Lua
+    //     local on_enemy_reached_path_end = u.r(params.on_enemy_reached_path_end)
+  }
+
+  spawn(type: EnemyType): void {
+    this.enemies.push(
+      new Enemy({
+        type,
+        path: this.path,
+        // TODO: migrate from Lua
+        //             on_reached_path_end = on_enemy_reached_path_end,
+      })
+    );
+  }
+
   //
   //     function s.for_each_from_furthest(callback)
   //         foreach(enemies, callback)
@@ -28,22 +39,22 @@ export class Enemies {
   //             enemy.pre_update()
   //         end
   //     end
-  //
-  //     function s.update()
-  //         for enemy in all(enemies) do
-  //             if enemy.has_finished() then
-  //                 del(enemies, enemy)
-  //             else
-  //                 enemy.update()
-  //             end
-  //         end
-  //     end
-  //
-  //     function s.draw()
-  //         for enemy in all(enemies) do
-  //             enemy.draw()
-  //         end
-  //     end
-  //
-  //     return s
+
+  update(): void {
+    for (const enemy of this.enemies) {
+      // TODO: migrate from Lua
+      //             if enemy.has_finished() then
+      //                 del(enemies, enemy)
+      //             else
+      enemy.update();
+      // TODO: migrate from Lua
+      //             end
+    }
+  }
+
+  draw(): void {
+    for (const enemy of this.enemies) {
+      enemy.draw();
+    }
+  }
 }

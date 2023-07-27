@@ -21,12 +21,3 @@
 //     -- do nothing
 // end
 //
-// -- assert if required value is there and returns it
-// function u.r(value)
-//     if type(value) == "boolean" then
-//         assert(value ~= nil, "required value is missing")
-//     else
-//         assert(value, "required value is missing")
-//     end
-//     return value
-// end
