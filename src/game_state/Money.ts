@@ -1,29 +1,30 @@
+import { Timer } from "../misc/Timer";
+import { g } from "../globals";
+
 export class Money {
-  // TODO: migrate from Lua
-  // local function new_money_increase_timer()
-  //     return new_timer {
-  //         start = u.fps * a.money_increase_seconds
-  //     }
-  // end
-  //
-  // local money_increase_timer = new_money_increase_timer()
-  //
-  // local s = {
-  //     available = a.money_initial,
-  // }
-  //
-  // function s.subtract(amount)
-  //     s.available = s.available - amount
-  // end
-  //
-  // function s.update()
-  //     if money_increase_timer.has_finished() then
-  //         s.available = s.available + 1
-  //         money_increase_timer = new_money_increase_timer()
-  //     end
-  //
-  //     money_increase_timer.update()
-  // end
-  //
-  // return s
+  private timer: Timer = this.newMoneyIncreaseTimer();
+
+  private _available: number = g.money.initial;
+
+  get available(): number {
+    return this._available;
+  }
+
+  private newMoneyIncreaseTimer(): Timer {
+    return new Timer({
+      start: g.fps * g.money.increaseSeconds,
+    });
+  }
+
+  subtract(amount: number): void {
+    this._available -= amount;
+  }
+
+  update(): void {
+    if (this.timer.hasFinished()) {
+      this._available += 1;
+      this.timer = this.newMoneyIncreaseTimer();
+    }
+    this.timer.update();
+  }
 }

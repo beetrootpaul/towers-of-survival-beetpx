@@ -24,6 +24,11 @@ export const g = {
     spritesheet: "spritesheet.png",
   },
 
+  money: {
+    initial: 40,
+    increaseSeconds: 0.5,
+  },
+
   ground: {
     sprites: {
       textured: spr_(0, 8, tileSize, tileSize),

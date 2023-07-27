@@ -1,6 +1,9 @@
 import { Waves } from "../waves/Waves";
 import { WaveStatus } from "./WaveStatus";
 import { GameState } from "../game_state/GameState";
+import { BeetPx, v_ } from "beetpx";
+import { Vector2d } from "beetpx/ts_output/Vector2d";
+import { g, p8c, u } from "../globals";
 
 export class Gui {
   private readonly gameState: GameState;
@@ -78,23 +81,26 @@ export class Gui {
       //                 or a.colors.brown_purple,
       //             a.colors.brown_mid
       //         )
-    } else if (this.gameState.buildingState === "tower-choice") {
+      // TODO: BRING BACK ELSE IF
+      // } else if (this.gameState.buildingState === "tower-choice") {
       // TODO: migrate from Lua
       //         tower_info.draw()
-      //
-      //         local money_text = new_text(tostr(game_state.money.available))
-      //         money_text.draw(
-      //             u.vs - a.wb - money_text.w,
-      //             2,
-      //             a.colors.grey_light
-      //         )
-      //         local dollar_text = new_text("$")
-      //         dollar_text.draw(
-      //             u.vs - a.wb + 2,
-      //             2,
-      //             a.colors.grey_violet
-      //         )
-      //
+
+      const moneyText = this.gameState.money.available.toFixed(0);
+      const moneyTextSize = u.measureTextSize(moneyText);
+      BeetPx.print(
+        moneyText,
+        v_(g.canvasSize.x - g.warzoneBorder - moneyTextSize.x, 2),
+        p8c.greyLight
+      );
+      const dollarText = "$";
+      BeetPx.print(
+        dollarText,
+        v_(g.canvasSize.x - g.warzoneBorder + 2, 2),
+        p8c.greyViolet
+      );
+
+      // TODO: migrate from Lua
       //         local back_text = new_text("<")
       //         back_text.draw(
       //             a.wb,

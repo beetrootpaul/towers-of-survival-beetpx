@@ -35,8 +35,6 @@
 //     font_sprites = {
 //         -- format: { x, y, width = 3 }
 //     },
-//     money_increase_seconds = 0.5,
-//     money_initial = 40,
 //     sfx = {
 //         live_lost = { priority = 6, track = 21 },
 //         cannot_place = { priority = 5, track = 18 },

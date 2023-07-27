@@ -154,7 +154,8 @@ export class ScreenGameplay implements Screen {
     //
     //         button_o.update()
     //         button_x.update()
-    //         game_state.update()
+    this.gameState.update();
+    // TODO: migrate from Lua
     //         fight.update()
     this.waves.update();
     this.enemies.update();
