@@ -1,12 +1,11 @@
-import { Vector2d } from "beetpx/ts_output/Vector2d";
-import { v_ } from "beetpx";
+import { BpxVector2d, v_ } from "beetpx";
 
 export class Path {
-  readonly points: Vector2d[] = [];
+  readonly points: BpxVector2d[] = [];
 
-  constructor(params: { waypoints: Vector2d[] }) {
-    let next: Vector2d;
-    let prev: Vector2d | undefined = params.waypoints[0];
+  constructor(params: { waypoints: BpxVector2d[] }) {
+    let next: BpxVector2d;
+    let prev: BpxVector2d | undefined = params.waypoints[0];
     if (!prev) return;
     this.points.push(prev);
 

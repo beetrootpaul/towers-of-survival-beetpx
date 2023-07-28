@@ -1,4 +1,4 @@
-import { Tower, TowerType } from "../towers/Tower";
+import { TowerType } from "../towers/Tower";
 import { g, u } from "../globals";
 import { BpxSprite } from "beetpx";
 
@@ -18,7 +18,7 @@ export type TowerDescriptor = {
 
 export class TowerChoice {
   private readonly towers: TowerDescriptor[];
-  private readonly chosen;
+  private chosen;
 
   constructor() {
     const types: TowerType[] = ["laser", "booster", "v_beam"];
@@ -60,12 +60,11 @@ export class TowerChoice {
     );
   }
 
-  // TODO: migrate from Lua
-  // function s.choose_prev_tower()
-  //     chosen = max(chosen - 1, 1)
-  // end
-  //
-  // function s.choose_next_tower()
-  //     chosen = min(chosen + 1, #towers)
-  // end
+  choosePrevTower(): void {
+    this.chosen = Math.max(this.chosen - 1, 0);
+  }
+
+  chooseNextTower(): void {
+    this.chosen = Math.min(this.chosen + 1, this.towers.length - 1);
+  }
 }

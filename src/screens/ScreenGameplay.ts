@@ -10,7 +10,7 @@ import { Button } from "../gui/Button";
 import { Gui } from "../gui/Gui";
 import { ScreenOver } from "./ScreenOver";
 import { ScreenWin } from "./ScreenWin";
-import { BeetPx } from "beetpx";
+import { BeetPx, BpxGameInputEvent, BpxVector2d, v_ } from "beetpx";
 
 export class ScreenGameplay implements Screen {
   private readonly gameState: GameState;
@@ -24,6 +24,13 @@ export class ScreenGameplay implements Screen {
   private readonly buttonO: Button;
   private readonly buttonX: Button;
   private readonly gui: Gui;
+
+  private readonly arrowButtonsToDirections: Record<string, BpxVector2d> = {
+    left: v_(-1, 0),
+    right: v_(1, 0),
+    up: v_(0, -1),
+    down: v_(0, 1),
+  };
 
   constructor(params: { gameState: GameState; warzone: Warzone }) {
     this.gameState = params.gameState;
@@ -133,25 +140,33 @@ export class ScreenGameplay implements Screen {
     } else {
       this.buttonX.setPressed(false);
       this.buttonO.setPressed(false);
-      // TODO: migrate from Lua
-      //             for arrow_button, direction in pairs(u.arrow_buttons_to_directions) do
-      //                 if btnp(arrow_button) then
-      //                     if placement then
-      //                         placement.move_chosen_tile(direction)
-      //                         button_x.set_enabled(placement.can_build())
-      //                     elseif game_state.building_state == "tower-choice" then
-      //                         if direction.x > 0 then
-      //                             audio.sfx(a.sfx.button_press)
-      //                             game_state.tower_choice.choose_next_tower()
-      //                         elseif direction.x < 0 then
-      //                             audio.sfx(a.sfx.button_press)
-      //                             game_state.tower_choice.choose_prev_tower()
-      //                         end
-      //                     else
-      //                         button_x.set_enabled(true)
-      //                     end
-      //                 end
-      //             end
+      Object.entries(this.arrowButtonsToDirections).forEach(
+        ([arrowButton, direction]) => {
+          if (
+            // TODO: REWORK inputs, because right now there is no easy way to move selection one by one
+            BeetPx.continuousInputEvents.has(arrowButton as BpxGameInputEvent)
+          ) {
+            if (this.placement) {
+              // TODO: migrate from Lua
+              //                         placement.move_chosen_tile(direction)
+              //                         button_x.set_enabled(placement.can_build())
+            } else if (this.gameState.buildingState === "tower-choice") {
+              if (direction.x > 0) {
+                // TODO: migrate from Lua
+                //                             audio.sfx(a.sfx.button_press)
+                this.gameState.towerChoice.chooseNextTower();
+              } else if (direction.x < 0) {
+                // TODO: migrate from Lua
+                //                             audio.sfx(a.sfx.button_press)
+                this.gameState.towerChoice.choosePrevTower();
+              }
+            } else {
+              // TODO: migrate from Lua
+              //                         button_x.set_enabled(true)
+            }
+          }
+        }
+      );
     }
 
     // TODO: migrate from Lua

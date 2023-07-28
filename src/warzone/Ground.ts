@@ -1,5 +1,4 @@
-import { BeetPx } from "beetpx";
-import { Vector2d } from "beetpx/ts_output/Vector2d";
+import { BeetPx, BpxVector2d } from "beetpx";
 import { g, u } from "../globals";
 
 export class Ground {
@@ -38,8 +37,8 @@ export class Ground {
   //     }
 
   draw(): void {
-    Vector2d.forEachIntXyWithinRectOf(
-      Vector2d.zero,
+    BpxVector2d.forEachIntXyWithinRectOf(
+      BpxVector2d.zero,
       g.warzoneSizeTiles,
       true,
       (tileXy) => {

@@ -1,7 +1,6 @@
 import { g, u } from "../globals";
-import { BeetPx, BpxSprite, v_ } from "beetpx";
+import { BeetPx, BpxSprite, BpxVector2d, v_ } from "beetpx";
 import { Path } from "./Path";
-import { Vector2d } from "beetpx/ts_output/Vector2d";
 
 export class Road {
   private readonly serializedTiles = [
@@ -30,7 +29,7 @@ export class Road {
   readonly path: Path;
 
   constructor() {
-    const waypoints: Vector2d[] = [];
+    const waypoints: BpxVector2d[] = [];
     this.serializedTiles.forEach((st, index) => {
       let tileXy = v_(
         parseInt(st.split("|")[0]!, 10),
