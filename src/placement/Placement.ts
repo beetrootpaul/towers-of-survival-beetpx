@@ -3,6 +3,7 @@ import { Warzone } from "../warzone/Warzone";
 import { BpxVector2d, v_ } from "beetpx";
 import { Tile } from "../misc/Tile";
 import { ChosenTileBorder } from "./ChosenTileBorder";
+import { g } from "../globals";
 
 export class Placement {
   #chosenTile: Tile;
@@ -73,12 +74,11 @@ export class Placement {
 
   moveChosenTile(direction: BpxVector2d): void {
     this.#chosenTile = this.#chosenTile.plus(direction);
+    this.#chosenTile = new Tile(
+      this.#chosenTile.xy.clamp(BpxVector2d.zero, g.warzoneSizeTiles.sub(1))
+    );
+
     // TODO: migrate from Lua
-    //     chosen_tile = new_tile(
-    //         mid(0, chosen_tile.x, a.warzone_size_tiles - 1),
-    //         mid(0, chosen_tile.y, a.warzone_size_tiles - 1)
-    //     )
-    //
     //     tower_range = new_tower_range()
 
     this.#chosenTileBorder = new ChosenTileBorder(this.#chosenTile);
