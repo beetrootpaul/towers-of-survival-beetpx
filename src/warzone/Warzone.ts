@@ -6,26 +6,26 @@ import { Path } from "./Path";
 
 export class Warzone {
   // TODO: migrate from Lua
-  // private readonly lives: Lives;
-  private readonly road: Road;
-  private readonly cores: Cores;
-  private readonly ground: Ground;
+  // readonly #lives: Lives;
+  readonly #road: Road;
+  readonly #cores: Cores;
+  readonly #ground: Ground;
 
   constructor(params: { lives: Lives }) {
     // TODO: migrate from Lua
     // local lives = u.r(params.lives)
-    this.road = new Road();
-    this.cores = new Cores({
+    this.#road = new Road();
+    this.#cores = new Cores({
       lives: params.lives,
     });
-    this.ground = new Ground();
+    this.#ground = new Ground();
   }
 
   // TODO: migrate from Lua
   //         ground = ground,
 
   path(): Path {
-    return this.road.path;
+    return this.#road.path;
   }
 
   // TODO: migrate from Lua
@@ -34,8 +34,8 @@ export class Warzone {
   //         end,
 
   draw(): void {
-    this.ground.draw();
-    this.road.draw();
-    this.cores.draw();
+    this.#ground.draw();
+    this.#road.draw();
+    this.#cores.draw();
   }
 }

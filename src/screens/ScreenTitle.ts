@@ -4,7 +4,7 @@ import { Timer } from "../misc/Timer";
 import { g } from "../globals";
 
 export class ScreenTitle implements Screen {
-  private readonly timer = new Timer({
+  readonly #timer = new Timer({
     // TODO: REVERT
     // start: 2.8 * g.fps,
     start: 0,
@@ -13,18 +13,18 @@ export class ScreenTitle implements Screen {
   update(): Screen {
     let nextScreen: Screen = this;
 
-    if (this.timer.hasFinished()) {
+    if (this.#timer.hasFinished()) {
       nextScreen = new ScreenPreGameplay();
     }
 
-    this.timer.update();
+    this.#timer.update();
 
     return nextScreen;
   }
 
   draw(): void {
     // TODO: migrate from Lua
-    //         local clip_progress = max(0, 6 * timer.progress() - 5)
+    //         local clip_progress = max(0, 6 * #timer.progress() - 5)
     //         local clip_y = flr(clip_progress * u.vs / 2)
     //         clip(0, clip_y, u.vs, u.vs - 2 * clip_y)
     //

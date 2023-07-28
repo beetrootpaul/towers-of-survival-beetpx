@@ -3,25 +3,25 @@ import { g, u } from "../globals";
 import { BpxVector2d } from "beetpx";
 
 export class PathProgression {
-  private readonly pathPoints: BpxVector2d[];
+  readonly #pathPoints: BpxVector2d[];
 
-  private readonly framesPerPoint: number;
-  private counter: number;
-  private pointIndex: number;
+  readonly #framesPerPoint: number;
+  #counter: number;
+  #pointIndex: number;
 
   constructor(params: { path: Path }) {
-    this.pathPoints = params.path.points;
+    this.#pathPoints = params.path.points;
 
-    this.framesPerPoint = g.fps / g.enemies.speed;
-    this.counter = 1;
-    this.pointIndex = 1;
+    this.#framesPerPoint = g.fps / g.enemies.speed;
+    this.#counter = 1;
+    this.#pointIndex = 1;
   }
 
   currentXy(): BpxVector2d {
     return (
-      this.pathPoints[this.pointIndex] ??
+      this.#pathPoints[this.#pointIndex] ??
       u.throwError(
-        `Tried to access non-existent path point at index ${this.pointIndex}.`
+        `Tried to access non-existent path point at index ${this.#pointIndex}.`
       )
     );
   }
@@ -43,16 +43,16 @@ export class PathProgression {
   // end
 
   hasReachedEnd(): boolean {
-    return this.pointIndex >= this.pathPoints.length - 1;
+    return this.#pointIndex >= this.#pathPoints.length - 1;
   }
 
   update(): void {
-    if (this.counter === 0) {
-      this.pointIndex = Math.min(
-        this.pointIndex + 1,
-        this.pathPoints.length - 1
+    if (this.#counter === 0) {
+      this.#pointIndex = Math.min(
+        this.#pointIndex + 1,
+        this.#pathPoints.length - 1
       );
     }
-    this.counter = (this.counter + 1) % this.framesPerPoint;
+    this.#counter = (this.#counter + 1) % this.#framesPerPoint;
   }
 }

@@ -5,22 +5,22 @@ import { BeetPx, BpxSprite } from "beetpx";
 import { g, u } from "../globals";
 
 export class Enemy {
-  private readonly type: EnemyType;
-  private onReachedPathEnd: () => void;
+  readonly #type: EnemyType;
+  #onReachedPathEnd: () => void;
 
-  private readonly pathProgression: PathProgression;
+  readonly #pathProgression: PathProgression;
 
   constructor(params: {
     type: EnemyType;
     path: Path;
     onReachedPathEnd: () => void;
   }) {
-    this.type = params.type;
+    this.#type = params.type;
     // TODO: migrate from Lua
     //     local path = u.r(params.path)
-    this.onReachedPathEnd = params.onReachedPathEnd;
+    this.#onReachedPathEnd = params.onReachedPathEnd;
 
-    this.pathProgression = new PathProgression({
+    this.#pathProgression = new PathProgression({
       path: params.path,
     });
 
@@ -47,7 +47,7 @@ export class Enemy {
   hasFinished(): boolean {
     // TODO: migrate from Lua
     //         return health.value == 0 or path_progression.has_reached_end()
-    return this.pathProgression.hasReachedEnd();
+    return this.#pathProgression.hasReachedEnd();
   }
 
   //     function s.range()
@@ -68,11 +68,11 @@ export class Enemy {
   //     end
 
   update(): void {
-    this.pathProgression.update();
+    this.#pathProgression.update();
 
-    if (this.pathProgression.hasReachedEnd()) {
-      this.onReachedPathEnd();
-      this.onReachedPathEnd = u.noop;
+    if (this.#pathProgression.hasReachedEnd()) {
+      this.#onReachedPathEnd();
+      this.#onReachedPathEnd = u.noop;
     }
 
     // TODO: migrate from Lua
@@ -90,11 +90,11 @@ export class Enemy {
     //
     // TODO: migrate from Lua
     //         local sprite = u.r(a.enemies[enemy_type]["sprite_" .. path_progression.current_direction()])
-    const sprite: BpxSprite = g.enemies[this.type].spriteRight;
+    const sprite: BpxSprite = g.enemies[this.#type].spriteRight;
     //         local s_x, s_y, s_w, s_h, s_ox, s_oy = sprite[1], sprite[2], sprite[3], sprite[4], sprite[5], sprite[6]
     // TODO: migrate from Lua
     //         local position = path_progression.current_xy()
-    const position = this.pathProgression.currentXy();
+    const position = this.#pathProgression.currentXy();
     // TODO: make spritesheet key not needed here
     // TODO: migrate from Lua
     //         sspr(s_x, s_y, s_w, s_h, position.x + s_ox, position.y + s_oy)

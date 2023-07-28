@@ -17,12 +17,12 @@ export type TowerDescriptor = {
 };
 
 export class TowerChoice {
-  private readonly towers: TowerDescriptor[];
-  private chosen;
+  readonly #towers: TowerDescriptor[];
+  #chosen;
 
   constructor() {
     const types: TowerType[] = ["laser", "booster", "v_beam"];
-    this.towers = types.map((type) => {
+    this.#towers = types.map((type) => {
       const t =
         g.towers[type] ??
         u.throwError(
@@ -43,28 +43,28 @@ export class TowerChoice {
       };
     });
 
-    this.chosen = 0;
+    this.#chosen = 0;
   }
 
   // TODO: make towers really sorted by cost
   towersInCostOrder(): TowerDescriptor[] {
-    return this.towers;
+    return this.#towers;
   }
 
   get chosenTower(): TowerDescriptor {
     return (
-      this.towers[this.chosen] ??
+      this.#towers[this.#chosen] ??
       u.throwError(
-        `Tried to access non-existent tower choice at index ${this.chosen}.`
+        `Tried to access non-existent tower choice at index ${this.#chosen}.`
       )
     );
   }
 
   choosePrevTower(): void {
-    this.chosen = Math.max(this.chosen - 1, 0);
+    this.#chosen = Math.max(this.#chosen - 1, 0);
   }
 
   chooseNextTower(): void {
-    this.chosen = Math.min(this.chosen + 1, this.towers.length - 1);
+    this.#chosen = Math.min(this.#chosen + 1, this.#towers.length - 1);
   }
 }

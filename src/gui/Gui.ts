@@ -8,12 +8,12 @@ import { TowerInfo } from "./TowerInfo";
 import { TowerChoiceGui } from "./TowerChoiceGui";
 
 export class Gui {
-  private readonly gameState: GameState;
-  private readonly buttonX: Button;
-  private readonly buttonO: Button;
-  private readonly towerInfo: TowerInfo;
-  private readonly waveStatus: WaveStatus;
-  private readonly towerChoiceGui: TowerChoiceGui;
+  readonly #gameState: GameState;
+  readonly #buttonX: Button;
+  readonly #buttonO: Button;
+  readonly #towerInfo: TowerInfo;
+  readonly #waveStatus: WaveStatus;
+  readonly #towerChoiceGui: TowerChoiceGui;
 
   constructor(params: {
     gameState: GameState;
@@ -21,32 +21,32 @@ export class Gui {
     buttonX: Button;
     buttonO: Button;
   }) {
-    this.gameState = params.gameState;
-    this.buttonX = params.buttonX;
-    this.buttonO = params.buttonO;
+    this.#gameState = params.gameState;
+    this.#buttonX = params.buttonX;
+    this.#buttonO = params.buttonO;
 
-    this.towerInfo = new TowerInfo({
-      towerChoice: this.gameState.towerChoice,
+    this.#towerInfo = new TowerInfo({
+      towerChoice: this.#gameState.towerChoice,
     });
 
-    this.waveStatus = new WaveStatus({
+    this.#waveStatus = new WaveStatus({
       waves: params.waves,
     });
 
-    this.towerChoiceGui = new TowerChoiceGui({
-      towerChoice: this.gameState.towerChoice,
+    this.#towerChoiceGui = new TowerChoiceGui({
+      towerChoice: this.#gameState.towerChoice,
     });
   }
 
   draw(): void {
-    const isOPressed = this.buttonO.isPressed;
-    const isXPressed = this.buttonX.isPressed;
+    const isOPressed = this.#buttonO.isPressed;
+    const isXPressed = this.#buttonX.isPressed;
     // TODO: migrate from Lua
     //     local is_x_enabled = button_x.is_enabled()
     //     local has_enough_money = game_state.money.available >= game_state.tower_choice.chosen_tower().cost
 
-    if (this.gameState.buildingState === "idle") {
-      this.waveStatus.draw();
+    if (this.#gameState.buildingState === "idle") {
+      this.#waveStatus.draw();
 
       const menuText = "menu";
       BeetPx.print(
@@ -92,10 +92,10 @@ export class Gui {
       //                 or a.colors.brown_purple,
       //             a.colors.brown_mid
       //         )
-    } else if (this.gameState.buildingState === "tower-choice") {
-      this.towerInfo.draw();
+    } else if (this.#gameState.buildingState === "tower-choice") {
+      this.#towerInfo.draw();
 
-      const moneyText = this.gameState.money.available.toFixed(0);
+      const moneyText = this.#gameState.money.available.toFixed(0);
       const moneyTextSize = u.measureTextSize(moneyText);
       BeetPx.print(
         moneyText,
@@ -130,7 +130,7 @@ export class Gui {
       //             a.colors.brown_mid
       //         )
 
-      this.towerChoiceGui.draw();
+      this.#towerChoiceGui.draw();
 
       // TODO: migrate from Lua
       //         local choose_button = new_button_glyph(
@@ -146,8 +146,8 @@ export class Gui {
       //                 or a.colors.brown_mid,
       //             a.colors.brown_mid
       //         )
-    } else if (this.gameState.buildingState === "tower-placement") {
-      this.towerInfo.draw();
+    } else if (this.#gameState.buildingState === "tower-placement") {
+      this.#towerInfo.draw();
 
       // TODO: migrate from Lua
       //         local money_text = new_text(tostr(game_state.money.available))

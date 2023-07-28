@@ -4,23 +4,23 @@ import { g } from "../globals";
 import { ChosenTowerBorder } from "./ChosenTowerBorder";
 
 export class TowerChoiceGui {
-  private readonly towerChoice: TowerChoice;
-  private readonly chosenTowerBorder: ChosenTowerBorder;
+  readonly #towerChoice: TowerChoice;
+  readonly #chosenTowerBorder: ChosenTowerBorder;
 
   constructor(params: { towerChoice: TowerChoice }) {
-    this.towerChoice = params.towerChoice;
-    this.chosenTowerBorder = new ChosenTowerBorder();
+    this.#towerChoice = params.towerChoice;
+    this.#chosenTowerBorder = new ChosenTowerBorder();
   }
 
   draw(): void {
-    const towers = this.towerChoice.towersInCostOrder();
+    const towers = this.#towerChoice.towersInCostOrder();
     towers.forEach((tower, index) => {
       const xy = g.canvasSize
         .sub(g.warzoneBorder)
         .add(v_(-(towers.length - index) * (g.tileSize.x + 2) + 1, 2));
       BeetPx.sprite(g.assets.spritesheet, tower.sprite, xy);
-      if (tower.type === this.towerChoice.chosenTower.type) {
-        this.chosenTowerBorder.draw(xy);
+      if (tower.type === this.#towerChoice.chosenTower.type) {
+        this.#chosenTowerBorder.draw(xy);
       }
     });
   }

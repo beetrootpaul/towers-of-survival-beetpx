@@ -13,19 +13,19 @@ import { ScreenWin } from "./ScreenWin";
 import { BeetPx, BpxGameInputEvent, BpxVector2d, v_ } from "beetpx";
 
 export class ScreenGameplay implements Screen {
-  private readonly gameState: GameState;
-  private readonly warzone: Warzone;
+  readonly #gameState: GameState;
+  readonly #warzone: Warzone;
 
-  private readonly enemies: Enemies;
-  private readonly fight: Fight;
-  private readonly towers: Towers;
-  private readonly waves: Waves;
-  private readonly placement: Placement | null;
-  private readonly buttonO: Button;
-  private readonly buttonX: Button;
-  private readonly gui: Gui;
+  readonly #enemies: Enemies;
+  readonly #fight: Fight;
+  readonly #towers: Towers;
+  readonly #waves: Waves;
+  readonly #placement: Placement | null;
+  readonly #buttonO: Button;
+  readonly #buttonX: Button;
+  readonly #gui: Gui;
 
-  private readonly arrowButtonsToDirections: Record<string, BpxVector2d> = {
+  readonly #arrowButtonsToDirections: Record<string, BpxVector2d> = {
     left: v_(-1, 0),
     right: v_(1, 0),
     up: v_(0, -1),
@@ -33,54 +33,54 @@ export class ScreenGameplay implements Screen {
   };
 
   constructor(params: { gameState: GameState; warzone: Warzone }) {
-    this.gameState = params.gameState;
-    this.warzone = params.warzone;
+    this.#gameState = params.gameState;
+    this.#warzone = params.warzone;
 
-    this.enemies = new Enemies({
-      path: this.warzone.path(),
+    this.#enemies = new Enemies({
+      path: this.#warzone.path(),
       onEnemyReachedPathEnd: () => {
         // TODO: migrate from Lua
         //             audio.sfx(a.sfx.live_lost)
-        this.gameState.lives.takeOne();
+        this.#gameState.lives.takeOne();
       },
     });
-    this.fight = new Fight();
+    this.#fight = new Fight();
     // TODO: migrate from Lua
-    this.towers = new Towers();
+    this.#towers = new Towers();
     //     local towers = new_towers {
     //         enemies = enemies,
     //         fight = fight,
     //         warzone = warzone,
     //     }
-    this.waves = new Waves({
-      enemies: this.enemies,
+    this.#waves = new Waves({
+      enemies: this.#enemies,
     });
-    this.placement = null;
-    this.buttonO = new Button({
+    this.#placement = null;
+    this.#buttonO = new Button({
       // TODO: migrate from Lua
       //         on_release = function(self)
       onRelease: () => {
-        if (this.gameState.buildingState === "idle") {
+        if (this.#gameState.buildingState === "idle") {
           // TODO: migrate from Lua
           //                 extcmd("pause")
-        } else if (this.gameState.buildingState === "tower-choice") {
-          this.gameState.buildingState = "idle";
-        } else if (this.gameState.buildingState === "tower-placement") {
-          this.gameState.buildingState = "tower-choice";
+        } else if (this.#gameState.buildingState === "tower-choice") {
+          this.#gameState.buildingState = "idle";
+        } else if (this.#gameState.buildingState === "tower-placement") {
+          this.#gameState.buildingState = "tower-choice";
           // TODO: migrate from Lua
           //                 placement = nil
         }
       },
     });
-    this.buttonX = new Button({
+    this.#buttonX = new Button({
       // TODO: migrate from Lua
       //         on_release = function(self)
       onRelease: () => {
         // TODO: migrate from Lua
         //             audio.sfx(a.sfx.button_press)
 
-        if (this.gameState.buildingState === "idle") {
-          this.gameState.buildingState = "tower-choice";
+        if (this.#gameState.buildingState === "idle") {
+          this.#gameState.buildingState = "tower-choice";
         }
         // TODO: migrate from Lua
         //             elseif game_state.building_state == "tower-choice" then
@@ -109,22 +109,25 @@ export class ScreenGameplay implements Screen {
         //             end
       },
     });
-    this.gui = new Gui({
-      gameState: this.gameState,
-      waves: this.waves,
-      buttonX: this.buttonX,
-      buttonO: this.buttonO,
+    this.#gui = new Gui({
+      gameState: this.#gameState,
+      waves: this.#waves,
+      buttonX: this.#buttonX,
+      buttonO: this.#buttonO,
     });
   }
 
   update(): Screen {
     let nextScreen: Screen = this;
 
-    if (this.gameState.hasLostAllLives()) {
+    if (this.#gameState.hasLostAllLives()) {
       nextScreen = new ScreenOver({
-        wavesSurvived: this.waves.waveNumber - 1,
+        wavesSurvived: this.#waves.waveNumber - 1,
       });
-    } else if (this.waves.haveSpawnAllEnemies() && this.enemies.areNoneLeft()) {
+    } else if (
+      this.#waves.haveSpawnAllEnemies() &&
+      this.#enemies.areNoneLeft()
+    ) {
       nextScreen = new ScreenWin();
     }
 
@@ -134,31 +137,31 @@ export class ScreenGameplay implements Screen {
     // TODO: make it: BeetPx.detectedContinuousInputEvent("button_x")
     // TODO: separate events available to pass as param for the continuous ones and for the fire once ones
     if (BeetPx.continuousInputEvents.has("button_x")) {
-      this.buttonX.setPressed(true);
+      this.#buttonX.setPressed(true);
     } else if (BeetPx.continuousInputEvents.has("button_o")) {
-      this.buttonO.setPressed(true);
+      this.#buttonO.setPressed(true);
     } else {
-      this.buttonX.setPressed(false);
-      this.buttonO.setPressed(false);
-      Object.entries(this.arrowButtonsToDirections).forEach(
+      this.#buttonX.setPressed(false);
+      this.#buttonO.setPressed(false);
+      Object.entries(this.#arrowButtonsToDirections).forEach(
         ([arrowButton, direction]) => {
           if (
             // TODO: REWORK inputs, because right now there is no easy way to move selection one by one
             BeetPx.continuousInputEvents.has(arrowButton as BpxGameInputEvent)
           ) {
-            if (this.placement) {
+            if (this.#placement) {
               // TODO: migrate from Lua
               //                         placement.move_chosen_tile(direction)
               //                         button_x.set_enabled(placement.can_build())
-            } else if (this.gameState.buildingState === "tower-choice") {
+            } else if (this.#gameState.buildingState === "tower-choice") {
               if (direction.x > 0) {
                 // TODO: migrate from Lua
                 //                             audio.sfx(a.sfx.button_press)
-                this.gameState.towerChoice.chooseNextTower();
+                this.#gameState.towerChoice.chooseNextTower();
               } else if (direction.x < 0) {
                 // TODO: migrate from Lua
                 //                             audio.sfx(a.sfx.button_press)
-                this.gameState.towerChoice.choosePrevTower();
+                this.#gameState.towerChoice.choosePrevTower();
               }
             } else {
               // TODO: migrate from Lua
@@ -174,13 +177,13 @@ export class ScreenGameplay implements Screen {
     //             button_x.set_enabled(placement.can_build())
     //         end
 
-    this.buttonX.update();
-    this.buttonO.update();
-    this.gameState.update();
+    this.#buttonX.update();
+    this.#buttonO.update();
+    this.#gameState.update();
     // TODO: migrate from Lua
     //         fight.update()
-    this.waves.update();
-    this.enemies.update();
+    this.#waves.update();
+    this.#enemies.update();
     // TODO: migrate from Lua
     //         towers.update()
 
@@ -188,15 +191,15 @@ export class ScreenGameplay implements Screen {
   }
 
   draw(): void {
-    this.warzone.draw();
+    this.#warzone.draw();
     // TODO: migrate from Lua
     //         towers.draw()
-    this.enemies.draw();
+    this.#enemies.draw();
     // TODO: migrate from Lua
     //         fight.draw()
     //         if placement then
     //             placement.draw()
     //         end
-    this.gui.draw();
+    this.#gui.draw();
   }
 }

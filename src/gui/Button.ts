@@ -1,18 +1,18 @@
 export class Button {
-  private readonly onRelease: () => void;
+  readonly #onRelease: () => void;
 
-  private _isPressed = false;
-  private _wasJustReleased = false;
+  #isPressed = false;
+  #wasJustReleased = false;
 
   // TODO: migrate from Lua
   // local is_enabled = true
 
   constructor(params: { onRelease: () => void }) {
-    this.onRelease = params.onRelease;
+    this.#onRelease = params.onRelease;
   }
 
   get isPressed(): boolean {
-    return this._isPressed;
+    return this.#isPressed;
   }
 
   // TODO: migrate from Lua
@@ -25,10 +25,10 @@ export class Button {
   // end
 
   setPressed(value: boolean): void {
-    if (this._isPressed && !value) {
-      this._wasJustReleased = true;
+    if (this.#isPressed && !value) {
+      this.#wasJustReleased = true;
     }
-    this._isPressed = value;
+    this.#isPressed = value;
   }
 
   // function s.is_pressed()
@@ -36,9 +36,9 @@ export class Button {
   // end
 
   update(): void {
-    if (this._wasJustReleased) {
-      this.onRelease();
+    if (this.#wasJustReleased) {
+      this.#onRelease();
     }
-    this._wasJustReleased = false;
+    this.#wasJustReleased = false;
   }
 }

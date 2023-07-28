@@ -12,7 +12,7 @@ function c_(x1: number, y1: number, w: number = 3, h: number = 4): BpxSprite {
 }
 
 export class TinyFont implements BpxFont {
-  private static sprites: Record<string, BpxSprite> = {
+  static #sprites: Record<string, BpxSprite> = {
     [" "]: c_(126, 32, 2), // space
     //
     ["1"]: c_(0, 40, 2),
@@ -70,7 +70,7 @@ export class TinyFont implements BpxFont {
 
     for (let i = 0; i < text.length; i += 1) {
       let char = text[i]!.toLowerCase();
-      let sprite = TinyFont.sprites[char] ?? null;
+      let sprite = TinyFont.#sprites[char] ?? null;
       if (sprite) {
         charSprites.push({ positionInText, sprite, char });
       }

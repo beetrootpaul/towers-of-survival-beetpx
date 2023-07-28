@@ -3,17 +3,17 @@ import { BeetPx, v_ } from "beetpx";
 import { g, p8c, u } from "../globals";
 
 export class WaveStatus {
-  private readonly waves: Waves;
+  readonly #waves: Waves;
 
   constructor(params: { waves: Waves }) {
-    this.waves = params.waves;
+    this.#waves = params.waves;
   }
 
   draw(): void {
-    if (this.waves.wait) {
-      const waveLabel = `wave ${this.waves.waveNumber}`;
+    if (this.#waves.wait) {
+      const waveLabel = `wave ${this.#waves.waveNumber}`;
       // TODO: migrate from Lua
-      //             local progress = waves.current_wait().progress()
+      //             local progress = #waves.current_wait().progress()
       const waveLabelSize = u.measureTextSize(waveLabel);
       // TODO: migrate from Lua
       //             local progress_width = flr(progress * progress_width_max)
@@ -32,10 +32,10 @@ export class WaveStatus {
       //             if progress_width > 0 then
       //                 line(progress_x, progress_y, progress_x + progress_width - 1, progress_y, a.colors.brown_purple)
       //             end
-    } else if (this.waves.wave) {
-      const waveLabel = `wave ${this.waves.waveNumber}`;
+    } else if (this.#waves.wave) {
+      const waveLabel = `wave ${this.#waves.waveNumber}`;
       // TODO: migrate from Lua
-      //             local progress = waves.current_wave().progress()
+      //             local progress = #waves.current_wave().progress()
       const waveLabelSize = u.measureTextSize(waveLabel);
       // TODO: migrate from Lua
       //             local progress_width = flr(progress * progress_width_max)

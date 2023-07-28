@@ -4,22 +4,22 @@ import { Path } from "../warzone/Path";
 export type EnemyType = "small" | "medium" | "big";
 
 export class Enemies {
-  private enemies: Enemy[] = [];
+  #enemies: Enemy[] = [];
 
-  private readonly path: Path;
-  private readonly onEnemyReachedPathEnd: () => void;
+  readonly #path: Path;
+  readonly #onEnemyReachedPathEnd: () => void;
 
   constructor(params: { path: Path; onEnemyReachedPathEnd: () => void }) {
-    this.path = params.path;
-    this.onEnemyReachedPathEnd = params.onEnemyReachedPathEnd;
+    this.#path = params.path;
+    this.#onEnemyReachedPathEnd = params.onEnemyReachedPathEnd;
   }
 
   spawn(type: EnemyType): void {
-    this.enemies.push(
+    this.#enemies.push(
       new Enemy({
         type,
-        path: this.path,
-        onReachedPathEnd: this.onEnemyReachedPathEnd,
+        path: this.#path,
+        onReachedPathEnd: this.#onEnemyReachedPathEnd,
       })
     );
   }
@@ -30,7 +30,7 @@ export class Enemies {
   //     end
 
   areNoneLeft(): boolean {
-    return this.enemies.length <= 0;
+    return this.#enemies.length <= 0;
   }
 
   // TODO: migrate from Lua
@@ -41,7 +41,7 @@ export class Enemies {
   //     end
 
   update(): void {
-    this.enemies = this.enemies
+    this.#enemies = this.#enemies
       .filter((enemy) => !enemy.hasFinished())
       .map((enemy) => {
         enemy.update();
@@ -50,7 +50,7 @@ export class Enemies {
   }
 
   draw(): void {
-    for (const enemy of this.enemies) {
+    for (const enemy of this.#enemies) {
       enemy.draw();
     }
   }

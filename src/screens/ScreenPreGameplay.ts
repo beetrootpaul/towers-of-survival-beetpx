@@ -6,33 +6,33 @@ import { Warzone } from "../warzone/Warzone";
 import { GameState } from "../game_state/GameState";
 
 export class ScreenPreGameplay implements Screen {
-  private readonly timer = new Timer({
+  readonly #timer = new Timer({
     // TODO: REVERT
     // start: 0.5 * g.fps,
     start: 0,
   });
 
-  private readonly gameState: GameState;
-  private readonly warzone: Warzone;
+  readonly #gameState: GameState;
+  readonly #warzone: Warzone;
 
   constructor() {
-    this.gameState = new GameState();
-    this.warzone = new Warzone({
-      lives: this.gameState.lives,
+    this.#gameState = new GameState();
+    this.#warzone = new Warzone({
+      lives: this.#gameState.lives,
     });
   }
 
   update(): Screen {
     let nextScreen: Screen = this;
 
-    if (this.timer.hasFinished()) {
+    if (this.#timer.hasFinished()) {
       nextScreen = new ScreenGameplay({
-        gameState: this.gameState,
-        warzone: this.warzone,
+        gameState: this.#gameState,
+        warzone: this.#warzone,
       });
     }
 
-    this.timer.update();
+    this.#timer.update();
 
     return nextScreen;
   }
@@ -43,7 +43,7 @@ export class ScreenPreGameplay implements Screen {
     //         local clip_y = flr(clip_progress * (u.vs - 2 * a.wb) / 2)
     //         clip(0, a.wb + clip_y, u.vs, u.vs - 2 * a.wb - 2 * clip_y)
 
-    this.warzone.draw();
+    this.#warzone.draw();
 
     // TODO: migrate from Lua
     //         clip()

@@ -3,7 +3,7 @@ import { BeetPx, BpxSprite, BpxVector2d, v_ } from "beetpx";
 import { Path } from "./Path";
 
 export class Road {
-  private readonly serializedTiles = [
+  readonly #serializedTiles = [
     ["-2|6", "-1|6", "0|6", "1|6"],
     ["1|7"],
     ["1|8"],
@@ -30,14 +30,14 @@ export class Road {
 
   constructor() {
     const waypoints: BpxVector2d[] = [];
-    this.serializedTiles.forEach((st, index) => {
+    this.#serializedTiles.forEach((st, index) => {
       let tileXy = v_(
         parseInt(st.split("|")[0]!, 10),
         parseInt(st.split("|")[1]!, 10)
       );
       if (index === 0) {
         tileXy = tileXy.sub(v_(1, 0));
-      } else if (index == this.serializedTiles.length - 1) {
+      } else if (index == this.#serializedTiles.length - 1) {
         tileXy = tileXy.add(v_(2, 0));
       }
       waypoints.push(tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
@@ -57,7 +57,7 @@ export class Road {
 
   draw(): void {
     const tt: Record<string, boolean> = {};
-    this.serializedTiles.forEach((st) => {
+    this.#serializedTiles.forEach((st) => {
       tt[st] = true;
     });
 

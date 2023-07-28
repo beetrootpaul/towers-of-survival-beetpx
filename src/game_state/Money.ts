@@ -2,29 +2,29 @@ import { Timer } from "../misc/Timer";
 import { g } from "../globals";
 
 export class Money {
-  private timer: Timer = this.newMoneyIncreaseTimer();
+  #timer: Timer = this.#newMoneyIncreaseTimer();
 
-  private _available: number = g.money.initial;
+  #available: number = g.money.initial;
 
   get available(): number {
-    return this._available;
+    return this.#available;
   }
 
-  private newMoneyIncreaseTimer(): Timer {
+  #newMoneyIncreaseTimer(): Timer {
     return new Timer({
       start: g.fps * g.money.increaseSeconds,
     });
   }
 
   subtract(amount: number): void {
-    this._available -= amount;
+    this.#available -= amount;
   }
 
   update(): void {
-    if (this.timer.hasFinished()) {
-      this._available += 1;
-      this.timer = this.newMoneyIncreaseTimer();
+    if (this.#timer.hasFinished()) {
+      this.#available += 1;
+      this.#timer = this.#newMoneyIncreaseTimer();
     }
-    this.timer.update();
+    this.#timer.update();
   }
 }

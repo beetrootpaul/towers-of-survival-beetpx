@@ -5,22 +5,22 @@ import { ScreenPreGameplay } from "./ScreenPreGameplay";
 import { BeetPx, v_ } from "beetpx";
 
 export class ScreenOver implements Screen {
-  private readonly wavesSurvived: number;
-  private readonly timer: Timer;
+  readonly #wavesSurvived: number;
+  readonly #timer: Timer;
 
   constructor(params: { wavesSurvived: number }) {
-    this.wavesSurvived = params.wavesSurvived;
-    this.timer = new Timer({ start: 3 * g.fps });
+    this.#wavesSurvived = params.wavesSurvived;
+    this.#timer = new Timer({ start: 3 * g.fps });
   }
 
   update(): Screen {
     let nextScreen: Screen = this;
 
-    if (this.timer.hasFinished()) {
+    if (this.#timer.hasFinished()) {
       nextScreen = new ScreenPreGameplay();
     }
 
-    this.timer.update();
+    this.#timer.update();
 
     return nextScreen;
   }
@@ -28,8 +28,8 @@ export class ScreenOver implements Screen {
   draw(): void {
     const textDefeat = "@ defeat @";
     const textWaves1 = "survived";
-    const textWaves2 = this.wavesSurvived.toFixed(0);
-    const textWaves3 = this.wavesSurvived === 1 ? "wave" : "waves";
+    const textWaves2 = this.#wavesSurvived.toFixed(0);
+    const textWaves3 = this.#wavesSurvived === 1 ? "wave" : "waves";
     const textDefeatSize = u.measureTextSize(textDefeat);
     const textWaves1Size = u.measureTextSize(textWaves1);
     const textWaves2Size = u.measureTextSize(textWaves2);
