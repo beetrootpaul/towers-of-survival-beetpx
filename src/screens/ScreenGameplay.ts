@@ -53,18 +53,16 @@ export class ScreenGameplay implements Screen {
       // TODO: migrate from Lua
       //         on_release = function(self)
       onRelease: () => {
-        // TODO: migrate from Lua
-        //             if game_state.building_state == "idle" then
-        //                 extcmd("pause")
-        if (false) {
+        if (this.gameState.buildingState === "idle") {
+          // TODO: migrate from Lua
+          //                 extcmd("pause")
         } else if (this.gameState.buildingState === "tower-choice") {
           this.gameState.buildingState = "idle";
+        } else if (this.gameState.buildingState === "tower-placement") {
+          this.gameState.buildingState = "tower-choice";
+          // TODO: migrate from Lua
+          //                 placement = nil
         }
-        // TODO: migrate from Lua
-        //             elseif game_state.building_state == "tower-placement" then
-        //                 game_state.building_state = "tower-choice"
-        //                 placement = nil
-        //             end
       },
     });
     this.buttonX = new Button({
@@ -126,7 +124,8 @@ export class ScreenGameplay implements Screen {
     // TODO: migrate from Lua
     //         enemies.pre_update()
 
-    // TODO: introduce BeetPx.detectedContinuousInputEvent("x")
+    // TODO: make it: BeetPx.detectedContinuousInputEvent("button_x")
+    // TODO: separate events available to pass as param for the continuous ones and for the fire once ones
     if (BeetPx.continuousInputEvents.has("button_x")) {
       this.buttonX.setPressed(true);
     } else if (BeetPx.continuousInputEvents.has("button_o")) {

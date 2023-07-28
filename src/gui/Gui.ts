@@ -2,10 +2,10 @@ import { Waves } from "../waves/Waves";
 import { WaveStatus } from "./WaveStatus";
 import { GameState } from "../game_state/GameState";
 import { BeetPx, v_ } from "beetpx";
-import { Vector2d } from "beetpx/ts_output/Vector2d";
 import { g, p8c, u } from "../globals";
 import { Button } from "./Button";
 import { TowerInfo } from "./TowerInfo";
+import { TowerChoiceGui } from "./TowerChoiceGui";
 
 export class Gui {
   private readonly gameState: GameState;
@@ -13,6 +13,7 @@ export class Gui {
   private readonly buttonO: Button;
   private readonly towerInfo: TowerInfo;
   private readonly waveStatus: WaveStatus;
+  private readonly towerChoiceGui: TowerChoiceGui;
 
   constructor(params: {
     gameState: GameState;
@@ -32,10 +33,9 @@ export class Gui {
       waves: params.waves,
     });
 
-    // TODO: migrate from Lua
-    // local tower_choice_gui = new_tower_choice_gui {
-    //     tower_choice = game_state.tower_choice,
-    // }
+    this.towerChoiceGui = new TowerChoiceGui({
+      towerChoice: this.gameState.towerChoice,
+    });
   }
 
   draw(): void {
@@ -129,9 +129,10 @@ export class Gui {
       //                 or a.colors.brown_purple,
       //             a.colors.brown_mid
       //         )
-      //
-      //         tower_choice_gui.draw()
-      //
+
+      this.towerChoiceGui.draw();
+
+      // TODO: migrate from Lua
       //         local choose_button = new_button_glyph(
       //             is_x_pressed
       //                 and a.button_sprites.x.pressed

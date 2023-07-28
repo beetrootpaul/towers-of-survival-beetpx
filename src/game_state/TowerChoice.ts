@@ -3,8 +3,7 @@ import { g, u } from "../globals";
 import { BpxSprite } from "beetpx";
 
 export type TowerDescriptor = {
-  // TODO: migrate from Lua
-  //         type = tower_type,
+  type: TowerType;
   label: string;
   // TODO: migrate from Lua
   //         cost = a.towers[tower_type].cost,
@@ -30,8 +29,7 @@ export class TowerChoice {
           `Tried to access info about non-existent tower type "${type}".`
         );
       return {
-        // TODO: migrate from Lua
-        //         type = tower_type,
+        type,
         label: t.label,
         // TODO: migrate from Lua
         //         cost = a.towers[tower_type].cost,
@@ -45,13 +43,13 @@ export class TowerChoice {
       };
     });
 
-    this.chosen = 1;
+    this.chosen = 0;
   }
 
-  // TODO: migrate from Lua
-  // function s.towers_in_cost_order()
-  //     return towers
-  // end
+  // TODO: make towers really sorted by cost
+  towersInCostOrder(): TowerDescriptor[] {
+    return this.towers;
+  }
 
   get chosenTower(): TowerDescriptor {
     return (

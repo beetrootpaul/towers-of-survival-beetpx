@@ -1,21 +1,27 @@
+import { TowerChoice } from "../game_state/TowerChoice";
+import { BeetPx, v_ } from "beetpx";
+import { g } from "../globals";
+import { ChosenTowerBorder } from "./ChosenTowerBorder";
+
 export class TowerChoiceGui {
-  // TODO: migrate from Lua
-  // local tower_choice = u.r(params.tower_choice)
-  //
-  // local chosen_tower_border = new_chosen_tower_border()
-  //
-  // return {
-  //     draw = function()
-  //         local towers = tower_choice.towers_in_cost_order()
-  //         for i = 1, #towers do
-  //             local s = towers[i].sprite
-  //             local x = u.vs - a.wb - (#towers - i + 1) * (u.ts + 2) + 1
-  //             local y = u.vs - a.wb + 2
-  //             sspr(s.x, s.y, u.ts, u.ts, x, y)
-  //             if towers[i].type == tower_choice.chosen_tower().type then
-  //                 chosen_tower_border.draw(x, y)
-  //             end
-  //         end
-  //     end,
-  // }
+  private readonly towerChoice: TowerChoice;
+  private readonly chosenTowerBorder: ChosenTowerBorder;
+
+  constructor(params: { towerChoice: TowerChoice }) {
+    this.towerChoice = params.towerChoice;
+    this.chosenTowerBorder = new ChosenTowerBorder();
+  }
+
+  draw(): void {
+    const towers = this.towerChoice.towersInCostOrder();
+    towers.forEach((tower, index) => {
+      const xy = g.canvasSize
+        .sub(g.warzoneBorder)
+        .add(v_(-(towers.length - index) * (g.tileSize.x + 2) + 1, 2));
+      BeetPx.sprite(g.assets.spritesheet, tower.sprite, xy);
+      if (tower.type === this.towerChoice.chosenTower.type) {
+        this.chosenTowerBorder.draw(xy);
+      }
+    });
+  }
 }
