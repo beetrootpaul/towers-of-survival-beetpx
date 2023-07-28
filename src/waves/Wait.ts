@@ -4,9 +4,9 @@ import { g } from "../globals";
 export class Wait {
   private readonly timer: Timer;
 
-  constructor(params: { duration: number }) {
+  constructor(params: { durationSeconds: number }) {
     this.timer = new Timer({
-      start: g.fps * params.duration,
+      start: g.fps * params.durationSeconds,
     });
   }
 

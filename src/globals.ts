@@ -1,5 +1,6 @@
 import { BpxSprite, BpxUtils, spr_, v_ } from "beetpx";
 import { Pico8Colors } from "./Pico8Color";
+import { WaveDescriptor } from "./waves/Wave";
 
 export const p8c = Pico8Colors;
 
@@ -157,4 +158,21 @@ export const g = {
       //             sprite_damage_down = { 33, 15, 4, 6, 0, -1 },
     },
   },
+
+  waves: [
+    // TODO: REMOVE
+    { wait: 1, spawns: "s,s" },
+    { wait: 2, spawns: "m,m" },
+    { wait: 3, spawns: "b,b" },
+    // TODO: REVERT
+    // { wait: 4, spawns: "s,-,-,s,-,-,s" },
+    // { wait: 4, spawns: "m,-,-,s,s,s,-,-,m" },
+    // { wait: 4, spawns: "s,s,s,-,-,m,m,-,-,-,s,-,-,b" },
+    // { wait: 6, spawns: "s,m,b,-,-,-,s,b,-,-,m,m" },
+    // { wait: 2, spawns: "m,m,-,-,b,b,b" },
+    // { wait: 4, spawns: "s,s,-,m,m,-,b,b" },
+    // { wait: 4, spawns: "b,-,s,-,m,-,s,-,b" },
+    // { wait: 2, spawns: "m,-,-,-,m,m,m,m,m,m" },
+    // { wait: 8, spawns: "s,m,m,b,b,b,-,-,-,-,b,b,b,m,m,s" },
+  ] as WaveDescriptor[],
 };

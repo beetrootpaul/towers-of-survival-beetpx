@@ -1,11 +1,14 @@
 import { Enemies } from "../enemies/Enemies";
 import { Wait } from "./Wait";
-import { Wave } from "./Wave";
+import { Wave, WaveDescriptor } from "./Wave";
+import { g, u } from "../globals";
 
 export class Waves {
   private readonly enemies: Enemies;
+
   // TODO: consider going back to # private convention for sake of no such inconsistencies in field naming
-  private readonly _waveNumber: number;
+  private _waveNumber: number;
+
   private _wave: Wave | null;
   private _wait: Wait | null;
 
@@ -13,18 +16,16 @@ export class Waves {
     this.enemies = params.enemies;
 
     this._waveNumber = 1;
+
     this._wave = null;
     this._wait = new Wait({
-      // TODO: migrate from Lua
-      //     duration = a.waves[wave_number].wait,
-      duration: 1,
+      durationSeconds: this.currentWaveDescriptor().wait,
     });
   }
 
-  // TODO: migrate from Lua
-  // local function is_last_wave()
-  //     return wave_number >= #a.waves
-  // end
+  isLastWave(): boolean {
+    return this.waveNumber >= g.waves.length;
+  }
 
   get wait(): Wait | null {
     return this._wait;
@@ -39,32 +40,47 @@ export class Waves {
   }
 
   haveSpawnAllEnemies() {
-    // TODO: migrate from Lua
-    //     return is_last_wave() and wave and wave.progress() >= 1
-    return false;
+    return this.isLastWave() && this.wave && this.wave.progress() >= 1;
   }
 
   update(): void {
     if (this._wait && this._wait.progress() >= 1) {
       this._wait = null;
       this._wave = new Wave({
-        // TODO: migrate from Lua
-        //             descriptor = a.waves[wave_number],
-        descriptor: "s,m,b,-,-,-,s,b,-,-,m,m",
+        descriptor: this.currentWaveDescriptor(),
         enemies: this.enemies,
       });
+      // TODO: REMOVE
+      console.log("new ~WAVE~");
     }
 
-    // TODO: migrate from Lua
-    //     if wave and wave.progress() >= 1 and not is_last_wave() and enemies.are_none_left() then
-    //         wave = nil
-    //         wave_number = wave_number + 1
-    //         wait = new_wait {
-    //             duration = a.waves[wave_number].wait,
-    //         }
-    //     end
+    if (
+      this._wave &&
+      this._wave.progress() >= 1 &&
+      !this.isLastWave() &&
+      this.enemies.areNoneLeft()
+    ) {
+      this._wave = null;
+      this._waveNumber += 1;
+      this._wait = new Wait({
+        durationSeconds: this.currentWaveDescriptor().wait,
+      });
+      // TODO: REMOVE
+      console.log("new .wait.");
+    }
 
     this._wait?.update();
     this._wave?.update();
+  }
+
+  private currentWaveDescriptor(): WaveDescriptor {
+    return (
+      g.waves[this.waveNumber - 1] ??
+      u.throwError(
+        `Tried to access non-existent wave descriptor at index ${
+          this.waveNumber - 1
+        }.`
+      )
+    );
   }
 }

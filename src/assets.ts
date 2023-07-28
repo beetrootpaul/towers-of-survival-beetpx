@@ -50,20 +50,6 @@
 //         road_edge_right = { x = 4, y = 24 },
 //         road_edge_left = { x = 4, y = 28 },
 //     },
-//     -- warzone border
-//     waves = {
-//         -- TODO: fix edge case of 1-long wave: progress drawn wrong, wave never ends
-//         { wait = 4, spawns = "s,-,-,s,-,-,s" },
-//         { wait = 2, spawns = "s,s,-,s,s,-,s,s" },
-//         { wait = 4, spawns = "m,-,-,s,s,s,-,-,m" },
-//         { wait = 4, spawns = "s,s,s,-,-,m,m,-,-,-,s,-,-,b" },
-//         { wait = 6, spawns = "s,m,b,-,-,-,s,b,-,-,m,m" },
-//         { wait = 2, spawns = "m,m,-,-,b,b,b" },
-//         { wait = 4, spawns = "s,s,-,m,m,-,b,b" },
-//         { wait = 4, spawns = "b,-,s,-,m,-,s,-,b" },
-//         { wait = 2, spawns = "m,-,-,-,m,m,m,m,m,m" },
-//         { wait = 8, spawns = "s,m,m,b,b,b,-,-,-,-,b,b,b,m,m,s" },
-//     },
 // }
 //
 // a.button_template_color_1 = a.colors.green

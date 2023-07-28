@@ -4,7 +4,7 @@ import { Path } from "../warzone/Path";
 export type EnemyType = "small" | "medium" | "big";
 
 export class Enemies {
-  private readonly enemies: Enemy[] = [];
+  private enemies: Enemy[] = [];
 
   private readonly path: Path;
   private readonly onEnemyReachedPathEnd: () => void;
@@ -41,15 +41,12 @@ export class Enemies {
   //     end
 
   update(): void {
-    for (const enemy of this.enemies) {
-      // TODO: migrate from Lua
-      //             if enemy.has_finished() then
-      //                 del(enemies, enemy)
-      //             else
-      enemy.update();
-      // TODO: migrate from Lua
-      //             end
-    }
+    this.enemies = this.enemies
+      .filter((enemy) => !enemy.hasFinished())
+      .map((enemy) => {
+        enemy.update();
+        return enemy;
+      });
   }
 
   draw(): void {

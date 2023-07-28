@@ -44,11 +44,12 @@ export class Enemy {
     //
   }
 
-  // TODO: migrate from Lua
-  //     function s.has_finished()
-  //         return health.value == 0 or path_progression.has_reached_end()
-  //     end
-  //
+  hasFinished(): boolean {
+    // TODO: migrate from Lua
+    //         return health.value == 0 or path_progression.has_reached_end()
+    return this.pathProgression.hasReachedEnd();
+  }
+
   //     function s.range()
   //         return range
   //     end
