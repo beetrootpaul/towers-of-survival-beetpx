@@ -1,13 +1,20 @@
+import { Tile } from "../misc/Tile";
+import { TowerDescriptor } from "../game_state/TowerChoice";
+import { Tower } from "./Tower";
+
 export class Towers {
+  readonly #towers: Tower[];
+
+  constructor() {
+    // TODO: migrate from Lua
+    // local enemies = u.r(params.enemies)
+    // local fight = u.r(params.fight)
+    // local warzone = u.r(params.warzone)
+
+    this.#towers = [];
+  }
+
   // TODO: migrate from Lua
-  // local enemies = u.r(params.enemies)
-  // local fight = u.r(params.fight)
-  // local warzone = u.r(params.warzone)
-  //
-  // local towers = {}
-  //
-  // local s = {}
-  //
   // function s.find_colliding_towers(chosen_tower_type, chosen_tile)
   //     local colliding = {}
   //     for tower in all(towers) do
@@ -24,19 +31,24 @@ export class Towers {
   //     end
   //     return colliding
   // end
-  //
-  // function s.build_tower(p)
-  //     add(towers, new_tower {
-  //         tower_descriptor = u.r(p.tower_descriptor),
-  //         tile = u.r(p.tile),
-  //         other_towers = s,
-  //         enemies = enemies,
-  //         fight = fight,
-  //         warzone = warzone,
-  //     })
-  //     warzone.ground.make_plain_at_and_around(p.tile)
-  // end
-  //
+
+  buildTower(params: { tile: Tile; towerDescriptor: TowerDescriptor }): void {
+    this.#towers.push(
+      new Tower({
+        descriptor: params.towerDescriptor,
+        tile: params.tile,
+        // TODO: migrate from Lua
+        //         other_towers = s,
+        //         enemies = enemies,
+        //         fight = fight,
+        //         warzone = warzone,
+      })
+    );
+    // TODO: migrate from Lua
+    //     warzone.ground.make_plain_at_and_around(p.tile)
+  }
+
+  // TODO: migrate from Lua
   // function s.count_reaching_boosters(tile)
   //     local counter = 0
   //     for tower in all(towers) do
@@ -46,18 +58,16 @@ export class Towers {
   //     end
   //     return counter
   // end
-  //
-  // function s.update()
-  //     for tower in all(towers) do
-  //         tower.update()
-  //     end
-  // end
-  //
-  // function s.draw()
-  //     for tower in all(towers) do
-  //         tower.draw()
-  //     end
-  // end
-  //
-  // return s
+
+  update(): void {
+    for (const tower of this.#towers) {
+      tower.update();
+    }
+  }
+
+  draw(): void {
+    for (const tower of this.#towers) {
+      tower.draw();
+    }
+  }
 }

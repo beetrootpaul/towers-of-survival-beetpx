@@ -93,20 +93,21 @@ export class ScreenGameplay implements Screen {
           // TODO: migrate from Lua
           //                 self.set_enabled(placement.can_build())
         } else if (this.#gameState.buildingState === "tower-placement") {
-          // TODO: migrate from Lua
-          //                 if placement.can_build() then
-          //                     audio.sfx(a.sfx.tower_placed)
-          //                     local tower = game_state.tower_choice.chosen_tower()
-          //                     game_state.money.subtract(tower.cost)
-          //                     towers.build_tower {
-          //                         tile = placement.chosen_tile(),
-          //                         tower_descriptor = tower,
-          //                     }
-          //                     game_state.building_state = "idle"
-          //                     placement = nil
-          //                 else
-          //                     audio.sfx(a.sfx.cannot_place)
-          //                 end
+          if (this.#placement?.canBuild()) {
+            // TODO: migrate from Lua
+            //                     audio.sfx(a.sfx.tower_placed)
+            //                     local tower = game_state.tower_choice.chosen_tower()
+            //                     game_state.money.subtract(tower.cost)
+            this.#towers.buildTower({
+              tile: this.#placement.chosenTile,
+              towerDescriptor: this.#gameState.towerChoice.chosenTower,
+            });
+            this.#gameState.buildingState = "idle";
+            this.#placement = null;
+          } else {
+            // TODO: migrate from Lua
+            //                     audio.sfx(a.sfx.cannot_place)
+          }
         }
       },
     });
@@ -181,23 +182,19 @@ export class ScreenGameplay implements Screen {
     this.#buttonX.update();
     this.#buttonO.update();
     this.#gameState.update();
-    // TODO: migrate from Lua
-    //         fight.update()
+    this.#fight.update();
     this.#waves.update();
     this.#enemies.update();
-    // TODO: migrate from Lua
-    //         towers.update()
+    this.#towers.update();
 
     return nextScreen;
   }
 
   draw(): void {
     this.#warzone.draw();
-    // TODO: migrate from Lua
-    //         towers.draw()
+    this.#towers.draw();
     this.#enemies.draw();
-    // TODO: migrate from Lua
-    //         fight.draw()
+    this.#fight.draw();
     this.#placement?.draw();
     this.#gui.draw();
   }

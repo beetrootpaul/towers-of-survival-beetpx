@@ -1,5 +1,6 @@
 import { BeetPx, BpxVector2d } from "beetpx";
 import { g, u } from "../globals";
+import { Tile } from "../misc/Tile";
 
 export class Ground {
   // TODO: migrate from Lua
@@ -22,10 +23,15 @@ export class Ground {
   //         { x = -1, y = 0 },
   //     }
   //
+
+  isAt(tile: Tile): boolean {
+    // TODO: migrate from Lua
+    //             return tile.x >= 0 and tile.x <= a.warzone_size_tiles - 1 and tile.y >= 0 and tile.y <= a.warzone_size_tiles - 1
+    return true;
+  }
+
+  // TODO: migrate from Lua
   //     return {
-  //         is_at = function(tile)
-  //             return tile.x >= 0 and tile.x <= a.warzone_size_tiles - 1 and tile.y >= 0 and tile.y <= a.warzone_size_tiles - 1
-  //         end,
   //         make_plain_at_and_around = function(tile)
   //             for o in all(plain_offsets) do
   //                 local t = tile.plus(o.x, o.y)

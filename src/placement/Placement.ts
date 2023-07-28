@@ -1,17 +1,21 @@
-import { TowerChoice } from "../game_state/TowerChoice";
+import { TowerChoice, TowerDescriptor } from "../game_state/TowerChoice";
 import { Warzone } from "../warzone/Warzone";
-import { BpxVector2d, v_ } from "beetpx";
+import { BeetPx, BpxVector2d, v_ } from "beetpx";
 import { Tile } from "../misc/Tile";
 import { ChosenTileBorder } from "./ChosenTileBorder";
 import { g } from "../globals";
+import { Tower } from "../towers/Tower";
 
 export class Placement {
+  readonly #chosenTower: TowerDescriptor;
+  readonly #warzone: Warzone;
   #chosenTile: Tile;
   #chosenTileBorder: ChosenTileBorder;
 
   constructor(params: { towerChoice: TowerChoice; warzone: Warzone }) {
+    this.#chosenTower = params.towerChoice.chosenTower;
+    this.#warzone = params.warzone;
     // TODO: migrate from Lua
-    // local chosen_tower = u.r(params.tower_choice).chosen_tower()
     // local warzone = u.r(params.warzone)
     // local other_towers = u.r(params.other_towers)
     // local money = u.r(params.money)
@@ -43,34 +47,33 @@ export class Placement {
     // local tower_range = new_tower_range()
   }
 
-  // local function check_if_can_build()
-  //     local result = {
-  //         can_build = true,
-  //         colliding_towers = {},
-  //     }
-  //     if money.available < chosen_tower.cost then
-  //         result.can_build = false
-  //     end
-  //     local colliding_towers = other_towers.find_colliding_towers(chosen_tower.type, chosen_tile)
-  //     if #colliding_towers > 0 then
-  //         result.can_build = false
-  //         result.colliding_towers = colliding_towers
-  //     end
-  //     if not warzone.can_have_tower_at(chosen_tile) then
-  //         result.can_build = false
-  //     end
-  //     return result
-  // end
-  //
-  // function s.chosen_tile()
-  //     return chosen_tile
-  // end
-  //
-  // function s.can_build()
-  //     return check_if_can_build().can_build
-  // end
+  #checkIfCanBuild(): { canBuild: boolean; collidingTowers: Tower[] } {
+    const result = {
+      canBuild: true,
+      collidingTowers: [],
+    };
+    // TODO: migrate from Lua
+    //     if money.available < chosen_tower.cost then
+    //         result.can_build = false
+    //     end
+    //     local colliding_towers = other_towers.find_colliding_towers(chosen_tower.type, chosen_tile)
+    //     if #colliding_towers > 0 then
+    //         result.can_build = false
+    //         result.colliding_towers = colliding_towers
+    //     end
+    if (!this.#warzone.canHaveTowerAt(this.#chosenTile)) {
+      result.canBuild = false;
+    }
+    return result;
+  }
 
-  // end
+  get chosenTile(): Tile {
+    return this.#chosenTile;
+  }
+
+  canBuild(): boolean {
+    return this.#checkIfCanBuild().canBuild;
+  }
 
   moveChosenTile(direction: BpxVector2d): void {
     this.#chosenTile = this.#chosenTile.plus(direction);
@@ -85,25 +88,24 @@ export class Placement {
   }
 
   draw(): void {
+    BeetPx.sprite(
+      g.assets.spritesheet,
+      this.#chosenTower.sprite,
+      this.#chosenTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
+    );
+
     // TODO: migrate from Lua
-    //     local sprite = chosen_tower.sprite
-    //
-    //     -- TODO: draw dimmed sprite if cannot build
-    //     sspr(sprite.x, sprite.y, u.ts, u.ts, (a.wbt + chosen_tile.x) * u.ts, (a.wbt + chosen_tile.y) * u.ts)
-    //
-    //     -- TODO: draw dimmed range if cannot build
     //     tower_range.draw(a.colors.white, a.colors.grey_dark)
-    //
-    //     local can_build_check_result = check_if_can_build()
-    //
+
+    const canBuildCheckResult = this.#checkIfCanBuild();
+
+    // TODO: migrate from Lua
     //     for tower in all(can_build_check_result.colliding_towers) do
     //         fillp(0xa5a5 + .5)
     //         rectfill(tower.x, tower.y, tower.x + u.ts - 1, tower.y + u.ts - 1, a.colors.red_light)
     //         fillp()
     //     end
 
-    // TODO: migrate from Lua
-    //     chosen_tile_border.draw(can_build_check_result.can_build)
-    this.#chosenTileBorder.draw(true);
+    this.#chosenTileBorder.draw(canBuildCheckResult.canBuild);
   }
 }

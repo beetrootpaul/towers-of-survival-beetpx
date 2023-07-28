@@ -1,9 +1,10 @@
 import { g, u } from "../globals";
 import { BeetPx, BpxSprite, BpxVector2d, v_ } from "beetpx";
 import { Path } from "./Path";
+import { Tile } from "../misc/Tile";
 
 export class Road {
-  readonly #serializedTiles = [
+  static readonly #serializedTiles = [
     ["-2|6", "-1|6", "0|6", "1|6"],
     ["1|7"],
     ["1|8"],
@@ -30,14 +31,14 @@ export class Road {
 
   constructor() {
     const waypoints: BpxVector2d[] = [];
-    this.#serializedTiles.forEach((st, index) => {
+    Road.#serializedTiles.forEach((st, index) => {
       let tileXy = v_(
         parseInt(st.split("|")[0]!, 10),
         parseInt(st.split("|")[1]!, 10)
       );
       if (index === 0) {
         tileXy = tileXy.sub(v_(1, 0));
-      } else if (index == this.#serializedTiles.length - 1) {
+      } else if (index == Road.#serializedTiles.length - 1) {
         tileXy = tileXy.add(v_(2, 0));
       }
       waypoints.push(tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
@@ -46,18 +47,15 @@ export class Road {
     this.path = new Path({ waypoints });
   }
 
-  // TODO: migrate from Lua
-  //     function s.is_at(tile_to_check)
-  //         local tt = {}
-  //         for st in all(serialized_tiles) do
-  //             tt[st] = true
-  //         end
-  //         return tt[tile_to_check.x .. "|" .. tile_to_check.y]
-  //     end
+  isAt(tileToCheck: Tile): boolean {
+    return Road.#serializedTiles.some(
+      (st) => st === `${tileToCheck.xy.x}|${tileToCheck.xy.y}`
+    );
+  }
 
   draw(): void {
     const tt: Record<string, boolean> = {};
-    this.#serializedTiles.forEach((st) => {
+    Road.#serializedTiles.forEach((st) => {
       tt[st] = true;
     });
 
