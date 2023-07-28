@@ -20,7 +20,7 @@ export class ScreenGameplay implements Screen {
   readonly #fight: Fight;
   readonly #towers: Towers;
   readonly #waves: Waves;
-  readonly #placement: Placement | null;
+  #placement: Placement | null;
   readonly #buttonO: Button;
   readonly #buttonX: Button;
   readonly #gui: Gui;
@@ -81,32 +81,33 @@ export class ScreenGameplay implements Screen {
 
         if (this.#gameState.buildingState === "idle") {
           this.#gameState.buildingState = "tower-choice";
+        } else if (this.#gameState.buildingState === "tower-choice") {
+          this.#gameState.buildingState = "tower-placement";
+          this.#placement = new Placement({
+            towerChoice: this.#gameState.towerChoice,
+            warzone: this.#warzone,
+            // TODO: migrate from Lua
+            //                     other_towers = towers,
+            //                     money = game_state.money,
+          });
+          // TODO: migrate from Lua
+          //                 self.set_enabled(placement.can_build())
+        } else if (this.#gameState.buildingState === "tower-placement") {
+          // TODO: migrate from Lua
+          //                 if placement.can_build() then
+          //                     audio.sfx(a.sfx.tower_placed)
+          //                     local tower = game_state.tower_choice.chosen_tower()
+          //                     game_state.money.subtract(tower.cost)
+          //                     towers.build_tower {
+          //                         tile = placement.chosen_tile(),
+          //                         tower_descriptor = tower,
+          //                     }
+          //                     game_state.building_state = "idle"
+          //                     placement = nil
+          //                 else
+          //                     audio.sfx(a.sfx.cannot_place)
+          //                 end
         }
-        // TODO: migrate from Lua
-        //             elseif game_state.building_state == "tower-choice" then
-        //                 game_state.building_state = "tower-placement"
-        //                 placement = new_placement {
-        //                     tower_choice = game_state.tower_choice,
-        //                     warzone = warzone,
-        //                     other_towers = towers,
-        //                     money = game_state.money,
-        //                 }
-        //                 self.set_enabled(placement.can_build())
-        //             elseif game_state.building_state == "tower-placement" then
-        //                 if placement.can_build() then
-        //                     audio.sfx(a.sfx.tower_placed)
-        //                     local tower = game_state.tower_choice.chosen_tower()
-        //                     game_state.money.subtract(tower.cost)
-        //                     towers.build_tower {
-        //                         tile = placement.chosen_tile(),
-        //                         tower_descriptor = tower,
-        //                     }
-        //                     game_state.building_state = "idle"
-        //                     placement = nil
-        //                 else
-        //                     audio.sfx(a.sfx.cannot_place)
-        //                 end
-        //             end
       },
     });
     this.#gui = new Gui({
@@ -150,8 +151,8 @@ export class ScreenGameplay implements Screen {
             BeetPx.continuousInputEvents.has(arrowButton as BpxGameInputEvent)
           ) {
             if (this.#placement) {
+              this.#placement.moveChosenTile(direction);
               // TODO: migrate from Lua
-              //                         placement.move_chosen_tile(direction)
               //                         button_x.set_enabled(placement.can_build())
             } else if (this.#gameState.buildingState === "tower-choice") {
               if (direction.x > 0) {
@@ -197,9 +198,7 @@ export class ScreenGameplay implements Screen {
     this.#enemies.draw();
     // TODO: migrate from Lua
     //         fight.draw()
-    //         if placement then
-    //             placement.draw()
-    //         end
+    this.#placement?.draw();
     this.#gui.draw();
   }
 }

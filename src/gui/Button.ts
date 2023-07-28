@@ -1,3 +1,4 @@
+// TODO: move this logic to the framework
 export class Button {
   readonly #onRelease: () => void;
 
