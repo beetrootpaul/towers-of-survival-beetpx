@@ -49,8 +49,6 @@ export class Waves {
         descriptor: this.#currentWaveDescriptor(),
         enemies: this.#enemies,
       });
-      // TODO: REMOVE
-      console.log("new ~WAVE~");
     }
 
     if (
@@ -64,8 +62,6 @@ export class Waves {
       this.#wait = new Wait({
         durationSeconds: this.#currentWaveDescriptor().wait,
       });
-      // TODO: REMOVE
-      console.log("new .wait.");
     }
 
     this.#wait?.update();

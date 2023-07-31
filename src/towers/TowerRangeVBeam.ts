@@ -1,24 +1,36 @@
-export class TowerRangeVBeam {
+import { BeetPx, v_ } from "beetpx";
+import { SolidColor } from "beetpx/ts_output/Color";
+import { g } from "../globals";
+import { Tile } from "../misc/Tile";
+import { TowerRange } from "./TowerRange";
+
+export class TowerRangeVBeam implements TowerRange {
+  readonly #x1: number;
+  readonly #x2: number;
+
+  constructor(params: { tile: Tile }) {
+    this.#x1 = (g.warzoneBorderTiles + params.tile.xy.x) * g.tileSize.x + 1;
+    this.#x2 = this.#x1 + 1;
+  }
+
   // TODO: migrate from Lua
-  // local tile = u.r(params.tile)
-  //
-  // local x1 = (a.wbt + tile.x) * u.ts + 1
-  // local x2 = x1 + 1
-  //
-  // local s = {}
-  //
   // function s.touches_enemy(enemy)
   //     local enemy_circle = enemy.range().circle()
   //     return enemy_circle.xy.x + enemy_circle.r >= x1 and enemy_circle.xy.x - enemy_circle.r <= x2
   // end
-  //
-  // function s.draw(color1, color2)
-  //     clip(0, a.wb, u.vs, u.vs - a.wb)
-  //     fillp(0xa5a5 + .5)
-  //     rectfill(x1, a.wb, x2, u.vs - a.wb - 1, color1)
-  //     fillp()
-  //     clip()
-  // end
-  //
-  // return s
+
+  draw(color1: SolidColor, color2: SolidColor) {
+    // TODO: migrate from Lua
+    //     clip(0, a.wb, u.vs, u.vs - a.wb)
+    //     fillp(0xa5a5 + .5)
+    //     rectfill(x1, a.wb, x2, u.vs - a.wb - 1, color1)
+    BeetPx.rectFilled(
+      v_(this.#x1, g.warzoneBorder),
+      v_(this.#x2, g.canvasSize.y - g.warzoneBorder - 1),
+      color1
+    );
+    // TODO: migrate from Lua
+    //     fillp()
+    //     clip()
+  }
 }

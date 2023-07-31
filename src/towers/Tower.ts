@@ -1,41 +1,60 @@
 import { BeetPx } from "beetpx";
+import { Enemies } from "../enemies/Enemies";
+import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
-import { g } from "../globals";
+import { g, p8c } from "../globals";
 import { Tile } from "../misc/Tile";
+import { Warzone } from "../warzone/Warzone";
+import { TowerRange } from "./TowerRange";
+import { TowerRangeBooster } from "./TowerRangeBooster";
+import { TowerRangeLaser } from "./TowerRangeLaser";
+import { TowerRangeVBeam } from "./TowerRangeVBeam";
 
 export type TowerType = "laser" | "booster" | "v_beam";
 
 export class Tower {
   readonly #descriptor: TowerDescriptor;
   readonly #tile: Tile;
+  readonly #enemies: Enemies;
+  readonly #fight: Fight;
+  readonly #warzone: Warzone;
 
-  constructor(params: { descriptor: TowerDescriptor; tile: Tile }) {
+  readonly #range: TowerRange;
+
+  constructor(params: {
+    descriptor: TowerDescriptor;
+    tile: Tile;
+    enemies: Enemies;
+    fight: Fight;
+    warzone: Warzone;
+  }) {
     this.#descriptor = params.descriptor;
     this.#tile = params.tile;
     // TODO: migrate from Lua
     // local other_towers = u.r(params.other_towers)
-    // local enemies = u.r(params.enemies)
-    // local fight = u.r(params.fight)
-    // local warzone = u.r(params.warzone)
+    this.#enemies = params.enemies;
+    this.#fight = params.fight;
+    this.#warzone = params.warzone;
+
+    if (this.#descriptor.type === "laser") {
+      this.#range = new TowerRangeLaser({
+        tile: this.#tile,
+      });
+    } else if (this.#descriptor.type === "v_beam") {
+      this.#range = new TowerRangeVBeam({
+        tile: this.#tile,
+      });
+    } else if (this.#descriptor.type === "booster") {
+      this.#range = new TowerRangeBooster({
+        tile: this.#tile,
+        warzone: this.#warzone,
+      });
+    } else {
+      throw Error(`Unexpected tower type: "${this.#descriptor.type}"`);
+    }
   }
 
   // TODO: migrate from Lua
-  // local range
-  // if tower_descriptor.type == "laser" then
-  //     range = new_tower_range_laser {
-  //         tile = tile,
-  //     }
-  // elseif tower_descriptor.type == "v_beam" then
-  //     range = new_tower_range_v_beam {
-  //         tile = tile,
-  //     }
-  // elseif tower_descriptor.type == "booster" then
-  //     range = new_tower_range_booster {
-  //         tile = tile,
-  //         warzone = warzone,
-  //     }
-  // end
-  //
   // local function new_shooting_timer()
   //     if tower_descriptor.type == "laser" or tower_descriptor.type == "v_beam" then
   //         local boosts = other_towers.count_reaching_boosters(tile)
@@ -135,9 +154,8 @@ export class Tower {
       this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
     );
 
-    // TODO: migrate from Lua
-    //     if d.enabled then
-    //         range.draw(a.colors.blue_dark, a.colors.brown_dark)
-    //     end
+    if (BeetPx.debug) {
+      this.#range.draw(p8c.blueDark, p8c.brownDark);
+    }
   }
 }

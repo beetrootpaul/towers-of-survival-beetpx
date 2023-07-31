@@ -26,7 +26,9 @@ export const g = {
   },
 
   money: {
-    initial: 40,
+    // TODO: REVERT
+    initial: 400,
+    // initial: 40,
     increaseSeconds: 0.5,
   },
 
