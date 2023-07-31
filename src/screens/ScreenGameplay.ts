@@ -88,7 +88,7 @@ export class ScreenGameplay implements Screen {
             warzone: this.#warzone,
             // TODO: migrate from Lua
             //                     other_towers = towers,
-            //                     money = game_state.money,
+            money: this.#gameState.money,
           });
           // TODO: migrate from Lua
           //                 self.set_enabled(placement.can_build())
@@ -96,8 +96,9 @@ export class ScreenGameplay implements Screen {
           if (this.#placement?.canBuild()) {
             // TODO: migrate from Lua
             //                     audio.sfx(a.sfx.tower_placed)
-            //                     local tower = game_state.tower_choice.chosen_tower()
-            //                     game_state.money.subtract(tower.cost)
+            this.#gameState.money.subtract(
+              this.#gameState.towerChoice.chosenTower.cost
+            );
             this.#towers.buildTower({
               tile: this.#placement.chosenTile,
               towerDescriptor: this.#gameState.towerChoice.chosenTower,

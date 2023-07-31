@@ -5,8 +5,7 @@ import { TowerType } from "../towers/Tower";
 export type TowerDescriptor = {
   type: TowerType;
   label: string;
-  // TODO: migrate from Lua
-  //         cost = a.towers[tower_type].cost,
+  cost: number;
   sprite: BpxSprite;
   // TODO: migrate from Lua
   //         dps = a.towers[tower_type].dps,
@@ -31,8 +30,7 @@ export class TowerChoice {
       return {
         type,
         label: t.label,
-        // TODO: migrate from Lua
-        //         cost = a.towers[tower_type].cost,
+        cost: t.cost,
         sprite: t.sprite,
         // TODO: migrate from Lua
         //         dps = a.towers[tower_type].dps,

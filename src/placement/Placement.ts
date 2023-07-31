@@ -1,4 +1,5 @@
 import { BeetPx, BpxVector2d, v_ } from "beetpx";
+import { Money } from "../game_state/Money";
 import { TowerChoice, TowerDescriptor } from "../game_state/TowerChoice";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
@@ -11,14 +12,19 @@ export class Placement {
   readonly #warzone: Warzone;
   #chosenTile: Tile;
   #chosenTileBorder: ChosenTileBorder;
+  #money: Money;
 
-  constructor(params: { towerChoice: TowerChoice; warzone: Warzone }) {
+  constructor(params: {
+    towerChoice: TowerChoice;
+    warzone: Warzone;
+    money: Money;
+  }) {
     this.#chosenTower = params.towerChoice.chosenTower;
     this.#warzone = params.warzone;
     // TODO: migrate from Lua
     // local warzone = u.r(params.warzone)
     // local other_towers = u.r(params.other_towers)
-    // local money = u.r(params.money)
+    this.#money = params.money;
 
     this.#chosenTile = new Tile(v_(4, 5));
 
@@ -52,18 +58,22 @@ export class Placement {
       canBuild: true,
       collidingTowers: [],
     };
+
+    if (this.#money.available < this.#chosenTower.cost) {
+      result.canBuild = false;
+    }
+
     // TODO: migrate from Lua
-    //     if money.available < chosen_tower.cost then
-    //         result.can_build = false
-    //     end
     //     local colliding_towers = other_towers.find_colliding_towers(chosen_tower.type, chosen_tile)
     //     if #colliding_towers > 0 then
     //         result.can_build = false
     //         result.colliding_towers = colliding_towers
     //     end
+
     if (!this.#warzone.canHaveTowerAt(this.#chosenTile)) {
       result.canBuild = false;
     }
+
     return result;
   }
 
