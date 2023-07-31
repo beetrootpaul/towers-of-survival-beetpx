@@ -1,11 +1,11 @@
-import { Waves } from "../waves/Waves";
-import { WaveStatus } from "./WaveStatus";
-import { GameState } from "../game_state/GameState";
 import { BeetPx, v_ } from "beetpx";
+import { GameState } from "../game_state/GameState";
 import { g, p8c, u } from "../globals";
+import { Waves } from "../waves/Waves";
 import { Button } from "./Button";
-import { TowerInfo } from "./TowerInfo";
 import { TowerChoiceGui } from "./TowerChoiceGui";
+import { TowerInfo } from "./TowerInfo";
+import { WaveStatus } from "./WaveStatus";
 
 export class Gui {
   readonly #gameState: GameState;

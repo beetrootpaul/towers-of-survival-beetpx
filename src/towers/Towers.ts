@@ -1,5 +1,5 @@
-import { Tile } from "../misc/Tile";
 import { TowerDescriptor } from "../game_state/TowerChoice";
+import { Tile } from "../misc/Tile";
 import { Tower } from "./Tower";
 
 export class Towers {

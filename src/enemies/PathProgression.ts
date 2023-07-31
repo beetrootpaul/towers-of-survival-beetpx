@@ -1,6 +1,6 @@
-import { Path } from "../warzone/Path";
-import { g, u } from "../globals";
 import { BpxVector2d } from "beetpx";
+import { g, u } from "../globals";
+import { Path } from "../warzone/Path";
 
 export class PathProgression {
   readonly #pathPoints: BpxVector2d[];

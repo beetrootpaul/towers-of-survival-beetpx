@@ -1,6 +1,6 @@
-import { TowerType } from "../towers/Tower";
-import { g, u } from "../globals";
 import { BpxSprite } from "beetpx";
+import { g, u } from "../globals";
+import { TowerType } from "../towers/Tower";
 
 export type TowerDescriptor = {
   type: TowerType;

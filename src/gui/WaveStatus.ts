@@ -1,6 +1,6 @@
-import { Waves } from "../waves/Waves";
 import { BeetPx, v_ } from "beetpx";
 import { g, p8c, u } from "../globals";
+import { Waves } from "../waves/Waves";
 
 export class WaveStatus {
   readonly #waves: Waves;

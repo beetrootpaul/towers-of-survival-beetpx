@@ -1,5 +1,5 @@
-import { Timer } from "../misc/Timer";
 import { g } from "../globals";
+import { Timer } from "../misc/Timer";
 
 export class Wait {
   readonly #timer: Timer;

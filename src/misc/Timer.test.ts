@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
-import { Timer } from "./Timer";
 import { u } from "../globals";
+import { Timer } from "./Timer";
 
 describe("Timer", () => {
   test("#hasFinished", () => {

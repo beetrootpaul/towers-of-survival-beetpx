@@ -1,7 +1,7 @@
-import { TowerDescriptor } from "../game_state/TowerChoice";
-import { Tile } from "../misc/Tile";
 import { BeetPx } from "beetpx";
+import { TowerDescriptor } from "../game_state/TowerChoice";
 import { g } from "../globals";
+import { Tile } from "../misc/Tile";
 
 export type TowerType = "laser" | "booster" | "v_beam";
 

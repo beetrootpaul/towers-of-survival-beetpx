@@ -1,10 +1,10 @@
-import { TowerChoice, TowerDescriptor } from "../game_state/TowerChoice";
-import { Warzone } from "../warzone/Warzone";
 import { BeetPx, BpxVector2d, v_ } from "beetpx";
-import { Tile } from "../misc/Tile";
-import { ChosenTileBorder } from "./ChosenTileBorder";
+import { TowerChoice, TowerDescriptor } from "../game_state/TowerChoice";
 import { g } from "../globals";
+import { Tile } from "../misc/Tile";
 import { Tower } from "../towers/Tower";
+import { Warzone } from "../warzone/Warzone";
+import { ChosenTileBorder } from "./ChosenTileBorder";
 
 export class Placement {
   readonly #chosenTower: TowerDescriptor;

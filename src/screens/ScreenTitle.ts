@@ -1,7 +1,6 @@
+import { Timer } from "../misc/Timer";
 import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
-import { Timer } from "../misc/Timer";
-import { g } from "../globals";
 
 export class ScreenTitle implements Screen {
   readonly #timer = new Timer({

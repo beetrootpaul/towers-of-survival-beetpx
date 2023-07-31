@@ -1,8 +1,8 @@
-import { EnemyType } from "./Enemies";
-import { Path } from "../warzone/Path";
-import { PathProgression } from "./PathProgression";
 import { BeetPx, BpxSprite } from "beetpx";
 import { g, u } from "../globals";
+import { Path } from "../warzone/Path";
+import { EnemyType } from "./Enemies";
+import { PathProgression } from "./PathProgression";
 
 export class Enemy {
   readonly #type: EnemyType;

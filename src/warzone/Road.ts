@@ -1,7 +1,7 @@
-import { g, u } from "../globals";
 import { BeetPx, BpxSprite, BpxVector2d, v_ } from "beetpx";
-import { Path } from "./Path";
+import { g, u } from "../globals";
 import { Tile } from "../misc/Tile";
+import { Path } from "./Path";
 
 export class Road {
   static readonly #serializedTiles = [

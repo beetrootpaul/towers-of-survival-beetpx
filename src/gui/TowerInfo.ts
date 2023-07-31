@@ -1,5 +1,5 @@
-import { TowerChoice } from "../game_state/TowerChoice";
 import { BeetPx, v_ } from "beetpx";
+import { TowerChoice } from "../game_state/TowerChoice";
 import { g, p8c } from "../globals";
 
 export class TowerInfo {

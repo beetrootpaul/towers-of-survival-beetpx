@@ -1,9 +1,9 @@
-import { Road } from "./Road";
-import { Cores } from "./Cores";
 import { Lives } from "../game_state/Lives";
+import { Tile } from "../misc/Tile";
+import { Cores } from "./Cores";
 import { Ground } from "./Ground";
 import { Path } from "./Path";
-import { Tile } from "../misc/Tile";
+import { Road } from "./Road";
 
 export class Warzone {
   readonly #road: Road;

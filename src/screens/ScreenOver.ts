@@ -1,8 +1,8 @@
-import { Screen } from "./Screen";
-import { Timer } from "../misc/Timer";
-import { g, p8c, u } from "../globals";
-import { ScreenPreGameplay } from "./ScreenPreGameplay";
 import { BeetPx, v_ } from "beetpx";
+import { g, p8c, u } from "../globals";
+import { Timer } from "../misc/Timer";
+import { Screen } from "./Screen";
+import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenOver implements Screen {
   readonly #wavesSurvived: number;

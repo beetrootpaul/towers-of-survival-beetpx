@@ -1,5 +1,5 @@
-import { TowerChoice } from "../game_state/TowerChoice";
 import { BeetPx, v_ } from "beetpx";
+import { TowerChoice } from "../game_state/TowerChoice";
 import { g } from "../globals";
 import { ChosenTowerBorder } from "./ChosenTowerBorder";
 

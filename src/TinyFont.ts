@@ -1,10 +1,10 @@
 import {
   BpxCharSprite,
-  type BpxFont,
   BpxSprite,
   BpxVector2d,
   spr_,
   v_,
+  type BpxFont,
 } from "beetpx";
 
 function c_(x1: number, y1: number, w: number = 3, h: number = 4): BpxSprite {

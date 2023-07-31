@@ -1,16 +1,16 @@
-import { Screen } from "./Screen";
-import { Warzone } from "../warzone/Warzone";
-import { GameState } from "../game_state/GameState";
+import { BeetPx, BpxGameInputEvent, BpxVector2d, v_ } from "beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
-import { Towers } from "../towers/Towers";
-import { Waves } from "../waves/Waves";
-import { Placement } from "../placement/Placement";
+import { GameState } from "../game_state/GameState";
 import { Button } from "../gui/Button";
 import { Gui } from "../gui/Gui";
+import { Placement } from "../placement/Placement";
+import { Towers } from "../towers/Towers";
+import { Warzone } from "../warzone/Warzone";
+import { Waves } from "../waves/Waves";
+import { Screen } from "./Screen";
 import { ScreenOver } from "./ScreenOver";
 import { ScreenWin } from "./ScreenWin";
-import { BeetPx, BpxGameInputEvent, BpxVector2d, v_ } from "beetpx";
 
 export class ScreenGameplay implements Screen {
   readonly #gameState: GameState;

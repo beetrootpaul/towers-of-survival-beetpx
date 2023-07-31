@@ -1,7 +1,7 @@
 import { Enemies } from "../enemies/Enemies";
+import { g, u } from "../globals";
 import { Wait } from "./Wait";
 import { Wave, WaveDescriptor } from "./Wave";
-import { g, u } from "../globals";
 
 export class Waves {
   readonly #enemies: Enemies;

@@ -1,6 +1,6 @@
+import { BeetPx, v_ } from "beetpx";
 import { Lives } from "../game_state/Lives";
 import { g } from "../globals";
-import { BeetPx, v_ } from "beetpx";
 
 export class Cores {
   readonly #lives: Lives;

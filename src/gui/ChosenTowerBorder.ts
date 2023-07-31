@@ -1,5 +1,5 @@
-import { g, p8c } from "../globals";
 import { BeetPx, BpxVector2d, v_ } from "beetpx";
+import { g, p8c } from "../globals";
 
 export class ChosenTowerBorder {
   static readonly #offsets = [

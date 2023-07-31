@@ -1,9 +1,8 @@
+import { GameState } from "../game_state/GameState";
+import { Timer } from "../misc/Timer";
+import { Warzone } from "../warzone/Warzone";
 import { Screen } from "./Screen";
 import { ScreenGameplay } from "./ScreenGameplay";
-import { Timer } from "../misc/Timer";
-import { g } from "../globals";
-import { Warzone } from "../warzone/Warzone";
-import { GameState } from "../game_state/GameState";
 
 export class ScreenPreGameplay implements Screen {
   readonly #timer = new Timer({

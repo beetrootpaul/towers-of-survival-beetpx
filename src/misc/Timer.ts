@@ -1,4 +1,4 @@
-import { g, u } from "../globals";
+import { u } from "../globals";
 
 export class Timer<TEvent = never> {
   readonly #start: number;

@@ -1,8 +1,8 @@
 import { BeetPx, BpxVector2d, transparent_, v_ } from "beetpx";
+import { TinyFont } from "./TinyFont";
+import { g, p8c, u } from "./globals";
 import { Screen } from "./screens/Screen";
 import { ScreenTitle } from "./screens/ScreenTitle";
-import { g, p8c, u } from "./globals";
-import { TinyFont } from "./TinyFont";
 
 export class Game {
   #currentScreen: Screen | undefined;

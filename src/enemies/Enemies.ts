@@ -1,5 +1,5 @@
-import { Enemy } from "./Enemy";
 import { Path } from "../warzone/Path";
+import { Enemy } from "./Enemy";
 
 export type EnemyType = "small" | "medium" | "big";
 
