@@ -1,7 +1,9 @@
-import { BeetPx, BpxSprite } from "beetpx";
-import { g, u } from "../globals";
+import { BeetPx, BpxSprite, BpxVector2d } from "beetpx";
+import { g, p8c, u } from "../globals";
 import { Path } from "../warzone/Path";
 import { EnemyType } from "./Enemies";
+import { EnemyRange } from "./EnemyRange";
+import { Health } from "./Health";
 import { PathProgression } from "./PathProgression";
 
 export class Enemy {
@@ -9,6 +11,9 @@ export class Enemy {
   #onReachedPathEnd: () => void;
 
   readonly #pathProgression: PathProgression;
+
+  #health: Health;
+  #range: EnemyRange;
 
   constructor(params: {
     type: EnemyType;
@@ -28,28 +33,30 @@ export class Enemy {
     //     local health = new_health {
     //         max_value = a.enemies[enemy_type].health,
     //     }
-    //
-    //     local function center_xy()
+
+    this.#health = new Health(g.enemies[this.#type].health);
+
+    this.#range = new EnemyRange(this.#center(), g.enemies[this.#type].hitboxR);
+
+    // TODO: migrate from Lua
+    //     local is_taking_damage = false
+  }
+
+  #center(): BpxVector2d {
+    // TODO: migrate from Lua
     //         local sprite = u.r(a.enemies[enemy_type]["sprite_" .. path_progression.current_direction()])
+    const sprite: BpxSprite = g.enemies[this.#type].spriteRight;
+    // TODO: migrate from Lua
     //         local s_hox, s_hoy = sprite[7], sprite[8]
     //         return path_progression.current_xy().plus(s_hox, s_hoy)
-    //     end
-    //
-    //     local range = new_enemy_range {
-    //         xy = center_xy(),
-    //         r = u.r(a.enemies[enemy_type].hitbox_r),
-    //     }
-    //
-    //     local is_taking_damage = false
-    //
+    return this.#pathProgression.currentXy();
   }
 
   hasFinished(): boolean {
-    // TODO: migrate from Lua
-    //         return health.value == 0 or path_progression.has_reached_end()
-    return this.#pathProgression.hasReachedEnd();
+    return this.#health.value <= 0 || this.#pathProgression.hasReachedEnd();
   }
 
+  // TODO: migrate from Lua
   //     function s.range()
   //         return range
   //     end
@@ -75,18 +82,14 @@ export class Enemy {
       this.#onReachedPathEnd = u.noop;
     }
 
-    // TODO: migrate from Lua
-    //         range = new_enemy_range {
-    //             xy = center_xy(),
-    //             r = u.r(a.enemies[enemy_type].hitbox_r),
-    //         }
+    this.#range = new EnemyRange(this.#center(), g.enemies[this.#type].hitboxR);
   }
 
   draw(): void {
-    // TODO: migrate from Lua
-    //         if path_progression.has_reached_end() then
-    //             return
-    //         end
+    if (this.#pathProgression.hasReachedEnd()) {
+      return;
+    }
+
     //
     // TODO: migrate from Lua
     //         local sprite = u.r(a.enemies[enemy_type]["sprite_" .. path_progression.current_direction()])
@@ -99,23 +102,24 @@ export class Enemy {
     // TODO: migrate from Lua
     //         sspr(s_x, s_y, s_w, s_h, position.x + s_ox, position.y + s_oy)
     BeetPx.sprite(g.assets.spritesheet, sprite, position);
-    //
+
+    if (BeetPx.debug && this.#health.value > 0) {
+      const healthBarLength = Math.ceil(this.#health.value / 4);
+      // TODO: migrate from Lua
+      //             line(
+      //                 position.x,
+      //                 position.y - 2,
+      //                 position.x + health_bar_length - 1,
+      //                 position.y - 2,
+      //                 a.colors.red_dark
+      //             )
+    }
+
+    if (BeetPx.debug) {
+      this.#range.draw(p8c.yellow);
+    }
+
     // TODO: migrate from Lua
-    //         if d.enabled and health.value > 0 then
-    //             local health_bar_length = ceil(health.value / 4)
-    //             line(
-    //                 position.x,
-    //                 position.y - 2,
-    //                 position.x + health_bar_length - 1,
-    //                 position.y - 2,
-    //                 a.colors.red_dark
-    //             )
-    //         end
-    //
-    //         if d.enabled and range then
-    //             range.draw(a.colors.yellow)
-    //         end
-    //
     //         if is_taking_damage then
     //             local damage_sprite = u.r(a.enemies[enemy_type]["sprite_damage_" .. path_progression.current_direction()])
     //             local ds_x, ds_y, ds_w, ds_h, ds_ox, ds_oy = damage_sprite[1], damage_sprite[2], damage_sprite[3], damage_sprite[4], damage_sprite[5], damage_sprite[6]

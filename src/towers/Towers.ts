@@ -1,15 +1,17 @@
 import { TowerDescriptor } from "../game_state/TowerChoice";
 import { Tile } from "../misc/Tile";
+import { Warzone } from "../warzone/Warzone";
 import { Tower } from "./Tower";
 
 export class Towers {
+  readonly #warzone: Warzone;
   readonly #towers: Tower[];
 
-  constructor() {
+  constructor(params: { warzone: Warzone }) {
     // TODO: migrate from Lua
     // local enemies = u.r(params.enemies)
     // local fight = u.r(params.fight)
-    // local warzone = u.r(params.warzone)
+    this.#warzone = params.warzone;
 
     this.#towers = [];
   }
@@ -44,8 +46,7 @@ export class Towers {
         //         warzone = warzone,
       })
     );
-    // TODO: migrate from Lua
-    //     warzone.ground.make_plain_at_and_around(p.tile)
+    this.#warzone.ground.makePlainAtAndAround(params.tile);
   }
 
   // TODO: migrate from Lua

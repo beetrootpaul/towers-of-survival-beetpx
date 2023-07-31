@@ -45,13 +45,12 @@ export class ScreenGameplay implements Screen {
       },
     });
     this.#fight = new Fight();
-    // TODO: migrate from Lua
-    this.#towers = new Towers();
-    //     local towers = new_towers {
-    //         enemies = enemies,
-    //         fight = fight,
-    //         warzone = warzone,
-    //     }
+    this.#towers = new Towers({
+      // TODO: migrate from Lua
+      warzone: this.#warzone,
+      //         enemies = enemies,
+      //         fight = fight,
+    });
     this.#waves = new Waves({
       enemies: this.#enemies,
     });

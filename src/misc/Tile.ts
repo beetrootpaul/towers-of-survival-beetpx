@@ -15,10 +15,7 @@ export class Tile {
     return new Tile(this.#xy.add(dXy));
   }
 
-  // TODO: migrate from Lua
-  // return {
-  //     is_same_as = function(another_tile)
-  //         return x == another_tile.x and y == another_tile.y
-  //     end
-  // }
+  isSameAs(anotherTile: Tile): boolean {
+    return this.xy.eq(anotherTile.xy);
+  }
 }

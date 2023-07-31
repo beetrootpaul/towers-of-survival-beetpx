@@ -107,9 +107,9 @@ export const g = {
     // speed: 10,
     speed: 60,
     small: {
+      hitboxR: 1,
+      health: 20,
       // TODO: migrate from Lua
-      //             hitbox_r = 1,
-      //             health = 20,
       //             -- format: {x, y, w, h, offset_x, offset_y, hitbox_offset_x, hitbox_offset_y }
       spriteRight: spr_(16, 0, 3, 3),
       //             sprite_right = { 16, 0, 3, 3, 0, 0, 1, 1 },
@@ -123,9 +123,9 @@ export const g = {
       //             sprite_damage_down = { 20, 4, 2, 4, 1, -1 },
     },
     medium: {
+      hitboxR: 1.5,
+      health: 65,
       // TODO: migrate from Lua
-      //             hitbox_r = 1.5,
-      //             health = 65,
       //             -- format: {x, y, w, h, offset_x, offset_y, hitbox_offset_x, hitbox_offset_y }
       spriteRight: spr_(24, 0, 4, 5),
       //             sprite_right = { 24, 0, 4, 5, 0, -1, 1.5, .5 },
@@ -139,9 +139,9 @@ export const g = {
       //             sprite_damage_down = { 28, 0, 4, 5, 0, -1 },
     },
     big: {
+      hitboxR: 2,
+      health: 130,
       // TODO: migrate from Lua
-      //             hitbox_r = 2,
-      //             health = 130,
       //             -- format: {x, y, w, h, offset_x, offset_y, hitbox_offset_x, hitbox_offset_y }
       spriteRight: spr_(16, 9, 5, 5),
       //             sprite_right = { 16, 9, 5, 5, -1, -1, 1.5, .5 },

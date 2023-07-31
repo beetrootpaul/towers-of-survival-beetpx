@@ -8,14 +8,14 @@ import { Road } from "./Road";
 export class Warzone {
   readonly #road: Road;
   readonly #cores: Cores;
-  readonly #ground: Ground;
+  readonly ground: Ground;
 
   constructor(params: { lives: Lives }) {
     this.#road = new Road();
     this.#cores = new Cores({
       lives: params.lives,
     });
-    this.#ground = new Ground();
+    this.ground = new Ground();
   }
 
   path(): Path {
@@ -23,11 +23,11 @@ export class Warzone {
   }
 
   canHaveTowerAt(tile: Tile): boolean {
-    return !this.#road.isAt(tile) && this.#ground.isAt(tile);
+    return !this.#road.isAt(tile) && this.ground.isAt(tile);
   }
 
   draw(): void {
-    this.#ground.draw();
+    this.ground.draw();
     this.#road.draw();
     this.#cores.draw();
   }

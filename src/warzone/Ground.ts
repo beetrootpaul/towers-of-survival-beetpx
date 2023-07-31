@@ -1,46 +1,52 @@
-import { BeetPx, BpxVector2d } from "beetpx";
+import { BeetPx, BpxSprite, BpxVector2d, v_ } from "beetpx";
 import { g, u } from "../globals";
 import { Tile } from "../misc/Tile";
 
 export class Ground {
-  // TODO: migrate from Lua
-  //     local sprites = {}
-  //     for tile_x = 0, a.warzone_size_tiles - 1 do
-  //         for tile_y = 0, a.warzone_size_tiles - 1 do
-  //             sprites[tile_x .. "|" .. tile_y] = a.tiles.ground_textured
-  //         end
-  //     end
-  //
-  //     local plain_offsets = {
-  //         { x = 0, y = 0 },
-  //         { x = -1, y = -1 },
-  //         { x = 0, y = -1 },
-  //         { x = 1, y = -1 },
-  //         { x = 1, y = 0 },
-  //         { x = 1, y = 1 },
-  //         { x = 0, y = 1 },
-  //         { x = -1, y = 1 },
-  //         { x = -1, y = 0 },
-  //     }
-  //
+  static readonly #plainOffsets = [
+    v_(0, 0),
+    v_(-1, -1),
+    v_(0, -1),
+    v_(1, -1),
+    v_(1, 0),
+    v_(1, 1),
+    v_(0, 1),
+    v_(-1, 1),
+    v_(-1, 0),
+  ];
 
-  isAt(tile: Tile): boolean {
-    // TODO: migrate from Lua
-    //             return tile.x >= 0 and tile.x <= a.warzone_size_tiles - 1 and tile.y >= 0 and tile.y <= a.warzone_size_tiles - 1
-    return true;
+  readonly #sprites: Record<string, BpxSprite>;
+
+  constructor() {
+    this.#sprites = {};
+    BpxVector2d.forEachIntXyWithinRectOf(
+      BpxVector2d.zero,
+      g.warzoneSizeTiles,
+      true,
+      (xy) => {
+        this.#sprites[`${xy.x}|${xy.y}`] =
+          g.ground.sprites.textured ??
+          u.throwError(`No "ground.sprites.textured" sprite defined.`);
+      }
+    );
   }
 
-  // TODO: migrate from Lua
-  //     return {
-  //         make_plain_at_and_around = function(tile)
-  //             for o in all(plain_offsets) do
-  //                 local t = tile.plus(o.x, o.y)
-  //                 if sprites[t.x .. "|" .. t.y] then
-  //                     sprites[t.x .. "|" .. t.y] = a.tiles.ground_plain
-  //                 end
-  //             end
-  //         end,
-  //     }
+  isAt(tile: Tile): boolean {
+    return (
+      tile.xy.gte(BpxVector2d.zero) && tile.xy.lte(g.warzoneSizeTiles.sub(1))
+    );
+  }
+
+  makePlainAtAndAround(tile: Tile): void {
+    for (const offset of Ground.#plainOffsets) {
+      const t = tile.plus(offset);
+      if (this.#sprites[`${t.xy.x}|${t.xy.y}`]) {
+        this.#sprites[`${t.xy.x}|${t.xy.y}`] =
+          g.ground.sprites.plain ??
+          u.throwError(`No "ground.sprites.plain" sprite defined.`);
+      }
+    }
+  }
 
   draw(): void {
     BpxVector2d.forEachIntXyWithinRectOf(
@@ -49,16 +55,14 @@ export class Ground {
       g.warzoneSizeTiles,
       true,
       (tileXy) => {
-        // TODO: migrate from Lua
-        const sprite =
-          g.ground.sprites.textured ??
-          u.throwError(`No "ground.sprites.textured" sprite defined.`);
-        // local s = sprites[tile_x .. "|" .. tile_y]
-        BeetPx.sprite(
-          g.assets.spritesheet,
-          sprite,
-          tileXy.add(g.warzoneBorderTiles).mul(g.tileSize)
-        );
+        const sprite = this.#sprites[`${tileXy.x}|${tileXy.y}`];
+        if (sprite) {
+          BeetPx.sprite(
+            g.assets.spritesheet,
+            sprite,
+            tileXy.add(g.warzoneBorderTiles).mul(g.tileSize)
+          );
+        }
       }
     );
   }

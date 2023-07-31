@@ -1,5 +1,5 @@
 import { BeetPx, BpxSprite, BpxVector2d, v_ } from "beetpx";
-import { g, u } from "../globals";
+import { g, p8c, u } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Path } from "./Path";
 
@@ -88,13 +88,12 @@ export class Road {
       }
     }
 
-    // TODO: migrate from Lua
-    //         if d.enabled then
-    //             local color_toggle = true
-    //             for point in all(path.points) do
-    //                 pset(point.x, point.y, color_toggle and a.colors.white or a.colors.blue_light)
-    //                 color_toggle = not color_toggle
-    //             end
-    //         end
+    if (BeetPx.debug) {
+      let colorToggle = true;
+      for (const point of this.path.points) {
+        BeetPx.pixel(point, colorToggle ? p8c.white : p8c.blueLight);
+        colorToggle = !colorToggle;
+      }
+    }
   }
 }
