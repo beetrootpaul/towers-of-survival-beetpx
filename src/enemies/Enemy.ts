@@ -1,4 +1,4 @@
-import { BeetPx, BpxSprite, BpxVector2d } from "beetpx";
+import { BeetPx, BpxSprite, BpxVector2d, v_ } from "beetpx";
 import { g, p8c, u } from "../globals";
 import { Path } from "../warzone/Path";
 import { EnemyType } from "./Enemies";
@@ -105,14 +105,11 @@ export class Enemy {
 
     if (BeetPx.debug && this.#health.value > 0) {
       const healthBarLength = Math.ceil(this.#health.value / 4);
-      // TODO: migrate from Lua
-      //             line(
-      //                 position.x,
-      //                 position.y - 2,
-      //                 position.x + health_bar_length - 1,
-      //                 position.y - 2,
-      //                 a.colors.red_dark
-      //             )
+      BeetPx.line(
+        position.add(v_(0, -2)),
+        position.add(v_(healthBarLength, -1)),
+        p8c.redDark
+      );
     }
 
     if (BeetPx.debug) {

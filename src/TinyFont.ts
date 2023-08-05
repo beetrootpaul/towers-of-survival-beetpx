@@ -63,7 +63,6 @@ export class TinyFont implements BpxFont {
     ["@"]: c_(45, 40, 5), // skull
   };
 
-  // TODO: tests, especially to check that we iterate over emojis like "➡️" correctly
   spritesFor(text: string): BpxCharSprite[] {
     const charSprites: BpxCharSprite[] = [];
     let positionInText: BpxVector2d = BpxVector2d.zero;
