@@ -84,8 +84,7 @@ export class ScreenGameplay implements Screen {
           this.#placement = new Placement({
             towerChoice: this.#gameState.towerChoice,
             warzone: this.#warzone,
-            // TODO: migrate from Lua
-            //                     other_towers = towers,
+            otherTowers: this.#towers,
             money: this.#gameState.money,
           });
           // TODO: migrate from Lua

@@ -4,6 +4,7 @@ import { TowerChoice, TowerDescriptor } from "../game_state/TowerChoice";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Tower } from "../towers/Tower";
+import { Towers } from "../towers/Towers";
 import { Warzone } from "../warzone/Warzone";
 import { ChosenTileBorder } from "./ChosenTileBorder";
 
@@ -12,18 +13,18 @@ export class Placement {
   readonly #warzone: Warzone;
   #chosenTile: Tile;
   #chosenTileBorder: ChosenTileBorder;
+  #otherTowers: Towers;
   #money: Money;
 
   constructor(params: {
     towerChoice: TowerChoice;
     warzone: Warzone;
+    otherTowers: Towers;
     money: Money;
   }) {
     this.#chosenTower = params.towerChoice.chosenTower;
     this.#warzone = params.warzone;
-    // TODO: migrate from Lua
-    // local warzone = u.r(params.warzone)
-    // local other_towers = u.r(params.other_towers)
+    this.#otherTowers = params.otherTowers;
     this.#money = params.money;
 
     this.#chosenTile = new Tile(v_(4, 5));
@@ -54,7 +55,7 @@ export class Placement {
   }
 
   #checkIfCanBuild(): { canBuild: boolean; collidingTowers: Tower[] } {
-    const result = {
+    const result: { canBuild: boolean; collidingTowers: Tower[] } = {
       canBuild: true,
       collidingTowers: [],
     };
@@ -69,6 +70,14 @@ export class Placement {
     //         result.can_build = false
     //         result.colliding_towers = colliding_towers
     //     end
+    const collidingTowers = this.#otherTowers.findCollidingTowers(
+      this.#chosenTower.type,
+      this.#chosenTile
+    );
+    if (collidingTowers.length > 0) {
+      result.canBuild = false;
+      result.collidingTowers = collidingTowers;
+    }
 
     if (!this.#warzone.canHaveTowerAt(this.#chosenTile)) {
       result.canBuild = false;

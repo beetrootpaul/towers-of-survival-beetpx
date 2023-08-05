@@ -83,11 +83,12 @@ export class Tower {
   //     x = (a.wbt + tile.x) * u.ts,
   //     y = (a.wbt + tile.y) * u.ts,
   // }
-  //
-  // function s.is_at(tile_to_check)
-  //     return tile_to_check.is_same_as(tile)
-  // end
-  //
+
+  isAt(tileToCheck: Tile): boolean {
+    return tileToCheck.isSameAs(this.#tile);
+  }
+
+  // TODO: migrate from Lua
   // function s.range()
   //     return range
   // end

@@ -3,7 +3,7 @@ import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
 import { Tile } from "../misc/Tile";
 import { Warzone } from "../warzone/Warzone";
-import { Tower } from "./Tower";
+import { Tower, TowerType } from "./Tower";
 
 export class Towers {
   readonly #enemies: Enemies;
@@ -19,23 +19,23 @@ export class Towers {
     this.#towers = [];
   }
 
-  // TODO: migrate from Lua
-  // function s.find_colliding_towers(chosen_tower_type, chosen_tile)
-  //     local colliding = {}
-  //     for tower in all(towers) do
-  //         if tower.is_at(chosen_tile) then
-  //             add(colliding, tower)
-  //         end
-  //         if chosen_tower_type == "v_beam" or tower.type == "v_beam" then
-  //             for tile_y = 0, a.warzone_size_tiles - 1 do
-  //                 if tower.is_at(new_tile(chosen_tile.x, tile_y)) and not tower.is_at(chosen_tile) then
-  //                     add(colliding, tower)
-  //                 end
-  //             end
-  //         end
-  //     end
-  //     return colliding
-  // end
+  findCollidingTowers(chosenTowerType: TowerType, chosenTile: Tile): Tower[] {
+    const colliding: Tower[] = [];
+    for (const tower of this.#towers) {
+      if (tower.isAt(chosenTile)) {
+        colliding.push(tower);
+      }
+      // TODO: migrate from Lua
+      //         if chosen_tower_type == "v_beam" or tower.type == "v_beam" then
+      //             for tile_y = 0, a.warzone_size_tiles - 1 do
+      //                 if tower.is_at(new_tile(chosen_tile.x, tile_y)) and not tower.is_at(chosen_tile) then
+      //                     add(colliding, tower)
+      //                 end
+      //             end
+      //         end
+    }
+    return colliding;
+  }
 
   buildTower(params: { tile: Tile; towerDescriptor: TowerDescriptor }): void {
     this.#towers.push(
