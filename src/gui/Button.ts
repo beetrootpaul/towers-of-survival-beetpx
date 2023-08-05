@@ -1,4 +1,5 @@
 // TODO: move this logic to the framework maybe?
+// TODO: implement a PICO-8 like button press detection which starts to repeat after certain treshold
 export class Button {
   readonly #onPress: (() => void) | undefined;
   readonly #onRelease: (() => void) | undefined;
@@ -33,10 +34,6 @@ export class Button {
     }
     this.#isPressed = pressed;
   }
-
-  // function s.is_pressed()
-  //     return is_pressed
-  // end
 
   update(): void {
     if (this.#wasJustToggled) {

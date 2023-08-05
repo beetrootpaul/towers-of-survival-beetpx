@@ -1,7 +1,8 @@
-import { BeetPx, BpxGameInputEvent, BpxVector2d, v_ } from "beetpx";
+import { BeetPx, BpxVector2d, v_ } from "beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { GameState } from "../game_state/GameState";
+import { u } from "../globals";
 import { Button } from "../gui/Button";
 import { Gui } from "../gui/Gui";
 import { Placement } from "../placement/Placement";
@@ -20,12 +21,20 @@ export class ScreenGameplay implements Screen {
   readonly #fight: Fight;
   readonly #towers: Towers;
   readonly #waves: Waves;
+
   #placement: Placement | null;
+
   readonly #buttonO: Button;
   readonly #buttonX: Button;
+
+  readonly #buttonLeft: Button;
+  readonly #buttonRight: Button;
+  readonly #buttonUp: Button;
+  readonly #buttonDown: Button;
+
   readonly #gui: Gui;
 
-  readonly #arrowButtonsToDirections: Record<string, BpxVector2d> = {
+  static readonly #arrowButtonsToDirections: Record<string, BpxVector2d> = {
     left: v_(-1, 0),
     right: v_(1, 0),
     up: v_(0, -1),
@@ -53,7 +62,9 @@ export class ScreenGameplay implements Screen {
     this.#waves = new Waves({
       enemies: this.#enemies,
     });
+
     this.#placement = null;
+
     this.#buttonO = new Button({
       // TODO: migrate from Lua
       //         on_release = function(self)
@@ -109,6 +120,28 @@ export class ScreenGameplay implements Screen {
         }
       },
     });
+
+    this.#buttonLeft = new Button({
+      onPress: () => {
+        this.#applyArrowButtonInput("left");
+      },
+    });
+    this.#buttonRight = new Button({
+      onPress: () => {
+        this.#applyArrowButtonInput("right");
+      },
+    });
+    this.#buttonUp = new Button({
+      onPress: () => {
+        this.#applyArrowButtonInput("up");
+      },
+    });
+    this.#buttonDown = new Button({
+      onPress: () => {
+        this.#applyArrowButtonInput("down");
+      },
+    });
+
     this.#gui = new Gui({
       gameState: this.#gameState,
       waves: this.#waves,
@@ -136,41 +169,14 @@ export class ScreenGameplay implements Screen {
 
     // TODO: make it: BeetPx.detectedContinuousInputEvent("button_x")
     // TODO: separate events available to pass as param for the continuous ones and for the fire once ones
-    if (BeetPx.continuousInputEvents.has("button_x")) {
-      this.#buttonX.setPressed(true);
-    } else if (BeetPx.continuousInputEvents.has("button_o")) {
-      this.#buttonO.setPressed(true);
-    } else {
-      this.#buttonX.setPressed(false);
-      this.#buttonO.setPressed(false);
-      Object.entries(this.#arrowButtonsToDirections).forEach(
-        ([arrowButton, direction]) => {
-          if (
-            // TODO: REWORK inputs, because right now there is no easy way to move selection one by one
-            BeetPx.continuousInputEvents.has(arrowButton as BpxGameInputEvent)
-          ) {
-            if (this.#placement) {
-              this.#placement.moveChosenTile(direction);
-              // TODO: migrate from Lua
-              //                         button_x.set_enabled(placement.can_build())
-            } else if (this.#gameState.buildingState === "tower-choice") {
-              if (direction.x > 0) {
-                // TODO: migrate from Lua
-                //                             audio.sfx(a.sfx.button_press)
-                this.#gameState.towerChoice.chooseNextTower();
-              } else if (direction.x < 0) {
-                // TODO: migrate from Lua
-                //                             audio.sfx(a.sfx.button_press)
-                this.#gameState.towerChoice.choosePrevTower();
-              }
-            } else {
-              // TODO: migrate from Lua
-              //                         button_x.set_enabled(true)
-            }
-          }
-        }
-      );
-    }
+    this.#buttonX.setPressed(BeetPx.continuousInputEvents.has("button_x"));
+    this.#buttonO.setPressed(BeetPx.continuousInputEvents.has("button_o"));
+
+    // TODO: rename these events to `direction_*`
+    this.#buttonLeft.setPressed(BeetPx.continuousInputEvents.has("left"));
+    this.#buttonUp.setPressed(BeetPx.continuousInputEvents.has("up"));
+    this.#buttonRight.setPressed(BeetPx.continuousInputEvents.has("right"));
+    this.#buttonDown.setPressed(BeetPx.continuousInputEvents.has("down"));
 
     // TODO: migrate from Lua
     //         if placement then
@@ -179,6 +185,12 @@ export class ScreenGameplay implements Screen {
 
     this.#buttonX.update();
     this.#buttonO.update();
+
+    this.#buttonLeft.update();
+    this.#buttonRight.update();
+    this.#buttonUp.update();
+    this.#buttonDown.update();
+
     this.#gameState.update();
     this.#fight.update();
     this.#waves.update();
@@ -186,6 +198,32 @@ export class ScreenGameplay implements Screen {
     this.#towers.update();
 
     return nextScreen;
+  }
+
+  #applyArrowButtonInput(arrowButton: "left" | "right" | "up" | "down"): void {
+    const direction: BpxVector2d =
+      ScreenGameplay.#arrowButtonsToDirections[arrowButton] ??
+      u.throwError(
+        `There is no direction defined for arrow button "${arrowButton}"`
+      );
+    if (this.#placement) {
+      this.#placement.moveChosenTile(direction);
+      // TODO: migrate from Lua
+      // button_x.set_enabled(placement.can_build())
+    } else if (this.#gameState.buildingState === "tower-choice") {
+      if (direction.x > 0) {
+        // TODO: migrate from Lua
+        // audio.sfx(a.sfx.button_press)
+        this.#gameState.towerChoice.chooseNextTower();
+      } else if (direction.x < 0) {
+        // TODO: migrate from Lua
+        // audio.sfx(a.sfx.button_press)
+        this.#gameState.towerChoice.choosePrevTower();
+      }
+    } else {
+      // TODO: migrate from Lua
+      // button_x.set_enabled(true)
+    }
   }
 
   draw(): void {
