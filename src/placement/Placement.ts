@@ -1,9 +1,13 @@
-import { BeetPx, BpxVector2d, v_ } from "beetpx";
+import { BeetPx, BpxFillPattern, BpxVector2d, v_ } from "beetpx";
 import { Money } from "../game_state/Money";
 import { TowerChoice, TowerDescriptor } from "../game_state/TowerChoice";
-import { g } from "../globals";
+import { g, p8c } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Tower } from "../towers/Tower";
+import { TowerRange } from "../towers/TowerRange";
+import { TowerRangeBooster } from "../towers/TowerRangeBooster";
+import { TowerRangeLaser } from "../towers/TowerRangeLaser";
+import { TowerRangeVBeam } from "../towers/TowerRangeVBeam";
 import { Towers } from "../towers/Towers";
 import { Warzone } from "../warzone/Warzone";
 import { ChosenTileBorder } from "./ChosenTileBorder";
@@ -11,10 +15,14 @@ import { ChosenTileBorder } from "./ChosenTileBorder";
 export class Placement {
   readonly #chosenTower: TowerDescriptor;
   readonly #warzone: Warzone;
+  readonly #otherTowers: Towers;
+  readonly #money: Money;
+
   #chosenTile: Tile;
+
   #chosenTileBorder: ChosenTileBorder;
-  #otherTowers: Towers;
-  #money: Money;
+
+  #towerRange: TowerRange;
 
   constructor(params: {
     towerChoice: TowerChoice;
@@ -31,27 +39,21 @@ export class Placement {
 
     this.#chosenTileBorder = new ChosenTileBorder(this.#chosenTile);
 
-    // TODO: migrate from Lua
-    // local function new_tower_range()
-    //     if chosen_tower.type == "laser" then
-    //         return new_tower_range_laser {
-    //             tile = chosen_tile,
-    //         }
-    //     elseif chosen_tower.type == "v_beam" then
-    //         return new_tower_range_v_beam {
-    //             tile = chosen_tile,
-    //         }
-    //     elseif chosen_tower.type == "booster" then
-    //         return new_tower_range_booster {
-    //             tile = chosen_tile,
-    //             warzone = warzone,
-    //         }
-    //     else
-    //         assert(false, "unexpected tower type: " .. chosen_tower.type)
-    //     end
-    // end
-    //
-    // local tower_range = new_tower_range()
+    this.#towerRange = this.#newTowerRange();
+  }
+
+  #newTowerRange(): TowerRange {
+    switch (this.#chosenTower.type) {
+      case "laser":
+        return new TowerRangeLaser({ tile: this.#chosenTile });
+      case "v_beam":
+        return new TowerRangeVBeam({ tile: this.#chosenTile });
+      case "booster":
+        return new TowerRangeBooster({
+          tile: this.#chosenTile,
+          warzone: this.#warzone,
+        });
+    }
   }
 
   #checkIfCanBuild(): { canBuild: boolean; collidingTowers: Tower[] } {
@@ -100,8 +102,7 @@ export class Placement {
       this.#chosenTile.xy.clamp(BpxVector2d.zero, g.warzoneSizeTiles.sub(1))
     );
 
-    // TODO: migrate from Lua
-    //     tower_range = new_tower_range()
+    this.#towerRange = this.#newTowerRange();
 
     this.#chosenTileBorder = new ChosenTileBorder(this.#chosenTile);
   }
@@ -113,17 +114,19 @@ export class Placement {
       this.#chosenTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
     );
 
-    // TODO: migrate from Lua
-    //     tower_range.draw(a.colors.white, a.colors.grey_dark)
+    this.#towerRange.draw(p8c.white, p8c.greyDark);
 
     const canBuildCheckResult = this.#checkIfCanBuild();
 
-    // TODO: migrate from Lua
-    //     for tower in all(can_build_check_result.colliding_towers) do
-    //         fillp(0xa5a5 + .5)
-    //         rectfill(tower.x, tower.y, tower.x + u.ts - 1, tower.y + u.ts - 1, a.colors.red_light)
-    //         fillp()
-    //     end
+    for (const collidingTower of canBuildCheckResult.collidingTowers) {
+      BeetPx.setFillPattern(BpxFillPattern.of(0b1010_0101_1010_0101));
+      BeetPx.rectFilled(
+        collidingTower.xy,
+        collidingTower.xy.add(g.tileSize),
+        p8c.redLight
+      );
+      BeetPx.setFillPattern(BpxFillPattern.primaryOnly);
+    }
 
     this.#chosenTileBorder.draw(canBuildCheckResult.canBuild);
   }

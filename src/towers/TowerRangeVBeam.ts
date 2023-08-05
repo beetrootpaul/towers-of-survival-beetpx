@@ -1,4 +1,4 @@
-import { BeetPx, v_ } from "beetpx";
+import { BeetPx, BpxFillPattern, v_ } from "beetpx";
 import { SolidColor } from "beetpx/ts_output/Color";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
@@ -22,14 +22,14 @@ export class TowerRangeVBeam implements TowerRange {
   draw(color1: SolidColor, color2: SolidColor) {
     // TODO: migrate from Lua
     //     clip(0, a.wb, u.vs, u.vs - a.wb)
-    //     fillp(0xa5a5 + .5)
+    BeetPx.setFillPattern(BpxFillPattern.of(0b1010_0101_1010_0101));
     BeetPx.rectFilled(
       v_(this.#x1, g.warzoneBorder),
       v_(this.#x2 + 1, g.canvasSize.y - g.warzoneBorder),
       color1
     );
+    BeetPx.setFillPattern(BpxFillPattern.primaryOnly);
     // TODO: migrate from Lua
-    //     fillp()
     //     clip()
   }
 }

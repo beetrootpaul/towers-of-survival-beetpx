@@ -1,4 +1,4 @@
-import { BeetPx } from "beetpx";
+import { BeetPx, BpxVector2d } from "beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
@@ -82,11 +82,9 @@ export class Tower {
     return this.#descriptor.type;
   }
 
-  // TODO: migrate from Lua
-  // local s = {
-  //     x = (a.wbt + tile.x) * u.ts,
-  //     y = (a.wbt + tile.y) * u.ts,
-  // }
+  get xy(): BpxVector2d {
+    return this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize);
+  }
 
   isAt(tileToCheck: Tile): boolean {
     return tileToCheck.isSameAs(this.#tile);
