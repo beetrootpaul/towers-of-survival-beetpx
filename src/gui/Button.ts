@@ -1,14 +1,16 @@
-// TODO: move this logic to the framework
+// TODO: move this logic to the framework maybe?
 export class Button {
-  readonly #onRelease: () => void;
+  readonly #onPress: (() => void) | undefined;
+  readonly #onRelease: (() => void) | undefined;
 
   #isPressed = false;
-  #wasJustReleased = false;
+  #wasJustToggled = false;
 
   // TODO: migrate from Lua
   // local is_enabled = true
 
-  constructor(params: { onRelease: () => void }) {
+  constructor(params: { onPress?: () => void; onRelease?: () => void }) {
+    this.#onPress = params.onPress;
     this.#onRelease = params.onRelease;
   }
 
@@ -25,11 +27,11 @@ export class Button {
   //     return is_enabled
   // end
 
-  setPressed(value: boolean): void {
-    if (this.#isPressed && !value) {
-      this.#wasJustReleased = true;
+  setPressed(pressed: boolean): void {
+    if (this.#isPressed !== pressed) {
+      this.#wasJustToggled = true;
     }
-    this.#isPressed = value;
+    this.#isPressed = pressed;
   }
 
   // function s.is_pressed()
@@ -37,9 +39,13 @@ export class Button {
   // end
 
   update(): void {
-    if (this.#wasJustReleased) {
-      this.#onRelease();
+    if (this.#wasJustToggled) {
+      if (this.#isPressed) {
+        this.#onPress?.();
+      } else {
+        this.#onRelease?.();
+      }
+      this.#wasJustToggled = false;
     }
-    this.#wasJustReleased = false;
   }
 }

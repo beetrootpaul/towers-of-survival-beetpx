@@ -106,8 +106,8 @@ export const g = {
 
   enemies: {
     // TODO: REVERT
-    speed: 10,
-    // speed: 60,
+    // speed: 10,
+    speed: 30,
     small: {
       hitboxR: 1,
       health: 20,
