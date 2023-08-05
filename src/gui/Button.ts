@@ -1,16 +1,17 @@
 // TODO: move this logic to the framework maybe?
 // TODO: implement a PICO-8 like button press detection which starts to repeat after certain treshold
 export class Button {
-  readonly #onPress: (() => void) | undefined;
-  readonly #onRelease: (() => void) | undefined;
+  readonly #onPress: ((self: Button) => void) | undefined;
+  readonly #onRelease: ((self: Button) => void) | undefined;
 
+  #isEnabled = true;
   #isPressed = false;
   #wasJustToggled = false;
 
-  // TODO: migrate from Lua
-  // local is_enabled = true
-
-  constructor(params: { onPress?: () => void; onRelease?: () => void }) {
+  constructor(params: {
+    onPress?: (self: Button) => void;
+    onRelease?: (self: Button) => void;
+  }) {
     this.#onPress = params.onPress;
     this.#onRelease = params.onRelease;
   }
@@ -19,14 +20,13 @@ export class Button {
     return this.#isPressed;
   }
 
-  // TODO: migrate from Lua
-  // function s.set_enabled(value)
-  //     is_enabled = value
-  // end
-  //
-  // function s.is_enabled()
-  //     return is_enabled
-  // end
+  setEnabled(enabled: boolean): void {
+    this.#isEnabled = enabled;
+  }
+
+  get isEnabled(): boolean {
+    return this.#isEnabled;
+  }
 
   setPressed(pressed: boolean): void {
     if (this.#isPressed !== pressed) {
@@ -38,9 +38,9 @@ export class Button {
   update(): void {
     if (this.#wasJustToggled) {
       if (this.#isPressed) {
-        this.#onPress?.();
+        this.#onPress?.(this);
       } else {
-        this.#onRelease?.();
+        this.#onRelease?.(this);
       }
       this.#wasJustToggled = false;
     }

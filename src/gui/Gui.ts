@@ -39,12 +39,6 @@ export class Gui {
   }
 
   draw(): void {
-    const isOPressed = this.#buttonO.isPressed;
-    const isXPressed = this.#buttonX.isPressed;
-    // TODO: migrate from Lua
-    //     local is_x_enabled = button_x.is_enabled()
-    //     local has_enough_money = game_state.money.available >= game_state.tower_choice.chosen_tower().cost
-
     if (this.#gameState.buildingState === "idle") {
       this.#waveStatus.draw();
 
@@ -52,7 +46,7 @@ export class Gui {
       BeetPx.print(
         menuText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        isOPressed ? p8c.greyLight : p8c.brownPurple
+        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple
       );
       // TODO: migrate from Lua
       //         local menu_button = new_button_glyph(
@@ -76,7 +70,7 @@ export class Gui {
           g.canvasSize.x - g.warzoneBorder - u.measureTextSize(buildText).x,
           g.canvasSize.y - g.warzoneBorder + 2
         ),
-        isXPressed ? p8c.greyLight : p8c.brownPurple
+        this.#buttonX.isPressed ? p8c.greyLight : p8c.brownPurple
       );
       // TODO: migrate from Lua
       //         local build_button = new_button_glyph(
@@ -113,7 +107,7 @@ export class Gui {
       BeetPx.print(
         backText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        isOPressed ? p8c.greyLight : p8c.brownPurple
+        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple
       );
       // TODO: migrate from Lua
       //         local back_button = new_button_glyph(
@@ -149,28 +143,28 @@ export class Gui {
     } else if (this.#gameState.buildingState === "tower-placement") {
       this.#towerInfo.draw();
 
+      const moneyText = this.#gameState.money.available.toFixed(0);
+      const moneyTextSize = u.measureTextSize(moneyText);
+      BeetPx.print(
+        moneyText,
+        v_(g.canvasSize.x - g.warzoneBorder - moneyTextSize.x, 2),
+        p8c.greyLight
+      );
+      const dollarText = "$";
+      BeetPx.print(
+        dollarText,
+        v_(g.canvasSize.x - g.warzoneBorder + 2, 2),
+        p8c.greyViolet
+      );
+
+      const backText = "<";
+      BeetPx.print(
+        backText,
+        v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
+        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple
+      );
+
       // TODO: migrate from Lua
-      //         local money_text = new_text(tostr(game_state.money.available))
-      //         money_text.draw(
-      //             u.vs - a.wb - money_text.w,
-      //             2,
-      //             a.colors.grey_light
-      //         )
-      //         local dollar_text = new_text("$")
-      //         dollar_text.draw(
-      //             u.vs - a.wb + 2,
-      //             2,
-      //             a.colors.grey_violet
-      //         )
-      //
-      //         local back_text = new_text("<")
-      //         back_text.draw(
-      //             a.wb,
-      //             u.vs - a.wb + 2,
-      //             is_o_pressed
-      //                 and a.colors.grey_light
-      //                 or a.colors.brown_purple
-      //         )
       //         local back_button = new_button_glyph(
       //             is_o_pressed
       //                 and a.button_sprites.o.pressed
@@ -184,15 +178,21 @@ export class Gui {
       //                 or a.colors.brown_purple,
       //             a.colors.brown_mid
       //         )
-      //
-      //         local place_text = new_text("place")
-      //         place_text.draw(
-      //             u.vs - a.wb - place_text.w,
-      //             u.vs - a.wb + 2,
-      //             is_x_enabled
-      //                 and (is_x_pressed and a.colors.grey_light or a.colors.grey_violet)
-      //                 or a.colors.brown_mid
-      //         )
+
+      const placeText = "place";
+      BeetPx.print(
+        placeText,
+        v_(
+          g.canvasSize.x - g.warzoneBorder - u.measureTextSize(placeText).x,
+          g.canvasSize.y - g.warzoneBorder + 2
+        ),
+        this.#buttonX.isEnabled
+          ? this.#buttonX.isPressed
+            ? p8c.greyLight
+            : p8c.greyViolet
+          : p8c.brownMid
+      );
+      // TODO: migrate from Lua
       //         local place_button = new_button_glyph(
       //             is_x_pressed
       //                 and a.button_sprites.x.pressed
@@ -206,24 +206,44 @@ export class Gui {
       //                 or a.colors.brown_mid,
       //             a.colors.brown_mid
       //         )
-      //
-      //         dollar_text.draw(
-      //             u.vs - a.wb - place_text.w - 3 - dollar_text.w,
-      //             u.vs - a.wb + 2,
-      //             is_x_enabled
-      //                 and a.colors.grey_violet
-      //                 or a.colors.brown_mid
-      //         )
-      //
-      //         local cost_text = new_text("-" .. game_state.tower_choice.chosen_tower().cost)
-      //         cost_text.draw(
-      //             u.vs - a.wb - place_text.w - 3 - dollar_text.w - 2 - cost_text.w,
-      //             u.vs - a.wb + 2,
-      //             has_enough_money
-      //                 and (is_x_enabled and a.colors.grey_light or a.colors.brown_mid)
-      //                 or a.colors.red_dark
-      //         )
-      //     end
+      BeetPx.print(
+        dollarText,
+        g.canvasSize
+          .sub(g.warzoneBorder)
+          .add(
+            v_(
+              -u.measureTextSize(placeText).x -
+                3 -
+                u.measureTextSize(dollarText).x,
+              2
+            )
+          ),
+        this.#buttonX.isEnabled ? p8c.greyViolet : p8c.brownMid
+      );
+      const costText = `-${this.#gameState.towerChoice.chosenTower.cost.toFixed(
+        0
+      )}`;
+      BeetPx.print(
+        costText,
+        g.canvasSize
+          .sub(g.warzoneBorder)
+          .add(
+            v_(
+              -u.measureTextSize(placeText).x -
+                3 -
+                u.measureTextSize(dollarText).x -
+                2 -
+                u.measureTextSize(costText).x,
+              2
+            )
+          ),
+        this.#gameState.money.available >=
+          this.#gameState.towerChoice.chosenTower.cost
+          ? this.#buttonX.isEnabled
+            ? p8c.greyLight
+            : p8c.brownMid
+          : p8c.redDark
+      );
     }
   }
 }

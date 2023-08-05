@@ -76,15 +76,14 @@ export class ScreenGameplay implements Screen {
           this.#gameState.buildingState = "idle";
         } else if (this.#gameState.buildingState === "tower-placement") {
           this.#gameState.buildingState = "tower-choice";
-          // TODO: migrate from Lua
-          //                 placement = nil
+          this.#placement = null;
         }
       },
     });
     this.#buttonX = new Button({
       // TODO: migrate from Lua
       //         on_release = function(self)
-      onRelease: () => {
+      onRelease: (self) => {
         // TODO: migrate from Lua
         //             audio.sfx(a.sfx.button_press)
 
@@ -98,8 +97,7 @@ export class ScreenGameplay implements Screen {
             otherTowers: this.#towers,
             money: this.#gameState.money,
           });
-          // TODO: migrate from Lua
-          //                 self.set_enabled(placement.can_build())
+          self.setEnabled(this.#placement.canBuild());
         } else if (this.#gameState.buildingState === "tower-placement") {
           if (this.#placement?.canBuild()) {
             // TODO: migrate from Lua
@@ -178,10 +176,9 @@ export class ScreenGameplay implements Screen {
     this.#buttonRight.setPressed(BeetPx.continuousInputEvents.has("right"));
     this.#buttonDown.setPressed(BeetPx.continuousInputEvents.has("down"));
 
-    // TODO: migrate from Lua
-    //         if placement then
-    //             button_x.set_enabled(placement.can_build())
-    //         end
+    if (this.#placement) {
+      this.#buttonX.setEnabled(this.#placement.canBuild());
+    }
 
     this.#buttonX.update();
     this.#buttonO.update();
@@ -208,8 +205,7 @@ export class ScreenGameplay implements Screen {
       );
     if (this.#placement) {
       this.#placement.moveChosenTile(direction);
-      // TODO: migrate from Lua
-      // button_x.set_enabled(placement.can_build())
+      this.#buttonX.setEnabled(this.#placement.canBuild());
     } else if (this.#gameState.buildingState === "tower-choice") {
       if (direction.x > 0) {
         // TODO: migrate from Lua
@@ -221,8 +217,7 @@ export class ScreenGameplay implements Screen {
         this.#gameState.towerChoice.choosePrevTower();
       }
     } else {
-      // TODO: migrate from Lua
-      // button_x.set_enabled(true)
+      this.#buttonX.setEnabled(true);
     }
   }
 

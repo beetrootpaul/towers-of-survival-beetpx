@@ -27,8 +27,8 @@ export const g = {
 
   money: {
     // TODO: REVERT
-    initial: 400,
     // initial: 40,
+    initial: 200,
     increaseSeconds: 0.5,
   },
 
@@ -107,7 +107,7 @@ export const g = {
   enemies: {
     // TODO: REVERT
     // speed: 10,
-    speed: 30,
+    speed: 10,
     small: {
       hitboxR: 1,
       health: 20,
