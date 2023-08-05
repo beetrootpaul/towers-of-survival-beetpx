@@ -3,7 +3,6 @@ import {
   BpxSprite,
   BpxVector2d,
   spr_,
-  v_,
   type BpxFont,
 } from "beetpx";
 
@@ -74,7 +73,7 @@ export class TinyFont implements BpxFont {
         charSprites.push({ positionInText, sprite, char });
       }
       const jumpX = (sprite ?? c_(-1, -1)).size().x + 1;
-      positionInText = positionInText.add(v_(jumpX, 0));
+      positionInText = positionInText.add(jumpX, 0);
     }
 
     return charSprites;

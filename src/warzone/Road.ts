@@ -37,9 +37,9 @@ export class Road {
         parseInt(st.split("|")[1]!, 10)
       );
       if (index === 0) {
-        tileXy = tileXy.sub(v_(1, 0));
+        tileXy = tileXy.sub(1, 0);
       } else if (index == Road.#serializedTiles.length - 1) {
-        tileXy = tileXy.add(v_(2, 0));
+        tileXy = tileXy.add(2, 0);
       }
       waypoints.push(tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
     });

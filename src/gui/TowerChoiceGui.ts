@@ -1,4 +1,4 @@
-import { BeetPx, v_ } from "beetpx";
+import { BeetPx } from "beetpx";
 import { TowerChoice } from "../game_state/TowerChoice";
 import { g } from "../globals";
 import { ChosenTowerBorder } from "./ChosenTowerBorder";
@@ -17,7 +17,7 @@ export class TowerChoiceGui {
     towers.forEach((tower, index) => {
       const xy = g.canvasSize
         .sub(g.warzoneBorder)
-        .add(v_(-(towers.length - index) * (g.tileSize.x + 2) + 1, 2));
+        .add(-(towers.length - index) * (g.tileSize.x + 2) + 1, 2);
       BeetPx.sprite(g.assets.spritesheet, tower.sprite, xy);
       if (tower.type === this.#towerChoice.chosenTower.type) {
         this.#chosenTowerBorder.draw(xy);

@@ -66,8 +66,6 @@ export class ScreenGameplay implements Screen {
     this.#placement = null;
 
     this.#buttonO = new Button({
-      // TODO: migrate from Lua
-      //         on_release = function(self)
       onRelease: () => {
         if (this.#gameState.buildingState === "idle") {
           // TODO: migrate from Lua
@@ -81,8 +79,6 @@ export class ScreenGameplay implements Screen {
       },
     });
     this.#buttonX = new Button({
-      // TODO: migrate from Lua
-      //         on_release = function(self)
       onRelease: (self) => {
         // TODO: migrate from Lua
         //             audio.sfx(a.sfx.button_press)
@@ -101,7 +97,7 @@ export class ScreenGameplay implements Screen {
         } else if (this.#gameState.buildingState === "tower-placement") {
           if (this.#placement?.canBuild()) {
             // TODO: migrate from Lua
-            //                     audio.sfx(a.sfx.tower_placed)
+            //           audio.sfx(a.sfx.tower_placed)
             this.#gameState.money.subtract(
               this.#gameState.towerChoice.chosenTower.cost
             );
@@ -113,7 +109,7 @@ export class ScreenGameplay implements Screen {
             this.#placement = null;
           } else {
             // TODO: migrate from Lua
-            //                     audio.sfx(a.sfx.cannot_place)
+            //           audio.sfx(a.sfx.cannot_place)
           }
         }
       },

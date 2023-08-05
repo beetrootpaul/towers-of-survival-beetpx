@@ -1,4 +1,4 @@
-import { BeetPx, v_ } from "beetpx";
+import { BeetPx } from "beetpx";
 import { g, p8c, u } from "../globals";
 import { Timer } from "../misc/Timer";
 import { Screen } from "./Screen";
@@ -44,28 +44,28 @@ export class ScreenOver implements Screen {
       textDefeat,
       g.canvasSize
         .div(2)
-        .add(v_(-textDefeatSize.x / 2, -2.5 * (textDefeatSize.y + 1))),
+        .add(-textDefeatSize.x / 2, -2.5 * (textDefeatSize.y + 1)),
       ({ char }) => (char === "@" ? p8c.redDark : p8c.redLight)
     );
     BeetPx.print(
       textWaves1,
       g.canvasSize
         .div(2)
-        .add(v_(-textWaves1Size.x / 2, -0.5 * (textWaves1Size.y + 1))),
+        .add(-textWaves1Size.x / 2, -0.5 * (textWaves1Size.y + 1)),
       p8c.brownPurple
     );
     BeetPx.print(
       textWaves2,
       g.canvasSize
         .div(2)
-        .add(v_(-textWaves2Size.x / 2, 0.5 * (textWaves2Size.y + 1))),
+        .add(-textWaves2Size.x / 2, 0.5 * (textWaves2Size.y + 1)),
       p8c.redDark
     );
     BeetPx.print(
       textWaves3,
       g.canvasSize
         .div(2)
-        .add(v_(-textWaves3Size.x / 2, 1.5 * (textWaves3Size.y + 1))),
+        .add(-textWaves3Size.x / 2, 1.5 * (textWaves3Size.y + 1)),
       p8c.brownPurple
     );
 
