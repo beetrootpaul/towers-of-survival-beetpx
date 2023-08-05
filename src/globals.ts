@@ -79,8 +79,8 @@ export const g = {
       label: "laser",
       cost: 20,
       sprite: spr_(48, 0, tileSize, tileSize),
+      dps: 20,
       // TODO: migrate from Lua
-      //             dps = 20,
       //             charging_time = .9,
       //             shooting_time = .1,
       //             charging_time_boost = -.1,
@@ -95,8 +95,8 @@ export const g = {
       label: "v-beam",
       cost: 70,
       sprite: spr_(48, 16, tileSize, tileSize),
+      dps: 40,
       // TODO: migrate from Lua
-      //             dps = 40,
       //             charging_time = 2,
       //             shooting_time = .5,
       //             charging_time_boost = -.2,
@@ -107,7 +107,7 @@ export const g = {
   enemies: {
     // TODO: REVERT
     // speed: 10,
-    speed: 10,
+    speed: 5,
     small: {
       hitboxR: 1,
       health: 20,
@@ -160,7 +160,7 @@ export const g = {
 
   waves: [
     // TODO: REMOVE
-    { wait: 1, spawns: "s,m,b" },
+    { wait: 1, spawns: "s,s,m,m,b,b" },
     { wait: 2, spawns: "m,m" },
     { wait: 3, spawns: "b,b" },
     // TODO: REVERT

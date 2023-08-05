@@ -50,7 +50,6 @@ export class Ground {
 
   draw(): void {
     BpxVector2d.forEachIntXyWithinRectOf(
-      // TODO: consider some shorter imported name, e.g. vZero_
       BpxVector2d.zero,
       g.warzoneSizeTiles,
       true,

@@ -12,8 +12,11 @@ export class Enemy {
 
   readonly #pathProgression: PathProgression;
 
-  #health: Health;
+  readonly #health: Health;
+
   #range: EnemyRange;
+
+  #isTakingDamage: boolean;
 
   constructor(params: {
     type: EnemyType;
@@ -38,8 +41,7 @@ export class Enemy {
 
     this.#range = new EnemyRange(this.#center(), g.enemies[this.#type].hitboxR);
 
-    // TODO: migrate from Lua
-    //     local is_taking_damage = false
+    this.#isTakingDamage = false;
   }
 
   #center(): BpxVector2d {
@@ -52,6 +54,10 @@ export class Enemy {
     return this.#pathProgression.currentXy();
   }
 
+  centerXy(): BpxVector2d {
+    return this.#center();
+  }
+
   hasFinished(): boolean {
     return this.#health.value <= 0 || this.#pathProgression.hasReachedEnd();
   }
@@ -60,16 +66,13 @@ export class Enemy {
   //     function s.range()
   //         return range
   //     end
-  //
-  //     function s.center_xy()
-  //         return center_xy()
-  //     end
-  //
-  //     function s.take_damage(damage)
-  //         is_taking_damage = true
-  //         health.subtract(u.r(damage))
-  //     end
-  //
+
+  takeDamage(damage: number): void {
+    this.#isTakingDamage = true;
+    this.#health.subtract(damage);
+  }
+
+  // TODO: migrate from Lua
   //     function s.pre_update()
   //         is_taking_damage = false
   //     end

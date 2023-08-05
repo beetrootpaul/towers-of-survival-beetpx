@@ -2,7 +2,7 @@ import { BeetPx, BpxVector2d } from "beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
-import { g, p8c } from "../globals";
+import { g, p8c, u } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Warzone } from "../warzone/Warzone";
 import { TowerRange } from "./TowerRange";
@@ -105,33 +105,44 @@ export class Tower {
     //     end
     //
     //     if not charging_timer then
-    //         local is_attacking = false
-    //
-    //         if s.type == "laser" then
-    //             enemies.for_each_from_furthest(function(enemy)
-    //                 if not is_attacking and range.touches_enemy(enemy) then
-    //                     is_attacking = true
-    //                     enemy.take_damage(tower_descriptor.dps / u.fps)
-    //                     fight.show_laser {
-    //                         source_xy = range.laser_source_xy(),
-    //                         target_xy = enemy.center_xy(),
-    //                     }
-    //                 end
-    //             end)
-    //         elseif s.type == "v_beam" then
-    //             enemies.for_each_from_furthest(function(enemy)
-    //                 if range.touches_enemy(enemy) then
-    //                     is_attacking = true
-    //                     enemy.take_damage(tower_descriptor.dps / u.fps)
-    //                 end
-    //             end)
-    //             if is_attacking then
-    //                 fight.show_beam {
-    //                     tile_x = tile.x,
-    //                 }
-    //             end
-    //         end
-    //
+    let isAttacking = false;
+
+    // TODO: migrate from Lua
+    const dps = this.#descriptor.dps;
+    if (this.type === "laser" && dps) {
+      const range: TowerRangeLaser =
+        this.#range instanceof TowerRangeLaser
+          ? this.#range
+          : u.throwError(
+              "Laser tower got assigned a range of a non-laser type"
+            );
+      this.#enemies.forEachFromFurthest((enemy) => {
+        // TODO: migrate from Lua
+        if (!isAttacking) {
+          // if not is_attacking and range.touches_enemy(enemy) then
+          isAttacking = true;
+          enemy.takeDamage(dps / g.fps);
+          this.#fight.showLaser({
+            xy1: range.laserSourceXy(),
+            xy2: enemy.centerXy(),
+          });
+        }
+      });
+    } else if (this.type === "v_beam" && dps) {
+      this.#enemies.forEachFromFurthest((enemy) => {
+        // TODO: migrate from Lua
+        //                 if range.touches_enemy(enemy) then
+        isAttacking = true;
+        enemy.takeDamage(dps / g.fps);
+        // TODO: migrate from Lua
+        //                 end
+      });
+      if (isAttacking) {
+        this.#fight.showBeam({ tileX: this.#tile.xy.x });
+      }
+    }
+
+    // TODO: migrate from Lua
     //         if is_attacking and not shooting_timer then
     //             shooting_timer = new_shooting_timer()
     //             if s.type == "laser" then

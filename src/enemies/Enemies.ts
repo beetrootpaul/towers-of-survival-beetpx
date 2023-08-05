@@ -24,10 +24,11 @@ export class Enemies {
     );
   }
 
-  // TODO: migrate from Lua
-  //     function s.for_each_from_furthest(callback)
-  //         foreach(enemies, callback)
-  //     end
+  forEachFromFurthest(callback: (enemy: Enemy) => void): void {
+    for (const enemy of this.#enemies) {
+      callback(enemy);
+    }
+  }
 
   areNoneLeft(): boolean {
     return this.#enemies.length <= 0;

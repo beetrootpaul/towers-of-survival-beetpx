@@ -16,10 +16,10 @@ export class TowerRangeLaser implements TowerRange {
     this.#r = g.tileSize.mul(2.5).sub(0.5);
   }
 
-  // TODO: migrate from Lua
-  // function s.laser_source_xy()
-  //     return xy.plus(.5, -1.5)
-  // end
+  laserSourceXy(): BpxVector2d {
+    return this.#xy.add(0.5, -1.5);
+  }
+
   //
   // function s.touches_enemy(enemy)
   //     local enemy_circle = enemy.range().circle()

@@ -1,36 +1,37 @@
+import { BeetPx, BpxVector2d } from "beetpx";
+import { p8c } from "../globals";
+
 export class Fight {
-  // TODO: migrate from Lua
-  // local lasers = {}
-  // local beams = {}
-  //
-  // local s = {}
-  //
-  // function s.show_laser(p)
-  //     add(lasers, {
-  //         x1 = p.source_xy.x,
-  //         y1 = p.source_xy.y,
-  //         x2 = p.target_xy.x,
-  //         y2 = p.target_xy.y,
-  //     })
-  // end
-  //
-  // function s.show_beam(p)
-  //     add(beams, {
-  //         tile_x = u.r(p.tile_x),
-  //     })
-  // end
+  readonly #lasers: Array<{ xy1: BpxVector2d; xy2: BpxVector2d }> = [];
+  readonly #beams: Array<{ tileX: number }> = [];
+
+  showLaser(laser: { xy1: BpxVector2d; xy2: BpxVector2d }): void {
+    this.#lasers.push(laser);
+  }
+
+  showBeam(beam: { tileX: number }): void {
+    this.#beams.push(beam);
+  }
 
   update(): void {
-    // TODO: migrate from Lua
-    //     lasers = {}
-    //     beams = {}
+    this.#lasers.splice(0, this.#lasers.length);
+    this.#beams.splice(0, this.#beams.length);
   }
 
   draw(): void {
+    for (const laser of this.#lasers) {
+      // TODO: this is ridiculous! Let's change line's API to have right-bottom corner INCLUSIVE
+      const xy1 = laser.xy1.add(
+        laser.xy1.x < laser.xy2.x ? 0 : 1,
+        laser.xy1.y < laser.xy2.y ? 0 : 1
+      );
+      const xy2 = laser.xy2.add(
+        laser.xy1.x < laser.xy2.x ? 1 : 0,
+        laser.xy1.y < laser.xy2.y ? 1 : 0
+      );
+      BeetPx.line(xy1, xy2, p8c.white);
+    }
     // TODO: migrate from Lua
-    //     for laser in all(lasers) do
-    //         line(laser.x1, laser.y1, laser.x2, laser.y2, a.colors.white)
-    //     end
     //     for beam in all(beams) do
     //         local x1 = (a.wbt + beam.tile_x) * u.ts + 1
     //         local x2 = x1 + 1

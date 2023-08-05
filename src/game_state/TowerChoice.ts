@@ -7,6 +7,7 @@ export type TowerDescriptor = {
   label: string;
   cost: number;
   sprite: BpxSprite;
+  dps: number | undefined;
   // TODO: migrate from Lua
   //         dps = a.towers[tower_type].dps,
   //         charging_time = a.towers[tower_type].charging_time,
@@ -32,6 +33,7 @@ export class TowerChoice {
         label: t.label,
         cost: t.cost,
         sprite: t.sprite,
+        dps: "dps" in t ? t.dps : undefined,
         // TODO: migrate from Lua
         //         dps = a.towers[tower_type].dps,
         //         charging_time = a.towers[tower_type].charging_time,
