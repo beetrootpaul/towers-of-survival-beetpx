@@ -77,9 +77,13 @@ export class Tower {
   //
   // local charging_timer = new_charging_timer()
   // local shooting_timer
-  //
+
+  get type(): TowerType {
+    return this.#descriptor.type;
+  }
+
+  // TODO: migrate from Lua
   // local s = {
-  //     type = tower_descriptor.type,
   //     x = (a.wbt + tile.x) * u.ts,
   //     y = (a.wbt + tile.y) * u.ts,
   // }
