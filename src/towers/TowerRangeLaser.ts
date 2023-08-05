@@ -1,11 +1,12 @@
 import { BeetPx, BpxSolidColor, BpxVector2d } from "beetpx";
+import { Enemy } from "../enemies/Enemy";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
 import { TowerRange } from "./TowerRange";
 
 export class TowerRangeLaser implements TowerRange {
   readonly #xy: BpxVector2d;
-  readonly #r: BpxVector2d;
+  readonly #r: number;
 
   constructor(params: { tile: Tile }) {
     this.#xy = params.tile.xy
@@ -13,20 +14,20 @@ export class TowerRangeLaser implements TowerRange {
       .add(g.warzoneBorderTiles)
       .mul(g.tileSize)
       .sub(0.5);
-    this.#r = g.tileSize.mul(2.5).sub(0.5);
+    // TODO: remove `.x`
+    this.#r = g.tileSize.x * 2.5 - 0.5;
   }
 
   laserSourceXy(): BpxVector2d {
     return this.#xy.add(0.5, -1.5);
   }
 
-  //
-  // function s.touches_enemy(enemy)
-  //     local enemy_circle = enemy.range().circle()
-  //     local dx = abs(xy.x - enemy_circle.xy.x)
-  //     local dy = abs(xy.y - enemy_circle.xy.y)
-  //     return dx * dx + dy * dy < (r + enemy_circle.r) * (r + enemy_circle.r)
-  // end
+  touchesEnemy(enemy: Enemy): boolean {
+    const enemyCircle = enemy.range.circle;
+    const dXy = enemyCircle.center.sub(this.#xy).abs();
+    // TODO: add a API method for non-rooted magnitude squared
+    return dXy.magnitude() < this.#r + enemyCircle.r;
+  }
 
   draw(color1: BpxSolidColor, color2: BpxSolidColor): void {
     // TODO: migrate from Lua

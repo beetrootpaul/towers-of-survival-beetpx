@@ -107,7 +107,6 @@ export class Tower {
     //     if not charging_timer then
     let isAttacking = false;
 
-    // TODO: migrate from Lua
     const dps = this.#descriptor.dps;
     if (this.type === "laser" && dps) {
       const range: TowerRangeLaser =
@@ -117,9 +116,7 @@ export class Tower {
               "Laser tower got assigned a range of a non-laser type"
             );
       this.#enemies.forEachFromFurthest((enemy) => {
-        // TODO: migrate from Lua
-        if (!isAttacking) {
-          // if not is_attacking and range.touches_enemy(enemy) then
+        if (!isAttacking && range.touchesEnemy(enemy)) {
           isAttacking = true;
           enemy.takeDamage(dps / g.fps);
           this.#fight.showLaser({
@@ -129,13 +126,17 @@ export class Tower {
         }
       });
     } else if (this.type === "v_beam" && dps) {
+      const range: TowerRangeVBeam =
+        this.#range instanceof TowerRangeVBeam
+          ? this.#range
+          : u.throwError(
+              "V-beam tower got assigned a range of a non-v-beam type"
+            );
       this.#enemies.forEachFromFurthest((enemy) => {
-        // TODO: migrate from Lua
-        //                 if range.touches_enemy(enemy) then
-        isAttacking = true;
-        enemy.takeDamage(dps / g.fps);
-        // TODO: migrate from Lua
-        //                 end
+        if (range.touchesEnemy(enemy)) {
+          isAttacking = true;
+          enemy.takeDamage(dps / g.fps);
+        }
       });
       if (isAttacking) {
         this.#fight.showBeam({ tileX: this.#tile.xy.x });

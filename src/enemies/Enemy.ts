@@ -62,10 +62,9 @@ export class Enemy {
     return this.#health.value <= 0 || this.#pathProgression.hasReachedEnd();
   }
 
-  // TODO: migrate from Lua
-  //     function s.range()
-  //         return range
-  //     end
+  get range(): EnemyRange {
+    return this.#range;
+  }
 
   takeDamage(damage: number): void {
     this.#isTakingDamage = true;

@@ -9,12 +9,12 @@ export class EnemyRange {
     this.#r = r;
   }
 
-  // TODO: migrate from Lua
-  //     return {
-  //         circle = function()
-  //             return { xy = xy, r = r }
-  //         end,
-  //     }
+  get circle(): { center: BpxVector2d; r: number } {
+    return {
+      center: this.#center,
+      r: this.#r,
+    };
+  }
 
   draw(color: BpxSolidColor): void {
     // TODO: migrate from Lua

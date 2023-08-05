@@ -1,5 +1,5 @@
-import { BeetPx, BpxVector2d } from "beetpx";
-import { p8c } from "../globals";
+import { BeetPx, BpxVector2d, v_ } from "beetpx";
+import { g, p8c } from "../globals";
 
 export class Fight {
   readonly #lasers: Array<{ xy1: BpxVector2d; xy2: BpxVector2d }> = [];
@@ -31,12 +31,16 @@ export class Fight {
       );
       BeetPx.line(xy1, xy2, p8c.white);
     }
-    // TODO: migrate from Lua
-    //     for beam in all(beams) do
-    //         local x1 = (a.wbt + beam.tile_x) * u.ts + 1
-    //         local x2 = x1 + 1
-    //         line(x1, a.wb, x1, u.vs - a.wb, a.colors.white)
-    //         line(x2, a.wb, x2, u.vs - a.wb, a.colors.white)
-    //     end
+
+    for (const beam of this.#beams) {
+      const x = (g.warzoneBorderTiles + beam.tileX) * g.tileSize.x + 1;
+      for (let offset = 0; offset < 2; offset++) {
+        BeetPx.line(
+          v_(x + offset, g.warzoneBorder),
+          v_(x + offset + 1, g.canvasSize.y - g.warzoneBorder),
+          p8c.white
+        );
+      }
+    }
   }
 }

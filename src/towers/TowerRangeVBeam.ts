@@ -1,5 +1,6 @@
 import { BeetPx, BpxFillPattern, v_ } from "beetpx";
 import { SolidColor } from "beetpx/ts_output/Color";
+import { Enemy } from "../enemies/Enemy";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
 import { TowerRange } from "./TowerRange";
@@ -13,11 +14,13 @@ export class TowerRangeVBeam implements TowerRange {
     this.#x2 = this.#x1 + 1;
   }
 
-  // TODO: migrate from Lua
-  // function s.touches_enemy(enemy)
-  //     local enemy_circle = enemy.range().circle()
-  //     return enemy_circle.xy.x + enemy_circle.r >= x1 and enemy_circle.xy.x - enemy_circle.r <= x2
-  // end
+  touchesEnemy(enemy: Enemy): boolean {
+    const enemyCircle = enemy.range.circle;
+    return (
+      enemyCircle.center.x + enemyCircle.r >= this.#x1 &&
+      enemyCircle.center.x - enemyCircle.r <= this.#x2
+    );
+  }
 
   draw(color1: SolidColor, color2: SolidColor) {
     // TODO: migrate from Lua
