@@ -41,8 +41,7 @@ export class TowerRangeBooster implements TowerRange {
     //     clip(0, a.wb, u.vs, u.vs - a.wb)
     BeetPx.rect(
       this.#xy.sub(g.tileSize),
-      // TODO: fix this and other tower's range, at least according to debug
-      this.#xy.add(g.tileSize.mul(2)).sub(1),
+      this.#xy.add(g.tileSize.mul(2)),
       color2
     );
     // TODO: migrate from Lua

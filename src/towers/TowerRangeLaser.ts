@@ -31,7 +31,7 @@ export class TowerRangeLaser implements TowerRange {
   draw(color1: BpxSolidColor, color2: BpxSolidColor): void {
     // TODO: migrate from Lua
     //     clip(0, a.wb, u.vs, u.vs - a.wb)
-    BeetPx.ellipse(this.#xy.sub(this.#r), this.#xy.add(this.#r), color1);
+    BeetPx.ellipse(this.#xy.sub(this.#r), this.#xy.add(this.#r).add(1), color1);
     // TODO: migrate from Lua
     //     clip()
   }

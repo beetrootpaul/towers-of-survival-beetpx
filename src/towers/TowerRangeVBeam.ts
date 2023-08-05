@@ -23,10 +23,9 @@ export class TowerRangeVBeam implements TowerRange {
     // TODO: migrate from Lua
     //     clip(0, a.wb, u.vs, u.vs - a.wb)
     //     fillp(0xa5a5 + .5)
-    //     rectfill(x1, a.wb, x2, u.vs - a.wb - 1, color1)
     BeetPx.rectFilled(
       v_(this.#x1, g.warzoneBorder),
-      v_(this.#x2, g.canvasSize.y - g.warzoneBorder - 1),
+      v_(this.#x2 + 1, g.canvasSize.y - g.warzoneBorder),
       color1
     );
     // TODO: migrate from Lua
