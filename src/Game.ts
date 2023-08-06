@@ -32,15 +32,52 @@ export class Game {
             imageTextColor: p8c.green,
           },
         ],
-        sounds: [{ url: g.assets.sfx00 }],
+        sounds: [
+          { url: g.assets.sfx00 },
+          { url: g.assets.sfx01 },
+          { url: g.assets.sfx02 },
+          { url: g.assets.sfx03 },
+          { url: g.assets.sfx04 },
+          { url: g.assets.sfx05 },
+          { url: g.assets.sfx06 },
+          { url: g.assets.sfx07 },
+          { url: g.assets.sfx08 },
+          { url: g.assets.sfx09 },
+          { url: g.assets.sfx10 },
+        ],
       }
     ).then(({ startGame }) => {
       this.#nextScreen = new ScreenTitle();
       this.#currentScreen = this.#nextScreen;
 
-      // TODO: AUDIO
-      BeetPx.playSoundLooped(g.assets.sfx00);
-      // music(0)
+      // SFXs exported from PICO-8 have full length of 32 notes, even though in the game they are defined as 24 notes
+      const durationMs = (fullSoundDurationMs: number) =>
+        (fullSoundDurationMs * 24) / 32;
+      BeetPx.playSoundSequence({
+        sequence: [
+          [{ url: g.assets.sfx00, durationMs }],
+          [{ url: g.assets.sfx00, durationMs }],
+          [{ url: g.assets.sfx01, durationMs }],
+          [{ url: g.assets.sfx01, durationMs }],
+        ],
+        sequenceLooped: [
+          // 1st four
+          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx04 }],
+          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx05 }],
+          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx04 }],
+          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx05 }],
+          // 2nd four
+          [{ url: g.assets.sfx02, durationMs }, { url: g.assets.sfx06 }],
+          [{ url: g.assets.sfx02, durationMs }, { url: g.assets.sfx07 }],
+          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx04 }],
+          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx05 }],
+          // 3rd four
+          [{ url: g.assets.sfx03, durationMs }, { url: g.assets.sfx08 }],
+          [{ url: g.assets.sfx03, durationMs }, { url: g.assets.sfx09 }],
+          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx10 }],
+          [{ url: g.assets.sfx01, durationMs }],
+        ],
+      });
 
       BeetPx.setOnUpdate(() => {
         // TODO: DEBUG STEP

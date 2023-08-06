@@ -25,6 +25,16 @@ export const g = {
   assets: {
     spritesheet: "spritesheet.png",
     sfx00: "sfx00.wav",
+    sfx01: "sfx01.wav",
+    sfx02: "sfx02.wav",
+    sfx03: "sfx03.wav",
+    sfx04: "sfx04.wav",
+    sfx05: "sfx05.wav",
+    sfx06: "sfx06.wav",
+    sfx07: "sfx07.wav",
+    sfx08: "sfx08.wav",
+    sfx09: "sfx09.wav",
+    sfx10: "sfx10.wav",
     // TODO: AUDIO
     //   00     INTRO
     //   00
@@ -189,10 +199,10 @@ export const g = {
 
   waves: [
     // TODO: REMOVE
-    // { wait: 1, spawns: "s" },
-    { wait: 1, spawns: "s,s,m,m,b,b" },
-    // { wait: 2, spawns: "m,m" },
-    // { wait: 3, spawns: "b,b" },
+    { wait: 1, spawns: "s,-,s" },
+    // { wait: 1, spawns: "s,s,m,m,b,b" },
+    { wait: 2, spawns: "m" },
+    { wait: 3, spawns: "b" },
     // TODO: REVERT
     // { wait: 4, spawns: "s,-,-,s,-,-,s" },
     // { wait: 4, spawns: "m,-,-,s,s,s,-,-,m" },
