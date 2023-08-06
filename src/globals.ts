@@ -80,11 +80,10 @@ export const g = {
       cost: 20,
       sprite: spr_(48, 0, tileSize, tileSize),
       dps: 20,
-      // TODO: migrate from Lua
-      //             charging_time = .9,
-      //             shooting_time = .1,
-      //             charging_time_boost = -.1,
-      //             shooting_time_boost = .1,
+      chargingTime: 0.9,
+      shootingTime: 0.1,
+      chargingTimeBoost: -0.1,
+      shootingTimeBoost: 0.1,
     },
     booster: {
       label: "booster",
@@ -96,11 +95,10 @@ export const g = {
       cost: 70,
       sprite: spr_(48, 16, tileSize, tileSize),
       dps: 40,
-      // TODO: migrate from Lua
-      //             charging_time = 2,
-      //             shooting_time = .5,
-      //             charging_time_boost = -.2,
-      //             shooting_time_boost = .1,
+      chargingTime: 2,
+      shootingTime: 0.5,
+      chargingTimeBoost: -0.2,
+      shootingTimeBoost: 0.1,
     },
   },
 

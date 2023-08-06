@@ -8,12 +8,10 @@ export type TowerDescriptor = {
   cost: number;
   sprite: BpxSprite;
   dps: number | undefined;
-  // TODO: migrate from Lua
-  //         dps = a.towers[tower_type].dps,
-  //         charging_time = a.towers[tower_type].charging_time,
-  //         shooting_time = a.towers[tower_type].shooting_time,
-  //         charging_time_boost = a.towers[tower_type].charging_time_boost,
-  //         shooting_time_boost = a.towers[tower_type].shooting_time_boost,
+  chargingTime: number | undefined;
+  shootingTime: number | undefined;
+  chargingTimeBoost: number | undefined;
+  shootingTimeBoost: number | undefined;
 };
 
 export class TowerChoice {
@@ -34,12 +32,12 @@ export class TowerChoice {
         cost: t.cost,
         sprite: t.sprite,
         dps: "dps" in t ? t.dps : undefined,
-        // TODO: migrate from Lua
-        //         dps = a.towers[tower_type].dps,
-        //         charging_time = a.towers[tower_type].charging_time,
-        //         shooting_time = a.towers[tower_type].shooting_time,
-        //         charging_time_boost = a.towers[tower_type].charging_time_boost,
-        //         shooting_time_boost = a.towers[tower_type].shooting_time_boost,
+        chargingTime: "chargingTime" in t ? t.chargingTime : undefined,
+        shootingTime: "shootingTime" in t ? t.shootingTime : undefined,
+        chargingTimeBoost:
+          "chargingTimeBoost" in t ? t.chargingTimeBoost : undefined,
+        shootingTimeBoost:
+          "shootingTimeBoost" in t ? t.shootingTimeBoost : undefined,
       };
     });
 
