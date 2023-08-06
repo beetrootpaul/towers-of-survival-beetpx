@@ -1,4 +1,4 @@
-import { BeetPx, BpxSprite, BpxVector2d } from "beetpx";
+import { BeetPx, BpxVector2d } from "beetpx";
 import { g, p8c, u } from "../globals";
 import { Path } from "../warzone/Path";
 import { EnemyType } from "./Enemies";
@@ -42,11 +42,8 @@ export class Enemy {
   #center(): BpxVector2d {
     // TODO: migrate from Lua
     //         local sprite = u.r(a.enemies[enemy_type]["sprite_" .. path_progression.current_direction()])
-    const sprite: BpxSprite = g.enemies[this.#type].spriteRight;
-    // TODO: migrate from Lua
-    //         local s_hox, s_hoy = sprite[7], sprite[8]
-    //         return path_progression.current_xy().plus(s_hox, s_hoy)
-    return this.#pathProgression.currentXy();
+    const sprite = g.enemies[this.#type].spriteRight;
+    return this.#pathProgression.currentXy().add(sprite.hitboxOffset);
   }
 
   centerXy(): BpxVector2d {
@@ -89,16 +86,11 @@ export class Enemy {
     //
     // TODO: migrate from Lua
     //         local sprite = u.r(a.enemies[enemy_type]["sprite_" .. path_progression.current_direction()])
-    const sprite: BpxSprite = g.enemies[this.#type].spriteRight;
-    // TODO: migrate from Lua
-    //         local s_x, s_y, s_w, s_h, s_ox, s_oy = sprite[1], sprite[2], sprite[3], sprite[4], sprite[5], sprite[6]
-    // TODO: migrate from Lua
-    //         local position = path_progression.current_xy()
+    const sprite = g.enemies[this.#type].spriteRight;
     const position = this.#pathProgression.currentXy();
     // TODO: make spritesheet key not needed here
-    // TODO: migrate from Lua
-    BeetPx.sprite(g.assets.spritesheet, sprite, position);
-    //         sspr(s_x, s_y, s_w, s_h, position.x + s_ox, position.y + s_oy)
+    // BeetPx.sprite(g.assets.spritesheet, sprite, position);
+    BeetPx.sprite(g.assets.spritesheet, sprite, position.add(sprite.offset));
 
     if (BeetPx.debug && this.#health.value > 0) {
       const healthBarLength = Math.ceil(this.#health.value / 4);
@@ -115,13 +107,13 @@ export class Enemy {
 
     if (this.#isTakingDamage) {
       // TODO: migrate from Lua
-      const damageSprite: BpxSprite = g.enemies[this.#type].spriteDamageRight;
+      const damageSprite = g.enemies[this.#type].spriteDamageRight;
       //  local damage_sprite = u.r(a.enemies[enemy_type]["sprite_damage_" .. path_progression.current_direction()])
-      // TODO: migrate from Lua
-      //             local ds_x, ds_y, ds_w, ds_h, ds_ox, ds_oy = damage_sprite[1], damage_sprite[2], damage_sprite[3], damage_sprite[4], damage_sprite[5], damage_sprite[6]
-      // TODO: migrate from Lua
-      BeetPx.sprite(g.assets.spritesheet, damageSprite, position);
-      //             sspr(ds_x, ds_y, ds_w, ds_h, position.x + ds_ox, position.y + ds_oy)
+      BeetPx.sprite(
+        g.assets.spritesheet,
+        damageSprite,
+        position.add(damageSprite.offset)
+      );
     }
   }
 }
