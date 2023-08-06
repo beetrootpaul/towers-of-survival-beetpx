@@ -1,5 +1,6 @@
 import { BeetPx, BpxVector2d } from "beetpx";
 import { g, p8c, u } from "../globals";
+import { SpriteWithOffset } from "../misc/SpriteWithOffset";
 import { Path } from "../warzone/Path";
 import { EnemyType } from "./Enemies";
 import { EnemyRange } from "./EnemyRange";
@@ -24,8 +25,6 @@ export class Enemy {
     onReachedPathEnd: () => void;
   }) {
     this.#type = params.type;
-    // TODO: migrate from Lua
-    //     local path = u.r(params.path)
     this.#onReachedPathEnd = params.onReachedPathEnd;
 
     this.#pathProgression = new PathProgression({
@@ -40,9 +39,7 @@ export class Enemy {
   }
 
   #center(): BpxVector2d {
-    // TODO: migrate from Lua
-    //         local sprite = u.r(a.enemies[enemy_type]["sprite_" .. path_progression.current_direction()])
-    const sprite = g.enemies[this.#type].spriteRight;
+    const sprite = this.#currentSprite();
     return this.#pathProgression.currentXy().add(sprite.hitboxOffset);
   }
 
@@ -84,12 +81,8 @@ export class Enemy {
     }
 
     //
-    // TODO: migrate from Lua
-    //         local sprite = u.r(a.enemies[enemy_type]["sprite_" .. path_progression.current_direction()])
-    const sprite = g.enemies[this.#type].spriteRight;
+    const sprite = this.#currentSprite();
     const position = this.#pathProgression.currentXy();
-    // TODO: make spritesheet key not needed here
-    // BeetPx.sprite(g.assets.spritesheet, sprite, position);
     BeetPx.sprite(g.assets.spritesheet, sprite, position.add(sprite.offset));
 
     if (BeetPx.debug && this.#health.value > 0) {
@@ -106,14 +99,38 @@ export class Enemy {
     }
 
     if (this.#isTakingDamage) {
-      // TODO: migrate from Lua
-      const damageSprite = g.enemies[this.#type].spriteDamageRight;
-      //  local damage_sprite = u.r(a.enemies[enemy_type]["sprite_damage_" .. path_progression.current_direction()])
+      const damageSprite = this.#currentDamageSprite();
       BeetPx.sprite(
         g.assets.spritesheet,
         damageSprite,
         position.add(damageSprite.offset)
       );
+    }
+  }
+
+  #currentSprite(): SpriteWithOffset {
+    switch (this.#pathProgression.currentDirection()) {
+      case "left":
+        return g.enemies[this.#type].spriteLeft;
+      case "right":
+        return g.enemies[this.#type].spriteRight;
+      case "up":
+        return g.enemies[this.#type].spriteUp;
+      case "down":
+        return g.enemies[this.#type].spriteDown;
+    }
+  }
+
+  #currentDamageSprite(): SpriteWithOffset {
+    switch (this.#pathProgression.currentDirection()) {
+      case "left":
+        return g.enemies[this.#type].spriteDamageLeft;
+      case "right":
+        return g.enemies[this.#type].spriteDamageRight;
+      case "up":
+        return g.enemies[this.#type].spriteDamageUp;
+      case "down":
+        return g.enemies[this.#type].spriteDamageDown;
     }
   }
 }

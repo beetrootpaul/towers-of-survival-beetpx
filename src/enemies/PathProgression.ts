@@ -26,21 +26,16 @@ export class PathProgression {
     );
   }
 
-  // TODO: migrate from Lua
-  // function s.current_direction()
-  //     local curr = path_points[point_index]
-  //     local prev = point_index > 1 and path_points[point_index - 1] or curr
-  //     if curr.y > prev.y then
-  //         return "down"
-  //     end
-  //     if curr.y < prev.y then
-  //         return "up"
-  //     end
-  //     if curr.x < prev.x then
-  //         return "left"
-  //     end
-  //     return "right"
-  // end
+  currentDirection(): "left" | "right" | "up" | "down" {
+    const curr = this.#pathPoints[this.#pointIndex];
+    const prev =
+      this.#pointIndex > 1 ? this.#pathPoints[this.#pointIndex - 1] : curr;
+    if (!curr || !prev) return "right";
+    if (curr.y > prev.y) return "down";
+    if (curr.y < prev.y) return "up";
+    if (curr.x < prev.x) return "left";
+    return "right";
+  }
 
   hasReachedEnd(): boolean {
     return this.#pointIndex >= this.#pathPoints.length - 1;
