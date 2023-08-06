@@ -32,15 +32,11 @@ export class TowerRangeBooster implements TowerRange {
     this.#xy = params.tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize);
   }
 
-  // TODO: migrate from Lua
-  // function s.reaches(another_tile)
-  //     for offset in all(offsets) do
-  //         if another_tile.is_same_as(tile.plus(offset[1], offset[2])) then
-  //             return true
-  //         end
-  //     end
-  //     return false
-  // end
+  reaches(anotherTile: Tile): boolean {
+    return TowerRangeBooster.#offsets.some((offset) =>
+      anotherTile.isSameAs(this.#tile.plus(offset))
+    );
+  }
 
   draw(color1: BpxSolidColor, color2: BpxSolidColor) {
     BeetPx.setClippingRegion(

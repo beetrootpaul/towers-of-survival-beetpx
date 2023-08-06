@@ -2,10 +2,11 @@ import { v_ } from "beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
-import { g } from "../globals";
+import { g, u } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Warzone } from "../warzone/Warzone";
 import { Tower, TowerType } from "./Tower";
+import { TowerRangeBooster } from "./TowerRangeBooster";
 
 export class Towers {
   readonly #enemies: Enemies;
@@ -46,8 +47,7 @@ export class Towers {
       new Tower({
         descriptor: params.towerDescriptor,
         tile: params.tile,
-        // TODO: migrate from Lua
-        //         other_towers = s,
+        otherTowers: this,
         enemies: this.#enemies,
         fight: this.#fight,
         warzone: this.#warzone,
@@ -56,16 +56,17 @@ export class Towers {
     this.#warzone.ground.makePlainAtAndAround(params.tile);
   }
 
-  // TODO: migrate from Lua
-  // function s.count_reaching_boosters(tile)
-  //     local counter = 0
-  //     for tower in all(towers) do
-  //         if tower.type == "booster" and tower.range().reaches(tile) then
-  //             counter = counter + 1
-  //         end
-  //     end
-  //     return counter
-  // end
+  countReachingBoosters(tile: Tile): number {
+    return this.#towers.filter(
+      (t) =>
+        t.type === "booster" &&
+        (t.range instanceof TowerRangeBooster
+          ? t.range.reaches(tile)
+          : u.throwError(
+              "Booster tower got assigned a range of a non-booster type"
+            ))
+    ).length;
+  }
 
   update(): void {
     for (const tower of this.#towers) {

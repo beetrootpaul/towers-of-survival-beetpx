@@ -10,12 +10,14 @@ import { TowerRange } from "./TowerRange";
 import { TowerRangeBooster } from "./TowerRangeBooster";
 import { TowerRangeLaser } from "./TowerRangeLaser";
 import { TowerRangeVBeam } from "./TowerRangeVBeam";
+import { Towers } from "./Towers";
 
 export type TowerType = "laser" | "booster" | "v_beam";
 
 export class Tower {
   readonly #descriptor: TowerDescriptor;
   readonly #tile: Tile;
+  readonly #otherTowers: Towers;
   readonly #enemies: Enemies;
   readonly #fight: Fight;
   readonly #warzone: Warzone;
@@ -28,14 +30,14 @@ export class Tower {
   constructor(params: {
     descriptor: TowerDescriptor;
     tile: Tile;
+    otherTowers: Towers;
     enemies: Enemies;
     fight: Fight;
     warzone: Warzone;
   }) {
     this.#descriptor = params.descriptor;
     this.#tile = params.tile;
-    // TODO: migrate from Lua
-    // local other_towers = u.r(params.other_towers)
+    this.#otherTowers = params.otherTowers;
     this.#enemies = params.enemies;
     this.#fight = params.fight;
     this.#warzone = params.warzone;
@@ -63,9 +65,7 @@ export class Tower {
 
   #newShootingTimer(): Timer | null {
     if (this.#descriptor.shootingTime) {
-      // TODO: migrate from Lua
-      const boosts = 0;
-      //         local boosts = other_towers.count_reaching_boosters(tile)
+      const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
       return new Timer({
         start:
           g.fps *
@@ -78,9 +78,7 @@ export class Tower {
 
   #newChargingTimer(): Timer | null {
     if (this.#descriptor.chargingTime) {
-      // TODO: migrate from Lua
-      const boosts = 0;
-      //         local boosts = other_towers.count_reaching_boosters(tile)
+      const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
       return new Timer({
         start:
           g.fps *
@@ -103,10 +101,9 @@ export class Tower {
     return tileToCheck.isSameAs(this.#tile);
   }
 
-  // TODO: migrate from Lua
-  // function s.range()
-  //     return range
-  // end
+  get range(): TowerRange {
+    return this.#range;
+  }
 
   update(): void {
     if (this.#chargingTimer && this.#chargingTimer.hasFinished()) {
