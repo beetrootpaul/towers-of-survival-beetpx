@@ -1,4 +1,11 @@
-import { BeetPx, BpxSolidColor, BpxVector2d } from "beetpx";
+import {
+  BeetPx,
+  BpxClippingRegion,
+  BpxSolidColor,
+  BpxVector2d,
+  v_,
+} from "beetpx";
+import { g } from "../globals";
 
 export class EnemyRange {
   readonly #center: BpxVector2d;
@@ -17,10 +24,15 @@ export class EnemyRange {
   }
 
   draw(color: BpxSolidColor): void {
-    // TODO: migrate from Lua
-    //             clip(0, a.wb, u.vs, u.vs - a.wb)
+    BeetPx.setClippingRegion(
+      BpxClippingRegion.of(
+        v_(0, g.warzoneBorder),
+        g.canvasSize.sub(0, g.warzoneBorder)
+      )
+    );
+
     BeetPx.ellipse(this.#center.sub(this.#r), this.#center.add(this.#r), color);
-    // TODO: migrate from Lua
-    //             clip()
+
+    BeetPx.setClippingRegion(null);
   }
 }

@@ -1,4 +1,4 @@
-import { BeetPx } from "beetpx";
+import { BeetPx, BpxClippingRegion, v_ } from "beetpx";
 import { g, p8c, u } from "../globals";
 import { Timer } from "../misc/Timer";
 import { Screen } from "./Screen";
@@ -35,10 +35,17 @@ export class ScreenOver implements Screen {
     const textWaves2Size = u.measureTextSize(textWaves2);
     const textWaves3Size = u.measureTextSize(textWaves3);
 
-    // TODO: migrate from Lua
-    //          local clip_progress = max(0, 6 * timer.progress() - 5)
-    //         local clip_y = flr(clip_progress * (u.vs - 2 * a.wb) / 2)
-    //         clip(0, a.wb + clip_y, u.vs, u.vs - 2 * a.wb - 2 * clip_y)
+    const clipProgress = Math.max(0, 6 * this.#timer.progress() - 5);
+    const clipY = Math.floor(
+      clipProgress * ((g.canvasSize.y - 2 * g.warzoneBorder) / 2)
+    );
+
+    BeetPx.setClippingRegion(
+      BpxClippingRegion.of(
+        v_(0, g.warzoneBorder + clipY),
+        g.canvasSize.sub(0, g.warzoneBorder + clipY)
+      )
+    );
 
     BeetPx.print(
       textDefeat,
@@ -69,7 +76,6 @@ export class ScreenOver implements Screen {
       p8c.brownPurple
     );
 
-    // TODO: migrate from Lua
-    //         clip()
+    BeetPx.setClippingRegion(null);
   }
 }

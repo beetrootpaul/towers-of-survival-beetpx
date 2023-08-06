@@ -1,4 +1,4 @@
-import { BeetPx, BpxFillPattern, v_ } from "beetpx";
+import { BeetPx, BpxClippingRegion, BpxFillPattern, v_ } from "beetpx";
 import { SolidColor } from "beetpx/ts_output/Color";
 import { Enemy } from "../enemies/Enemy";
 import { g } from "../globals";
@@ -23,8 +23,14 @@ export class TowerRangeVBeam implements TowerRange {
   }
 
   draw(color1: SolidColor, color2: SolidColor) {
-    // TODO: migrate from Lua
-    //     clip(0, a.wb, u.vs, u.vs - a.wb)
+    // TODO: how to make shorter?
+    BeetPx.setClippingRegion(
+      BpxClippingRegion.of(
+        v_(0, g.warzoneBorder),
+        g.canvasSize.sub(0, g.warzoneBorder)
+      )
+    );
+
     BeetPx.setFillPattern(BpxFillPattern.of(0b1010_0101_1010_0101));
     BeetPx.rectFilled(
       v_(this.#x1, g.warzoneBorder),
@@ -32,7 +38,7 @@ export class TowerRangeVBeam implements TowerRange {
       color1
     );
     BeetPx.setFillPattern(BpxFillPattern.primaryOnly);
-    // TODO: migrate from Lua
-    //     clip()
+
+    BeetPx.setClippingRegion(null);
   }
 }
