@@ -107,7 +107,7 @@ export const g = {
   enemies: {
     // TODO: REVERT
     // speed: 10,
-    speed: 5,
+    speed: 60,
     small: {
       hitboxR: 1,
       health: 20,
@@ -160,9 +160,10 @@ export const g = {
 
   waves: [
     // TODO: REMOVE
-    { wait: 1, spawns: "s,s,m,m,b,b" },
-    { wait: 2, spawns: "m,m" },
-    { wait: 3, spawns: "b,b" },
+    { wait: 1, spawns: "s" },
+    // { wait: 1, spawns: "s,s,m,m,b,b" },
+    // { wait: 2, spawns: "m,m" },
+    // { wait: 3, spawns: "b,b" },
     // TODO: REVERT
     // { wait: 4, spawns: "s,-,-,s,-,-,s" },
     // { wait: 4, spawns: "m,-,-,s,s,s,-,-,m" },

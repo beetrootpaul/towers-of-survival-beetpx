@@ -1,44 +1,70 @@
+import { BeetPx, BpxClippingRegion, v_ } from "beetpx";
+import { g, p8c, u } from "../globals";
+import { Timer } from "../misc/Timer";
 import { Screen } from "./Screen";
+import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenWin implements Screen {
-  // TODO: migrate from Lua
-  //      local timer = new_timer {
-  //         start = 3 * u.fps,
-  //     }
-  //     local text_1 = new_text("* * *")
-  //     local text_2 = new_text("* victory *")
-  //     local text_3 = new_text("* * *")
+  readonly #timer = new Timer({
+    start: 3 * g.fps,
+  });
+
+  // TODO: add a Text class which contains both text and calculates its size?
+  readonly #text1 = "* * *";
+  readonly #text2 = "* victory *";
+  readonly #text3 = "* * *";
+
+  readonly #text1Size = u.measureTextSize(this.#text1);
+  readonly #text2Size = u.measureTextSize(this.#text2);
+  readonly #text3Size = u.measureTextSize(this.#text3);
 
   update(): Screen {
     let nextScreen: Screen = this;
 
-    // TODO: migrate from Lua
-    //         if timer.has_finished() then
-    //             next_screen = new_screen_pre_gameplay()
-    //         end
-    //
-    //         timer.update()
+    if (this.#timer.hasFinished()) {
+      nextScreen = new ScreenPreGameplay();
+    }
+
+    this.#timer.update();
 
     return nextScreen;
   }
 
   draw(): void {
-    // TODO: migrate from Lua
-    //          local clip_progress = max(0, 6 * timer.progress() - 5)
-    //         local clip_y = flr(clip_progress * (u.vs - 2 * a.wb) / 2)
-    //         clip(0, a.wb + clip_y, u.vs, u.vs - 2 * a.wb - 2 * clip_y)
-    //
-    //         text_1.draw(u.vs / 2 - text_1.w / 2, u.vs / 2 - 2.5 * (u.th + 1), a.colors.salmon)
-    //         text_2.draw(u.vs / 2 - text_2.w / 2, u.vs / 2 - .5 * (u.th + 1),
-    //             function(char_index, text_width)
-    //                 if char_index == 1 or char_index == text_width then
-    //                     return a.colors.salmon
-    //                 end
-    //                 return a.colors.yellow
-    //             end
-    //         )
-    //         text_3.draw(u.vs / 2 - text_3.w / 2, u.vs / 2 + 1.5 * (u.th + 1), a.colors.salmon)
-    //
-    //         clip()
+    const clipProgress = Math.max(0, 6 * this.#timer.progress() - 5);
+    const clipY = Math.floor(
+      clipProgress * ((g.canvasSize.y - 2 * g.warzoneBorder) / 2)
+    );
+
+    BeetPx.setClippingRegion(
+      BpxClippingRegion.of(
+        v_(0, g.warzoneBorder + clipY),
+        g.canvasSize.sub(0, g.warzoneBorder + clipY)
+      )
+    );
+
+    BeetPx.print(
+      this.#text1,
+      g.canvasSize
+        .div(2)
+        .add(-this.#text1Size.x / 2, -2.5 * (this.#text1Size.y + 1)),
+      p8c.salmon
+    );
+    BeetPx.print(
+      this.#text2,
+      g.canvasSize
+        .div(2)
+        .add(-this.#text2Size.x / 2, -0.5 * (this.#text2Size.y + 1)),
+      ({ char }) => (char === "*" ? p8c.salmon : p8c.yellow)
+    );
+    BeetPx.print(
+      this.#text3,
+      g.canvasSize
+        .div(2)
+        .add(-this.#text3Size.x / 2, 1.5 * (this.#text3Size.y + 1)),
+      p8c.salmon
+    );
+
+    BeetPx.setClippingRegion(null);
   }
 }
