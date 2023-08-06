@@ -154,12 +154,14 @@ export class Tower {
 
       if (isAttacking && !this.#shootingTimer) {
         this.#shootingTimer = this.#newShootingTimer();
-        // TODO: migrate from Lua
         //             if s.type == "laser" then
-        //                 audio.sfx(a.sfx.laser)
-        //             elseif s.type == "v_beam" then
-        //                 audio.sfx(a.sfx.v_beam)
-        //             end
+        if (this.type === "laser") {
+          // TODO: AUDIO
+          //                 audio.sfx(a.sfx.laser)
+        } else if (this.type === "v_beam") {
+          // TODO: AUDIO
+          //                 audio.sfx(a.sfx.v_beam)
+        }
       }
     }
 
@@ -175,7 +177,7 @@ export class Tower {
     );
 
     if (BeetPx.debug) {
-      this.#range.draw(p8c.blueDark, p8c.brownDark);
+      this.#range.draw(p8c.trueBlue, p8c.brownishBlack);
     }
   }
 }

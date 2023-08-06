@@ -91,7 +91,7 @@ export class Road {
     if (BeetPx.debug) {
       let colorToggle = true;
       for (const point of this.path.points) {
-        BeetPx.pixel(point, colorToggle ? p8c.white : p8c.blueLight);
+        BeetPx.pixel(point, colorToggle ? p8c.white : p8c.blue);
         colorToggle = !colorToggle;
       }
     }

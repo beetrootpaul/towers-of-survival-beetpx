@@ -37,8 +37,8 @@ export const g = {
     },
   },
 
-  buttonTemplateColor1: p8c.greenOld,
-  buttonTemplateColor2: p8c.redLight,
+  buttonTemplateColor1: p8c.green,
+  buttonTemplateColor2: p8c.red,
 
   money: {
     // TODO: REVERT

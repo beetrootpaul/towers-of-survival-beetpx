@@ -18,13 +18,13 @@ export class WaveStatus {
         g.warzoneBorder - 2
       );
 
-      BeetPx.print(waveLabel, xy1.sub(0, waveLabelSize.y + 1), p8c.brownPurple);
+      BeetPx.print(waveLabel, xy1.sub(0, waveLabelSize.y + 1), p8c.mauve);
 
       const progressW = Math.floor(
         this.#waves.wait.progress() * waveLabelSize.x
       );
       if (progressW > 0) {
-        BeetPx.line(xy1, xy1.add(progressW, 1), p8c.brownPurple);
+        BeetPx.line(xy1, xy1.add(progressW, 1), p8c.mauve);
       }
     } else if (this.#waves.wave) {
       const waveLabel = `wave ${this.#waves.waveNumber}`;
@@ -34,13 +34,13 @@ export class WaveStatus {
         g.warzoneBorder - 2
       );
 
-      BeetPx.print(waveLabel, xy1.sub(0, waveLabelSize.y + 1), p8c.greyLight);
+      BeetPx.print(waveLabel, xy1.sub(0, waveLabelSize.y + 1), p8c.lightGrey);
 
       const progressW = Math.floor(
         this.#waves.wave.progress() * waveLabelSize.x
       );
       if (progressW > 0) {
-        BeetPx.line(xy1, xy1.add(progressW, 1), p8c.salmon);
+        BeetPx.line(xy1, xy1.add(progressW, 1), p8c.darkPeach);
       }
 
       const gap = 1;
@@ -48,7 +48,7 @@ export class WaveStatus {
         BeetPx.line(
           xy1.add(progressW + gap, 0),
           xy1.add(waveLabelSize.x, 1),
-          p8c.brownPurple
+          p8c.mauve
         );
       }
     }

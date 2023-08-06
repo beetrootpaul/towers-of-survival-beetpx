@@ -90,12 +90,12 @@ export class Enemy {
       BeetPx.line(
         position.add(0, -2),
         position.add(healthBarLength, -1),
-        p8c.redDark
+        p8c.darkRed
       );
     }
 
     if (BeetPx.debug) {
-      this.#range.draw(p8c.yellow);
+      this.#range.draw(p8c.lightYellow);
     }
 
     if (this.#isTakingDamage) {

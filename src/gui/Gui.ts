@@ -47,7 +47,7 @@ export class Gui {
       BeetPx.print(
         menuText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple
+        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve
       );
 
       const menuButton = new ButtonGlyph(
@@ -57,8 +57,8 @@ export class Gui {
       );
       menuButton.draw(
         v_(1, g.canvasSize.y - g.warzoneBorder + 1),
-        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple,
-        p8c.brownMid
+        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve,
+        p8c.darkerGrey
       );
 
       const buildText = "build";
@@ -68,7 +68,7 @@ export class Gui {
           g.canvasSize.x - g.warzoneBorder - u.measureTextSize(buildText).x,
           g.canvasSize.y - g.warzoneBorder + 2
         ),
-        this.#buttonX.isPressed ? p8c.greyLight : p8c.brownPurple
+        this.#buttonX.isPressed ? p8c.lightGrey : p8c.mauve
       );
 
       const buildButton = new ButtonGlyph(
@@ -78,8 +78,8 @@ export class Gui {
       );
       buildButton.draw(
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
-        this.#buttonX.isPressed ? p8c.greyLight : p8c.brownPurple,
-        p8c.brownMid
+        this.#buttonX.isPressed ? p8c.lightGrey : p8c.mauve,
+        p8c.darkerGrey
       );
     } else if (this.#gameState.buildingState === "tower-choice") {
       this.#towerInfo.draw();
@@ -89,20 +89,20 @@ export class Gui {
       BeetPx.print(
         moneyText,
         v_(g.canvasSize.x - g.warzoneBorder - moneyTextSize.x, 2),
-        p8c.greyLight
+        p8c.lightGrey
       );
       const dollarText = "$";
       BeetPx.print(
         dollarText,
         v_(g.canvasSize.x - g.warzoneBorder + 2, 2),
-        p8c.greyViolet
+        p8c.lavender
       );
 
       const backText = "<";
       BeetPx.print(
         backText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple
+        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve
       );
 
       const backButton = new ButtonGlyph(
@@ -112,8 +112,8 @@ export class Gui {
       );
       backButton.draw(
         v_(1, g.canvasSize.y - g.warzoneBorder + 1),
-        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple,
-        p8c.brownMid
+        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve,
+        p8c.darkerGrey
       );
 
       this.#towerChoiceGui.draw();
@@ -127,10 +127,10 @@ export class Gui {
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
         this.#buttonX.isEnabled
           ? this.#buttonX.isPressed
-            ? p8c.greyLight
-            : p8c.greyViolet
-          : p8c.brownMid,
-        p8c.brownMid
+            ? p8c.lightGrey
+            : p8c.lavender
+          : p8c.darkerGrey,
+        p8c.darkerGrey
       );
     } else if (this.#gameState.buildingState === "tower-placement") {
       this.#towerInfo.draw();
@@ -140,20 +140,20 @@ export class Gui {
       BeetPx.print(
         moneyText,
         v_(g.canvasSize.x - g.warzoneBorder - moneyTextSize.x, 2),
-        p8c.greyLight
+        p8c.lightGrey
       );
       const dollarText = "$";
       BeetPx.print(
         dollarText,
         v_(g.canvasSize.x - g.warzoneBorder + 2, 2),
-        p8c.greyViolet
+        p8c.lavender
       );
 
       const backText = "<";
       BeetPx.print(
         backText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple
+        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve
       );
 
       const backButton = new ButtonGlyph(
@@ -163,8 +163,8 @@ export class Gui {
       );
       backButton.draw(
         v_(1, g.canvasSize.y - g.warzoneBorder + 1),
-        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple,
-        p8c.brownMid
+        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve,
+        p8c.darkerGrey
       );
 
       const placeText = "place";
@@ -176,9 +176,9 @@ export class Gui {
         ),
         this.#buttonX.isEnabled
           ? this.#buttonX.isPressed
-            ? p8c.greyLight
-            : p8c.greyViolet
-          : p8c.brownMid
+            ? p8c.lightGrey
+            : p8c.lavender
+          : p8c.darkerGrey
       );
 
       const placeButton = new ButtonGlyph(
@@ -190,10 +190,10 @@ export class Gui {
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
         this.#buttonX.isEnabled
           ? this.#buttonX.isPressed
-            ? p8c.greyLight
-            : p8c.greyViolet
-          : p8c.brownMid,
-        p8c.brownMid
+            ? p8c.lightGrey
+            : p8c.lavender
+          : p8c.darkerGrey,
+        p8c.darkerGrey
       );
 
       BeetPx.print(
@@ -208,7 +208,7 @@ export class Gui {
               2
             )
           ),
-        this.#buttonX.isEnabled ? p8c.greyViolet : p8c.brownMid
+        this.#buttonX.isEnabled ? p8c.lavender : p8c.darkerGrey
       );
       const costText = `-${this.#gameState.towerChoice.chosenTower.cost.toFixed(
         0
@@ -230,9 +230,9 @@ export class Gui {
         this.#gameState.money.available >=
           this.#gameState.towerChoice.chosenTower.cost
           ? this.#buttonX.isEnabled
-            ? p8c.greyLight
-            : p8c.brownMid
-          : p8c.redDark
+            ? p8c.lightGrey
+            : p8c.darkerGrey
+          : p8c.darkRed
       );
     }
   }

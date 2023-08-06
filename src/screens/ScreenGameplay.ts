@@ -48,7 +48,7 @@ export class ScreenGameplay implements Screen {
     this.#enemies = new Enemies({
       path: this.#warzone.path(),
       onEnemyReachedPathEnd: () => {
-        // TODO: migrate from Lua
+        // TODO: AUDIO
         //             audio.sfx(a.sfx.live_lost)
         this.#gameState.lives.takeOne();
       },
@@ -68,7 +68,7 @@ export class ScreenGameplay implements Screen {
     this.#buttonO = new Button({
       onRelease: () => {
         if (this.#gameState.buildingState === "idle") {
-          // TODO: migrate from Lua
+          // TODO: PAUSE MENU
           //                 extcmd("pause")
         } else if (this.#gameState.buildingState === "tower-choice") {
           this.#gameState.buildingState = "idle";
@@ -80,7 +80,7 @@ export class ScreenGameplay implements Screen {
     });
     this.#buttonX = new Button({
       onRelease: (self) => {
-        // TODO: migrate from Lua
+        // TODO: AUDIO
         //             audio.sfx(a.sfx.button_press)
 
         if (this.#gameState.buildingState === "idle") {
@@ -96,7 +96,7 @@ export class ScreenGameplay implements Screen {
           self.setEnabled(this.#placement.canBuild());
         } else if (this.#gameState.buildingState === "tower-placement") {
           if (this.#placement?.canBuild()) {
-            // TODO: migrate from Lua
+            // TODO: AUDIO
             //           audio.sfx(a.sfx.tower_placed)
             this.#gameState.money.subtract(
               this.#gameState.towerChoice.chosenTower.cost
@@ -108,7 +108,7 @@ export class ScreenGameplay implements Screen {
             this.#gameState.buildingState = "idle";
             this.#placement = null;
           } else {
-            // TODO: migrate from Lua
+            // TODO: AUDIO
             //           audio.sfx(a.sfx.cannot_place)
           }
         }
@@ -160,7 +160,6 @@ export class ScreenGameplay implements Screen {
 
     this.#enemies.preUpdate();
 
-    // TODO: make it: BeetPx.detectedContinuousInputEvent("button_x")
     // TODO: separate events available to pass as param for the continuous ones and for the fire once ones
     this.#buttonX.setPressed(BeetPx.continuousInputEvents.has("button_x"));
     this.#buttonO.setPressed(BeetPx.continuousInputEvents.has("button_o"));
@@ -203,11 +202,11 @@ export class ScreenGameplay implements Screen {
       this.#buttonX.setEnabled(this.#placement.canBuild());
     } else if (this.#gameState.buildingState === "tower-choice") {
       if (direction.x > 0) {
-        // TODO: migrate from Lua
+        // TODO: AUDIO
         // audio.sfx(a.sfx.button_press)
         this.#gameState.towerChoice.chooseNextTower();
       } else if (direction.x < 0) {
-        // TODO: migrate from Lua
+        // TODO: AUDIO
         // audio.sfx(a.sfx.button_press)
         this.#gameState.towerChoice.choosePrevTower();
       }

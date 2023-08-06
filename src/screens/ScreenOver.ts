@@ -52,28 +52,28 @@ export class ScreenOver implements Screen {
       g.canvasSize
         .div(2)
         .add(-textDefeatSize.x / 2, -2.5 * (textDefeatSize.y + 1)),
-      ({ char }) => (char === "@" ? p8c.redDark : p8c.redLight)
+      ({ char }) => (char === "@" ? p8c.darkRed : p8c.red)
     );
     BeetPx.print(
       textWaves1,
       g.canvasSize
         .div(2)
         .add(-textWaves1Size.x / 2, -0.5 * (textWaves1Size.y + 1)),
-      p8c.brownPurple
+      p8c.mauve
     );
     BeetPx.print(
       textWaves2,
       g.canvasSize
         .div(2)
         .add(-textWaves2Size.x / 2, 0.5 * (textWaves2Size.y + 1)),
-      p8c.redDark
+      p8c.darkRed
     );
     BeetPx.print(
       textWaves3,
       g.canvasSize
         .div(2)
         .add(-textWaves3Size.x / 2, 1.5 * (textWaves3Size.y + 1)),
-      p8c.brownPurple
+      p8c.mauve
     );
 
     BeetPx.setClippingRegion(null);

@@ -22,7 +22,7 @@ export class ChosenTowerBorder {
 
   draw(xy: BpxVector2d): void {
     for (const offset of ChosenTowerBorder.#offsets) {
-      BeetPx.pixel(xy.add(offset), p8c.greyLight);
+      BeetPx.pixel(xy.add(offset), p8c.lightGrey);
     }
   }
 }

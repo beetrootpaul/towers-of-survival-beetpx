@@ -29,7 +29,7 @@ export class Game {
             // TODO: consider coupling URL with Font, since they rather won't be used separately or exchanged
             url: g.assets.spritesheet,
             imageBgColor: p8c.black,
-            imageTextColor: p8c.greenOld,
+            imageTextColor: p8c.green,
           },
         ],
         sounds: [],
@@ -38,11 +38,11 @@ export class Game {
       this.#nextScreen = new ScreenTitle();
       this.#currentScreen = this.#nextScreen;
 
-      // TODO: migrate from Lua
+      // TODO: AUDIO
       // music(0)
 
       BeetPx.setOnUpdate(() => {
-        // TODO: migrate from Lua
+        // TODO: DEBUG STEP
         // d.update()
         // if (not d.enabled) or (d.enabled and d.is_next_frame) then
 
@@ -52,24 +52,24 @@ export class Game {
         this.#currentScreen = this.#nextScreen;
         this.#nextScreen = this.#currentScreen?.update();
 
-        // TODO: migrate from Lua
+        // TODO: AUDIO
         //     audio.play()
         // end
       });
 
       BeetPx.setOnDraw(() => {
-        BeetPx.clearCanvas(p8c.brownDark);
+        BeetPx.clearCanvas(p8c.brownishBlack);
 
         BeetPx.mapSpriteColors([
           { from: p8c.black, to: transparent_ },
-          { from: p8c.darkBlue, to: p8c.blueDark },
-          { from: p8c.darkPurple, to: p8c.redDark },
-          { from: p8c.darkGreen, to: p8c.brownMid },
-          { from: p8c.orange, to: p8c.salmon },
-          { from: p8c.yellowOld, to: p8c.yellow },
-          { from: p8c.greenOld, to: p8c.green },
-          { from: p8c.pink, to: p8c.brownPurple },
-          { from: p8c.lightPeach, to: p8c.sand },
+          { from: p8c.darkBlue, to: p8c.trueBlue },
+          { from: p8c.darkPurple, to: p8c.darkRed },
+          { from: p8c.darkGreen, to: p8c.darkerGrey },
+          { from: p8c.orange, to: p8c.darkPeach },
+          { from: p8c.yellow, to: p8c.lightYellow },
+          { from: p8c.green, to: p8c.mediumGreen },
+          { from: p8c.pink, to: p8c.mauve },
+          { from: p8c.lightPeach, to: p8c.mediumGrey },
         ]);
 
         this.#currentScreen?.draw();
@@ -79,7 +79,7 @@ export class Game {
 
         if (BeetPx.debug) {
           const fps = BeetPx.averageFps.toFixed(0);
-          BeetPx.print(fps, BpxVector2d.zero, p8c.brownPurple);
+          BeetPx.print(fps, BpxVector2d.zero, p8c.mauve);
           const audioState = BeetPx.audioContext.state;
           let audioStateText =
             audioState === "suspended"
@@ -92,7 +92,7 @@ export class Game {
           BeetPx.print(
             audioStateText,
             v_(g.canvasSize.x - u.measureTextSize(audioStateText).x, 0),
-            p8c.brownPurple
+            p8c.mauve
           );
         }
       });

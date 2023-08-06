@@ -44,7 +44,6 @@ export class TowerChoice {
     this.#chosen = 0;
   }
 
-  // TODO: make towers really sorted by cost
   towersInCostOrder(): TowerDescriptor[] {
     return this.#towers;
   }

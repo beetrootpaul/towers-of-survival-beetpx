@@ -1,4 +1,4 @@
-// TODO: migrate from Lua
+// TODO: DEBUG STEP
 // d = (function()
 //     local is_toggle_button_pressed_already = false
 //     local is_step_button_pressed_already = false

@@ -9,7 +9,6 @@ export class ScreenWin implements Screen {
     start: 3 * g.fps,
   });
 
-  // TODO: add a Text class which contains both text and calculates its size?
   readonly #text1 = "* * *";
   readonly #text2 = "* victory *";
   readonly #text3 = "* * *";
@@ -48,21 +47,21 @@ export class ScreenWin implements Screen {
       g.canvasSize
         .div(2)
         .add(-this.#text1Size.x / 2, -2.5 * (this.#text1Size.y + 1)),
-      p8c.salmon
+      p8c.darkPeach
     );
     BeetPx.print(
       this.#text2,
       g.canvasSize
         .div(2)
         .add(-this.#text2Size.x / 2, -0.5 * (this.#text2Size.y + 1)),
-      ({ char }) => (char === "*" ? p8c.salmon : p8c.yellow)
+      ({ char }) => (char === "*" ? p8c.darkPeach : p8c.lightYellow)
     );
     BeetPx.print(
       this.#text3,
       g.canvasSize
         .div(2)
         .add(-this.#text3Size.x / 2, 1.5 * (this.#text3Size.y + 1)),
-      p8c.salmon
+      p8c.darkPeach
     );
 
     BeetPx.setClippingRegion(null);

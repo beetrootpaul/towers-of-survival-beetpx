@@ -1,4 +1,4 @@
-// TODO: migrate from Lua
+// TODO: AUDIO
 // audio = (function()
 //     local pico8_sfx = sfx
 //

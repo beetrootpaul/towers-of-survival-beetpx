@@ -12,6 +12,6 @@ export class TowerInfo {
   draw(): void {
     const chosenTower = this.#towerChoice.chosenTower;
     BeetPx.sprite(g.assets.spritesheet, chosenTower.sprite, v_(2, 2));
-    BeetPx.print(chosenTower.label, v_(g.warzoneBorder, 2), p8c.greyViolet);
+    BeetPx.print(chosenTower.label, v_(g.warzoneBorder, 2), p8c.lavender);
   }
 }

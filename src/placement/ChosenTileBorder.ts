@@ -31,7 +31,7 @@ export class ChosenTileBorder {
     for (const offset of ChosenTileBorder.#offsets) {
       BeetPx.pixel(
         this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize).add(offset),
-        canBuild ? p8c.green : p8c.redLight
+        canBuild ? p8c.mediumGreen : p8c.red
       );
     }
   }

@@ -66,12 +66,6 @@ export class Placement {
       result.canBuild = false;
     }
 
-    // TODO: migrate from Lua
-    //     local colliding_towers = other_towers.find_colliding_towers(chosen_tower.type, chosen_tile)
-    //     if #colliding_towers > 0 then
-    //         result.can_build = false
-    //         result.colliding_towers = colliding_towers
-    //     end
     const collidingTowers = this.#otherTowers.findCollidingTowers(
       this.#chosenTower.type,
       this.#chosenTile
@@ -114,7 +108,7 @@ export class Placement {
       this.#chosenTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
     );
 
-    this.#towerRange.draw(p8c.white, p8c.greyDark);
+    this.#towerRange.draw(p8c.white, p8c.darkGrey);
 
     const canBuildCheckResult = this.#checkIfCanBuild();
 
@@ -123,7 +117,7 @@ export class Placement {
       BeetPx.rectFilled(
         collidingTower.xy,
         collidingTower.xy.add(g.tileSize),
-        p8c.redLight
+        p8c.red
       );
       BeetPx.setFillPattern(BpxFillPattern.primaryOnly);
     }
