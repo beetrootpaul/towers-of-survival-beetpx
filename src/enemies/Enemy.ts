@@ -32,11 +32,6 @@ export class Enemy {
       path: params.path,
     });
 
-    // TODO: migrate from Lua
-    //     local health = new_health {
-    //         max_value = a.enemies[enemy_type].health,
-    //     }
-
     this.#health = new Health(g.enemies[this.#type].health);
 
     this.#range = new EnemyRange(this.#center(), g.enemies[this.#type].hitboxR);
@@ -71,10 +66,9 @@ export class Enemy {
     this.#health.subtract(damage);
   }
 
-  // TODO: migrate from Lua
-  //     function s.pre_update()
-  //         is_taking_damage = false
-  //     end
+  preUpdate(): void {
+    this.#isTakingDamage = false;
+  }
 
   update(): void {
     this.#pathProgression.update();
@@ -96,14 +90,15 @@ export class Enemy {
     // TODO: migrate from Lua
     //         local sprite = u.r(a.enemies[enemy_type]["sprite_" .. path_progression.current_direction()])
     const sprite: BpxSprite = g.enemies[this.#type].spriteRight;
+    // TODO: migrate from Lua
     //         local s_x, s_y, s_w, s_h, s_ox, s_oy = sprite[1], sprite[2], sprite[3], sprite[4], sprite[5], sprite[6]
     // TODO: migrate from Lua
     //         local position = path_progression.current_xy()
     const position = this.#pathProgression.currentXy();
     // TODO: make spritesheet key not needed here
     // TODO: migrate from Lua
-    //         sspr(s_x, s_y, s_w, s_h, position.x + s_ox, position.y + s_oy)
     BeetPx.sprite(g.assets.spritesheet, sprite, position);
+    //         sspr(s_x, s_y, s_w, s_h, position.x + s_ox, position.y + s_oy)
 
     if (BeetPx.debug && this.#health.value > 0) {
       const healthBarLength = Math.ceil(this.#health.value / 4);
@@ -118,11 +113,15 @@ export class Enemy {
       this.#range.draw(p8c.yellow);
     }
 
-    // TODO: migrate from Lua
-    //         if is_taking_damage then
-    //             local damage_sprite = u.r(a.enemies[enemy_type]["sprite_damage_" .. path_progression.current_direction()])
-    //             local ds_x, ds_y, ds_w, ds_h, ds_ox, ds_oy = damage_sprite[1], damage_sprite[2], damage_sprite[3], damage_sprite[4], damage_sprite[5], damage_sprite[6]
-    //             sspr(ds_x, ds_y, ds_w, ds_h, position.x + ds_ox, position.y + ds_oy)
-    //         end
+    if (this.#isTakingDamage) {
+      // TODO: migrate from Lua
+      const damageSprite: BpxSprite = g.enemies[this.#type].spriteDamageRight;
+      //  local damage_sprite = u.r(a.enemies[enemy_type]["sprite_damage_" .. path_progression.current_direction()])
+      // TODO: migrate from Lua
+      //             local ds_x, ds_y, ds_w, ds_h, ds_ox, ds_oy = damage_sprite[1], damage_sprite[2], damage_sprite[3], damage_sprite[4], damage_sprite[5], damage_sprite[6]
+      // TODO: migrate from Lua
+      BeetPx.sprite(g.assets.spritesheet, damageSprite, position);
+      //             sspr(ds_x, ds_y, ds_w, ds_h, position.x + ds_ox, position.y + ds_oy)
+    }
   }
 }

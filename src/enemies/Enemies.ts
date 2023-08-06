@@ -34,12 +34,11 @@ export class Enemies {
     return this.#enemies.length <= 0;
   }
 
-  // TODO: migrate from Lua
-  //     function s.pre_update()
-  //         for enemy in all(enemies) do
-  //             enemy.pre_update()
-  //         end
-  //     end
+  preUpdate(): void {
+    this.#enemies.forEach((enemy) => {
+      enemy.preUpdate();
+    });
+  }
 
   update(): void {
     this.#enemies = this.#enemies

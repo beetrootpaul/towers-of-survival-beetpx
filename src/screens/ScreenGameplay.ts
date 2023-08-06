@@ -158,8 +158,7 @@ export class ScreenGameplay implements Screen {
       nextScreen = new ScreenWin();
     }
 
-    // TODO: migrate from Lua
-    //         enemies.pre_update()
+    this.#enemies.preUpdate();
 
     // TODO: make it: BeetPx.detectedContinuousInputEvent("button_x")
     // TODO: separate events available to pass as param for the continuous ones and for the fire once ones

@@ -118,7 +118,9 @@ export const g = {
       //             sprite_left = { 16, 0, 3, 3, 0, 0, 1, 1 },
       //             sprite_up = { 20, 0, 2, 4, 1, -1, 1, 0 },
       //             sprite_down = { 20, 0, 2, 4, 1, -1, 1, 0 },
+      // TODO: migrate from Lua
       //             -- format: {x, y, w, h, offset_x, offset_y }
+      spriteDamageRight: spr_(16, 4, 3, 3),
       //             sprite_damage_right = { 16, 4, 3, 3, 0, 0 },
       //             sprite_damage_left = { 16, 4, 3, 3, 0, 0 },
       //             sprite_damage_up = { 20, 4, 2, 4, 1, -1 },
@@ -134,7 +136,9 @@ export const g = {
       //             sprite_left = { 24, 0, 4, 5, 0, -1, 1.5, .5 },
       //             sprite_up = { 24, 0, 4, 5, 0, -1, 1.5, .5 },
       //             sprite_down = { 24, 0, 4, 5, 0, -1, 1.5, .5 },
+      // TODO: migrate from Lua
       //             -- format: {x, y, w, h, offset_x, offset_y }
+      spriteDamageRight: spr_(28, 0, 4, 5),
       //             sprite_damage_right = { 28, 0, 4, 5, 0, -1 },
       //             sprite_damage_left = { 28, 0, 4, 5, 0, -1 },
       //             sprite_damage_up = { 28, 0, 4, 5, 0, -1 },
@@ -150,7 +154,9 @@ export const g = {
       //             sprite_left = { 22, 9, 5, 5, -1, -1, 1.5, .5 },
       //             sprite_up = { 28, 8, 4, 6, 0, -1, 1.5, 1.5 },
       //             sprite_down = { 33, 9, 4, 6, 0, -1, 1.5, .5 },
+      // TODO: migrate from Lua
       //             -- format: {x, y, w, h, offset_x, offset_y }
+      spriteDamageRight: spr_(16, 15, 5, 5),
       //             sprite_damage_right = { 16, 15, 5, 5, -1, -1 },
       //             sprite_damage_left = { 22, 15, 5, 5, -1, -1 },
       //             sprite_damage_up = { 28, 14, 4, 6, 0, -1 },
