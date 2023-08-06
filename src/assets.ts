@@ -1,16 +1,5 @@
 // TODO: migrate from Lua
 // a = {
-//     button_sprites = {
-//         -- format: { x, y, w, h }
-//         x = {
-//             raised = { 115, 32, 5, 6 },
-//             pressed = { 115, 40, 5, 6 },
-//         },
-//         o = {
-//             raised = { 109, 32, 5, 6 },
-//             pressed = { 109, 40, 5, 6 },
-//         },
-//     },
 //     colors = {
 //         brown_dark = 0,
 //         blue_dark = 1,
@@ -52,10 +41,6 @@
 //     },
 // }
 //
-// a.button_template_color_1 = a.colors.green
-// a.button_template_color_2 = a.colors.red_light
-//
-// a.font_template_color = a.colors.green
 //
 // a.palette = {
 //     [a.colors.brown_dark] = 128,

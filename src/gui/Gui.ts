@@ -3,6 +3,7 @@ import { GameState } from "../game_state/GameState";
 import { g, p8c, u } from "../globals";
 import { Waves } from "../waves/Waves";
 import { Button } from "./Button";
+import { ButtonGlyph } from "./ButtonGlyph";
 import { TowerChoiceGui } from "./TowerChoiceGui";
 import { TowerInfo } from "./TowerInfo";
 import { WaveStatus } from "./WaveStatus";
@@ -48,20 +49,17 @@ export class Gui {
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
         this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple
       );
-      // TODO: migrate from Lua
-      //         local menu_button = new_button_glyph(
-      //             is_o_pressed
-      //                 and a.button_sprites.o.pressed
-      //                 or a.button_sprites.o.raised
-      //         )
-      //         menu_button.draw(
-      //             1,
-      //             u.vs - a.wb + 1,
-      //             is_o_pressed
-      //                 and a.colors.grey_light
-      //                 or a.colors.brown_purple,
-      //             a.colors.brown_mid
-      //         )
+
+      const menuButton = new ButtonGlyph(
+        this.#buttonO.isPressed
+          ? g.buttonSprites.o.pressed
+          : g.buttonSprites.o.raised
+      );
+      menuButton.draw(
+        v_(1, g.canvasSize.y - g.warzoneBorder + 1),
+        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple,
+        p8c.brownMid
+      );
 
       const buildText = "build";
       BeetPx.print(
@@ -72,20 +70,17 @@ export class Gui {
         ),
         this.#buttonX.isPressed ? p8c.greyLight : p8c.brownPurple
       );
-      // TODO: migrate from Lua
-      //         local build_button = new_button_glyph(
-      //             is_x_pressed
-      //                 and a.button_sprites.x.pressed
-      //                 or a.button_sprites.x.raised
-      //         )
-      //         build_button.draw(
-      //             u.vs - a.wb + 2,
-      //             u.vs - a.wb + 1,
-      //             is_x_pressed
-      //                 and a.colors.grey_light
-      //                 or a.colors.brown_purple,
-      //             a.colors.brown_mid
-      //         )
+
+      const buildButton = new ButtonGlyph(
+        this.#buttonX.isPressed
+          ? g.buttonSprites.x.pressed
+          : g.buttonSprites.x.raised
+      );
+      buildButton.draw(
+        g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
+        this.#buttonX.isPressed ? p8c.greyLight : p8c.brownPurple,
+        p8c.brownMid
+      );
     } else if (this.#gameState.buildingState === "tower-choice") {
       this.#towerInfo.draw();
 
@@ -109,37 +104,34 @@ export class Gui {
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
         this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple
       );
-      // TODO: migrate from Lua
-      //         local back_button = new_button_glyph(
-      //             is_o_pressed
-      //                 and a.button_sprites.o.pressed
-      //                 or a.button_sprites.o.raised
-      //         )
-      //         back_button.draw(
-      //             1,
-      //             u.vs - a.wb + 1,
-      //             is_o_pressed
-      //                 and a.colors.grey_light
-      //                 or a.colors.brown_purple,
-      //             a.colors.brown_mid
-      //         )
+
+      const backButton = new ButtonGlyph(
+        this.#buttonO.isPressed
+          ? g.buttonSprites.o.pressed
+          : g.buttonSprites.o.raised
+      );
+      backButton.draw(
+        v_(1, g.canvasSize.y - g.warzoneBorder + 1),
+        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple,
+        p8c.brownMid
+      );
 
       this.#towerChoiceGui.draw();
 
-      // TODO: migrate from Lua
-      //         local choose_button = new_button_glyph(
-      //             is_x_pressed
-      //                 and a.button_sprites.x.pressed
-      //                 or a.button_sprites.x.raised
-      //         )
-      //         choose_button.draw(
-      //             u.vs - a.wb + 2,
-      //             u.vs - a.wb + 1,
-      //             is_x_enabled
-      //                 and (is_x_pressed and a.colors.grey_light or a.colors.grey_violet)
-      //                 or a.colors.brown_mid,
-      //             a.colors.brown_mid
-      //         )
+      const chooseButton = new ButtonGlyph(
+        this.#buttonX.isPressed
+          ? g.buttonSprites.x.pressed
+          : g.buttonSprites.x.raised
+      );
+      chooseButton.draw(
+        g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
+        this.#buttonX.isEnabled
+          ? this.#buttonX.isPressed
+            ? p8c.greyLight
+            : p8c.greyViolet
+          : p8c.brownMid,
+        p8c.brownMid
+      );
     } else if (this.#gameState.buildingState === "tower-placement") {
       this.#towerInfo.draw();
 
@@ -164,20 +156,16 @@ export class Gui {
         this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple
       );
 
-      // TODO: migrate from Lua
-      //         local back_button = new_button_glyph(
-      //             is_o_pressed
-      //                 and a.button_sprites.o.pressed
-      //                 or a.button_sprites.o.raised
-      //         )
-      //         back_button.draw(
-      //             1,
-      //             u.vs - a.wb + 1,
-      //             is_o_pressed
-      //                 and a.colors.grey_light
-      //                 or a.colors.brown_purple,
-      //             a.colors.brown_mid
-      //         )
+      const backButton = new ButtonGlyph(
+        this.#buttonO.isPressed
+          ? g.buttonSprites.o.pressed
+          : g.buttonSprites.o.raised
+      );
+      backButton.draw(
+        v_(1, g.canvasSize.y - g.warzoneBorder + 1),
+        this.#buttonO.isPressed ? p8c.greyLight : p8c.brownPurple,
+        p8c.brownMid
+      );
 
       const placeText = "place";
       BeetPx.print(
@@ -192,20 +180,22 @@ export class Gui {
             : p8c.greyViolet
           : p8c.brownMid
       );
-      // TODO: migrate from Lua
-      //         local place_button = new_button_glyph(
-      //             is_x_pressed
-      //                 and a.button_sprites.x.pressed
-      //                 or a.button_sprites.x.raised
-      //         )
-      //         place_button.draw(
-      //             u.vs - a.wb + 2,
-      //             u.vs - a.wb + 1,
-      //             is_x_enabled
-      //                 and (is_x_pressed and a.colors.grey_light or a.colors.grey_violet)
-      //                 or a.colors.brown_mid,
-      //             a.colors.brown_mid
-      //         )
+
+      const placeButton = new ButtonGlyph(
+        this.#buttonX.isPressed
+          ? g.buttonSprites.x.pressed
+          : g.buttonSprites.x.raised
+      );
+      placeButton.draw(
+        g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
+        this.#buttonX.isEnabled
+          ? this.#buttonX.isPressed
+            ? p8c.greyLight
+            : p8c.greyViolet
+          : p8c.brownMid,
+        p8c.brownMid
+      );
+
       BeetPx.print(
         dollarText,
         g.canvasSize

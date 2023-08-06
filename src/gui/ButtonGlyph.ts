@@ -1,12 +1,32 @@
+import { BeetPx, BpxSprite, BpxVector2d } from "beetpx";
+import { SolidColor } from "beetpx/ts_output/Color";
+import { g } from "../globals";
+
 export class ButtonGlyph {
-  // TODO: migrate from Lua
-  // return {
-  //     draw = function(x, y, color1, color2)
-  //         pal(a.button_template_color_1, color1, 0)
-  //         pal(a.button_template_color_2, color2, 0)
-  //         sspr(sprite[1], sprite[2], sprite[3], sprite[4], x, y)
-  //         pal(a.button_template_color_1, a.button_template_color_1, 0)
-  //         pal(a.button_template_color_2, a.button_template_color_2, 0)
-  //     end,
-  // }
+  // TODO: make framework types named same as exported ones, since IDE suggestions and completions often use the non-prefixed ones
+  readonly #glyphSprite: BpxSprite;
+
+  constructor(glyphSprite: BpxSprite) {
+    this.#glyphSprite = glyphSprite;
+  }
+
+  draw(xy: BpxVector2d, color1: SolidColor, color2: SolidColor): void {
+    // TODO: how to make it shorter?
+    const [prevColor1, prevColor2] = [
+      BeetPx.getMappedSpriteColor(g.buttonTemplateColor1),
+      BeetPx.getMappedSpriteColor(g.buttonTemplateColor2),
+    ];
+    BeetPx.mapSpriteColors([
+      { from: g.buttonTemplateColor1, to: color1 },
+      { from: g.buttonTemplateColor2, to: color2 },
+    ]);
+
+    // TODO: get rid of a need to defined the image URL for the sprite
+    BeetPx.sprite(g.assets.spritesheet, this.#glyphSprite, xy);
+
+    BeetPx.mapSpriteColors([
+      { from: g.buttonTemplateColor1, to: prevColor1 },
+      { from: g.buttonTemplateColor2, to: prevColor2 },
+    ]);
+  }
 }

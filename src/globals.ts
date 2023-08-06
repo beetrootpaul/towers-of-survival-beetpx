@@ -25,6 +25,20 @@ export const g = {
     spritesheet: "spritesheet.png",
   },
 
+  buttonSprites: {
+    x: {
+      raised: spr_(115, 32, 5, 6),
+      pressed: spr_(115, 40, 5, 6),
+    },
+    o: {
+      raised: spr_(109, 32, 5, 6),
+      pressed: spr_(109, 40, 5, 6),
+    },
+  },
+
+  buttonTemplateColor1: p8c.greenOld,
+  buttonTemplateColor2: p8c.redLight,
+
   money: {
     // TODO: REVERT
     // initial: 40,
