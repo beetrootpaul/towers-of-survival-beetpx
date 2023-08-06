@@ -32,13 +32,14 @@ export class Game {
             imageTextColor: p8c.green,
           },
         ],
-        sounds: [],
+        sounds: [{ url: g.assets.sfx00 }],
       }
     ).then(({ startGame }) => {
       this.#nextScreen = new ScreenTitle();
       this.#currentScreen = this.#nextScreen;
 
       // TODO: AUDIO
+      BeetPx.playSoundLooped(g.assets.sfx00);
       // music(0)
 
       BeetPx.setOnUpdate(() => {

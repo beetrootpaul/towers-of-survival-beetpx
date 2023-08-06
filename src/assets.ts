@@ -8,12 +8,22 @@
 //         v_beam = { priority = 2, track = 17 },
 //         laser = { priority = 1, track = 16 },
 //     },
-//     tiles = {
-//         road = { x = 0, y = 24 },
-//         road_edge_bottom = { x = 0, y = 28 },
-//         road_edge_top = { x = 0, y = 20 },
-//         road_edge_right = { x = 4, y = 24 },
-//         road_edge_left = { x = 4, y = 28 },
-//     },
 // }
 //
+// muzyka:
+//   00     INTRO
+//   00
+//   01
+//   01
+//   00 04     MAIN / SEGMENT 1   bg vs melody   chunk 1
+//   00 05                                       chunk 2
+//   00 04
+//   00 05
+//   02 06   MAIN / SEGMENT 2
+//   02 07
+//   00 04
+//   00 05
+//   03 08  MAIN / SEGMENT 3
+//   03 09
+//   09 10
+//   01
