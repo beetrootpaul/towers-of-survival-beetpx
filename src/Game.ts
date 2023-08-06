@@ -60,10 +60,6 @@ export class Game {
       BeetPx.setOnDraw(() => {
         BeetPx.clearCanvas(p8c.brownDark);
 
-        this.#currentScreen?.draw();
-
-        // TODO: migrate from Lua
-        // pal(a.palette, 1)
         BeetPx.mapSpriteColors([
           { from: p8c.black, to: transparent_ },
           { from: p8c.darkBlue, to: p8c.blueDark },
@@ -75,6 +71,8 @@ export class Game {
           { from: p8c.pink, to: p8c.brownPurple },
           { from: p8c.lightPeach, to: p8c.sand },
         ]);
+
+        this.#currentScreen?.draw();
 
         // TODO: here we kinda cannot use a single spritesheet with 2 fonts on it. Do something about it
         BeetPx.setFont(g.assets.spritesheet);
