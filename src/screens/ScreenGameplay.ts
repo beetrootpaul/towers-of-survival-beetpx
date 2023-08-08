@@ -2,7 +2,7 @@ import { BeetPx, BpxVector2d, v_ } from "beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { GameState } from "../game_state/GameState";
-import { u } from "../globals";
+import { g, u } from "../globals";
 import { Button } from "../gui/Button";
 import { Gui } from "../gui/Gui";
 import { Placement } from "../placement/Placement";
@@ -48,8 +48,7 @@ export class ScreenGameplay implements Screen {
     this.#enemies = new Enemies({
       path: this.#warzone.path(),
       onEnemyReachedPathEnd: () => {
-        // TODO: AUDIO
-        //             audio.sfx(a.sfx.live_lost)
+        BeetPx.playSoundOnce(g.assets.sfxLiveLost);
         this.#gameState.lives.takeOne();
       },
     });
@@ -80,8 +79,7 @@ export class ScreenGameplay implements Screen {
     });
     this.#buttonX = new Button({
       onRelease: (self) => {
-        // TODO: AUDIO
-        //             audio.sfx(a.sfx.button_press)
+        BeetPx.playSoundOnce(g.assets.sfxButtonPress);
 
         if (this.#gameState.buildingState === "idle") {
           this.#gameState.buildingState = "tower-choice";
@@ -96,8 +94,7 @@ export class ScreenGameplay implements Screen {
           self.setEnabled(this.#placement.canBuild());
         } else if (this.#gameState.buildingState === "tower-placement") {
           if (this.#placement?.canBuild()) {
-            // TODO: AUDIO
-            //           audio.sfx(a.sfx.tower_placed)
+            BeetPx.playSoundOnce(g.assets.sfxTowerPlaced);
             this.#gameState.money.subtract(
               this.#gameState.towerChoice.chosenTower.cost
             );
@@ -108,8 +105,7 @@ export class ScreenGameplay implements Screen {
             this.#gameState.buildingState = "idle";
             this.#placement = null;
           } else {
-            // TODO: AUDIO
-            //           audio.sfx(a.sfx.cannot_place)
+            BeetPx.playSoundOnce(g.assets.sfxCannotPlace);
           }
         }
       },
@@ -202,12 +198,10 @@ export class ScreenGameplay implements Screen {
       this.#buttonX.setEnabled(this.#placement.canBuild());
     } else if (this.#gameState.buildingState === "tower-choice") {
       if (direction.x > 0) {
-        // TODO: AUDIO
-        // audio.sfx(a.sfx.button_press)
+        BeetPx.playSoundOnce(g.assets.sfxButtonPress);
         this.#gameState.towerChoice.chooseNextTower();
       } else if (direction.x < 0) {
-        // TODO: AUDIO
-        // audio.sfx(a.sfx.button_press)
+        BeetPx.playSoundOnce(g.assets.sfxButtonPress);
         this.#gameState.towerChoice.choosePrevTower();
       }
     } else {

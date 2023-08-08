@@ -156,11 +156,9 @@ export class Tower {
         this.#shootingTimer = this.#newShootingTimer();
         //             if s.type == "laser" then
         if (this.type === "laser") {
-          // TODO: AUDIO
-          //                 audio.sfx(a.sfx.laser)
+          BeetPx.playSoundOnce(g.assets.sfxLaser);
         } else if (this.type === "v_beam") {
-          // TODO: AUDIO
-          //                 audio.sfx(a.sfx.v_beam)
+          BeetPx.playSoundOnce(g.assets.sfxVBeam);
         }
       }
     }

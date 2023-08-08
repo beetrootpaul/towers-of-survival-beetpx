@@ -33,17 +33,23 @@ export class Game {
           },
         ],
         sounds: [
-          { url: g.assets.sfx00 },
-          { url: g.assets.sfx01 },
-          { url: g.assets.sfx02 },
-          { url: g.assets.sfx03 },
-          { url: g.assets.sfx04 },
-          { url: g.assets.sfx05 },
-          { url: g.assets.sfx06 },
-          { url: g.assets.sfx07 },
-          { url: g.assets.sfx08 },
-          { url: g.assets.sfx09 },
-          { url: g.assets.sfx10 },
+          { url: g.assets.musicBg1 },
+          { url: g.assets.musicBg2 },
+          { url: g.assets.musicBg3 },
+          { url: g.assets.musicBg4 },
+          { url: g.assets.musicMelody1 },
+          { url: g.assets.musicMelody2 },
+          { url: g.assets.musicMelody3 },
+          { url: g.assets.musicMelody4 },
+          { url: g.assets.musicMelody5 },
+          { url: g.assets.musicMelody6 },
+          { url: g.assets.musicMelody7 },
+          { url: g.assets.sfxLiveLost },
+          { url: g.assets.sfxCannotPlace },
+          { url: g.assets.sfxTowerPlaced },
+          { url: g.assets.sfxButtonPress },
+          { url: g.assets.sfxVBeam },
+          { url: g.assets.sfxLaser },
         ],
       }
     ).then(({ startGame }) => {
@@ -55,27 +61,60 @@ export class Game {
         (fullSoundDurationMs * 24) / 32;
       BeetPx.playSoundSequence({
         sequence: [
-          [{ url: g.assets.sfx00, durationMs }],
-          [{ url: g.assets.sfx00, durationMs }],
-          [{ url: g.assets.sfx01, durationMs }],
-          [{ url: g.assets.sfx01, durationMs }],
+          [{ url: g.assets.musicBg1, durationMs }],
+          [{ url: g.assets.musicBg1, durationMs }],
+          [{ url: g.assets.musicBg2, durationMs }],
+          [{ url: g.assets.musicBg2, durationMs }],
         ],
         sequenceLooped: [
           // 1st four
-          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx04 }],
-          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx05 }],
-          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx04 }],
-          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx05 }],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody1 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody2 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody1 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody2 },
+          ],
           // 2nd four
-          [{ url: g.assets.sfx02, durationMs }, { url: g.assets.sfx06 }],
-          [{ url: g.assets.sfx02, durationMs }, { url: g.assets.sfx07 }],
-          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx04 }],
-          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx05 }],
+          [
+            { url: g.assets.musicBg3, durationMs },
+            { url: g.assets.musicMelody3 },
+          ],
+          [
+            { url: g.assets.musicBg3, durationMs },
+            { url: g.assets.musicMelody4 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody1 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody2 },
+          ],
           // 3rd four
-          [{ url: g.assets.sfx03, durationMs }, { url: g.assets.sfx08 }],
-          [{ url: g.assets.sfx03, durationMs }, { url: g.assets.sfx09 }],
-          [{ url: g.assets.sfx00, durationMs }, { url: g.assets.sfx10 }],
-          [{ url: g.assets.sfx01, durationMs }],
+          [
+            { url: g.assets.musicBg4, durationMs },
+            { url: g.assets.musicMelody5 },
+          ],
+          [
+            { url: g.assets.musicBg4, durationMs },
+            { url: g.assets.musicMelody6 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody7 },
+          ],
+          [{ url: g.assets.musicBg2, durationMs }],
         ],
       });
 
@@ -89,10 +128,6 @@ export class Game {
         //   for a drawing.
         this.#currentScreen = this.#nextScreen;
         this.#nextScreen = this.#currentScreen?.update();
-
-        // TODO: AUDIO
-        //     audio.play()
-        // end
       });
 
       BeetPx.setOnDraw(() => {

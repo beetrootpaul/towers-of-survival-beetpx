@@ -24,44 +24,25 @@ export const g = {
 
   assets: {
     spritesheet: "spritesheet.png",
-    sfx00: "sfx00.wav",
-    sfx01: "sfx01.wav",
-    sfx02: "sfx02.wav",
-    sfx03: "sfx03.wav",
-    sfx04: "sfx04.wav",
-    sfx05: "sfx05.wav",
-    sfx06: "sfx06.wav",
-    sfx07: "sfx07.wav",
-    sfx08: "sfx08.wav",
-    sfx09: "sfx09.wav",
-    sfx10: "sfx10.wav",
-    // TODO: AUDIO
-    //   00     INTRO
-    //   00
-    //   01
-    //   01
-    //   00 04     MAIN / SEGMENT 1   bg vs melody   chunk 1
-    //   00 05                                       chunk 2
-    //   00 04
-    //   00 05
-    //   02 06   MAIN / SEGMENT 2
-    //   02 07
-    //   00 04
-    //   00 05
-    //   03 08  MAIN / SEGMENT 3
-    //   03 09
-    //   09 10
-    //   01
     //
-    // TODO: AUDIO
-    //     sfx = {
-    //         live_lost = { priority = 6, track = 21 },
-    //         cannot_place = { priority = 5, track = 18 },
-    //         tower_placed = { priority = 4, track = 19 },
-    //         button_press = { priority = 3, track = 20 },
-    //         v_beam = { priority = 2, track = 17 },
-    //         laser = { priority = 1, track = 16 },
-    //     },
+    musicBg1: "sfx00.wav",
+    musicBg2: "sfx01.wav",
+    musicBg3: "sfx02.wav",
+    musicBg4: "sfx03.wav",
+    musicMelody1: "sfx04.wav",
+    musicMelody2: "sfx05.wav",
+    musicMelody3: "sfx06.wav",
+    musicMelody4: "sfx07.wav",
+    musicMelody5: "sfx08.wav",
+    musicMelody6: "sfx09.wav",
+    musicMelody7: "sfx10.wav",
+    //
+    sfxLiveLost: "sfx21.wav",
+    sfxCannotPlace: "sfx18.wav",
+    sfxTowerPlaced: "sfx19.wav",
+    sfxButtonPress: "sfx20.wav",
+    sfxVBeam: "sfx17.wav",
+    sfxLaser: "sfx16.wav",
   },
 
   buttonSprites: {
