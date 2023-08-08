@@ -1,4 +1,4 @@
-import { BeetPx, BpxClippingRegion, v_ } from "beetpx";
+import { BeetPx, BpxClippingRegion, v_ } from "@beetpx/beetpx";
 import { g, p8c, u } from "../globals";
 import { Timer } from "../misc/Timer";
 import { Screen } from "./Screen";

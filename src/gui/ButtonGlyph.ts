@@ -1,5 +1,5 @@
-import { BeetPx, BpxSprite, BpxVector2d } from "beetpx";
-import { SolidColor } from "beetpx/ts_output/Color";
+import { BeetPx, BpxSprite, BpxVector2d } from "@beetpx/beetpx";
+import { SolidColor } from "@beetpx/beetpx/ts_output/Color";
 import { g } from "../globals";
 
 export class ButtonGlyph {

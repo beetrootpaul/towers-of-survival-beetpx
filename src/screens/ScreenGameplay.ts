@@ -1,4 +1,4 @@
-import { BeetPx, BpxVector2d, v_ } from "beetpx";
+import { BeetPx, BpxVector2d, v_ } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { GameState } from "../game_state/GameState";

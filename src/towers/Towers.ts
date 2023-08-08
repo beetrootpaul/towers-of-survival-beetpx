@@ -1,4 +1,4 @@
-import { v_ } from "beetpx";
+import { v_ } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";

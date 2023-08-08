@@ -4,7 +4,7 @@ import {
   BpxSolidColor,
   BpxVector2d,
   v_,
-} from "beetpx";
+} from "@beetpx/beetpx";
 import { g } from "../globals";
 
 export class EnemyRange {

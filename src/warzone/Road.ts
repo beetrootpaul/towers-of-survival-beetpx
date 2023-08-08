@@ -1,4 +1,4 @@
-import { BeetPx, BpxSprite, BpxVector2d, v_ } from "beetpx";
+import { BeetPx, BpxSprite, BpxVector2d, v_ } from "@beetpx/beetpx";
 import { g, p8c, u } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Path } from "./Path";

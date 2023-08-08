@@ -1,4 +1,4 @@
-import { BeetPx, v_ } from "beetpx";
+import { BeetPx, v_ } from "@beetpx/beetpx";
 import { GameState } from "../game_state/GameState";
 import { g, p8c, u } from "../globals";
 import { Waves } from "../waves/Waves";

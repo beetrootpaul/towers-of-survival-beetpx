@@ -1,4 +1,4 @@
-import { BpxVector2d, v_ } from "beetpx";
+import { BpxVector2d, v_ } from "@beetpx/beetpx";
 
 export class Path {
   readonly points: BpxVector2d[] = [];

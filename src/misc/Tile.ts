@@ -1,4 +1,4 @@
-import { BpxVector2d } from "beetpx";
+import { BpxVector2d } from "@beetpx/beetpx";
 
 export class Tile {
   readonly #xy: BpxVector2d;

@@ -4,7 +4,7 @@ import {
   BpxVector2d,
   spr_,
   type BpxFont,
-} from "beetpx";
+} from "@beetpx/beetpx";
 
 function c_(x1: number, y1: number, w: number = 3, h: number = 4): BpxSprite {
   return spr_(x1, y1, w, h);

@@ -4,7 +4,7 @@ import {
   BpxSolidColor,
   BpxVector2d,
   v_,
-} from "beetpx";
+} from "@beetpx/beetpx";
 import { Enemy } from "../enemies/Enemy";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";

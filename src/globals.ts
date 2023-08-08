@@ -1,4 +1,4 @@
-import { BpxSprite, BpxUtils, spr_, v_ } from "beetpx";
+import { BpxSprite, BpxUtils, spr_, v_ } from "@beetpx/beetpx";
 import { Pico8Colors } from "./Pico8Color";
 import { spro_ } from "./misc/SpriteWithOffset";
 import { WaveDescriptor } from "./waves/Wave";

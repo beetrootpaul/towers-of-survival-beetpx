@@ -1,4 +1,4 @@
-import { BeetPx, BpxFillPattern, BpxVector2d, v_ } from "beetpx";
+import { BeetPx, BpxFillPattern, BpxVector2d, v_ } from "@beetpx/beetpx";
 import { Money } from "../game_state/Money";
 import { TowerChoice, TowerDescriptor } from "../game_state/TowerChoice";
 import { g, p8c } from "../globals";

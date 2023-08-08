@@ -1,5 +1,5 @@
-import { BeetPx, BpxClippingRegion, BpxFillPattern, v_ } from "beetpx";
-import { SolidColor } from "beetpx/ts_output/Color";
+import { BeetPx, BpxClippingRegion, BpxFillPattern, v_ } from "@beetpx/beetpx";
+import { SolidColor } from "@beetpx/beetpx/ts_output/Color";
 import { Enemy } from "../enemies/Enemy";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";

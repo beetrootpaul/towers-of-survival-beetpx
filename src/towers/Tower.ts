@@ -1,4 +1,5 @@
-import { BeetPx, BpxVector2d } from "beetpx";
+import { BeetPx } from "@beetpx/beetpx";
+import { Vector2d } from "@beetpx/beetpx/ts_output/Vector2d";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
@@ -93,7 +94,7 @@ export class Tower {
     return this.#descriptor.type;
   }
 
-  get xy(): BpxVector2d {
+  get xy(): Vector2d {
     return this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize);
   }
 

@@ -1,4 +1,4 @@
-import { BeetPx, BpxVector2d, v_ } from "beetpx";
+import { BeetPx, BpxVector2d, v_ } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 
 export class ChosenTowerBorder {

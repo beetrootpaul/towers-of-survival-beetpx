@@ -1,4 +1,4 @@
-import { BeetPx, v_ } from "beetpx";
+import { BeetPx, v_ } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 import { Tile } from "../misc/Tile";
 

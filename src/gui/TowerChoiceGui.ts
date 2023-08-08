@@ -1,4 +1,4 @@
-import { BeetPx } from "beetpx";
+import { BeetPx } from "@beetpx/beetpx";
 import { TowerChoice } from "../game_state/TowerChoice";
 import { g } from "../globals";
 import { ChosenTowerBorder } from "./ChosenTowerBorder";

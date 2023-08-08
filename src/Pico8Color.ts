@@ -1,4 +1,4 @@
-import { BpxSolidColor } from "beetpx";
+import { BpxSolidColor } from "@beetpx/beetpx";
 
 // noinspection JSUnusedGlobalSymbols
 export class Pico8Colors {

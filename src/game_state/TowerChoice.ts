@@ -1,4 +1,4 @@
-import { BpxSprite } from "beetpx";
+import { BpxSprite } from "@beetpx/beetpx";
 import { g, u } from "../globals";
 import { TowerType } from "../towers/Tower";
 

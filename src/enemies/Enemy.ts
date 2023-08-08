@@ -1,4 +1,4 @@
-import { BeetPx, BpxVector2d } from "beetpx";
+import { BeetPx, BpxVector2d } from "@beetpx/beetpx";
 import { g, p8c, u } from "../globals";
 import { SpriteWithOffset } from "../misc/SpriteWithOffset";
 import { Path } from "../warzone/Path";

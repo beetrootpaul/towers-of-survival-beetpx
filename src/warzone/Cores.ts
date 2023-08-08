@@ -1,4 +1,4 @@
-import { BeetPx, v_ } from "beetpx";
+import { BeetPx, v_ } from "@beetpx/beetpx";
 import { Lives } from "../game_state/Lives";
 import { g } from "../globals";
 

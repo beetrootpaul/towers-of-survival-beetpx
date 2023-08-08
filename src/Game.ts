@@ -1,4 +1,4 @@
-import { BeetPx, BpxVector2d, transparent_, v_ } from "beetpx";
+import { BeetPx, BpxVector2d, transparent_, v_ } from "@beetpx/beetpx";
 import { TinyFont } from "./TinyFont";
 import { g, p8c, u } from "./globals";
 import { Screen } from "./screens/Screen";

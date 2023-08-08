@@ -1,4 +1,4 @@
-import { BpxVector2d } from "beetpx";
+import { BpxVector2d } from "@beetpx/beetpx";
 import { g, u } from "../globals";
 import { Path } from "../warzone/Path";
 

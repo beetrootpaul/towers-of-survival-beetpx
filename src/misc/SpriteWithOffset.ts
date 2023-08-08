@@ -1,4 +1,4 @@
-import { BpxSprite, BpxVector2d, v_ } from "beetpx";
+import { BpxSprite, BpxVector2d, v_ } from "@beetpx/beetpx";
 
 export function spro_(
   x1: number,
