@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/beetrootpaul/towers-of-survival-beetpx.git"
   },
+  "engines": {
+    "node": ">=14.18.0"
+  },
   "scripts": {
     "prepare": "husky install",
     "cleanup": "rimraf ./.beetpx/ ./index.html ./itch_io_simulation.html",
@@ -28,10 +31,11 @@
     ]
   },
   "devDependencies": {
-    "@beetpx/beetpx": "0.6.0",
+    "@beetpx/beetpx": "git+ssh://git@github.com:beetrootpaul/beetpx#8393766696a0f4be684fa51e6da812463bf08269",
     "@jest/globals": "29.5.0",
     "cross-zip-cli": "1.0.0",
     "husky": "8.0.3",
+    "jest": "29.6.2",
     "prettier": "2.8.8",
     "prettier-plugin-organize-imports": "3.2.3",
     "rimraf": "5.0.0",
