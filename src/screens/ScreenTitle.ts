@@ -1,10 +1,4 @@
-import {
-  BeetPx,
-  BpxClippingRegion,
-  BpxVector2d,
-  spr_,
-  v_,
-} from "@beetpx/beetpx";
+import { BeetPx, ClippingRegion, Vector2d, spr_, v_ } from "@beetpx/beetpx";
 import { g } from "../globals";
 import { Timer } from "../misc/Timer";
 import { Screen } from "./Screen";
@@ -34,12 +28,12 @@ export class ScreenTitle implements Screen {
     const clipY = Math.floor(clipProgress * (g.canvasSize.y / 2));
 
     BeetPx.setClippingRegion(
-      BpxClippingRegion.of(v_(0, clipY), g.canvasSize.sub(0, clipY))
+      ClippingRegion.of(v_(0, clipY), g.canvasSize.sub(0, clipY))
     );
     BeetPx.sprite(
       g.assets.spritesheet,
       spr_(0, 64, g.canvasSize),
-      BpxVector2d.zero
+      Vector2d.zero
     );
 
     BeetPx.setClippingRegion(null);

@@ -1,4 +1,4 @@
-import { BeetPx, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { BeetPx, Vector2d, v_ } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { GameState } from "../game_state/GameState";
@@ -34,7 +34,7 @@ export class ScreenGameplay implements Screen {
 
   readonly #gui: Gui;
 
-  static readonly #arrowButtonsToDirections: Record<string, BpxVector2d> = {
+  static readonly #arrowButtonsToDirections: Record<string, Vector2d> = {
     left: v_(-1, 0),
     right: v_(1, 0),
     up: v_(0, -1),
@@ -188,7 +188,7 @@ export class ScreenGameplay implements Screen {
   }
 
   #applyArrowButtonInput(arrowButton: "left" | "right" | "up" | "down"): void {
-    const direction: BpxVector2d =
+    const direction: Vector2d =
       ScreenGameplay.#arrowButtonsToDirections[arrowButton] ??
       u.throwError(
         `There is no direction defined for arrow button "${arrowButton}"`

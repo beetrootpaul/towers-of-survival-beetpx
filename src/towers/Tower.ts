@@ -1,5 +1,4 @@
-import { BeetPx } from "@beetpx/beetpx";
-import { Vector2d } from "@beetpx/beetpx/ts_output/Vector2d";
+import { BeetPx, Vector2d } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";

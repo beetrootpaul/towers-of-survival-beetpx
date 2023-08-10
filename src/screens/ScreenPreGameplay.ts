@@ -1,4 +1,4 @@
-import { BeetPx, BpxClippingRegion, v_ } from "@beetpx/beetpx";
+import { BeetPx, ClippingRegion, v_ } from "@beetpx/beetpx";
 import { GameState } from "../game_state/GameState";
 import { g } from "../globals";
 import { Timer } from "../misc/Timer";
@@ -43,7 +43,7 @@ export class ScreenPreGameplay implements Screen {
     );
 
     BeetPx.setClippingRegion(
-      BpxClippingRegion.of(
+      ClippingRegion.of(
         v_(0, g.warzoneBorder + clipY),
         g.canvasSize.sub(0, g.warzoneBorder + clipY)
       )

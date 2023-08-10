@@ -1,16 +1,15 @@
-import { BeetPx, BpxSprite, BpxVector2d } from "@beetpx/beetpx";
-import { SolidColor } from "@beetpx/beetpx/ts_output/Color";
+import { BeetPx, SolidColor, Sprite, Vector2d } from "@beetpx/beetpx";
 import { g } from "../globals";
 
 export class ButtonGlyph {
   // TODO: make framework types named same as exported ones, since IDE suggestions and completions often use the non-prefixed ones
-  readonly #glyphSprite: BpxSprite;
+  readonly #glyphSprite: Sprite;
 
-  constructor(glyphSprite: BpxSprite) {
+  constructor(glyphSprite: Sprite) {
     this.#glyphSprite = glyphSprite;
   }
 
-  draw(xy: BpxVector2d, color1: SolidColor, color2: SolidColor): void {
+  draw(xy: Vector2d, color1: SolidColor, color2: SolidColor): void {
     // TODO: how to make it shorter?
     const [prevColor1, prevColor2] = [
       BeetPx.getMappedSpriteColor(g.buttonTemplateColor1),

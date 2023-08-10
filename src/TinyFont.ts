@@ -1,17 +1,11 @@
-import {
-  BpxCharSprite,
-  BpxSprite,
-  BpxVector2d,
-  spr_,
-  type BpxFont,
-} from "@beetpx/beetpx";
+import { CharSprite, Sprite, Vector2d, spr_, type Font } from "@beetpx/beetpx";
 
-function c_(x1: number, y1: number, w: number = 3, h: number = 4): BpxSprite {
+function c_(x1: number, y1: number, w: number = 3, h: number = 4): Sprite {
   return spr_(x1, y1, w, h);
 }
 
-export class TinyFont implements BpxFont {
-  static #sprites: Record<string, BpxSprite> = {
+export class TinyFont implements Font {
+  static #sprites: Record<string, Sprite> = {
     [" "]: c_(126, 32, 2), // space
     //
     ["1"]: c_(0, 40, 2),
@@ -62,9 +56,9 @@ export class TinyFont implements BpxFont {
     ["@"]: c_(45, 40, 5), // skull
   };
 
-  spritesFor(text: string): BpxCharSprite[] {
-    const charSprites: BpxCharSprite[] = [];
-    let positionInText: BpxVector2d = BpxVector2d.zero;
+  spritesFor(text: string): CharSprite[] {
+    const charSprites: CharSprite[] = [];
+    let positionInText: Vector2d = Vector2d.zero;
 
     for (let i = 0; i < text.length; i += 1) {
       let char = text[i]!.toLowerCase();

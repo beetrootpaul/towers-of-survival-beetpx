@@ -1,4 +1,4 @@
-import { BeetPx, BpxClippingRegion, v_ } from "@beetpx/beetpx";
+import { BeetPx, ClippingRegion, v_ } from "@beetpx/beetpx";
 import { g, p8c, u } from "../globals";
 import { Timer } from "../misc/Timer";
 import { Screen } from "./Screen";
@@ -41,7 +41,7 @@ export class ScreenOver implements Screen {
     );
 
     BeetPx.setClippingRegion(
-      BpxClippingRegion.of(
+      ClippingRegion.of(
         v_(0, g.warzoneBorder + clipY),
         g.canvasSize.sub(0, g.warzoneBorder + clipY)
       )

@@ -1,4 +1,4 @@
-import { BeetPx, BpxFillPattern, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { BeetPx, FillPattern, Vector2d, v_ } from "@beetpx/beetpx";
 import { Money } from "../game_state/Money";
 import { TowerChoice, TowerDescriptor } from "../game_state/TowerChoice";
 import { g, p8c } from "../globals";
@@ -90,10 +90,10 @@ export class Placement {
     return this.#checkIfCanBuild().canBuild;
   }
 
-  moveChosenTile(direction: BpxVector2d): void {
+  moveChosenTile(direction: Vector2d): void {
     this.#chosenTile = this.#chosenTile.plus(direction);
     this.#chosenTile = new Tile(
-      this.#chosenTile.xy.clamp(BpxVector2d.zero, g.warzoneSizeTiles.sub(1))
+      this.#chosenTile.xy.clamp(Vector2d.zero, g.warzoneSizeTiles.sub(1))
     );
 
     this.#towerRange = this.#newTowerRange();
@@ -113,13 +113,13 @@ export class Placement {
     const canBuildCheckResult = this.#checkIfCanBuild();
 
     for (const collidingTower of canBuildCheckResult.collidingTowers) {
-      BeetPx.setFillPattern(BpxFillPattern.of(0b1010_0101_1010_0101));
+      BeetPx.setFillPattern(FillPattern.of(0b1010_0101_1010_0101));
       BeetPx.rectFilled(
         collidingTower.xy,
         collidingTower.xy.add(g.tileSize),
         p8c.red
       );
-      BeetPx.setFillPattern(BpxFillPattern.primaryOnly);
+      BeetPx.setFillPattern(FillPattern.primaryOnly);
     }
 
     this.#chosenTileBorder.draw(canBuildCheckResult.canBuild);

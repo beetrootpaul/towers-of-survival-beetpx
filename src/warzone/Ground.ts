@@ -1,4 +1,4 @@
-import { BeetPx, BpxSprite, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { BeetPx, Sprite, Vector2d, v_ } from "@beetpx/beetpx";
 import { g, u } from "../globals";
 import { Tile } from "../misc/Tile";
 
@@ -15,12 +15,12 @@ export class Ground {
     v_(-1, 0),
   ];
 
-  readonly #sprites: Record<string, BpxSprite>;
+  readonly #sprites: Record<string, Sprite>;
 
   constructor() {
     this.#sprites = {};
-    BpxVector2d.forEachIntXyWithinRectOf(
-      BpxVector2d.zero,
+    Vector2d.forEachIntXyWithinRectOf(
+      Vector2d.zero,
       g.warzoneSizeTiles,
       true,
       (xy) => {
@@ -32,9 +32,7 @@ export class Ground {
   }
 
   isAt(tile: Tile): boolean {
-    return (
-      tile.xy.gte(BpxVector2d.zero) && tile.xy.lte(g.warzoneSizeTiles.sub(1))
-    );
+    return tile.xy.gte(Vector2d.zero) && tile.xy.lte(g.warzoneSizeTiles.sub(1));
   }
 
   makePlainAtAndAround(tile: Tile): void {
@@ -49,8 +47,8 @@ export class Ground {
   }
 
   draw(): void {
-    BpxVector2d.forEachIntXyWithinRectOf(
-      BpxVector2d.zero,
+    Vector2d.forEachIntXyWithinRectOf(
+      Vector2d.zero,
       g.warzoneSizeTiles,
       true,
       (tileXy) => {

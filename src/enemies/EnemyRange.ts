@@ -1,31 +1,31 @@
 import {
   BeetPx,
-  BpxClippingRegion,
-  BpxSolidColor,
-  BpxVector2d,
+  ClippingRegion,
+  SolidColor,
+  Vector2d,
   v_,
 } from "@beetpx/beetpx";
 import { g } from "../globals";
 
 export class EnemyRange {
-  readonly #center: BpxVector2d;
+  readonly #center: Vector2d;
   readonly #r: number;
 
-  constructor(center: BpxVector2d, r: number) {
+  constructor(center: Vector2d, r: number) {
     this.#center = center;
     this.#r = r;
   }
 
-  get circle(): { center: BpxVector2d; r: number } {
+  get circle(): { center: Vector2d; r: number } {
     return {
       center: this.#center,
       r: this.#r,
     };
   }
 
-  draw(color: BpxSolidColor): void {
+  draw(color: SolidColor): void {
     BeetPx.setClippingRegion(
-      BpxClippingRegion.of(
+      ClippingRegion.of(
         v_(0, g.warzoneBorder),
         g.canvasSize.sub(0, g.warzoneBorder)
       )

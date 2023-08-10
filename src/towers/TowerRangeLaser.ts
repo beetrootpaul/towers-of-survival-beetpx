@@ -1,8 +1,8 @@
 import {
   BeetPx,
-  BpxClippingRegion,
-  BpxSolidColor,
-  BpxVector2d,
+  ClippingRegion,
+  SolidColor,
+  Vector2d,
   v_,
 } from "@beetpx/beetpx";
 import { Enemy } from "../enemies/Enemy";
@@ -11,7 +11,7 @@ import { Tile } from "../misc/Tile";
 import { TowerRange } from "./TowerRange";
 
 export class TowerRangeLaser implements TowerRange {
-  readonly #xy: BpxVector2d;
+  readonly #xy: Vector2d;
   readonly #r: number;
 
   constructor(params: { tile: Tile }) {
@@ -24,7 +24,7 @@ export class TowerRangeLaser implements TowerRange {
     this.#r = g.tileSize.x * 2.5 - 0.5;
   }
 
-  laserSourceXy(): BpxVector2d {
+  laserSourceXy(): Vector2d {
     return this.#xy.add(0.5, -1.5);
   }
 
@@ -35,9 +35,9 @@ export class TowerRangeLaser implements TowerRange {
     return dXy.magnitude() < this.#r + enemyCircle.r;
   }
 
-  draw(color1: BpxSolidColor, color2: BpxSolidColor): void {
+  draw(color1: SolidColor, color2: SolidColor): void {
     BeetPx.setClippingRegion(
-      BpxClippingRegion.of(
+      ClippingRegion.of(
         v_(0, g.warzoneBorder),
         g.canvasSize.sub(0, g.warzoneBorder)
       )

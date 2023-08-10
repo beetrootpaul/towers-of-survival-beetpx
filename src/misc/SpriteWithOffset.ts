@@ -1,4 +1,4 @@
-import { BpxSprite, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { Sprite, Vector2d, v_ } from "@beetpx/beetpx";
 
 export function spro_(
   x1: number,
@@ -19,15 +19,15 @@ export function spro_(
   );
 }
 
-export class SpriteWithOffset extends BpxSprite {
-  readonly offset: BpxVector2d;
-  readonly hitboxOffset: BpxVector2d;
+export class SpriteWithOffset extends Sprite {
+  readonly offset: Vector2d;
+  readonly hitboxOffset: Vector2d;
 
   constructor(
-    xy1: BpxVector2d,
-    xy2: BpxVector2d,
-    offset: BpxVector2d,
-    hitboxOffset: BpxVector2d
+    xy1: Vector2d,
+    xy2: Vector2d,
+    offset: Vector2d,
+    hitboxOffset: Vector2d
   ) {
     super(xy1, xy2);
     this.offset = offset;

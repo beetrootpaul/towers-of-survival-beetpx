@@ -1,4 +1,4 @@
-import { BeetPx, BpxVector2d, transparent_, v_ } from "@beetpx/beetpx";
+import { BeetPx, Vector2d, transparent_, v_ } from "@beetpx/beetpx";
 import { TinyFont } from "./TinyFont";
 import { g, p8c, u } from "./globals";
 import { Screen } from "./screens/Screen";
@@ -152,7 +152,7 @@ export class Game {
 
         if (BeetPx.debug) {
           const fps = BeetPx.averageFps.toFixed(0);
-          BeetPx.print(fps, BpxVector2d.zero, p8c.mauve);
+          BeetPx.print(fps, Vector2d.zero, p8c.mauve);
           const audioState = BeetPx.audioContext.state;
           let audioStateText =
             audioState === "suspended"

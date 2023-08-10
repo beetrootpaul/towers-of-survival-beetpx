@@ -1,17 +1,17 @@
-import { BpxVector2d } from "@beetpx/beetpx";
+import { Vector2d } from "@beetpx/beetpx";
 
 export class Tile {
-  readonly #xy: BpxVector2d;
+  readonly #xy: Vector2d;
 
-  constructor(xy: BpxVector2d) {
+  constructor(xy: Vector2d) {
     this.#xy = xy;
   }
 
-  get xy(): BpxVector2d {
+  get xy(): Vector2d {
     return this.#xy;
   }
 
-  plus(dXy: BpxVector2d): Tile {
+  plus(dXy: Vector2d): Tile {
     return new Tile(this.#xy.add(dXy));
   }
 
