@@ -1,6 +1,6 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   rootDir: "./src/",
+  passWithNoTests: true,
   preset: "ts-jest",
   transform: {
     "^.+\\.[tj]s$": [
