@@ -2,7 +2,6 @@ import { BeetPx, v_ } from "@beetpx/beetpx";
 import { GameState } from "../game_state/GameState";
 import { g, p8c, u } from "../globals";
 import { Waves } from "../waves/Waves";
-import { Button } from "./Button";
 import { ButtonGlyph } from "./ButtonGlyph";
 import { TowerChoiceGui } from "./TowerChoiceGui";
 import { TowerInfo } from "./TowerInfo";
@@ -10,21 +9,12 @@ import { WaveStatus } from "./WaveStatus";
 
 export class Gui {
   readonly #gameState: GameState;
-  readonly #buttonX: Button;
-  readonly #buttonO: Button;
   readonly #towerInfo: TowerInfo;
   readonly #waveStatus: WaveStatus;
   readonly #towerChoiceGui: TowerChoiceGui;
 
-  constructor(params: {
-    gameState: GameState;
-    waves: Waves;
-    buttonX: Button;
-    buttonO: Button;
-  }) {
+  constructor(params: { gameState: GameState; waves: Waves }) {
     this.#gameState = params.gameState;
-    this.#buttonX = params.buttonX;
-    this.#buttonO = params.buttonO;
 
     this.#towerInfo = new TowerInfo({
       towerChoice: this.#gameState.towerChoice,
@@ -39,7 +29,7 @@ export class Gui {
     });
   }
 
-  draw(): void {
+  draw(params: { isButtonXEnabled: boolean }): void {
     if (this.#gameState.buildingState === "idle") {
       this.#waveStatus.draw();
 
@@ -47,17 +37,17 @@ export class Gui {
       BeetPx.print(
         menuText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve
+        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve
       );
 
       const menuButton = new ButtonGlyph(
-        this.#buttonO.isPressed
+        BeetPx.isPressed("o")
           ? g.buttonSprites.o.pressed
           : g.buttonSprites.o.raised
       );
       menuButton.draw(
         v_(1, g.canvasSize.y - g.warzoneBorder + 1),
-        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve,
+        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve,
         p8c.darkerGrey
       );
 
@@ -68,17 +58,17 @@ export class Gui {
           g.canvasSize.x - g.warzoneBorder - u.measureTextSize(buildText).x,
           g.canvasSize.y - g.warzoneBorder + 2
         ),
-        this.#buttonX.isPressed ? p8c.lightGrey : p8c.mauve
+        BeetPx.isPressed("x") ? p8c.lightGrey : p8c.mauve
       );
 
       const buildButton = new ButtonGlyph(
-        this.#buttonX.isPressed
+        BeetPx.isPressed("x")
           ? g.buttonSprites.x.pressed
           : g.buttonSprites.x.raised
       );
       buildButton.draw(
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
-        this.#buttonX.isPressed ? p8c.lightGrey : p8c.mauve,
+        BeetPx.isPressed("x") ? p8c.lightGrey : p8c.mauve,
         p8c.darkerGrey
       );
     } else if (this.#gameState.buildingState === "tower-choice") {
@@ -102,31 +92,31 @@ export class Gui {
       BeetPx.print(
         backText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve
+        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve
       );
 
       const backButton = new ButtonGlyph(
-        this.#buttonO.isPressed
+        BeetPx.isPressed("o")
           ? g.buttonSprites.o.pressed
           : g.buttonSprites.o.raised
       );
       backButton.draw(
         v_(1, g.canvasSize.y - g.warzoneBorder + 1),
-        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve,
+        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve,
         p8c.darkerGrey
       );
 
       this.#towerChoiceGui.draw();
 
       const chooseButton = new ButtonGlyph(
-        this.#buttonX.isPressed
+        BeetPx.isPressed("x")
           ? g.buttonSprites.x.pressed
           : g.buttonSprites.x.raised
       );
       chooseButton.draw(
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
-        this.#buttonX.isEnabled
-          ? this.#buttonX.isPressed
+        params.isButtonXEnabled
+          ? BeetPx.isPressed("x")
             ? p8c.lightGrey
             : p8c.lavender
           : p8c.darkerGrey,
@@ -153,17 +143,17 @@ export class Gui {
       BeetPx.print(
         backText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve
+        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve
       );
 
       const backButton = new ButtonGlyph(
-        this.#buttonO.isPressed
+        BeetPx.isPressed("o")
           ? g.buttonSprites.o.pressed
           : g.buttonSprites.o.raised
       );
       backButton.draw(
         v_(1, g.canvasSize.y - g.warzoneBorder + 1),
-        this.#buttonO.isPressed ? p8c.lightGrey : p8c.mauve,
+        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve,
         p8c.darkerGrey
       );
 
@@ -174,22 +164,22 @@ export class Gui {
           g.canvasSize.x - g.warzoneBorder - u.measureTextSize(placeText).x,
           g.canvasSize.y - g.warzoneBorder + 2
         ),
-        this.#buttonX.isEnabled
-          ? this.#buttonX.isPressed
+        params.isButtonXEnabled
+          ? BeetPx.isPressed("x")
             ? p8c.lightGrey
             : p8c.lavender
           : p8c.darkerGrey
       );
 
       const placeButton = new ButtonGlyph(
-        this.#buttonX.isPressed
+        BeetPx.isPressed("x")
           ? g.buttonSprites.x.pressed
           : g.buttonSprites.x.raised
       );
       placeButton.draw(
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
-        this.#buttonX.isEnabled
-          ? this.#buttonX.isPressed
+        params.isButtonXEnabled
+          ? BeetPx.isPressed("x")
             ? p8c.lightGrey
             : p8c.lavender
           : p8c.darkerGrey,
@@ -208,7 +198,7 @@ export class Gui {
               2
             )
           ),
-        this.#buttonX.isEnabled ? p8c.lavender : p8c.darkerGrey
+        params.isButtonXEnabled ? p8c.lavender : p8c.darkerGrey
       );
       const costText = `-${this.#gameState.towerChoice.chosenTower.cost.toFixed(
         0
@@ -229,7 +219,7 @@ export class Gui {
           ),
         this.#gameState.money.available >=
           this.#gameState.towerChoice.chosenTower.cost
-          ? this.#buttonX.isEnabled
+          ? params.isButtonXEnabled
             ? p8c.lightGrey
             : p8c.darkerGrey
           : p8c.darkRed
