@@ -22,7 +22,6 @@ export class TowerRangeVBeam implements TowerRange {
   }
 
   draw(color1: SolidColor, color2: SolidColor) {
-    // TODO: how to make it shorter?
     BeetPx.setClippingRegion(
       v_(0, g.warzoneBorder),
       g.canvasSize.sub(0, g.warzoneBorder)

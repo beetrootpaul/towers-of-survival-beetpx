@@ -7,6 +7,8 @@ export type WaveDescriptor = {
   spawns: string;
 };
 
+const extraFrameToProperlySpawnLastEnemy = 1;
+
 export class Wave {
   readonly #enemies: Enemies;
   readonly #timer: Timer;
@@ -18,7 +20,9 @@ export class Wave {
     this.#keyMoments = {};
     const spawns = params.descriptor.spawns.split(",");
     spawns.forEach((spawn, index) => {
-      const moment = g.fps * (spawns.length - 1 - index);
+      const moment =
+        g.fps * (spawns.length - 1 - index) +
+        extraFrameToProperlySpawnLastEnemy;
       if (spawn === "-") {
       } else if (spawn === "s") {
         this.#keyMoments[moment] = "small";
@@ -32,7 +36,7 @@ export class Wave {
     });
 
     this.#timer = new Timer({
-      frames: g.fps * (spawns.length - 1),
+      frames: g.fps * (spawns.length - 1) + extraFrameToProperlySpawnLastEnemy,
     });
   }
 

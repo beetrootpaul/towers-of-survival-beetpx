@@ -117,13 +117,9 @@ export const g = {
       label: "laser",
       cost: 20,
       sprite: s(48, 0, tileSize, tileSize),
-      // TODO: REVERT
-      // dps: 20,
-      dps: 0.1,
+      dps: 20,
       chargingTime: 0.9,
-      // TODO: REVERT
-      // shootingTime: 0.1,
-      shootingTime: 10,
+      shootingTime: 0.1,
       chargingTimeBoost: -0.1,
       shootingTimeBoost: 0.1,
     },
@@ -147,7 +143,7 @@ export const g = {
   enemies: {
     // TODO: REVERT
     // speed: 10,
-    speed: 10,
+    speed: 30,
     small: {
       hitboxR: 0.5,
       health: 20,
@@ -187,12 +183,14 @@ export const g = {
   },
 
   waves: [
-    // TODO: fix 1-enemy spawns
     // TODO: REMOVE
-    { wait: 1, spawns: "b,-,-,-,-,-,-,-,-,-,-,-,-,b" },
-    // { wait: 1, spawns: "s,s,m,m,b,b" },
-    { wait: 2, spawns: "m,m" },
-    { wait: 3, spawns: "b,b" },
+    // { wait: 1, spawns: "s,m,b,s,m,b,s,m,b" },
+    { wait: 1, spawns: "s" },
+    { wait: 1, spawns: "m,m" },
+    { wait: 1, spawns: "-,-,b,-,-" },
+    // { wait: 1, spawns: "-,-,s,s,-,-" },
+    // { wait: 1, spawns: "-,-,-,m,m,m,-,-,-" },
+    // { wait: 1, spawns: "-,-,-,-,g,g,g,g,-,-,-,-" },
     // TODO: REVERT
     // { wait: 4, spawns: "s,-,-,s,-,-,s" },
     // { wait: 4, spawns: "m,-,-,s,s,s,-,-,m" },
