@@ -1,4 +1,4 @@
-import { BeetPx, Vector2d } from "@beetpx/beetpx";
+import { BeetPx, v_, Vector2d } from "@beetpx/beetpx";
 import { g, p8c, u } from "../globals";
 import { SpriteWithOffset } from "../misc/SpriteWithOffset";
 import { Path } from "../warzone/Path";
@@ -87,11 +87,7 @@ export class Enemy {
 
     if (BeetPx.debug && this.#health.value > 0) {
       const healthBarLength = Math.ceil(this.#health.value / 4);
-      BeetPx.line(
-        position.add(0, -2),
-        position.add(healthBarLength, -1),
-        p8c.darkRed
-      );
+      BeetPx.line(position.add(0, -2), v_(healthBarLength, 1), p8c.darkRed);
     }
 
     if (BeetPx.debug) {

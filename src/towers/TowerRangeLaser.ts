@@ -40,7 +40,11 @@ export class TowerRangeLaser implements TowerRange {
         g.canvasSize.sub(0, g.warzoneBorder)
       )
     );
-    BeetPx.ellipse(this.#xy.sub(this.#r), this.#xy.add(this.#r).add(1), color1);
+    BeetPx.ellipse(
+      this.#xy.sub(this.#r),
+      v_(this.#r, this.#r).mul(2).add(1),
+      color1
+    );
     BeetPx.setClippingRegion(null);
   }
 }

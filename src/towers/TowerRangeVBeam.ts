@@ -39,7 +39,7 @@ export class TowerRangeVBeam implements TowerRange {
     BeetPx.setFillPattern(FillPattern.of(0b1010_0101_1010_0101));
     BeetPx.rectFilled(
       v_(this.#x1, g.warzoneBorder),
-      v_(this.#x2 + 1, g.canvasSize.y - g.warzoneBorder),
+      v_(this.#x2 - this.#x1 + 1, g.canvasSize.y - 2 * g.warzoneBorder),
       color1
     );
     BeetPx.setFillPattern(FillPattern.primaryOnly);

@@ -46,7 +46,11 @@ export class TowerRangeBooster implements TowerRange {
       )
     );
 
-    BeetPx.rect(this.#xy.sub(g.tileSize), this.#xy.add(g.tileSize * 2), color2);
+    BeetPx.rect(
+      this.#xy.sub(g.tileSize),
+      v_(g.tileSize, g.tileSize).mul(3),
+      color2
+    );
 
     BeetPx.setClippingRegion(null);
 
@@ -57,7 +61,7 @@ export class TowerRangeBooster implements TowerRange {
         BeetPx.setClippingRegion(ClippingRegion.of(xy, xy.add(g.tileSize)));
         BeetPx.rect(
           this.#xy.sub(g.tileSize),
-          this.#xy.add(g.tileSize * 2),
+          v_(g.tileSize, g.tileSize).mul(3),
           color1
         );
         BeetPx.setClippingRegion(null);

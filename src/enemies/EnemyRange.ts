@@ -31,7 +31,11 @@ export class EnemyRange {
       )
     );
 
-    BeetPx.ellipse(this.#center.sub(this.#r), this.#center.add(this.#r), color);
+    BeetPx.ellipse(
+      this.#center.sub(this.#r),
+      v_(this.#r, this.#r).mul(2).add(1),
+      color
+    );
 
     BeetPx.setClippingRegion(null);
   }

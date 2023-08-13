@@ -1,4 +1,4 @@
-import { BeetPx, Vector2d, v_ } from "@beetpx/beetpx";
+import { BeetPx, v_, Vector2d } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 
 export class Fight {
@@ -29,7 +29,7 @@ export class Fight {
         laser.xy1.x < laser.xy2.x ? 1 : 0,
         laser.xy1.y < laser.xy2.y ? 1 : 0
       );
-      BeetPx.line(xy1, xy2, p8c.white);
+      BeetPx.line(xy1, xy2.sub(xy1), p8c.white);
     }
 
     for (const beam of this.#beams) {
@@ -37,7 +37,7 @@ export class Fight {
       for (let offset = 0; offset < 2; offset++) {
         BeetPx.line(
           v_(x + offset, g.warzoneBorder),
-          v_(x + offset + 1, g.canvasSize.y - g.warzoneBorder),
+          v_(1, g.canvasSize.y - 2 * g.warzoneBorder),
           p8c.white
         );
       }
