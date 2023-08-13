@@ -29,6 +29,8 @@ export const g = {
   assets: {
     spritesheet: spritesheetUrl,
     //
+    tinyFont: "tiny",
+    //
     musicBg1: "sfx00.wav",
     musicBg2: "sfx01.wav",
     musicBg3: "sfx02.wav",

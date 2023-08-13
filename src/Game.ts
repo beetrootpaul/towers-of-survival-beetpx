@@ -145,8 +145,7 @@ export class Game {
 
         this.#currentScreen?.draw();
 
-        // TODO: here we kinda cannot use a single spritesheet with 2 fonts on it. Do something about it
-        BeetPx.setFont(g.assets.spritesheet);
+        BeetPx.setFont(g.assets.tinyFont);
 
         if (BeetPx.debug) {
           const fps = BeetPx.averageFps.toFixed(0);
