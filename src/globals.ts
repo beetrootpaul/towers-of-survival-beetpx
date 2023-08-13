@@ -15,8 +15,6 @@ const s = spr_(spritesheetUrl);
 const so = spro_(spritesheetUrl);
 
 export const g = {
-  __debug: !__BEETPX_IS_PROD__,
-
   fps: 60,
 
   canvasSize: v_(64, 64),

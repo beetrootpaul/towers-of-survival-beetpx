@@ -13,13 +13,11 @@ export class Game {
       {
         gameCanvasSize: g.canvasSize,
         desiredFps: g.fps,
-        logActualFps: g.__debug,
-        debug: g.__debug
-          ? {
-              enabledOnInit: g.__debug,
-              toggleKey: ";",
-            }
-          : undefined,
+        logActualFps: !__BEETPX_IS_PROD__,
+        debug: {
+          available: !__BEETPX_IS_PROD__,
+          toggleKey: ";",
+        },
       },
       {
         images: [{ url: g.assets.spritesheet }],
