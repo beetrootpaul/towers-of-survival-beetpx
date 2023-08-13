@@ -1,7 +1,8 @@
 import { CharSprite, Sprite, Vector2d, spr_, type Font } from "@beetpx/beetpx";
+import { g } from "./globals";
 
 function c_(x1: number, y1: number, w: number = 3, h: number = 4): Sprite {
-  return spr_(x1, y1, w, h);
+  return spr_(g.assets.spritesheet)(x1, y1, w, h);
 }
 
 export class TinyFont implements Font {

@@ -168,7 +168,6 @@ export class Tower {
 
   draw(): void {
     BeetPx.sprite(
-      g.assets.spritesheet,
       this.#descriptor.sprite,
       this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
     );

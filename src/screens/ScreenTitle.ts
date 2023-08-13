@@ -37,8 +37,7 @@ export class ScreenTitle implements Screen {
       ClippingRegion.of(v_(0, clipY), g.canvasSize.sub(0, clipY))
     );
     BeetPx.sprite(
-      g.assets.spritesheet,
-      spr_(0, 64, g.canvasSize),
+      spr_(g.assets.spritesheet)(0, 64, g.canvasSize.x, g.canvasSize.y),
       Vector2d.zero
     );
 

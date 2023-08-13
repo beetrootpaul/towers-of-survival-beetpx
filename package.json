@@ -31,7 +31,7 @@
     ]
   },
   "devDependencies": {
-    "@beetpx/beetpx": "git+https://github.com/beetrootpaul/beetpx.git#593a7ba413962dcd3510f431fd212e7947eeedca",
+    "@beetpx/beetpx": "git+https://github.com/beetrootpaul/beetpx.git#9bb1a91a421bbf1cb93f1712b47d77a544bc4b1a",
     "@jest/globals": "29.5.0",
     "cross-zip-cli": "1.0.0",
     "husky": "8.0.3",

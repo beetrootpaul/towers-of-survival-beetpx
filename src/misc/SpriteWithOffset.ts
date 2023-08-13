@@ -1,4 +1,5 @@
 import { Sprite, Vector2d, v_ } from "@beetpx/beetpx";
+import { g } from "../globals";
 
 export function spro_(
   x1: number,
@@ -29,7 +30,7 @@ export class SpriteWithOffset extends Sprite {
     offset: Vector2d,
     hitboxOffset: Vector2d
   ) {
-    super(xy1, xy2);
+    super(g.assets.spritesheet, xy1, xy2);
     this.offset = offset;
     this.hitboxOffset = hitboxOffset;
   }

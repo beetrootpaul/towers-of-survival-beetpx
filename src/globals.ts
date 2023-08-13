@@ -10,6 +10,9 @@ export const u = Utils;
 const tileSize = 4;
 const warzoneBorderTiles = 2;
 
+const spritesheetUrl = "spritesheet.png";
+const s = spr_(spritesheetUrl);
+
 export const g = {
   __debug: !__BEETPX_IS_PROD__,
 
@@ -23,7 +26,7 @@ export const g = {
   warzoneBorder: warzoneBorderTiles * tileSize,
 
   assets: {
-    spritesheet: "spritesheet.png",
+    spritesheet: spritesheetUrl,
     //
     musicBg1: "sfx00.wav",
     musicBg2: "sfx01.wav",
@@ -47,12 +50,12 @@ export const g = {
 
   buttonSprites: {
     x: {
-      raised: spr_(115, 32, 5, 6),
-      pressed: spr_(115, 40, 5, 6),
+      raised: s(115, 32, 5, 6),
+      pressed: s(115, 40, 5, 6),
     },
     o: {
-      raised: spr_(109, 32, 5, 6),
-      pressed: spr_(109, 40, 5, 6),
+      raised: s(109, 32, 5, 6),
+      pressed: s(109, 40, 5, 6),
     },
   },
 
@@ -68,43 +71,43 @@ export const g = {
 
   ground: {
     sprites: {
-      textured: spr_(0, 8, tileSize, tileSize),
-      plain: spr_(4, 8, tileSize, tileSize),
+      textured: s(0, 8, tileSize, tileSize),
+      plain: s(4, 8, tileSize, tileSize),
     } as Record<string, Sprite>,
   },
 
   road: {
     sprites: {
-      main: spr_(0, 24, tileSize, tileSize),
-      bottomEdge: spr_(0, 28, tileSize, tileSize),
+      main: s(0, 24, tileSize, tileSize),
+      bottomEdge: s(0, 28, tileSize, tileSize),
     } as Record<string, Sprite>,
   },
 
   cores: [
     {
       y: 4,
-      spriteHealthy: spr_(120, 0, 8, 8),
-      spriteBroken: spr_(112, 0, 8, 8),
+      spriteHealthy: s(120, 0, 8, 8),
+      spriteBroken: s(112, 0, 8, 8),
     },
     {
       y: 11,
-      spriteHealthy: spr_(120, 8, 8, 8),
-      spriteBroken: spr_(112, 8, 8, 8),
+      spriteHealthy: s(120, 8, 8, 8),
+      spriteBroken: s(112, 8, 8, 8),
     },
     {
       y: 25,
-      spriteHealthy: spr_(120, 8, 8, 8),
-      spriteBroken: spr_(112, 8, 8, 8),
+      spriteHealthy: s(120, 8, 8, 8),
+      spriteBroken: s(112, 8, 8, 8),
     },
     {
       y: 32,
-      spriteHealthy: spr_(120, 16, 8, 8),
-      spriteBroken: spr_(112, 16, 8, 8),
+      spriteHealthy: s(120, 16, 8, 8),
+      spriteBroken: s(112, 16, 8, 8),
     },
     {
       y: 39,
-      spriteHealthy: spr_(120, 24, 8, 8),
-      spriteBroken: spr_(112, 24, 8, 8),
+      spriteHealthy: s(120, 24, 8, 8),
+      spriteBroken: s(112, 24, 8, 8),
     },
   ],
 
@@ -112,7 +115,7 @@ export const g = {
     laser: {
       label: "laser",
       cost: 20,
-      sprite: spr_(48, 0, tileSize, tileSize),
+      sprite: s(48, 0, tileSize, tileSize),
       dps: 20,
       chargingTime: 0.9,
       shootingTime: 0.1,
@@ -122,12 +125,12 @@ export const g = {
     booster: {
       label: "booster",
       cost: 30,
-      sprite: spr_(48, 8, tileSize, tileSize),
+      sprite: s(48, 8, tileSize, tileSize),
     },
     v_beam: {
       label: "v-beam",
       cost: 70,
-      sprite: spr_(48, 16, tileSize, tileSize),
+      sprite: s(48, 16, tileSize, tileSize),
       dps: 40,
       chargingTime: 2,
       shootingTime: 0.5,

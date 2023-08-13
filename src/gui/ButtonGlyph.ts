@@ -20,7 +20,7 @@ export class ButtonGlyph {
     ]);
 
     // TODO: get rid of a need to define the image URL for the sprite
-    BeetPx.sprite(g.assets.spritesheet, this.#glyphSprite, xy);
+    BeetPx.sprite(this.#glyphSprite, xy);
 
     BeetPx.mapSpriteColors([
       { from: g.buttonTemplateColor1, to: prevColor1 },

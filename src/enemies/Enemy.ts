@@ -83,7 +83,7 @@ export class Enemy {
     //
     const sprite = this.#currentSprite();
     const position = this.#pathProgression.currentXy();
-    BeetPx.sprite(g.assets.spritesheet, sprite, position.add(sprite.offset));
+    BeetPx.sprite(sprite, position.add(sprite.offset));
 
     if (BeetPx.debug && this.#health.value > 0) {
       const healthBarLength = Math.ceil(this.#health.value / 4);
@@ -100,11 +100,7 @@ export class Enemy {
 
     if (this.#isTakingDamage) {
       const damageSprite = this.#currentDamageSprite();
-      BeetPx.sprite(
-        g.assets.spritesheet,
-        damageSprite,
-        position.add(damageSprite.offset)
-      );
+      BeetPx.sprite(damageSprite, position.add(damageSprite.offset));
     }
   }
 

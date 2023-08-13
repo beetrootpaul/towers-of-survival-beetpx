@@ -103,7 +103,6 @@ export class Placement {
 
   draw(): void {
     BeetPx.sprite(
-      g.assets.spritesheet,
       this.#chosenTower.sprite,
       this.#chosenTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
     );
