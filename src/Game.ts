@@ -26,8 +26,6 @@ export class Game {
         fonts: [
           {
             font: new TinyFont(),
-            // TODO: consider coupling URL with Font, since they rather won't be used separately or exchanged
-            url: g.assets.spritesheet,
             imageBgColor: p8c.black,
             imageTextColor: p8c.green,
           },

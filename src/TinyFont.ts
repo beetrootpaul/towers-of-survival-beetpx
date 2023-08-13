@@ -1,4 +1,11 @@
-import { CharSprite, Sprite, Vector2d, spr_, type Font } from "@beetpx/beetpx";
+import {
+  CharSprite,
+  ImageUrl,
+  Sprite,
+  Vector2d,
+  spr_,
+  type Font,
+} from "@beetpx/beetpx";
 import { g } from "./globals";
 
 function c_(x1: number, y1: number, w: number = 3, h: number = 4): Sprite {
@@ -6,6 +13,8 @@ function c_(x1: number, y1: number, w: number = 3, h: number = 4): Sprite {
 }
 
 export class TinyFont implements Font {
+  readonly imageUrl: ImageUrl = g.assets.spritesheet;
+
   static #sprites: Record<string, Sprite> = {
     [" "]: c_(126, 32, 2), // space
     //
