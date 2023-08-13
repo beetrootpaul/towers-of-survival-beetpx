@@ -33,7 +33,7 @@ export class Fight {
     }
 
     for (const beam of this.#beams) {
-      const x = (g.warzoneBorderTiles + beam.tileX) * g.tileSize.x + 1;
+      const x = (g.warzoneBorderTiles + beam.tileX) * g.tileSize + 1;
       for (let offset = 0; offset < 2; offset++) {
         BeetPx.line(
           v_(x + offset, g.warzoneBorder),

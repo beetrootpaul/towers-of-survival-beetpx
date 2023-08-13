@@ -20,8 +20,7 @@ export class TowerRangeLaser implements TowerRange {
       .add(g.warzoneBorderTiles)
       .mul(g.tileSize)
       .sub(0.5);
-    // TODO: remove `.x`
-    this.#r = g.tileSize.x * 2.5 - 0.5;
+    this.#r = g.tileSize * 2.5 - 0.5;
   }
 
   laserSourceXy(): Vector2d {
@@ -31,7 +30,6 @@ export class TowerRangeLaser implements TowerRange {
   touchesEnemy(enemy: Enemy): boolean {
     const enemyCircle = enemy.range.circle;
     const dXy = enemyCircle.center.sub(this.#xy).abs();
-    // TODO: add a API method for non-rooted magnitude squared
     return dXy.magnitude() < this.#r + enemyCircle.r;
   }
 

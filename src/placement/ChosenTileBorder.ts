@@ -8,17 +8,17 @@ export class ChosenTileBorder {
     v_(-1, -1),
     v_(0, -1),
     //
-    v_(g.tileSize.x - 1, -1),
-    v_(g.tileSize.x, -1),
-    v_(g.tileSize.x, 0),
+    v_(g.tileSize - 1, -1),
+    v_(g.tileSize, -1),
+    v_(g.tileSize, 0),
     //
-    v_(g.tileSize.x, g.tileSize.y - 1),
-    v_(g.tileSize.x, g.tileSize.y),
-    v_(g.tileSize.x - 1, g.tileSize.y),
+    v_(g.tileSize, g.tileSize - 1),
+    v_(g.tileSize, g.tileSize),
+    v_(g.tileSize - 1, g.tileSize),
     //
-    v_(0, g.tileSize.y),
-    v_(-1, g.tileSize.y),
-    v_(-1, g.tileSize.y - 1),
+    v_(0, g.tileSize),
+    v_(-1, g.tileSize),
+    v_(-1, g.tileSize - 1),
   ];
 
   readonly #tile: Tile;

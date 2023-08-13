@@ -15,7 +15,7 @@ export class TowerRangeVBeam implements TowerRange {
   readonly #x2: number;
 
   constructor(params: { tile: Tile }) {
-    this.#x1 = (g.warzoneBorderTiles + params.tile.xy.x) * g.tileSize.x + 1;
+    this.#x1 = (g.warzoneBorderTiles + params.tile.xy.x) * g.tileSize + 1;
     this.#x2 = this.#x1 + 1;
   }
 

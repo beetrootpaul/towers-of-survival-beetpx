@@ -17,7 +17,7 @@ export const g = {
 
   canvasSize: v_(64, 64),
   warzoneSizeTiles: v_(12, 12),
-  tileSize: v_(tileSize, tileSize),
+  tileSize,
 
   warzoneBorderTiles,
   warzoneBorder: warzoneBorderTiles * tileSize,
