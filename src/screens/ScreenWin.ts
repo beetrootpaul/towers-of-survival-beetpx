@@ -1,4 +1,4 @@
-import { BeetPx, ClippingRegion, Timer, v_ } from "@beetpx/beetpx";
+import { BeetPx, Timer, v_ } from "@beetpx/beetpx";
 import { g, p8c, u } from "../globals";
 import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
@@ -35,10 +35,8 @@ export class ScreenWin implements Screen {
     );
 
     BeetPx.setClippingRegion(
-      ClippingRegion.of(
-        v_(0, g.warzoneBorder + clipY),
-        g.canvasSize.sub(0, g.warzoneBorder + clipY)
-      )
+      v_(0, g.warzoneBorder + clipY),
+      g.canvasSize.sub(0, g.warzoneBorder + clipY)
     );
 
     BeetPx.print(
@@ -63,6 +61,6 @@ export class ScreenWin implements Screen {
       p8c.darkPeach
     );
 
-    BeetPx.setClippingRegion(null);
+    BeetPx.removeClippingRegion();
   }
 }

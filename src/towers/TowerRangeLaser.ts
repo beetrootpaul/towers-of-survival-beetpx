@@ -1,10 +1,4 @@
-import {
-  BeetPx,
-  ClippingRegion,
-  SolidColor,
-  Vector2d,
-  v_,
-} from "@beetpx/beetpx";
+import { BeetPx, SolidColor, Vector2d, v_ } from "@beetpx/beetpx";
 import { Enemy } from "../enemies/Enemy";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
@@ -35,16 +29,14 @@ export class TowerRangeLaser implements TowerRange {
 
   draw(color1: SolidColor, color2: SolidColor): void {
     BeetPx.setClippingRegion(
-      ClippingRegion.of(
-        v_(0, g.warzoneBorder),
-        g.canvasSize.sub(0, g.warzoneBorder)
-      )
+      v_(0, g.warzoneBorder),
+      g.canvasSize.sub(0, g.warzoneBorder)
     );
     BeetPx.ellipse(
       this.#xy.sub(this.#r),
       v_(this.#r, this.#r).mul(2).add(1),
       color1
     );
-    BeetPx.setClippingRegion(null);
+    BeetPx.removeClippingRegion();
   }
 }

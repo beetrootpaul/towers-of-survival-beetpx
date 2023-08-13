@@ -20,16 +20,9 @@ export class Fight {
 
   draw(): void {
     for (const laser of this.#lasers) {
-      // TODO: this is ridiculous! Let's change line's API to have right-bottom corner INCLUSIVE
-      const xy1 = laser.xy1.add(
-        laser.xy1.x < laser.xy2.x ? 0 : 1,
-        laser.xy1.y < laser.xy2.y ? 0 : 1
-      );
-      const xy2 = laser.xy2.add(
-        laser.xy1.x < laser.xy2.x ? 1 : 0,
-        laser.xy1.y < laser.xy2.y ? 1 : 0
-      );
-      BeetPx.line(xy1, xy2.sub(xy1), p8c.white);
+      const xy = laser.xy1;
+      const wh = laser.xy2.sub(laser.xy1);
+      BeetPx.line(xy, wh.add(wh.sign()), p8c.limeGreen);
     }
 
     for (const beam of this.#beams) {

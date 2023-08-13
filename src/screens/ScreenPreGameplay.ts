@@ -1,4 +1,4 @@
-import { BeetPx, ClippingRegion, Timer, v_ } from "@beetpx/beetpx";
+import { BeetPx, Timer, v_ } from "@beetpx/beetpx";
 import { GameState } from "../game_state/GameState";
 import { g } from "../globals";
 import { Warzone } from "../warzone/Warzone";
@@ -42,14 +42,12 @@ export class ScreenPreGameplay implements Screen {
     );
 
     BeetPx.setClippingRegion(
-      ClippingRegion.of(
-        v_(0, g.warzoneBorder + clipY),
-        g.canvasSize.sub(0, g.warzoneBorder + clipY)
-      )
+      v_(0, g.warzoneBorder + clipY),
+      g.canvasSize.sub(0, g.warzoneBorder + clipY)
     );
 
     this.#warzone.draw();
 
-    BeetPx.setClippingRegion(null);
+    BeetPx.removeClippingRegion();
   }
 }

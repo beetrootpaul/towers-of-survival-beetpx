@@ -1,10 +1,4 @@
-import {
-  BeetPx,
-  ClippingRegion,
-  SolidColor,
-  Vector2d,
-  v_,
-} from "@beetpx/beetpx";
+import { BeetPx, SolidColor, Vector2d, v_ } from "@beetpx/beetpx";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Warzone } from "../warzone/Warzone";
@@ -40,10 +34,8 @@ export class TowerRangeBooster implements TowerRange {
 
   draw(color1: SolidColor, color2: SolidColor) {
     BeetPx.setClippingRegion(
-      ClippingRegion.of(
-        v_(0, g.warzoneBorder),
-        g.canvasSize.sub(0, g.warzoneBorder)
-      )
+      v_(0, g.warzoneBorder),
+      g.canvasSize.sub(0, g.warzoneBorder)
     );
 
     BeetPx.rect(
@@ -52,19 +44,19 @@ export class TowerRangeBooster implements TowerRange {
       color2
     );
 
-    BeetPx.setClippingRegion(null);
+    BeetPx.removeClippingRegion();
 
     for (const offset of TowerRangeBooster.#offsets) {
       const neighbourTile = this.#tile.plus(offset);
       const xy = neighbourTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize);
       if (this.#warzone.canHaveTowerAt(neighbourTile)) {
-        BeetPx.setClippingRegion(ClippingRegion.of(xy, xy.add(g.tileSize)));
+        BeetPx.setClippingRegion(xy, xy.add(g.tileSize));
         BeetPx.rect(
           this.#xy.sub(g.tileSize),
           v_(g.tileSize, g.tileSize).mul(3),
           color1
         );
-        BeetPx.setClippingRegion(null);
+        BeetPx.removeClippingRegion();
       }
     }
   }
