@@ -1,0 +1,80 @@
+import { BeetPx, v_ } from "@beetpx/beetpx";
+import { Game } from "../Game";
+import { g, p8c, u } from "../globals";
+
+// TODO: make it start at index 0 on every open
+
+export class PauseMenu {
+  static #arrowPixelsOffsets = [
+    v_(0, 0),
+    v_(0, 1),
+    v_(0, 2),
+    v_(0, 3),
+    v_(1, 1),
+    v_(1, 2),
+  ];
+
+  #selected = 0;
+
+  update(): void {
+    if (BeetPx.wasJustPressed("up")) {
+      this.#selected = Math.max(0, this.#selected - 1);
+    }
+    if (BeetPx.wasJustPressed("down")) {
+      this.#selected = Math.min(1, this.#selected + 1);
+    }
+    if (BeetPx.wasJustPressed("x") || BeetPx.wasJustPressed("o")) {
+      if (this.#selected === 0) {
+        Game.isPaused = false;
+      } else if (this.#selected === 1) {
+        // TODO: make restart render black for a second maybe?
+        BeetPx.restart();
+      }
+    }
+  }
+
+  draw(): void {
+    const textContinue = "continue";
+    const textRestart = "restart";
+    const textContinueWh = u.measureTextSize(textContinue);
+    const textRestartWh = u.measureTextSize(textRestart);
+
+    const padding = 6;
+    const gapBetweenLines = 2;
+
+    const wh = v_(
+      Math.max(textContinueWh.x, textRestartWh.x) + 2 * padding,
+      textContinueWh.y + textRestartWh.y + 2 * padding + gapBetweenLines
+    );
+    const xy = g.canvasSize.sub(wh).div(2);
+
+    BeetPx.rectFilled(xy.sub(2), wh.add(4), p8c.black);
+    BeetPx.rect(xy.sub(1), wh.add(2), p8c.white);
+    BeetPx.print(
+      "continue",
+      xy.add(padding + (this.#selected === 0 ? 1 : 0), padding),
+      p8c.white
+    );
+    BeetPx.print(
+      "restart",
+      xy.add(
+        padding + (this.#selected === 1 ? 1 : 0),
+        padding + textContinueWh.y + gapBetweenLines
+      ),
+      p8c.white
+    );
+    for (const offset of PauseMenu.#arrowPixelsOffsets) {
+      BeetPx.pixel(
+        xy
+          .add(
+            padding,
+            padding +
+              (this.#selected === 1 ? textContinueWh.y + gapBetweenLines : 0)
+          )
+          .sub(4, 0)
+          .add(offset),
+        p8c.white
+      );
+    }
+  }
+}

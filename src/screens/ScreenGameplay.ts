@@ -1,4 +1,5 @@
 import { BeetPx, Vector2d, v_ } from "@beetpx/beetpx";
+import { Game } from "../Game";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { GameState } from "../game_state/GameState";
@@ -83,8 +84,7 @@ export class ScreenGameplay implements Screen {
 
     if (BeetPx.wasJustReleased("o")) {
       if (this.#gameState.buildingState === "idle") {
-        // TODO: PAUSE MENU
-        //                 extcmd("pause")
+        Game.isPaused = true;
       } else if (this.#gameState.buildingState === "tower-choice") {
         this.#gameState.buildingState = "idle";
       } else if (this.#gameState.buildingState === "tower-placement") {
@@ -146,6 +146,8 @@ export class ScreenGameplay implements Screen {
     this.#waves.update();
     this.#enemies.update();
     this.#towers.update();
+
+    this.#gui.update();
 
     return nextScreen;
   }

@@ -13,6 +13,9 @@ export class Gui {
   readonly #waveStatus: WaveStatus;
   readonly #towerChoiceGui: TowerChoiceGui;
 
+  #isXPressed: boolean;
+  #isOPressed: boolean;
+
   constructor(params: { gameState: GameState; waves: Waves }) {
     this.#gameState = params.gameState;
 
@@ -27,6 +30,16 @@ export class Gui {
     this.#towerChoiceGui = new TowerChoiceGui({
       towerChoice: this.#gameState.towerChoice,
     });
+
+    this.#isXPressed = BeetPx.isPressed("x");
+    this.#isOPressed = BeetPx.isPressed("o");
+  }
+
+  update(): void {
+    // We check it here and not in `draw` in order to avoid buttons changing their
+    //   state during pause menu, when `draw` is called but `update` is not.
+    this.#isXPressed = BeetPx.isPressed("x");
+    this.#isOPressed = BeetPx.isPressed("o");
   }
 
   draw(params: { isButtonXEnabled: boolean }): void {
@@ -37,17 +50,15 @@ export class Gui {
       BeetPx.print(
         menuText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve
+        this.#isOPressed ? p8c.lightGrey : p8c.mauve
       );
 
       const menuButton = new ButtonGlyph(
-        BeetPx.isPressed("o")
-          ? g.buttonSprites.o.pressed
-          : g.buttonSprites.o.raised
+        this.#isOPressed ? g.buttonSprites.o.pressed : g.buttonSprites.o.raised
       );
       menuButton.draw(
         v_(1, g.canvasSize.y - g.warzoneBorder + 1),
-        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve,
+        this.#isOPressed ? p8c.lightGrey : p8c.mauve,
         p8c.darkerGrey
       );
 
@@ -58,17 +69,15 @@ export class Gui {
           g.canvasSize.x - g.warzoneBorder - u.measureTextSize(buildText).x,
           g.canvasSize.y - g.warzoneBorder + 2
         ),
-        BeetPx.isPressed("x") ? p8c.lightGrey : p8c.mauve
+        this.#isXPressed ? p8c.lightGrey : p8c.mauve
       );
 
       const buildButton = new ButtonGlyph(
-        BeetPx.isPressed("x")
-          ? g.buttonSprites.x.pressed
-          : g.buttonSprites.x.raised
+        this.#isXPressed ? g.buttonSprites.x.pressed : g.buttonSprites.x.raised
       );
       buildButton.draw(
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
-        BeetPx.isPressed("x") ? p8c.lightGrey : p8c.mauve,
+        this.#isXPressed ? p8c.lightGrey : p8c.mauve,
         p8c.darkerGrey
       );
     } else if (this.#gameState.buildingState === "tower-choice") {
@@ -92,31 +101,27 @@ export class Gui {
       BeetPx.print(
         backText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve
+        this.#isOPressed ? p8c.lightGrey : p8c.mauve
       );
 
       const backButton = new ButtonGlyph(
-        BeetPx.isPressed("o")
-          ? g.buttonSprites.o.pressed
-          : g.buttonSprites.o.raised
+        this.#isOPressed ? g.buttonSprites.o.pressed : g.buttonSprites.o.raised
       );
       backButton.draw(
         v_(1, g.canvasSize.y - g.warzoneBorder + 1),
-        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve,
+        this.#isOPressed ? p8c.lightGrey : p8c.mauve,
         p8c.darkerGrey
       );
 
       this.#towerChoiceGui.draw();
 
       const chooseButton = new ButtonGlyph(
-        BeetPx.isPressed("x")
-          ? g.buttonSprites.x.pressed
-          : g.buttonSprites.x.raised
+        this.#isXPressed ? g.buttonSprites.x.pressed : g.buttonSprites.x.raised
       );
       chooseButton.draw(
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
         params.isButtonXEnabled
-          ? BeetPx.isPressed("x")
+          ? this.#isXPressed
             ? p8c.lightGrey
             : p8c.lavender
           : p8c.darkerGrey,
@@ -143,17 +148,15 @@ export class Gui {
       BeetPx.print(
         backText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
-        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve
+        this.#isOPressed ? p8c.lightGrey : p8c.mauve
       );
 
       const backButton = new ButtonGlyph(
-        BeetPx.isPressed("o")
-          ? g.buttonSprites.o.pressed
-          : g.buttonSprites.o.raised
+        this.#isOPressed ? g.buttonSprites.o.pressed : g.buttonSprites.o.raised
       );
       backButton.draw(
         v_(1, g.canvasSize.y - g.warzoneBorder + 1),
-        BeetPx.isPressed("o") ? p8c.lightGrey : p8c.mauve,
+        this.#isOPressed ? p8c.lightGrey : p8c.mauve,
         p8c.darkerGrey
       );
 
@@ -165,21 +168,19 @@ export class Gui {
           g.canvasSize.y - g.warzoneBorder + 2
         ),
         params.isButtonXEnabled
-          ? BeetPx.isPressed("x")
+          ? this.#isXPressed
             ? p8c.lightGrey
             : p8c.lavender
           : p8c.darkerGrey
       );
 
       const placeButton = new ButtonGlyph(
-        BeetPx.isPressed("x")
-          ? g.buttonSprites.x.pressed
-          : g.buttonSprites.x.raised
+        this.#isXPressed ? g.buttonSprites.x.pressed : g.buttonSprites.x.raised
       );
       placeButton.draw(
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
         params.isButtonXEnabled
-          ? BeetPx.isPressed("x")
+          ? this.#isXPressed
             ? p8c.lightGrey
             : p8c.lavender
           : p8c.darkerGrey,
