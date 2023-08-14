@@ -17,6 +17,10 @@ export class Game {
         debug: {
           available: !__BEETPX_IS_PROD__,
           toggleKey: ";",
+          frameByFrame: {
+            activateKey: ",",
+            stepKey: ".",
+          },
         },
       },
       {
@@ -115,10 +119,6 @@ export class Game {
       });
 
       BeetPx.setOnUpdate(() => {
-        // TODO: DEBUG STEP
-        // d.update()
-        // if (not d.enabled) or (d.enabled and d.is_next_frame) then
-
         // We intentionally reassign screen on the next update iteration
         //   then the current one, because we still need to use the previous one
         //   for a drawing.
