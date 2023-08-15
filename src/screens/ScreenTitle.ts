@@ -24,7 +24,7 @@ export class ScreenTitle implements Screen {
     const clipProgress = Math.max(0, 6 * this.#timer.progress - 5);
     const clipY = Math.floor(clipProgress * (g.canvasSize.y / 2));
 
-    BeetPx.setClippingRegion(v_(0, clipY), g.canvasSize.sub(0, clipY));
+    BeetPx.setClippingRegion(v_(0, clipY), g.canvasSize.sub(0, 2 * clipY));
     BeetPx.sprite(
       spr_(g.assets.spritesheet)(0, 64, g.canvasSize.x, g.canvasSize.y),
       Vector2d.zero

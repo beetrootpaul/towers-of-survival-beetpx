@@ -36,7 +36,7 @@ export class ScreenWin implements Screen {
 
     BeetPx.setClippingRegion(
       v_(0, g.warzoneBorder + clipY),
-      g.canvasSize.sub(0, g.warzoneBorder + clipY)
+      g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY)
     );
 
     BeetPx.print(

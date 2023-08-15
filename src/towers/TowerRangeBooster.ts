@@ -35,7 +35,7 @@ export class TowerRangeBooster implements TowerRange {
   draw(color1: SolidColor, color2: SolidColor) {
     BeetPx.setClippingRegion(
       v_(0, g.warzoneBorder),
-      g.canvasSize.sub(0, g.warzoneBorder)
+      g.canvasSize.sub(0, 2 * g.warzoneBorder)
     );
 
     BeetPx.rect(
@@ -50,7 +50,7 @@ export class TowerRangeBooster implements TowerRange {
       const neighbourTile = this.#tile.plus(offset);
       const xy = neighbourTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize);
       if (this.#warzone.canHaveTowerAt(neighbourTile)) {
-        BeetPx.setClippingRegion(xy, xy.add(g.tileSize));
+        BeetPx.setClippingRegion(xy, v_(g.tileSize, g.tileSize));
         BeetPx.rect(
           this.#xy.sub(g.tileSize),
           v_(g.tileSize, g.tileSize).mul(3),

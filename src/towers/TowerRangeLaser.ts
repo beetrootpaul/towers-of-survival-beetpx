@@ -30,7 +30,7 @@ export class TowerRangeLaser implements TowerRange {
   draw(color1: SolidColor, color2: SolidColor): void {
     BeetPx.setClippingRegion(
       v_(0, g.warzoneBorder),
-      g.canvasSize.sub(0, g.warzoneBorder)
+      g.canvasSize.sub(0, 2 * g.warzoneBorder)
     );
     BeetPx.ellipse(
       this.#xy.sub(this.#r),
