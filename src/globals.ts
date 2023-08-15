@@ -64,9 +64,7 @@ export const g = {
   buttonTemplateColor2: p8c.red,
 
   money: {
-    // TODO: REVERT
-    // initial: 40,
-    initial: 200,
+    initial: 40,
     increaseSeconds: 0.5,
   },
 
@@ -141,9 +139,7 @@ export const g = {
   },
 
   enemies: {
-    // TODO: REVERT
-    // speed: 10,
-    speed: 30,
+    speed: 10,
     small: {
       hitboxR: 0.5,
       health: 20,
@@ -183,23 +179,14 @@ export const g = {
   },
 
   waves: [
-    // TODO: REMOVE
-    // { wait: 1, spawns: "s,m,b,s,m,b,s,m,b" },
-    { wait: 1, spawns: "s" },
-    { wait: 1, spawns: "m,m" },
-    { wait: 1, spawns: "-,-,b,-,-" },
-    // { wait: 1, spawns: "-,-,s,s,-,-" },
-    // { wait: 1, spawns: "-,-,-,m,m,m,-,-,-" },
-    // { wait: 1, spawns: "-,-,-,-,g,g,g,g,-,-,-,-" },
-    // TODO: REVERT
-    // { wait: 4, spawns: "s,-,-,s,-,-,s" },
-    // { wait: 4, spawns: "m,-,-,s,s,s,-,-,m" },
-    // { wait: 4, spawns: "s,s,s,-,-,m,m,-,-,-,s,-,-,b" },
-    // { wait: 6, spawns: "s,m,b,-,-,-,s,b,-,-,m,m" },
-    // { wait: 2, spawns: "m,m,-,-,b,b,b" },
-    // { wait: 4, spawns: "s,s,-,m,m,-,b,b" },
-    // { wait: 4, spawns: "b,-,s,-,m,-,s,-,b" },
-    // { wait: 2, spawns: "m,-,-,-,m,m,m,m,m,m" },
-    // { wait: 8, spawns: "s,m,m,b,b,b,-,-,-,-,b,b,b,m,m,s" },
+    { wait: 4, spawns: "s,-,-,s,-,-,s" },
+    { wait: 4, spawns: "m,-,-,s,s,s,-,-,m" },
+    { wait: 4, spawns: "s,s,s,-,-,m,m,-,-,-,s,-,-,b" },
+    { wait: 6, spawns: "s,m,b,-,-,-,s,b,-,-,m,m" },
+    { wait: 2, spawns: "m,m,-,-,b,b,b" },
+    { wait: 4, spawns: "s,s,-,m,m,-,b,b" },
+    { wait: 4, spawns: "b,-,s,-,m,-,s,-,b" },
+    { wait: 2, spawns: "m,-,-,-,m,m,m,m,m,m" },
+    { wait: 8, spawns: "s,m,m,b,b,b,-,-,-,-,b,b,b,m,m,s" },
   ] as WaveDescriptor[],
 };

@@ -5,9 +5,7 @@ import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenTitle implements Screen {
   readonly #timer = new Timer({
-    // TODO: REVERT
-    // frames: 2.8 * g.fps,
-    frames: 0.5 * g.fps,
+    frames: 2.8 * g.fps,
   });
 
   update(): Screen {

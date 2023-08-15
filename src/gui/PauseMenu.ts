@@ -2,8 +2,6 @@ import { BeetPx, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { g, p8c, u } from "../globals";
 
-// TODO: make it start at index 0 on every open
-
 export class PauseMenu {
   static #arrowPixelsOffsets = [
     v_(0, 0),
@@ -27,7 +25,6 @@ export class PauseMenu {
       if (this.#selected === 0) {
         Game.isPaused = false;
       } else if (this.#selected === 1) {
-        // TODO: make restart render black for a second maybe?
         BeetPx.restart();
       }
     }
