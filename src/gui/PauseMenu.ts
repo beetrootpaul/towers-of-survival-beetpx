@@ -1,4 +1,4 @@
-import { BeetPx, v_ } from "@beetpx/beetpx";
+import { BeetPx, MappingColor, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { g, p8c, u } from "../globals";
 
@@ -37,7 +37,7 @@ export class PauseMenu {
     const textRestartWh = u.measureTextSize(textRestart);
 
     const padding = 6;
-    const gapBetweenLines = 2;
+    const gapBetweenLines = 4;
 
     const wh = v_(
       Math.max(textContinueWh.x, textRestartWh.x) + 2 * padding,
@@ -45,7 +45,13 @@ export class PauseMenu {
     );
     const xy = g.canvasSize.sub(wh).div(2);
 
-    BeetPx.rectFilled(xy.sub(2), wh.add(4), p8c.black);
+    BeetPx.rectFilled(
+      xy.sub(2),
+      wh.add(4),
+      new MappingColor(({ r, g, b, a }) =>
+        r + g + b > (0x100 * 3) / 2 ? p8c.darkerBlue : p8c.black
+      )
+    );
     BeetPx.rect(xy.sub(1), wh.add(2), p8c.white);
     BeetPx.print(
       "continue",
