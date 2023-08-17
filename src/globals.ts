@@ -10,20 +10,24 @@ export const u = Utils;
 const tileSize = 4;
 const warzoneBorderTiles = 2;
 
-export const g = {
-  __debug: !__BEETPX_IS_PROD__,
+const spritesheetUrl = "spritesheet.png";
+const s = spr_(spritesheetUrl);
+const so = spro_(spritesheetUrl);
 
+export const g = {
   fps: 60,
 
   canvasSize: v_(64, 64),
   warzoneSizeTiles: v_(12, 12),
-  tileSize: v_(tileSize, tileSize),
+  tileSize,
 
   warzoneBorderTiles,
   warzoneBorder: warzoneBorderTiles * tileSize,
 
   assets: {
-    spritesheet: "spritesheet.png",
+    spritesheet: spritesheetUrl,
+    //
+    tinyFont: "tiny",
     //
     musicBg1: "sfx00.wav",
     musicBg2: "sfx01.wav",
@@ -47,12 +51,12 @@ export const g = {
 
   buttonSprites: {
     x: {
-      raised: spr_(115, 32, 5, 6),
-      pressed: spr_(115, 40, 5, 6),
+      raised: s(115, 32, 5, 6),
+      pressed: s(115, 40, 5, 6),
     },
     o: {
-      raised: spr_(109, 32, 5, 6),
-      pressed: spr_(109, 40, 5, 6),
+      raised: s(109, 32, 5, 6),
+      pressed: s(109, 40, 5, 6),
     },
   },
 
@@ -60,51 +64,49 @@ export const g = {
   buttonTemplateColor2: p8c.red,
 
   money: {
-    // TODO: REVERT
-    // initial: 40,
-    initial: 200,
+    initial: 40,
     increaseSeconds: 0.5,
   },
 
   ground: {
     sprites: {
-      textured: spr_(0, 8, tileSize, tileSize),
-      plain: spr_(4, 8, tileSize, tileSize),
+      textured: s(0, 8, tileSize, tileSize),
+      plain: s(4, 8, tileSize, tileSize),
     } as Record<string, Sprite>,
   },
 
   road: {
     sprites: {
-      main: spr_(0, 24, tileSize, tileSize),
-      bottomEdge: spr_(0, 28, tileSize, tileSize),
+      main: s(0, 24, tileSize, tileSize),
+      bottomEdge: s(0, 28, tileSize, tileSize),
     } as Record<string, Sprite>,
   },
 
   cores: [
     {
       y: 4,
-      spriteHealthy: spr_(120, 0, 8, 8),
-      spriteBroken: spr_(112, 0, 8, 8),
+      spriteHealthy: s(120, 0, 8, 8),
+      spriteBroken: s(112, 0, 8, 8),
     },
     {
       y: 11,
-      spriteHealthy: spr_(120, 8, 8, 8),
-      spriteBroken: spr_(112, 8, 8, 8),
+      spriteHealthy: s(120, 8, 8, 8),
+      spriteBroken: s(112, 8, 8, 8),
     },
     {
       y: 25,
-      spriteHealthy: spr_(120, 8, 8, 8),
-      spriteBroken: spr_(112, 8, 8, 8),
+      spriteHealthy: s(120, 8, 8, 8),
+      spriteBroken: s(112, 8, 8, 8),
     },
     {
       y: 32,
-      spriteHealthy: spr_(120, 16, 8, 8),
-      spriteBroken: spr_(112, 16, 8, 8),
+      spriteHealthy: s(120, 16, 8, 8),
+      spriteBroken: s(112, 16, 8, 8),
     },
     {
       y: 39,
-      spriteHealthy: spr_(120, 24, 8, 8),
-      spriteBroken: spr_(112, 24, 8, 8),
+      spriteHealthy: s(120, 24, 8, 8),
+      spriteBroken: s(112, 24, 8, 8),
     },
   ],
 
@@ -112,7 +114,7 @@ export const g = {
     laser: {
       label: "laser",
       cost: 20,
-      sprite: spr_(48, 0, tileSize, tileSize),
+      sprite: s(48, 0, tileSize, tileSize),
       dps: 20,
       chargingTime: 0.9,
       shootingTime: 0.1,
@@ -122,12 +124,12 @@ export const g = {
     booster: {
       label: "booster",
       cost: 30,
-      sprite: spr_(48, 8, tileSize, tileSize),
+      sprite: s(48, 8, tileSize, tileSize),
     },
     v_beam: {
       label: "v-beam",
       cost: 70,
-      sprite: spr_(48, 16, tileSize, tileSize),
+      sprite: s(48, 16, tileSize, tileSize),
       dps: 40,
       chargingTime: 2,
       shootingTime: 0.5,
@@ -137,62 +139,54 @@ export const g = {
   },
 
   enemies: {
-    // TODO: REVERT
-    // speed: 10,
     speed: 10,
     small: {
-      hitboxR: 1,
+      hitboxR: 0.5,
       health: 20,
-      spriteRight: spro_(16, 0, 3, 3, 0, 0, 1, 1),
-      spriteLeft: spro_(16, 0, 3, 3, 0, 0, 2, 1),
-      spriteUp: spro_(20, 0, 2, 4, 1, -1, 2, 1),
-      spriteDown: spro_(20, 0, 2, 4, 1, -1, 2, 0),
-      spriteDamageRight: spro_(16, 4, 3, 3, 0, 0),
-      spriteDamageLeft: spro_(16, 4, 3, 3, 0, 0),
-      spriteDamageUp: spro_(20, 4, 2, 4, 1, -1),
-      spriteDamageDown: spro_(20, 4, 2, 4, 1, -1),
+      spriteRight: so(16, 0, 3, 3, 0, 0, 0.5, 0.5),
+      spriteLeft: so(16, 0, 3, 3, 0, 0, 1.5, 0.5),
+      spriteUp: so(20, 0, 2, 4, 1, -1, 1.5, 0.5),
+      spriteDown: so(20, 0, 2, 4, 1, -1, 1.5, -0.5),
+      spriteDamageRight: so(16, 4, 3, 3, 0, 0),
+      spriteDamageLeft: so(16, 4, 3, 3, 0, 0),
+      spriteDamageUp: so(20, 4, 2, 4, 1, -1),
+      spriteDamageDown: so(20, 4, 2, 4, 1, -1),
     },
     medium: {
-      hitboxR: 2,
+      hitboxR: 1.5,
       health: 65,
-      spriteRight: spro_(24, 0, 4, 5, 0, -1, 1.5, 0.5),
-      spriteLeft: spro_(24, 0, 4, 5, 0, -1, 1.5, 0.5),
-      spriteUp: spro_(24, 0, 4, 5, 0, -1, 1.5, 0.5),
-      spriteDown: spro_(24, 0, 4, 5, 0, -1, 1.5, 0.5),
-      spriteDamageRight: spro_(28, 0, 4, 5, 0, -1),
-      spriteDamageLeft: spro_(28, 0, 4, 5, 0, -1),
-      spriteDamageUp: spro_(28, 0, 4, 5, 0, -1),
-      spriteDamageDown: spro_(28, 0, 4, 5, 0, -1),
+      spriteRight: so(24, 0, 4, 5, 0, -1, 1, 0),
+      spriteLeft: so(24, 0, 4, 5, 0, -1, 1, 0),
+      spriteUp: so(24, 0, 4, 5, 0, -1, 1, 0),
+      spriteDown: so(24, 0, 4, 5, 0, -1, 1, 0),
+      spriteDamageRight: so(28, 0, 4, 5, 0, -1),
+      spriteDamageLeft: so(28, 0, 4, 5, 0, -1),
+      spriteDamageUp: so(28, 0, 4, 5, 0, -1),
+      spriteDamageDown: so(28, 0, 4, 5, 0, -1),
     },
     big: {
-      hitboxR: 2,
+      hitboxR: 1.5,
       health: 130,
-      spriteRight: spro_(16, 9, 5, 5, -1, -1, 0.5, 0.5),
-      spriteLeft: spro_(22, 9, 5, 5, -1, -1, 1.5, 0.5),
-      spriteUp: spro_(28, 8, 4, 6, 0, -1, 1.5, 1.5),
-      spriteDown: spro_(33, 9, 4, 6, 0, -1, 1.5, 0.5),
-      spriteDamageRight: spro_(16, 15, 5, 5, -1, -1),
-      spriteDamageLeft: spro_(22, 15, 5, 5, -1, -1),
-      spriteDamageUp: spro_(28, 14, 4, 6, 0, -1),
-      spriteDamageDown: spro_(33, 15, 4, 6, 0, -1),
+      spriteRight: so(16, 9, 5, 5, -1, -1, 0, 0),
+      spriteLeft: so(22, 9, 5, 5, -1, -1, 1, 0),
+      spriteUp: so(28, 8, 4, 6, 0, -1, 1, 1),
+      spriteDown: so(33, 9, 4, 6, 0, -1, 1, 0),
+      spriteDamageRight: so(16, 15, 5, 5, -1, -1),
+      spriteDamageLeft: so(22, 15, 5, 5, -1, -1),
+      spriteDamageUp: so(28, 14, 4, 6, 0, -1),
+      spriteDamageDown: so(33, 15, 4, 6, 0, -1),
     },
   },
 
   waves: [
-    // TODO: REMOVE
-    { wait: 1, spawns: "s,-,s" },
-    // { wait: 1, spawns: "s,s,m,m,b,b" },
-    { wait: 2, spawns: "m" },
-    { wait: 3, spawns: "b" },
-    // TODO: REVERT
-    // { wait: 4, spawns: "s,-,-,s,-,-,s" },
-    // { wait: 4, spawns: "m,-,-,s,s,s,-,-,m" },
-    // { wait: 4, spawns: "s,s,s,-,-,m,m,-,-,-,s,-,-,b" },
-    // { wait: 6, spawns: "s,m,b,-,-,-,s,b,-,-,m,m" },
-    // { wait: 2, spawns: "m,m,-,-,b,b,b" },
-    // { wait: 4, spawns: "s,s,-,m,m,-,b,b" },
-    // { wait: 4, spawns: "b,-,s,-,m,-,s,-,b" },
-    // { wait: 2, spawns: "m,-,-,-,m,m,m,m,m,m" },
-    // { wait: 8, spawns: "s,m,m,b,b,b,-,-,-,-,b,b,b,m,m,s" },
+    { wait: 4, spawns: "s,-,-,s,-,-,s" },
+    { wait: 4, spawns: "m,-,-,s,s,s,-,-,m" },
+    { wait: 4, spawns: "s,s,s,-,-,m,m,-,-,-,s,-,-,b" },
+    { wait: 6, spawns: "s,m,b,-,-,-,s,b,-,-,m,m" },
+    { wait: 2, spawns: "m,m,-,-,b,b,b" },
+    { wait: 4, spawns: "s,s,-,m,m,-,b,b" },
+    { wait: 4, spawns: "b,-,s,-,m,-,s,-,b" },
+    { wait: 2, spawns: "m,-,-,-,m,m,m,m,m,m" },
+    { wait: 8, spawns: "s,m,m,b,b,b,-,-,-,-,b,b,b,m,m,s" },
   ] as WaveDescriptor[],
 };

@@ -103,7 +103,6 @@ export class Placement {
 
   draw(): void {
     BeetPx.sprite(
-      g.assets.spritesheet,
       this.#chosenTower.sprite,
       this.#chosenTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
     );
@@ -114,11 +113,7 @@ export class Placement {
 
     for (const collidingTower of canBuildCheckResult.collidingTowers) {
       BeetPx.setFillPattern(FillPattern.of(0b1010_0101_1010_0101));
-      BeetPx.rectFilled(
-        collidingTower.xy,
-        collidingTower.xy.add(g.tileSize),
-        p8c.red
-      );
+      BeetPx.rectFilled(collidingTower.xy, v_(g.tileSize, g.tileSize), p8c.red);
       BeetPx.setFillPattern(FillPattern.primaryOnly);
     }
 

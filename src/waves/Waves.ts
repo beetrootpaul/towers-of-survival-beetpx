@@ -43,7 +43,13 @@ export class Waves {
   }
 
   update(): void {
-    if (this.#wait && this.#wait.progress() >= 1) {
+    const waitHasEnded = this.#wait && this.#wait.progress() >= 1;
+    const waveHasEnded = this.#wave && this.#wave.progress() >= 1;
+
+    this.#wait?.update();
+    this.#wave?.update();
+
+    if (waitHasEnded) {
       this.#wait = null;
       this.#wave = new Wave({
         descriptor: this.#currentWaveDescriptor(),
@@ -51,21 +57,13 @@ export class Waves {
       });
     }
 
-    if (
-      this.#wave &&
-      this.#wave.progress() >= 1 &&
-      !this.isLastWave() &&
-      this.#enemies.areNoneLeft()
-    ) {
+    if (waveHasEnded && !this.isLastWave() && this.#enemies.areNoneLeft()) {
       this.#wave = null;
       this.#waveNumber += 1;
       this.#wait = new Wait({
         durationSeconds: this.#currentWaveDescriptor().wait,
       });
     }
-
-    this.#wait?.update();
-    this.#wave?.update();
   }
 
   #currentWaveDescriptor(): WaveDescriptor {

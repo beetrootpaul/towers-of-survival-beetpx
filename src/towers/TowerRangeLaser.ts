@@ -1,10 +1,4 @@
-import {
-  BeetPx,
-  ClippingRegion,
-  SolidColor,
-  Vector2d,
-  v_,
-} from "@beetpx/beetpx";
+import { BeetPx, SolidColor, Vector2d, v_ } from "@beetpx/beetpx";
 import { Enemy } from "../enemies/Enemy";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
@@ -20,8 +14,7 @@ export class TowerRangeLaser implements TowerRange {
       .add(g.warzoneBorderTiles)
       .mul(g.tileSize)
       .sub(0.5);
-    // TODO: remove `.x`
-    this.#r = g.tileSize.x * 2.5 - 0.5;
+    this.#r = g.tileSize * 2.5 - 0.5;
   }
 
   laserSourceXy(): Vector2d {
@@ -31,18 +24,19 @@ export class TowerRangeLaser implements TowerRange {
   touchesEnemy(enemy: Enemy): boolean {
     const enemyCircle = enemy.range.circle;
     const dXy = enemyCircle.center.sub(this.#xy).abs();
-    // TODO: add a API method for non-rooted magnitude squared
     return dXy.magnitude() < this.#r + enemyCircle.r;
   }
 
   draw(color1: SolidColor, color2: SolidColor): void {
     BeetPx.setClippingRegion(
-      ClippingRegion.of(
-        v_(0, g.warzoneBorder),
-        g.canvasSize.sub(0, g.warzoneBorder)
-      )
+      v_(0, g.warzoneBorder),
+      g.canvasSize.sub(0, 2 * g.warzoneBorder)
     );
-    BeetPx.ellipse(this.#xy.sub(this.#r), this.#xy.add(this.#r).add(1), color1);
-    BeetPx.setClippingRegion(null);
+    BeetPx.ellipse(
+      this.#xy.sub(this.#r),
+      v_(this.#r, this.#r).mul(2).add(1),
+      color1
+    );
+    BeetPx.removeClippingRegion();
   }
 }

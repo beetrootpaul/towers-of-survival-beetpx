@@ -1,4 +1,4 @@
-import { BeetPx, Vector2d } from "@beetpx/beetpx";
+import { BeetPx, v_, Vector2d } from "@beetpx/beetpx";
 import { g, p8c, u } from "../globals";
 import { SpriteWithOffset } from "../misc/SpriteWithOffset";
 import { Path } from "../warzone/Path";
@@ -83,15 +83,11 @@ export class Enemy {
     //
     const sprite = this.#currentSprite();
     const position = this.#pathProgression.currentXy();
-    BeetPx.sprite(g.assets.spritesheet, sprite, position.add(sprite.offset));
+    BeetPx.sprite(sprite, position.add(sprite.offset));
 
     if (BeetPx.debug && this.#health.value > 0) {
       const healthBarLength = Math.ceil(this.#health.value / 4);
-      BeetPx.line(
-        position.add(0, -2),
-        position.add(healthBarLength, -1),
-        p8c.darkRed
-      );
+      BeetPx.line(position.add(0, -2), v_(healthBarLength, 1), p8c.darkRed);
     }
 
     if (BeetPx.debug) {
@@ -100,11 +96,7 @@ export class Enemy {
 
     if (this.#isTakingDamage) {
       const damageSprite = this.#currentDamageSprite();
-      BeetPx.sprite(
-        g.assets.spritesheet,
-        damageSprite,
-        position.add(damageSprite.offset)
-      );
+      BeetPx.sprite(damageSprite, position.add(damageSprite.offset));
     }
   }
 

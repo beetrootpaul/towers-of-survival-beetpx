@@ -1,9 +1,9 @@
 import { BeetPx, Vector2d, v_ } from "@beetpx/beetpx";
+import { Game } from "../Game";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { GameState } from "../game_state/GameState";
 import { g, u } from "../globals";
-import { Button } from "../gui/Button";
 import { Gui } from "../gui/Gui";
 import { Placement } from "../placement/Placement";
 import { Towers } from "../towers/Towers";
@@ -24,13 +24,7 @@ export class ScreenGameplay implements Screen {
 
   #placement: Placement | null;
 
-  readonly #buttonO: Button;
-  readonly #buttonX: Button;
-
-  readonly #buttonLeft: Button;
-  readonly #buttonRight: Button;
-  readonly #buttonUp: Button;
-  readonly #buttonDown: Button;
+  #isButtonXEnabled: boolean;
 
   readonly #gui: Gui;
 
@@ -64,79 +58,11 @@ export class ScreenGameplay implements Screen {
 
     this.#placement = null;
 
-    this.#buttonO = new Button({
-      onRelease: () => {
-        if (this.#gameState.buildingState === "idle") {
-          // TODO: PAUSE MENU
-          //                 extcmd("pause")
-        } else if (this.#gameState.buildingState === "tower-choice") {
-          this.#gameState.buildingState = "idle";
-        } else if (this.#gameState.buildingState === "tower-placement") {
-          this.#gameState.buildingState = "tower-choice";
-          this.#placement = null;
-        }
-      },
-    });
-    this.#buttonX = new Button({
-      onRelease: (self) => {
-        BeetPx.playSoundOnce(g.assets.sfxButtonPress);
-
-        if (this.#gameState.buildingState === "idle") {
-          this.#gameState.buildingState = "tower-choice";
-        } else if (this.#gameState.buildingState === "tower-choice") {
-          this.#gameState.buildingState = "tower-placement";
-          this.#placement = new Placement({
-            towerChoice: this.#gameState.towerChoice,
-            warzone: this.#warzone,
-            otherTowers: this.#towers,
-            money: this.#gameState.money,
-          });
-          self.setEnabled(this.#placement.canBuild());
-        } else if (this.#gameState.buildingState === "tower-placement") {
-          if (this.#placement?.canBuild()) {
-            BeetPx.playSoundOnce(g.assets.sfxTowerPlaced);
-            this.#gameState.money.subtract(
-              this.#gameState.towerChoice.chosenTower.cost
-            );
-            this.#towers.buildTower({
-              tile: this.#placement.chosenTile,
-              towerDescriptor: this.#gameState.towerChoice.chosenTower,
-            });
-            this.#gameState.buildingState = "idle";
-            this.#placement = null;
-          } else {
-            BeetPx.playSoundOnce(g.assets.sfxCannotPlace);
-          }
-        }
-      },
-    });
-
-    this.#buttonLeft = new Button({
-      onPress: () => {
-        this.#applyArrowButtonInput("left");
-      },
-    });
-    this.#buttonRight = new Button({
-      onPress: () => {
-        this.#applyArrowButtonInput("right");
-      },
-    });
-    this.#buttonUp = new Button({
-      onPress: () => {
-        this.#applyArrowButtonInput("up");
-      },
-    });
-    this.#buttonDown = new Button({
-      onPress: () => {
-        this.#applyArrowButtonInput("down");
-      },
-    });
+    this.#isButtonXEnabled = true;
 
     this.#gui = new Gui({
       gameState: this.#gameState,
       waves: this.#waves,
-      buttonX: this.#buttonX,
-      buttonO: this.#buttonO,
     });
   }
 
@@ -156,33 +82,72 @@ export class ScreenGameplay implements Screen {
 
     this.#enemies.preUpdate();
 
-    // TODO: separate events available to pass as param for the continuous ones and for the fire once ones
-    this.#buttonX.setPressed(BeetPx.continuousInputEvents.has("button_x"));
-    this.#buttonO.setPressed(BeetPx.continuousInputEvents.has("button_o"));
+    if (BeetPx.wasJustReleased("o")) {
+      if (this.#gameState.buildingState === "idle") {
+        Game.isPaused = true;
+      } else if (this.#gameState.buildingState === "tower-choice") {
+        this.#gameState.buildingState = "idle";
+      } else if (this.#gameState.buildingState === "tower-placement") {
+        this.#gameState.buildingState = "tower-choice";
+        this.#placement = null;
+      }
+    }
+    if (BeetPx.wasJustReleased("x")) {
+      BeetPx.playSoundOnce(g.assets.sfxButtonPress);
 
-    // TODO: rename these events to `direction_*`
-    this.#buttonLeft.setPressed(BeetPx.continuousInputEvents.has("left"));
-    this.#buttonUp.setPressed(BeetPx.continuousInputEvents.has("up"));
-    this.#buttonRight.setPressed(BeetPx.continuousInputEvents.has("right"));
-    this.#buttonDown.setPressed(BeetPx.continuousInputEvents.has("down"));
-
-    if (this.#placement) {
-      this.#buttonX.setEnabled(this.#placement.canBuild());
+      if (this.#gameState.buildingState === "idle") {
+        this.#gameState.buildingState = "tower-choice";
+      } else if (this.#gameState.buildingState === "tower-choice") {
+        this.#gameState.buildingState = "tower-placement";
+        this.#placement = new Placement({
+          towerChoice: this.#gameState.towerChoice,
+          warzone: this.#warzone,
+          otherTowers: this.#towers,
+          money: this.#gameState.money,
+        });
+        this.#isButtonXEnabled = this.#placement.canBuild();
+      } else if (this.#gameState.buildingState === "tower-placement") {
+        if (this.#placement?.canBuild()) {
+          BeetPx.playSoundOnce(g.assets.sfxTowerPlaced);
+          this.#gameState.money.subtract(
+            this.#gameState.towerChoice.chosenTower.cost
+          );
+          this.#towers.buildTower({
+            tile: this.#placement.chosenTile,
+            towerDescriptor: this.#gameState.towerChoice.chosenTower,
+          });
+          this.#gameState.buildingState = "idle";
+          this.#placement = null;
+        } else {
+          BeetPx.playSoundOnce(g.assets.sfxCannotPlace);
+        }
+      }
     }
 
-    this.#buttonX.update();
-    this.#buttonO.update();
+    if (BeetPx.wasJustPressed("left")) {
+      this.#applyArrowButtonInput("left");
+    }
+    if (BeetPx.wasJustPressed("right")) {
+      this.#applyArrowButtonInput("right");
+    }
+    if (BeetPx.wasJustPressed("up")) {
+      this.#applyArrowButtonInput("up");
+    }
+    if (BeetPx.wasJustPressed("down")) {
+      this.#applyArrowButtonInput("down");
+    }
 
-    this.#buttonLeft.update();
-    this.#buttonRight.update();
-    this.#buttonUp.update();
-    this.#buttonDown.update();
+    if (this.#placement) {
+      this.#isButtonXEnabled = this.#placement.canBuild();
+    }
 
     this.#gameState.update();
     this.#fight.update();
     this.#waves.update();
     this.#enemies.update();
     this.#towers.update();
+
+    this.#gui.update();
 
     return nextScreen;
   }
@@ -195,7 +160,7 @@ export class ScreenGameplay implements Screen {
       );
     if (this.#placement) {
       this.#placement.moveChosenTile(direction);
-      this.#buttonX.setEnabled(this.#placement.canBuild());
+      this.#isButtonXEnabled = this.#placement.canBuild();
     } else if (this.#gameState.buildingState === "tower-choice") {
       if (direction.x > 0) {
         BeetPx.playSoundOnce(g.assets.sfxButtonPress);
@@ -205,7 +170,7 @@ export class ScreenGameplay implements Screen {
         this.#gameState.towerChoice.choosePrevTower();
       }
     } else {
-      this.#buttonX.setEnabled(true);
+      this.#isButtonXEnabled = true;
     }
   }
 
@@ -215,6 +180,6 @@ export class ScreenGameplay implements Screen {
     this.#enemies.draw();
     this.#fight.draw();
     this.#placement?.draw();
-    this.#gui.draw();
+    this.#gui.draw({ isButtonXEnabled: this.#isButtonXEnabled });
   }
 }

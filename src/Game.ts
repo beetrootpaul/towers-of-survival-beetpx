@@ -1,10 +1,15 @@
 import { BeetPx, Vector2d, transparent_, v_ } from "@beetpx/beetpx";
 import { TinyFont } from "./TinyFont";
 import { g, p8c, u } from "./globals";
+import { PauseMenu } from "./gui/PauseMenu";
 import { Screen } from "./screens/Screen";
 import { ScreenTitle } from "./screens/ScreenTitle";
 
 export class Game {
+  static isPaused: boolean = false;
+
+  #pauseMenu: PauseMenu | undefined;
+
   #currentScreen: Screen | undefined;
   #nextScreen: Screen | undefined;
 
@@ -13,21 +18,21 @@ export class Game {
       {
         gameCanvasSize: g.canvasSize,
         desiredFps: g.fps,
-        logActualFps: g.__debug,
-        debug: g.__debug
-          ? {
-              enabledOnInit: g.__debug,
-              toggleKey: ";",
-            }
-          : undefined,
+        logActualFps: !__BEETPX_IS_PROD__,
+        debug: {
+          available: !__BEETPX_IS_PROD__,
+          toggleKey: ";",
+          frameByFrame: {
+            activateKey: ",",
+            stepKey: ".",
+          },
+        },
       },
       {
         images: [{ url: g.assets.spritesheet }],
         fonts: [
           {
             font: new TinyFont(),
-            // TODO: consider coupling URL with Font, since they rather won't be used separately or exchanged
-            url: g.assets.spritesheet,
             imageBgColor: p8c.black,
             imageTextColor: p8c.green,
           },
@@ -53,81 +58,31 @@ export class Game {
         ],
       }
     ).then(({ startGame }) => {
-      this.#nextScreen = new ScreenTitle();
-      this.#currentScreen = this.#nextScreen;
+      BeetPx.setOnStarted(() => {
+        Game.isPaused = false;
+        this.#pauseMenu = new PauseMenu();
 
-      // SFXs exported from PICO-8 have full length of 32 notes, even though in the game they are defined as 24 notes
-      const durationMs = (fullSoundDurationMs: number) =>
-        (fullSoundDurationMs * 24) / 32;
-      BeetPx.playSoundSequence({
-        sequence: [
-          [{ url: g.assets.musicBg1, durationMs }],
-          [{ url: g.assets.musicBg1, durationMs }],
-          [{ url: g.assets.musicBg2, durationMs }],
-          [{ url: g.assets.musicBg2, durationMs }],
-        ],
-        sequenceLooped: [
-          // 1st four
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody1 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody2 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody1 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody2 },
-          ],
-          // 2nd four
-          [
-            { url: g.assets.musicBg3, durationMs },
-            { url: g.assets.musicMelody3 },
-          ],
-          [
-            { url: g.assets.musicBg3, durationMs },
-            { url: g.assets.musicMelody4 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody1 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody2 },
-          ],
-          // 3rd four
-          [
-            { url: g.assets.musicBg4, durationMs },
-            { url: g.assets.musicMelody5 },
-          ],
-          [
-            { url: g.assets.musicBg4, durationMs },
-            { url: g.assets.musicMelody6 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody7 },
-          ],
-          [{ url: g.assets.musicBg2, durationMs }],
-        ],
+        this.#nextScreen = new ScreenTitle();
+        this.#currentScreen = this.#nextScreen;
+
+        BeetPx.stopAllSounds();
+        this.#startMusic();
       });
 
       BeetPx.setOnUpdate(() => {
-        // TODO: DEBUG STEP
-        // d.update()
-        // if (not d.enabled) or (d.enabled and d.is_next_frame) then
+        if (BeetPx.wasJustPressed("menu")) {
+          Game.isPaused = !Game.isPaused;
+        }
 
-        // We intentionally reassign screen on the next update iteration
-        //   then the current one, because we still need to use the previous one
-        //   for a drawing.
-        this.#currentScreen = this.#nextScreen;
-        this.#nextScreen = this.#currentScreen?.update();
+        if (Game.isPaused) {
+          this.#pauseMenu?.update();
+        } else {
+          // We intentionally reassign screen on the next update iteration
+          //   then the current one, because we still need to use the previous one
+          //   for a drawing.
+          this.#currentScreen = this.#nextScreen;
+          this.#nextScreen = this.#currentScreen?.update();
+        }
       });
 
       BeetPx.setOnDraw(() => {
@@ -146,9 +101,11 @@ export class Game {
         ]);
 
         this.#currentScreen?.draw();
+        if (Game.isPaused) {
+          this.#pauseMenu?.draw();
+        }
 
-        // TODO: here we kinda cannot use a single spritesheet with 2 fonts on it. Do something about it
-        BeetPx.setFont(g.assets.spritesheet);
+        BeetPx.setFont(g.assets.tinyFont);
 
         if (BeetPx.debug) {
           const fps = BeetPx.averageFps.toFixed(0);
@@ -170,7 +127,71 @@ export class Game {
         }
       });
 
-      startGame(() => {});
+      startGame();
+    });
+  }
+
+  #startMusic(): void {
+    // SFXs exported from PICO-8 have full length of 32 notes, even though in the game they are defined as 24 notes
+    const durationMs = (fullSoundDurationMs: number) =>
+      (fullSoundDurationMs * 24) / 32;
+    BeetPx.playSoundSequence({
+      sequence: [
+        [{ url: g.assets.musicBg1, durationMs }],
+        [{ url: g.assets.musicBg1, durationMs }],
+        [{ url: g.assets.musicBg2, durationMs }],
+        [{ url: g.assets.musicBg2, durationMs }],
+      ],
+      sequenceLooped: [
+        // 1st four
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody1 },
+        ],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody2 },
+        ],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody1 },
+        ],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody2 },
+        ],
+        // 2nd four
+        [
+          { url: g.assets.musicBg3, durationMs },
+          { url: g.assets.musicMelody3 },
+        ],
+        [
+          { url: g.assets.musicBg3, durationMs },
+          { url: g.assets.musicMelody4 },
+        ],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody1 },
+        ],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody2 },
+        ],
+        // 3rd four
+        [
+          { url: g.assets.musicBg4, durationMs },
+          { url: g.assets.musicMelody5 },
+        ],
+        [
+          { url: g.assets.musicBg4, durationMs },
+          { url: g.assets.musicMelody6 },
+        ],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody7 },
+        ],
+        [{ url: g.assets.musicBg2, durationMs }],
+      ],
     });
   }
 }

@@ -55,7 +55,6 @@ export class Ground {
         const sprite = this.#sprites[`${tileXy.x}|${tileXy.y}`];
         if (sprite) {
           BeetPx.sprite(
-            g.assets.spritesheet,
             sprite,
             tileXy.add(g.warzoneBorderTiles).mul(g.tileSize)
           );

@@ -80,7 +80,6 @@ export class Road {
             g.road.sprites[spriteName] ??
             u.throwError(`No "road.sprites.${spriteName}" sprite defined.`);
           BeetPx.sprite(
-            g.assets.spritesheet,
             sprite,
             v_(tileX, tileY).add(g.warzoneBorderTiles).mul(g.tileSize)
           );

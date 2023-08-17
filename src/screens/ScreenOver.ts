@@ -1,6 +1,5 @@
-import { BeetPx, ClippingRegion, v_ } from "@beetpx/beetpx";
+import { BeetPx, Timer, v_ } from "@beetpx/beetpx";
 import { g, p8c, u } from "../globals";
-import { Timer } from "../misc/Timer";
 import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
@@ -10,13 +9,13 @@ export class ScreenOver implements Screen {
 
   constructor(params: { wavesSurvived: number }) {
     this.#wavesSurvived = params.wavesSurvived;
-    this.#timer = new Timer({ start: 3 * g.fps });
+    this.#timer = new Timer({ frames: 3 * g.fps });
   }
 
   update(): Screen {
     let nextScreen: Screen = this;
 
-    if (this.#timer.hasFinished()) {
+    if (this.#timer.hasFinished) {
       nextScreen = new ScreenPreGameplay();
     }
 
@@ -35,16 +34,14 @@ export class ScreenOver implements Screen {
     const textWaves2Size = u.measureTextSize(textWaves2);
     const textWaves3Size = u.measureTextSize(textWaves3);
 
-    const clipProgress = Math.max(0, 6 * this.#timer.progress() - 5);
+    const clipProgress = Math.max(0, 6 * this.#timer.progress - 5);
     const clipY = Math.floor(
       clipProgress * ((g.canvasSize.y - 2 * g.warzoneBorder) / 2)
     );
 
     BeetPx.setClippingRegion(
-      ClippingRegion.of(
-        v_(0, g.warzoneBorder + clipY),
-        g.canvasSize.sub(0, g.warzoneBorder + clipY)
-      )
+      v_(0, g.warzoneBorder + clipY),
+      g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY)
     );
 
     BeetPx.print(
@@ -76,6 +73,6 @@ export class ScreenOver implements Screen {
       p8c.mauve
     );
 
-    BeetPx.setClippingRegion(null);
+    BeetPx.removeClippingRegion();
   }
 }

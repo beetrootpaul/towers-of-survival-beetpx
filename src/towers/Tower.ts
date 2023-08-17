@@ -1,10 +1,9 @@
-import { BeetPx, Vector2d } from "@beetpx/beetpx";
+import { BeetPx, Timer, Vector2d } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
 import { g, p8c, u } from "../globals";
 import { Tile } from "../misc/Tile";
-import { Timer } from "../misc/Timer";
 import { Warzone } from "../warzone/Warzone";
 import { TowerRange } from "./TowerRange";
 import { TowerRangeBooster } from "./TowerRangeBooster";
@@ -67,7 +66,7 @@ export class Tower {
     if (this.#descriptor.shootingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
       return new Timer({
-        start:
+        frames:
           g.fps *
           (this.#descriptor.shootingTime +
             boosts * (this.#descriptor.shootingTimeBoost ?? 0)),
@@ -80,7 +79,7 @@ export class Tower {
     if (this.#descriptor.chargingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
       return new Timer({
-        start:
+        frames:
           g.fps *
           (this.#descriptor.chargingTime +
             boosts * (this.#descriptor.chargingTimeBoost ?? 0)),
@@ -106,9 +105,9 @@ export class Tower {
   }
 
   update(): void {
-    if (this.#chargingTimer && this.#chargingTimer.hasFinished()) {
+    if (this.#chargingTimer && this.#chargingTimer.hasFinished) {
       this.#chargingTimer = null;
-    } else if (this.#shootingTimer && this.#shootingTimer.hasFinished()) {
+    } else if (this.#shootingTimer && this.#shootingTimer.hasFinished) {
       this.#shootingTimer = null;
       this.#chargingTimer = this.#newChargingTimer();
     }
@@ -169,7 +168,6 @@ export class Tower {
 
   draw(): void {
     BeetPx.sprite(
-      g.assets.spritesheet,
       this.#descriptor.sprite,
       this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
     );

@@ -24,7 +24,7 @@ export class WaveStatus {
         this.#waves.wait.progress() * waveLabelSize.x
       );
       if (progressW > 0) {
-        BeetPx.line(xy1, xy1.add(progressW, 1), p8c.mauve);
+        BeetPx.line(xy1, v_(progressW, 1), p8c.mauve);
       }
     } else if (this.#waves.wave) {
       const waveLabel = `wave ${this.#waves.waveNumber}`;
@@ -40,14 +40,14 @@ export class WaveStatus {
         this.#waves.wave.progress() * waveLabelSize.x
       );
       if (progressW > 0) {
-        BeetPx.line(xy1, xy1.add(progressW, 1), p8c.darkPeach);
+        BeetPx.line(xy1, v_(progressW, 1), p8c.darkPeach);
       }
 
       const gap = 1;
       if (waveLabelSize.x - progressW - gap > 0) {
         BeetPx.line(
           xy1.add(progressW + gap, 0),
-          xy1.add(waveLabelSize.x, 1),
+          v_(waveLabelSize.x - progressW - gap, 1),
           p8c.mauve
         );
       }
