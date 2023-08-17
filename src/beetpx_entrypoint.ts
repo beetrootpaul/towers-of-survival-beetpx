@@ -2,5 +2,4 @@ import { Game } from "./Game";
 
 new Game().start();
 
-// TODO: implement X and O for touch / click / gamepad
-// TODO: implement "–" for touch / click / gamepad
+// TODO: fix inputs "menu" + "X/O" to not trigger second X/O right after closing the menu

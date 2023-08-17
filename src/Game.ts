@@ -16,7 +16,7 @@ export class Game {
   start(): void {
     BeetPx.init(
       {
-        gameCanvasSize: g.canvasSize,
+        gameCanvasSize: "64x64",
         desiredFps: g.fps,
         logActualFps: !__BEETPX_IS_PROD__,
         debug: {
