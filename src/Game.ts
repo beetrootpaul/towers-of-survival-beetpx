@@ -59,6 +59,9 @@ export class Game {
       }
     ).then(({ startGame }) => {
       BeetPx.setOnStarted(() => {
+        BeetPx.setRepeating("x", false);
+        BeetPx.setRepeating("o", false);
+
         Game.isPaused = false;
         this.#pauseMenu = new PauseMenu();
 
