@@ -13,15 +13,23 @@ export class PauseMenu {
   ];
 
   #selected = 0;
+  #pressedIndex = -1;
 
   update(): void {
+    if (BeetPx.isPressed("x") || BeetPx.isPressed("o")) {
+      this.#pressedIndex = this.#selected;
+    } else {
+      this.#pressedIndex = -1;
+    }
+
     if (BeetPx.wasJustPressed("up")) {
       this.#selected = Math.max(0, this.#selected - 1);
     }
     if (BeetPx.wasJustPressed("down")) {
       this.#selected = Math.min(1, this.#selected + 1);
     }
-    if (BeetPx.wasJustPressed("x") || BeetPx.wasJustPressed("o")) {
+
+    if (BeetPx.wasJustReleased("x") || BeetPx.wasJustReleased("o")) {
       if (this.#selected === 0) {
         Game.isPaused = false;
       } else if (this.#selected === 1) {
@@ -55,16 +63,22 @@ export class PauseMenu {
     BeetPx.rect(xy.sub(1), wh.add(2), p8c.white);
     BeetPx.print(
       "continue",
-      xy.add(padding + (this.#selected === 0 ? 1 : 0), padding),
-      p8c.white
+      xy.add(
+        padding + (this.#selected === 0 ? 1 : 0),
+        padding + (this.#pressedIndex === 0 ? 1 : 0)
+      ),
+      this.#pressedIndex === 0 ? p8c.peach : p8c.white
     );
     BeetPx.print(
       "restart",
       xy.add(
         padding + (this.#selected === 1 ? 1 : 0),
-        padding + textContinueWh.y + gapBetweenLines
+        padding +
+          textContinueWh.y +
+          gapBetweenLines +
+          (this.#pressedIndex === 1 ? 1 : 0)
       ),
-      p8c.white
+      this.#pressedIndex === 1 ? p8c.peach : p8c.white
     );
     for (const offset of PauseMenu.#arrowPixelsOffsets) {
       BeetPx.pixel(
