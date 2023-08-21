@@ -25,11 +25,6 @@
     "prod": "npm run cleanup && npm run typecheck && beetpx build && beetpx preview",
     "itch": "npm run cleanup && npm run typecheck && beetpx build && beetpx zip"
   },
-  "lint-staged": {
-    "src/**/*": [
-      "prettier --ignore-unknown --ignore-path .gitignore --write"
-    ]
-  },
   "devDependencies": {
     "@beetpx/beetpx": "0.8.1",
     "@jest/globals": "29.5.0",
