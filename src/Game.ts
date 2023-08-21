@@ -17,6 +17,7 @@ export class Game {
     BeetPx.init(
       {
         gameCanvasSize: "64x64",
+        visibleTouchButtons: ["left", "right", "up", "down", "o", "x", "menu"],
         desiredFps: g.fps,
         logActualFps: !__BEETPX_IS_PROD__,
         debug: {
