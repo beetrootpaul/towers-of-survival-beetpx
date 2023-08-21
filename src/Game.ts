@@ -17,8 +17,8 @@ export class Game {
     BeetPx.init(
       {
         gameCanvasSize: "64x64",
-        visibleTouchButtons: ["left", "right", "up", "down", "o", "x", "menu"],
         desiredFps: g.fps,
+        visibleTouchButtons: ["left", "right", "up", "down", "o", "x", "menu"],
         logActualFps: !__BEETPX_IS_PROD__,
         debug: {
           available: !__BEETPX_IS_PROD__,
@@ -60,6 +60,8 @@ export class Game {
       }
     ).then(({ startGame }) => {
       BeetPx.setOnStarted(() => {
+        BeetPx.setFont(g.assets.tinyFont);
+
         BeetPx.setRepeating("x", false);
         BeetPx.setRepeating("o", false);
 
@@ -109,13 +111,11 @@ export class Game {
           this.#pauseMenu?.draw();
         }
 
-        BeetPx.setFont(g.assets.tinyFont);
-
         if (BeetPx.debug) {
           const fps = BeetPx.averageFps.toFixed(0);
           BeetPx.print(fps, Vector2d.zero, p8c.mauve);
           const audioState = BeetPx.audioContext.state;
-          let audioStateText =
+          const audioStateText =
             audioState === "suspended"
               ? "s"
               : audioState === "running"

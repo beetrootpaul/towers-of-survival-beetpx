@@ -74,8 +74,8 @@ export class TinyFont implements Font {
     let positionInText: Vector2d = Vector2d.zero;
 
     for (let i = 0; i < text.length; i += 1) {
-      let char = text[i]!.toLowerCase();
-      let sprite = TinyFont.#sprites[char] ?? null;
+      const char = text[i]!.toLowerCase();
+      const sprite = TinyFont.#sprites[char] ?? null;
       if (sprite) {
         charSprites.push({ positionInText, sprite, char });
       }
