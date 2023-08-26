@@ -1,5 +1,5 @@
-import { BeetPx, Vector2d, v_ } from "@beetpx/beetpx";
-import { g, p8c } from "../globals";
+import { Vector2d, v_ } from "@beetpx/beetpx";
+import { b, g, p8c } from "../globals";
 
 export class ChosenTowerBorder {
   static readonly #offsets = [
@@ -22,7 +22,7 @@ export class ChosenTowerBorder {
 
   draw(xy: Vector2d): void {
     for (const offset of ChosenTowerBorder.#offsets) {
-      BeetPx.pixel(xy.add(offset), p8c.lightGrey);
+      b.pixel(xy.add(offset), p8c.lightGrey);
     }
   }
 }

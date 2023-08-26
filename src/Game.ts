@@ -1,6 +1,6 @@
-import { BeetPx, Vector2d, transparent_, v_ } from "@beetpx/beetpx";
+import { Vector2d, transparent_, v_ } from "@beetpx/beetpx";
 import { TinyFont } from "./TinyFont";
-import { g, p8c, u } from "./globals";
+import { b, g, p8c, u } from "./globals";
 import { PauseMenu } from "./gui/PauseMenu";
 import { Screen } from "./screens/Screen";
 import { ScreenTitle } from "./screens/ScreenTitle";
@@ -14,12 +14,10 @@ export class Game {
   #nextScreen: Screen | undefined;
 
   start(): void {
-    BeetPx.init(
+    b.init(
       {
         gameCanvasSize: "64x64",
-        desiredFps: g.fps,
         visibleTouchButtons: ["left", "right", "up", "down", "o", "x", "menu"],
-        logActualFps: !__BEETPX_IS_PROD__,
         debug: {
           available: !__BEETPX_IS_PROD__,
           toggleKey: ";",
@@ -59,11 +57,11 @@ export class Game {
         ],
       }
     ).then(({ startGame }) => {
-      BeetPx.setOnStarted(() => {
-        BeetPx.setFont(g.assets.tinyFont);
+      b.setOnStarted(() => {
+        b.setFont(g.assets.tinyFont);
 
-        BeetPx.setRepeating("x", false);
-        BeetPx.setRepeating("o", false);
+        b.setRepeating("x", false);
+        b.setRepeating("o", false);
 
         Game.isPaused = false;
         this.#pauseMenu = new PauseMenu();
@@ -71,12 +69,12 @@ export class Game {
         this.#nextScreen = new ScreenTitle();
         this.#currentScreen = this.#nextScreen;
 
-        BeetPx.stopAllSounds();
+        b.stopAllSounds();
         this.#startMusic();
       });
 
-      BeetPx.setOnUpdate(() => {
-        if (BeetPx.wasJustPressed("menu")) {
+      b.setOnUpdate(() => {
+        if (b.wasJustPressed("menu")) {
           Game.isPaused = !Game.isPaused;
         }
 
@@ -91,10 +89,10 @@ export class Game {
         }
       });
 
-      BeetPx.setOnDraw(() => {
-        BeetPx.clearCanvas(p8c.brownishBlack);
+      b.setOnDraw(() => {
+        b.clearCanvas(p8c.brownishBlack);
 
-        BeetPx.mapSpriteColors([
+        b.mapSpriteColors([
           { from: p8c.black, to: transparent_ },
           { from: p8c.darkBlue, to: p8c.trueBlue },
           { from: p8c.darkPurple, to: p8c.darkRed },
@@ -111,10 +109,10 @@ export class Game {
           this.#pauseMenu?.draw();
         }
 
-        if (BeetPx.debug) {
-          const fps = BeetPx.averageFps.toFixed(0);
-          BeetPx.print(fps, Vector2d.zero, p8c.mauve);
-          const audioState = BeetPx.audioContext.state;
+        if (b.debug) {
+          const fps = b.averageFps.toFixed(0);
+          b.print(fps, Vector2d.zero, p8c.mauve);
+          const audioState = b.audioContext.state;
           const audioStateText =
             audioState === "suspended"
               ? "s"
@@ -123,9 +121,9 @@ export class Game {
               : audioState === "closed"
               ? "c"
               : "@";
-          BeetPx.print(
+          b.print(
             audioStateText,
-            v_(g.canvasSize.x - u.measureTextSize(audioStateText).x, 0),
+            v_(g.canvasSize.x - u.measureText(audioStateText).x, 0),
             p8c.mauve
           );
         }
@@ -139,7 +137,7 @@ export class Game {
     // SFXs exported from PICO-8 have full length of 32 notes, even though in the game they are defined as 24 notes
     const durationMs = (fullSoundDurationMs: number) =>
       (fullSoundDurationMs * 24) / 32;
-    BeetPx.playSoundSequence({
+    b.playSoundSequence({
       sequence: [
         [{ url: g.assets.musicBg1, durationMs }],
         [{ url: g.assets.musicBg1, durationMs }],

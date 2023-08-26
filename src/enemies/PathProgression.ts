@@ -1,20 +1,18 @@
 import { Vector2d } from "@beetpx/beetpx";
-import { g, u } from "../globals";
+import { b, g, u } from "../globals";
 import { Path } from "../warzone/Path";
 
 export class PathProgression {
   readonly #pathPoints: Vector2d[];
 
-  readonly #framesPerPoint: number;
-  #counter: number;
   #pointIndex: number;
+
+  readonly #t0: number;
 
   constructor(params: { path: Path }) {
     this.#pathPoints = params.path.points;
-
-    this.#framesPerPoint = g.fps / g.enemies.speed;
-    this.#counter = 1;
     this.#pointIndex = 1;
+    this.#t0 = b.t;
   }
 
   currentXy(): Vector2d {
@@ -42,12 +40,9 @@ export class PathProgression {
   }
 
   update(): void {
-    if (this.#counter === 0) {
-      this.#pointIndex = Math.min(
-        this.#pointIndex + 1,
-        this.#pathPoints.length - 1
-      );
-    }
-    this.#counter = (this.#counter + 1) % this.#framesPerPoint;
+    this.#pointIndex = Math.min(
+      Math.floor(1 + (b.t - this.#t0) * g.enemies.speed),
+      this.#pathPoints.length - 1
+    );
   }
 }

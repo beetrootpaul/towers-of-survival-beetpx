@@ -1,5 +1,5 @@
-import { BeetPx, Sprite, Vector2d, v_ } from "@beetpx/beetpx";
-import { g, u } from "../globals";
+import { Sprite, Vector2d, v_ } from "@beetpx/beetpx";
+import { b, g, u } from "../globals";
 import { Tile } from "../misc/Tile";
 
 export class Ground {
@@ -54,10 +54,7 @@ export class Ground {
       (tileXy) => {
         const sprite = this.#sprites[`${tileXy.x}|${tileXy.y}`];
         if (sprite) {
-          BeetPx.sprite(
-            sprite,
-            tileXy.add(g.warzoneBorderTiles).mul(g.tileSize)
-          );
+          b.sprite(sprite, tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
         }
       }
     );

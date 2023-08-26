@@ -1,5 +1,5 @@
-import { BeetPx, SolidColor, Vector2d, v_ } from "@beetpx/beetpx";
-import { g } from "../globals";
+import { SolidColor, Vector2d, v_ } from "@beetpx/beetpx";
+import { b, g } from "../globals";
 
 export class EnemyRange {
   readonly #center: Vector2d;
@@ -18,17 +18,17 @@ export class EnemyRange {
   }
 
   draw(color: SolidColor): void {
-    BeetPx.setClippingRegion(
+    b.setClippingRegion(
       v_(0, g.warzoneBorder),
       g.canvasSize.sub(0, g.warzoneBorder)
     );
 
-    BeetPx.ellipse(
+    b.ellipse(
       this.#center.sub(this.#r),
       v_(this.#r, this.#r).mul(2).add(1),
       color
     );
 
-    BeetPx.removeClippingRegion();
+    b.removeClippingRegion();
   }
 }

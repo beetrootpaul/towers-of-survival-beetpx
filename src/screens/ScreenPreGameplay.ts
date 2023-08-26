@@ -1,14 +1,12 @@
-import { BeetPx, Timer, v_ } from "@beetpx/beetpx";
+import { Timer, v_ } from "@beetpx/beetpx";
 import { GameState } from "../game_state/GameState";
-import { g } from "../globals";
+import { b, g } from "../globals";
 import { Warzone } from "../warzone/Warzone";
 import { Screen } from "./Screen";
 import { ScreenGameplay } from "./ScreenGameplay";
 
 export class ScreenPreGameplay implements Screen {
-  readonly #timer = new Timer({
-    frames: 0.5 * g.fps,
-  });
+  readonly #timer = new Timer(0.5);
 
   readonly #gameState: GameState;
   readonly #warzone: Warzone;
@@ -30,7 +28,7 @@ export class ScreenPreGameplay implements Screen {
       });
     }
 
-    this.#timer.update();
+    this.#timer.update(b.dt);
 
     return nextScreen;
   }
@@ -41,13 +39,13 @@ export class ScreenPreGameplay implements Screen {
       clipProgress * (g.canvasSize.y / 2 - g.warzoneBorder)
     );
 
-    BeetPx.setClippingRegion(
+    b.setClippingRegion(
       v_(0, g.warzoneBorder + clipY),
       g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY)
     );
 
     this.#warzone.draw();
 
-    BeetPx.removeClippingRegion();
+    b.removeClippingRegion();
   }
 }

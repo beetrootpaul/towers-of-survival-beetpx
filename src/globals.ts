@@ -1,9 +1,11 @@
-import { Sprite, Utils, spr_, v_ } from "@beetpx/beetpx";
+import { BeetPx, Sprite, Utils, spr_, v_ } from "@beetpx/beetpx";
 import { Pico8Colors } from "./Pico8Color";
 import { spro_ } from "./misc/SpriteWithOffset";
 import { WaveDescriptor } from "./waves/Wave";
 
 export const p8c = Pico8Colors;
+
+export const b = BeetPx;
 
 export const u = Utils;
 
@@ -15,8 +17,6 @@ const s = spr_(spritesheetUrl);
 const so = spro_(spritesheetUrl);
 
 export const g = {
-  fps: 60,
-
   canvasSize: v_(64, 64),
   warzoneSizeTiles: v_(12, 12),
   tileSize,

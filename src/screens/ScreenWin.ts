@@ -1,20 +1,18 @@
-import { BeetPx, Timer, v_ } from "@beetpx/beetpx";
-import { g, p8c, u } from "../globals";
+import { Timer, v_ } from "@beetpx/beetpx";
+import { b, g, p8c, u } from "../globals";
 import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenWin implements Screen {
-  readonly #timer = new Timer({
-    frames: 3 * g.fps,
-  });
+  readonly #timer = new Timer(3);
 
   readonly #text1 = "* * *";
   readonly #text2 = "* victory *";
   readonly #text3 = "* * *";
 
-  readonly #text1Size = u.measureTextSize(this.#text1);
-  readonly #text2Size = u.measureTextSize(this.#text2);
-  readonly #text3Size = u.measureTextSize(this.#text3);
+  readonly #text1Size = u.measureText(this.#text1);
+  readonly #text2Size = u.measureText(this.#text2);
+  readonly #text3Size = u.measureText(this.#text3);
 
   update(): Screen {
     let nextScreen: Screen = this;
@@ -23,7 +21,7 @@ export class ScreenWin implements Screen {
       nextScreen = new ScreenPreGameplay();
     }
 
-    this.#timer.update();
+    this.#timer.update(b.dt);
 
     return nextScreen;
   }
@@ -34,26 +32,26 @@ export class ScreenWin implements Screen {
       clipProgress * ((g.canvasSize.y - 2 * g.warzoneBorder) / 2)
     );
 
-    BeetPx.setClippingRegion(
+    b.setClippingRegion(
       v_(0, g.warzoneBorder + clipY),
       g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY)
     );
 
-    BeetPx.print(
+    b.print(
       this.#text1,
       g.canvasSize
         .div(2)
         .add(-this.#text1Size.x / 2, -2.5 * (this.#text1Size.y + 1)),
       p8c.darkPeach
     );
-    BeetPx.print(
+    b.print(
       this.#text2,
       g.canvasSize
         .div(2)
         .add(-this.#text2Size.x / 2, -0.5 * (this.#text2Size.y + 1)),
       ({ char }) => (char === "*" ? p8c.darkPeach : p8c.lightYellow)
     );
-    BeetPx.print(
+    b.print(
       this.#text3,
       g.canvasSize
         .div(2)
@@ -61,6 +59,6 @@ export class ScreenWin implements Screen {
       p8c.darkPeach
     );
 
-    BeetPx.removeClippingRegion();
+    b.removeClippingRegion();
   }
 }

@@ -1,13 +1,11 @@
 import { Timer } from "@beetpx/beetpx";
-import { g } from "../globals";
+import { b } from "../globals";
 
 export class Wait {
   readonly #timer: Timer;
 
   constructor(params: { durationSeconds: number }) {
-    this.#timer = new Timer({
-      frames: g.fps * params.durationSeconds,
-    });
+    this.#timer = new Timer(params.durationSeconds);
   }
 
   progress(): number {
@@ -15,6 +13,6 @@ export class Wait {
   }
 
   update(): void {
-    this.#timer.update();
+    this.#timer.update(b.dt);
   }
 }

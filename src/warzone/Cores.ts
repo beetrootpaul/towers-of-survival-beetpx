@@ -1,6 +1,6 @@
-import { BeetPx, v_ } from "@beetpx/beetpx";
+import { v_ } from "@beetpx/beetpx";
 import { Lives } from "../game_state/Lives";
-import { g } from "../globals";
+import { b, g } from "../globals";
 
 export class Cores {
   readonly #lives: Lives;
@@ -12,7 +12,7 @@ export class Cores {
   draw(): void {
     g.cores.forEach((core, index) => {
       const coreNumber = index + 1;
-      BeetPx.sprite(
+      b.sprite(
         this.#lives.left >= coreNumber ? core.spriteHealthy : core.spriteBroken,
         v_(g.canvasSize.x - g.warzoneBorder, g.warzoneBorder + core.y)
       );

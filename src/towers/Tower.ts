@@ -1,8 +1,8 @@
-import { BeetPx, Timer, Vector2d } from "@beetpx/beetpx";
+import { Timer, Vector2d } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
-import { g, p8c, u } from "../globals";
+import { b, g, p8c, u } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Warzone } from "../warzone/Warzone";
 import { TowerRange } from "./TowerRange";
@@ -65,12 +65,10 @@ export class Tower {
   #newShootingTimer(): Timer | null {
     if (this.#descriptor.shootingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
-      return new Timer({
-        frames:
-          g.fps *
-          (this.#descriptor.shootingTime +
-            boosts * (this.#descriptor.shootingTimeBoost ?? 0)),
-      });
+      return new Timer(
+        this.#descriptor.shootingTime +
+          boosts * (this.#descriptor.shootingTimeBoost ?? 0)
+      );
     }
     return null;
   }
@@ -78,12 +76,10 @@ export class Tower {
   #newChargingTimer(): Timer | null {
     if (this.#descriptor.chargingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
-      return new Timer({
-        frames:
-          g.fps *
-          (this.#descriptor.chargingTime +
-            boosts * (this.#descriptor.chargingTimeBoost ?? 0)),
-      });
+      return new Timer(
+        this.#descriptor.chargingTime +
+          boosts * (this.#descriptor.chargingTimeBoost ?? 0)
+      );
     }
     return null;
   }
@@ -126,7 +122,7 @@ export class Tower {
         this.#enemies.forEachFromFurthest((enemy) => {
           if (!isAttacking && range.touchesEnemy(enemy)) {
             isAttacking = true;
-            enemy.takeDamage(dps / g.fps);
+            enemy.takeDamage(dps * b.dt);
             this.#fight.showLaser({
               xy1: range.laserSourceXy(),
               xy2: enemy.centerXy(),
@@ -143,7 +139,7 @@ export class Tower {
         this.#enemies.forEachFromFurthest((enemy) => {
           if (range.touchesEnemy(enemy)) {
             isAttacking = true;
-            enemy.takeDamage(dps / g.fps);
+            enemy.takeDamage(dps * b.dt);
           }
         });
         if (isAttacking) {
@@ -155,24 +151,24 @@ export class Tower {
         this.#shootingTimer = this.#newShootingTimer();
         //             if s.type == "laser" then
         if (this.type === "laser") {
-          BeetPx.playSoundOnce(g.assets.sfxLaser);
+          b.playSoundOnce(g.assets.sfxLaser);
         } else if (this.type === "v_beam") {
-          BeetPx.playSoundOnce(g.assets.sfxVBeam);
+          b.playSoundOnce(g.assets.sfxVBeam);
         }
       }
     }
 
-    this.#chargingTimer?.update();
-    this.#shootingTimer?.update();
+    this.#chargingTimer?.update(b.dt);
+    this.#shootingTimer?.update(b.dt);
   }
 
   draw(): void {
-    BeetPx.sprite(
+    b.sprite(
       this.#descriptor.sprite,
       this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
     );
 
-    if (BeetPx.debug) {
+    if (b.debug) {
       this.#range.draw(p8c.trueBlue, p8c.brownishBlack);
     }
   }
