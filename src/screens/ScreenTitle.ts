@@ -4,7 +4,9 @@ import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenTitle implements Screen {
-  readonly #timer = new Timer(2.8);
+  readonly #timer = new Timer({
+    frames: 2.8 * g.fps,
+  });
 
   update(): Screen {
     let nextScreen: Screen = this;
@@ -13,7 +15,7 @@ export class ScreenTitle implements Screen {
       nextScreen = new ScreenPreGameplay();
     }
 
-    this.#timer.update(b.dt);
+    this.#timer.update();
 
     return nextScreen;
   }
