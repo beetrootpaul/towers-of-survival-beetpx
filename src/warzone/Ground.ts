@@ -23,6 +23,7 @@ export class Ground {
       Vector2d.zero,
       g.warzoneSizeTiles,
       true,
+      true,
       (xy) => {
         this.#sprites[`${xy.x}|${xy.y}`] =
           g.ground.sprites.textured ??
@@ -50,6 +51,7 @@ export class Ground {
     Vector2d.forEachIntXyWithinRectOf(
       Vector2d.zero,
       g.warzoneSizeTiles,
+      true,
       true,
       (tileXy) => {
         const sprite = this.#sprites[`${tileXy.x}|${tileXy.y}`];

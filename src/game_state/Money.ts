@@ -1,5 +1,5 @@
 import { Timer } from "@beetpx/beetpx";
-import { b, g } from "../globals";
+import { g } from "../globals";
 
 export class Money {
   #timer: Timer = this.#newMoneyIncreaseTimer();
@@ -11,7 +11,9 @@ export class Money {
   }
 
   #newMoneyIncreaseTimer(): Timer {
-    return new Timer(g.money.increaseSeconds);
+    return new Timer({
+      frames: g.fps * g.money.increaseSeconds,
+    });
   }
 
   subtract(amount: number): void {
@@ -23,6 +25,6 @@ export class Money {
       this.#available += 1;
       this.#timer = this.#newMoneyIncreaseTimer();
     }
-    this.#timer.update(b.dt);
+    this.#timer.update();
   }
 }

@@ -6,7 +6,9 @@ import { Screen } from "./Screen";
 import { ScreenGameplay } from "./ScreenGameplay";
 
 export class ScreenPreGameplay implements Screen {
-  readonly #timer = new Timer(0.5);
+  readonly #timer = new Timer({
+    frames: 0.5 * g.fps,
+  });
 
   readonly #gameState: GameState;
   readonly #warzone: Warzone;
@@ -28,7 +30,7 @@ export class ScreenPreGameplay implements Screen {
       });
     }
 
-    this.#timer.update(b.dt);
+    this.#timer.update();
 
     return nextScreen;
   }

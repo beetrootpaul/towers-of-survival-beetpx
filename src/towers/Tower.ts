@@ -65,10 +65,12 @@ export class Tower {
   #newShootingTimer(): Timer | null {
     if (this.#descriptor.shootingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
-      return new Timer(
-        this.#descriptor.shootingTime +
-          boosts * (this.#descriptor.shootingTimeBoost ?? 0)
-      );
+      return new Timer({
+        frames:
+          g.fps *
+          (this.#descriptor.shootingTime +
+            boosts * (this.#descriptor.shootingTimeBoost ?? 0)),
+      });
     }
     return null;
   }
@@ -76,10 +78,12 @@ export class Tower {
   #newChargingTimer(): Timer | null {
     if (this.#descriptor.chargingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
-      return new Timer(
-        this.#descriptor.chargingTime +
-          boosts * (this.#descriptor.chargingTimeBoost ?? 0)
-      );
+      return new Timer({
+        frames:
+          g.fps *
+          (this.#descriptor.chargingTime +
+            boosts * (this.#descriptor.chargingTimeBoost ?? 0)),
+      });
     }
     return null;
   }
@@ -122,7 +126,7 @@ export class Tower {
         this.#enemies.forEachFromFurthest((enemy) => {
           if (!isAttacking && range.touchesEnemy(enemy)) {
             isAttacking = true;
-            enemy.takeDamage(dps * b.dt);
+            enemy.takeDamage(dps / g.fps);
             this.#fight.showLaser({
               xy1: range.laserSourceXy(),
               xy2: enemy.centerXy(),
@@ -139,7 +143,7 @@ export class Tower {
         this.#enemies.forEachFromFurthest((enemy) => {
           if (range.touchesEnemy(enemy)) {
             isAttacking = true;
-            enemy.takeDamage(dps * b.dt);
+            enemy.takeDamage(dps / g.fps);
           }
         });
         if (isAttacking) {
@@ -158,8 +162,8 @@ export class Tower {
       }
     }
 
-    this.#chargingTimer?.update(b.dt);
-    this.#shootingTimer?.update(b.dt);
+    this.#chargingTimer?.update();
+    this.#shootingTimer?.update();
   }
 
   draw(): void {

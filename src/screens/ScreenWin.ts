@@ -4,7 +4,9 @@ import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenWin implements Screen {
-  readonly #timer = new Timer(3);
+  readonly #timer = new Timer({
+    frames: 3 * g.fps,
+  });
 
   readonly #text1 = "* * *";
   readonly #text2 = "* victory *";
@@ -21,7 +23,7 @@ export class ScreenWin implements Screen {
       nextScreen = new ScreenPreGameplay();
     }
 
-    this.#timer.update(b.dt);
+    this.#timer.update();
 
     return nextScreen;
   }

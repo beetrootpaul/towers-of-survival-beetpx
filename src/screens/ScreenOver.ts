@@ -9,7 +9,7 @@ export class ScreenOver implements Screen {
 
   constructor(params: { wavesSurvived: number }) {
     this.#wavesSurvived = params.wavesSurvived;
-    this.#timer = new Timer(3);
+    this.#timer = new Timer({ frames: 3 * g.fps });
   }
 
   update(): Screen {
@@ -19,7 +19,7 @@ export class ScreenOver implements Screen {
       nextScreen = new ScreenPreGameplay();
     }
 
-    this.#timer.update(b.dt);
+    this.#timer.update();
 
     return nextScreen;
   }

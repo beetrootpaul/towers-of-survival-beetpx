@@ -17,6 +17,8 @@ const s = spr_(spritesheetUrl);
 const so = spro_(spritesheetUrl);
 
 export const g = {
+  fps: 30 as const,
+
   canvasSize: v_(64, 64),
   warzoneSizeTiles: v_(12, 12),
   tileSize,

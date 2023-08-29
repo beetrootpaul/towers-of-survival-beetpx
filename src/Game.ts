@@ -17,6 +17,7 @@ export class Game {
     b.init(
       {
         gameCanvasSize: "64x64",
+        desiredUpdateFps: g.fps,
         visibleTouchButtons: ["left", "right", "up", "down", "o", "x", "menu"],
         debug: {
           available: !__BEETPX_IS_PROD__,
@@ -110,7 +111,7 @@ export class Game {
         }
 
         if (b.debug) {
-          const fps = b.averageFps.toFixed(0);
+          const fps = b.renderFps.toFixed(0);
           b.print(fps, Vector2d.zero, p8c.mauve);
           const audioState = b.audioContext.state;
           const audioStateText =
