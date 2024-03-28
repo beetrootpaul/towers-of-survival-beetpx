@@ -1,15 +1,15 @@
-import { Timer, v_ } from "@beetpx/beetpx";
+import { BpxTimer, v_ } from "@beetpx/beetpx";
 import { b, g, p8c, u } from "../globals";
 import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenOver implements Screen {
   readonly #wavesSurvived: number;
-  readonly #timer: Timer;
+  readonly #timer: BpxTimer;
 
   constructor(params: { wavesSurvived: number }) {
     this.#wavesSurvived = params.wavesSurvived;
-    this.#timer = new Timer({ frames: 3 * g.fps });
+    this.#timer = new BpxTimer({ frames: 3 * g.fps });
   }
 
   update(): Screen {
@@ -29,10 +29,10 @@ export class ScreenOver implements Screen {
     const textWaves1 = "survived";
     const textWaves2 = this.#wavesSurvived.toFixed(0);
     const textWaves3 = this.#wavesSurvived === 1 ? "wave" : "waves";
-    const textDefeatSize = u.measureText(textDefeat);
-    const textWaves1Size = u.measureText(textWaves1);
-    const textWaves2Size = u.measureText(textWaves2);
-    const textWaves3Size = u.measureText(textWaves3);
+    const textDefeatSize = u.measureText(textDefeat)[1];
+    const textWaves1Size = u.measureText(textWaves1)[1];
+    const textWaves2Size = u.measureText(textWaves2)[1];
+    const textWaves3Size = u.measureText(textWaves3)[1];
 
     const clipProgress = Math.max(0, 6 * this.#timer.progress - 5);
     const clipY = Math.floor(

@@ -1,4 +1,4 @@
-import { BeetPx, Sprite, Utils, spr_, v_ } from "@beetpx/beetpx";
+import { BeetPx, BpxSprite, BpxUtils, spr_, v_ } from "@beetpx/beetpx";
 import { Pico8Colors } from "./Pico8Color";
 import { spro_ } from "./misc/SpriteWithOffset";
 import { WaveDescriptor } from "./waves/Wave";
@@ -7,7 +7,7 @@ export const p8c = Pico8Colors;
 
 export const b = BeetPx;
 
-export const u = Utils;
+export const u = BpxUtils;
 
 const tileSize = 4;
 const warzoneBorderTiles = 2;
@@ -74,14 +74,14 @@ export const g = {
     sprites: {
       textured: s(0, 8, tileSize, tileSize),
       plain: s(4, 8, tileSize, tileSize),
-    } as Record<string, Sprite>,
+    } as Record<string, BpxSprite>,
   },
 
   road: {
     sprites: {
       main: s(0, 24, tileSize, tileSize),
       bottomEdge: s(0, 28, tileSize, tileSize),
-    } as Record<string, Sprite>,
+    } as Record<string, BpxSprite>,
   },
 
   cores: [

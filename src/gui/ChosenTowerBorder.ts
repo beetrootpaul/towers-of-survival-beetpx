@@ -1,4 +1,4 @@
-import { Vector2d, v_ } from "@beetpx/beetpx";
+import { BpxVector2d, v_ } from "@beetpx/beetpx";
 import { b, g, p8c } from "../globals";
 
 export class ChosenTowerBorder {
@@ -20,7 +20,7 @@ export class ChosenTowerBorder {
     v_(-1, g.tileSize - 1),
   ];
 
-  draw(xy: Vector2d): void {
+  draw(xy: BpxVector2d): void {
     for (const offset of ChosenTowerBorder.#offsets) {
       b.pixel(xy.add(offset), p8c.lightGrey);
     }

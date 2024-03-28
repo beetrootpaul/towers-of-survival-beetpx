@@ -1,4 +1,4 @@
-import { Vector2d, transparent_, v_ } from "@beetpx/beetpx";
+import { BpxSpriteColorMapping, v_, v_0_0_ } from "@beetpx/beetpx";
 import { TinyFont } from "./TinyFont";
 import { b, g, p8c, u } from "./globals";
 import { PauseMenu } from "./gui/PauseMenu";
@@ -18,23 +18,14 @@ export class Game {
       {
         gameCanvasSize: "64x64",
         desiredUpdateFps: g.fps,
-        visibleTouchButtons: ["left", "right", "up", "down", "o", "x", "menu"],
-        debug: {
-          available: !__BEETPX_IS_PROD__,
-          toggleKey: ";",
-          frameByFrame: {
-            activateKey: ",",
-            stepKey: ".",
-          },
-        },
+        debugFeatures: !BEETPX__IS_PROD,
       },
       {
         images: [{ url: g.assets.spritesheet }],
         fonts: [
           {
             font: new TinyFont(),
-            imageBgColor: p8c.black,
-            imageTextColor: p8c.green,
+            spriteTextColor: p8c.green,
           },
         ],
         sounds: [
@@ -56,13 +47,14 @@ export class Game {
           { url: g.assets.sfxVBeam },
           { url: g.assets.sfxLaser },
         ],
+        jsons: [],
       }
     ).then(({ startGame }) => {
       b.setOnStarted(() => {
         b.setFont(g.assets.tinyFont);
 
-        b.setRepeating("x", false);
-        b.setRepeating("o", false);
+        b.setRepeating("a", false);
+        b.setRepeating("b", false);
 
         Game.isPaused = false;
         this.#pauseMenu = new PauseMenu();
@@ -70,7 +62,7 @@ export class Game {
         this.#nextScreen = new ScreenTitle();
         this.#currentScreen = this.#nextScreen;
 
-        b.stopAllSounds();
+        b.stopAllPlaybacks();
         this.#startMusic();
       });
 
@@ -93,17 +85,19 @@ export class Game {
       b.setOnDraw(() => {
         b.clearCanvas(p8c.brownishBlack);
 
-        b.mapSpriteColors([
-          { from: p8c.black, to: transparent_ },
-          { from: p8c.darkBlue, to: p8c.trueBlue },
-          { from: p8c.darkPurple, to: p8c.darkRed },
-          { from: p8c.darkGreen, to: p8c.darkerGrey },
-          { from: p8c.orange, to: p8c.darkPeach },
-          { from: p8c.yellow, to: p8c.lightYellow },
-          { from: p8c.green, to: p8c.mediumGreen },
-          { from: p8c.pink, to: p8c.mauve },
-          { from: p8c.lightPeach, to: p8c.mediumGrey },
-        ]);
+        b.setSpriteColorMapping(
+          BpxSpriteColorMapping.from([
+            [p8c.black, null],
+            [p8c.darkBlue, p8c.trueBlue],
+            [p8c.darkPurple, p8c.darkRed],
+            [p8c.darkGreen, p8c.darkerGrey],
+            [p8c.orange, p8c.darkPeach],
+            [p8c.yellow, p8c.lightYellow],
+            [p8c.green, p8c.mediumGreen],
+            [p8c.pink, p8c.mauve],
+            [p8c.lightPeach, p8c.mediumGrey],
+          ])
+        );
 
         this.#currentScreen?.draw();
         if (Game.isPaused) {
@@ -112,8 +106,8 @@ export class Game {
 
         if (b.debug) {
           const fps = b.renderFps.toFixed(0);
-          b.print(fps, Vector2d.zero, p8c.mauve);
-          const audioState = b.audioContext.state;
+          b.print(fps, v_0_0_, p8c.mauve);
+          const audioState = b.__internal__audioContext().state;
           const audioStateText =
             audioState === "suspended"
               ? "s"
@@ -124,7 +118,7 @@ export class Game {
               : "@";
           b.print(
             audioStateText,
-            v_(g.canvasSize.x - u.measureText(audioStateText).x, 0),
+            v_(g.canvasSize.x - u.measureText(audioStateText)[1].x, 0),
             p8c.mauve
           );
         }
@@ -139,13 +133,13 @@ export class Game {
     const durationMs = (fullSoundDurationMs: number) =>
       (fullSoundDurationMs * 24) / 32;
     b.playSoundSequence({
-      sequence: [
+      intro: [
         [{ url: g.assets.musicBg1, durationMs }],
         [{ url: g.assets.musicBg1, durationMs }],
         [{ url: g.assets.musicBg2, durationMs }],
         [{ url: g.assets.musicBg2, durationMs }],
       ],
-      sequenceLooped: [
+      loop: [
         // 1st four
         [
           { url: g.assets.musicBg1, durationMs },

@@ -20,22 +20,18 @@
     "format": "prettier --ignore-path .gitignore --write src/",
     "typecheck": "tsc",
     "typecheck:watch": "tsc --watch",
-    "test": "jest",
     "start": "npm run dev",
-    "dev": "beetpx dev",
+    "dev": "beetpx dev --open",
     "prod": "npm run cleanup && npm run typecheck && beetpx build && beetpx preview",
     "itch": "npm run cleanup && npm run typecheck && beetpx build && beetpx zip"
   },
   "devDependencies": {
-    "@beetpx/beetpx": "0.11.0",
-    "@jest/globals": "29.5.0",
+    "@beetpx/beetpx": "0.21.0",
     "husky": "8.0.3",
-    "jest": "29.6.2",
     "npm-check-updates": "^16.13.1",
     "prettier": "2.8.8",
     "prettier-plugin-organize-imports": "3.2.3",
     "rimraf": "5.0.0",
-    "ts-jest": "29.1.1",
     "typescript": "5.0.4"
   }
 }

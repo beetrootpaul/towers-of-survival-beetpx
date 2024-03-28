@@ -1,4 +1,4 @@
-import { MappingColor, v_ } from "@beetpx/beetpx";
+import { BpxCanvasSnapshotColorMapping, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { b, g, p8c, u } from "../globals";
 
@@ -16,7 +16,7 @@ export class PauseMenu {
   #pressedIndex = -1;
 
   update(): void {
-    if (b.isPressed("x") || b.isPressed("o")) {
+    if (b.isPressed("a") || b.isPressed("b")) {
       this.#pressedIndex = this.#selected;
     } else {
       this.#pressedIndex = -1;
@@ -29,7 +29,7 @@ export class PauseMenu {
       this.#selected = Math.min(1, this.#selected + 1);
     }
 
-    if (b.wasJustReleased("x") || b.wasJustReleased("o")) {
+    if (b.wasJustReleased("a") || b.wasJustReleased("b")) {
       if (this.#selected === 0) {
         Game.isPaused = false;
       } else if (this.#selected === 1) {
@@ -41,8 +41,8 @@ export class PauseMenu {
   draw(): void {
     const textContinue = "continue";
     const textRestart = "restart";
-    const textContinueWh = u.measureText(textContinue);
-    const textRestartWh = u.measureText(textRestart);
+    const textContinueWh = u.measureText(textContinue)[1];
+    const textRestartWh = u.measureText(textRestart)[1];
 
     const padding = 6;
     const gapBetweenLines = 4;
@@ -53,11 +53,16 @@ export class PauseMenu {
     );
     const xy = g.canvasSize.sub(wh).div(2);
 
+    b.takeCanvasSnapshot();
     b.rectFilled(
       xy.sub(2),
       wh.add(4),
-      new MappingColor(({ r, g, b, a }) =>
-        r + g + b > (0x100 * 3) / 2 ? p8c.darkerBlue : p8c.black
+      new BpxCanvasSnapshotColorMapping((rgbColor) =>
+        rgbColor
+          ? rgbColor.r + rgbColor.g + rgbColor.b > (0x100 * 3) / 2
+            ? p8c.darkerBlue
+            : p8c.black
+          : rgbColor
       )
     );
     b.rect(xy.sub(1), wh.add(2), p8c.white);

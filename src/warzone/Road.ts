@@ -1,4 +1,4 @@
-import { Sprite, Vector2d, v_ } from "@beetpx/beetpx";
+import { BpxSprite, BpxVector2d, v_ } from "@beetpx/beetpx";
 import { b, g, p8c, u } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Path } from "./Path";
@@ -30,7 +30,7 @@ export class Road {
   readonly path: Path;
 
   constructor() {
-    const waypoints: Vector2d[] = [];
+    const waypoints: BpxVector2d[] = [];
     Road.#serializedTiles.forEach((st, index) => {
       let tileXy = v_(
         parseInt(st.split("|")[0]!, 10),
@@ -76,7 +76,7 @@ export class Road {
           spriteName = "bottomEdge";
         }
         if (spriteName) {
-          const sprite: Sprite =
+          const sprite: BpxSprite =
             g.road.sprites[spriteName] ??
             u.throwError(`No "road.sprites.${spriteName}" sprite defined.`);
           b.sprite(

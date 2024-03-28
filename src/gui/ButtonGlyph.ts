@@ -1,21 +1,29 @@
-import { SolidColor, Sprite, Vector2d } from "@beetpx/beetpx";
-import { b, g } from "../globals";
+import {
+  BpxRgbColor,
+  BpxSprite,
+  BpxSpriteColorMapping,
+  BpxVector2d,
+} from "@beetpx/beetpx";
+import { b, g, p8c } from "../globals";
 
 export class ButtonGlyph {
-  readonly #glyphSprite: Sprite;
+  readonly #glyphSprite: BpxSprite;
 
-  constructor(glyphSprite: Sprite) {
+  constructor(glyphSprite: BpxSprite) {
     this.#glyphSprite = glyphSprite;
   }
 
-  draw(xy: Vector2d, color1: SolidColor, color2: SolidColor): void {
-    const prevMapping = b.mapSpriteColors([
-      { from: g.buttonTemplateColor1, to: color1 },
-      { from: g.buttonTemplateColor2, to: color2 },
-    ]);
+  draw(xy: BpxVector2d, color1: BpxRgbColor, color2: BpxRgbColor): void {
+    const prevMapping = b.setSpriteColorMapping(
+      BpxSpriteColorMapping.from([
+        [g.buttonTemplateColor1, color1],
+        [g.buttonTemplateColor2, color2],
+        [p8c.black, null],
+      ])
+    );
 
     b.sprite(this.#glyphSprite, xy);
 
-    b.mapSpriteColors(prevMapping);
+    b.setSpriteColorMapping(prevMapping);
   }
 }

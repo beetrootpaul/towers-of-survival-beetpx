@@ -1,4 +1,4 @@
-import { Timer } from "@beetpx/beetpx";
+import { BpxTimer } from "@beetpx/beetpx";
 import { Enemies, EnemyType } from "../enemies/Enemies";
 import { g, u } from "../globals";
 
@@ -9,8 +9,8 @@ export type WaveDescriptor = {
 
 export class Wave {
   readonly #enemies: Enemies;
-  readonly #progressTimer: Timer;
-  #spawnTimers: Array<{ timer: Timer; enemyType: EnemyType }>;
+  readonly #progressTimer: BpxTimer;
+  #spawnTimers: Array<{ timer: BpxTimer; enemyType: EnemyType }>;
 
   constructor(params: { descriptor: WaveDescriptor; enemies: Enemies }) {
     this.#enemies = params.enemies;
@@ -20,7 +20,7 @@ export class Wave {
     spawns.forEach((spawn, index) => {
       if (spawn !== "-") {
         this.#spawnTimers.push({
-          timer: new Timer({ frames: g.fps * index }),
+          timer: new BpxTimer({ frames: g.fps * index }),
           enemyType:
             spawn === "s"
               ? "small"
@@ -33,7 +33,7 @@ export class Wave {
       }
     });
 
-    this.#progressTimer = new Timer({
+    this.#progressTimer = new BpxTimer({
       frames: g.fps * (spawns.length - 1),
     });
   }

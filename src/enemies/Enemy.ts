@@ -1,4 +1,4 @@
-import { v_, Vector2d } from "@beetpx/beetpx";
+import { BpxVector2d, v_ } from "@beetpx/beetpx";
 import { b, g, p8c, u } from "../globals";
 import { SpriteWithOffset } from "../misc/SpriteWithOffset";
 import { Path } from "../warzone/Path";
@@ -38,12 +38,12 @@ export class Enemy {
     this.#isTakingDamage = false;
   }
 
-  #center(): Vector2d {
+  #center(): BpxVector2d {
     const sprite = this.#currentSprite();
     return this.#pathProgression.currentXy().add(sprite.hitboxOffset);
   }
 
-  centerXy(): Vector2d {
+  centerXy(): BpxVector2d {
     return this.#center();
   }
 

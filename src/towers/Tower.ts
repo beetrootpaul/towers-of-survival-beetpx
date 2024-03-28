@@ -1,4 +1,4 @@
-import { Timer, Vector2d } from "@beetpx/beetpx";
+import { BpxTimer, BpxVector2d } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
@@ -23,8 +23,8 @@ export class Tower {
 
   readonly #range: TowerRange;
 
-  #chargingTimer: Timer | null;
-  #shootingTimer: Timer | null;
+  #chargingTimer: BpxTimer | null;
+  #shootingTimer: BpxTimer | null;
 
   constructor(params: {
     descriptor: TowerDescriptor;
@@ -62,10 +62,10 @@ export class Tower {
     this.#shootingTimer = null;
   }
 
-  #newShootingTimer(): Timer | null {
+  #newShootingTimer(): BpxTimer | null {
     if (this.#descriptor.shootingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
-      return new Timer({
+      return new BpxTimer({
         frames:
           g.fps *
           (this.#descriptor.shootingTime +
@@ -75,10 +75,10 @@ export class Tower {
     return null;
   }
 
-  #newChargingTimer(): Timer | null {
+  #newChargingTimer(): BpxTimer | null {
     if (this.#descriptor.chargingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
-      return new Timer({
+      return new BpxTimer({
         frames:
           g.fps *
           (this.#descriptor.chargingTime +
@@ -92,7 +92,7 @@ export class Tower {
     return this.#descriptor.type;
   }
 
-  get xy(): Vector2d {
+  get xy(): BpxVector2d {
     return this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize);
   }
 

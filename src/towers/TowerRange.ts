@@ -1,5 +1,5 @@
-import { SolidColor } from "@beetpx/beetpx";
+import { BpxRgbColor } from "@beetpx/beetpx";
 
 export interface TowerRange {
-  draw(color1: SolidColor, color2: SolidColor): void;
+  draw(color1: BpxRgbColor, color2: BpxRgbColor): void;
 }

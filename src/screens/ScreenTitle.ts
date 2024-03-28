@@ -1,10 +1,10 @@
-import { Timer, Vector2d, spr_, v_ } from "@beetpx/beetpx";
+import { BpxTimer, spr_, v_, v_0_0_ } from "@beetpx/beetpx";
 import { b, g } from "../globals";
 import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenTitle implements Screen {
-  readonly #timer = new Timer({
+  readonly #timer = new BpxTimer({
     frames: 2.8 * g.fps,
   });
 
@@ -27,7 +27,7 @@ export class ScreenTitle implements Screen {
     b.setClippingRegion(v_(0, clipY), g.canvasSize.sub(0, 2 * clipY));
     b.sprite(
       spr_(g.assets.spritesheet)(0, 64, g.canvasSize.x, g.canvasSize.y),
-      Vector2d.zero
+      v_0_0_
     );
 
     b.removeClippingRegion();

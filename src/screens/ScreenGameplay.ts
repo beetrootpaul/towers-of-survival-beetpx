@@ -1,4 +1,4 @@
-import { Vector2d, v_ } from "@beetpx/beetpx";
+import { BpxVector2d, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
@@ -28,7 +28,7 @@ export class ScreenGameplay implements Screen {
 
   readonly #gui: Gui;
 
-  static readonly #arrowButtonsToDirections: Record<string, Vector2d> = {
+  static readonly #arrowButtonsToDirections: Record<string, BpxVector2d> = {
     left: v_(-1, 0),
     right: v_(1, 0),
     up: v_(0, -1),
@@ -82,7 +82,7 @@ export class ScreenGameplay implements Screen {
 
     this.#enemies.preUpdate();
 
-    if (b.wasJustReleased("o")) {
+    if (b.wasJustReleased("b")) {
       if (this.#gameState.buildingState === "idle") {
         Game.isPaused = true;
       } else if (this.#gameState.buildingState === "tower-choice") {
@@ -92,7 +92,7 @@ export class ScreenGameplay implements Screen {
         this.#placement = null;
       }
     }
-    if (b.wasJustReleased("x")) {
+    if (b.wasJustReleased("a")) {
       b.playSoundOnce(g.assets.sfxButtonPress);
 
       if (this.#gameState.buildingState === "idle") {
@@ -153,7 +153,7 @@ export class ScreenGameplay implements Screen {
   }
 
   #applyArrowButtonInput(arrowButton: "left" | "right" | "up" | "down"): void {
-    const direction: Vector2d =
+    const direction: BpxVector2d =
       ScreenGameplay.#arrowButtonsToDirections[arrowButton] ??
       u.throwError(
         `There is no direction defined for arrow button "${arrowButton}"`

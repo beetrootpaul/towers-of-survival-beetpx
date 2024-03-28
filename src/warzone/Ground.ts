@@ -1,6 +1,7 @@
-import { Sprite, Vector2d, v_ } from "@beetpx/beetpx";
+import { BpxSprite, v_, v_0_0_ } from "@beetpx/beetpx";
 import { b, g, u } from "../globals";
 import { Tile } from "../misc/Tile";
+import { forEachIntXyWithinRectOf } from "../misc/forEachIntXyWithinRectOf";
 
 export class Ground {
   static readonly #plainOffsets = [
@@ -15,25 +16,19 @@ export class Ground {
     v_(-1, 0),
   ];
 
-  readonly #sprites: Record<string, Sprite>;
+  readonly #sprites: Record<string, BpxSprite>;
 
   constructor() {
     this.#sprites = {};
-    Vector2d.forEachIntXyWithinRectOf(
-      Vector2d.zero,
-      g.warzoneSizeTiles,
-      true,
-      true,
-      (xy) => {
-        this.#sprites[`${xy.x}|${xy.y}`] =
-          g.ground.sprites.textured ??
-          u.throwError(`No "ground.sprites.textured" sprite defined.`);
-      }
-    );
+    forEachIntXyWithinRectOf(v_0_0_, g.warzoneSizeTiles, (xy) => {
+      this.#sprites[`${xy.x}|${xy.y}`] =
+        g.ground.sprites.textured ??
+        u.throwError(`No "ground.sprites.textured" sprite defined.`);
+    });
   }
 
   isAt(tile: Tile): boolean {
-    return tile.xy.gte(Vector2d.zero) && tile.xy.lte(g.warzoneSizeTiles.sub(1));
+    return tile.xy.gte(v_0_0_) && tile.xy.lte(g.warzoneSizeTiles.sub(1));
   }
 
   makePlainAtAndAround(tile: Tile): void {
@@ -48,17 +43,11 @@ export class Ground {
   }
 
   draw(): void {
-    Vector2d.forEachIntXyWithinRectOf(
-      Vector2d.zero,
-      g.warzoneSizeTiles,
-      true,
-      true,
-      (tileXy) => {
-        const sprite = this.#sprites[`${tileXy.x}|${tileXy.y}`];
-        if (sprite) {
-          b.sprite(sprite, tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
-        }
+    forEachIntXyWithinRectOf(v_0_0_, g.warzoneSizeTiles, (tileXy) => {
+      const sprite = this.#sprites[`${tileXy.x}|${tileXy.y}`];
+      if (sprite) {
+        b.sprite(sprite, tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
       }
-    );
+    });
   }
 }

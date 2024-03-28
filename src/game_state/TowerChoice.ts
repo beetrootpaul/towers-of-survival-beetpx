@@ -1,4 +1,4 @@
-import { Sprite } from "@beetpx/beetpx";
+import { BpxSprite } from "@beetpx/beetpx";
 import { g, u } from "../globals";
 import { TowerType } from "../towers/Tower";
 
@@ -6,7 +6,7 @@ export type TowerDescriptor = {
   type: TowerType;
   label: string;
   cost: number;
-  sprite: Sprite;
+  sprite: BpxSprite;
   dps: number | undefined;
   chargingTime: number | undefined;
   shootingTime: number | undefined;

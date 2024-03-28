@@ -1,10 +1,10 @@
-import { Timer, v_ } from "@beetpx/beetpx";
+import { BpxTimer, v_ } from "@beetpx/beetpx";
 import { b, g, p8c, u } from "../globals";
 import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenWin implements Screen {
-  readonly #timer = new Timer({
+  readonly #timer = new BpxTimer({
     frames: 3 * g.fps,
   });
 
@@ -12,9 +12,9 @@ export class ScreenWin implements Screen {
   readonly #text2 = "* victory *";
   readonly #text3 = "* * *";
 
-  readonly #text1Size = u.measureText(this.#text1);
-  readonly #text2Size = u.measureText(this.#text2);
-  readonly #text3Size = u.measureText(this.#text3);
+  readonly #text1Size = u.measureText(this.#text1)[1];
+  readonly #text2Size = u.measureText(this.#text2)[1];
+  readonly #text3Size = u.measureText(this.#text3)[1];
 
   update(): Screen {
     let nextScreen: Screen = this;

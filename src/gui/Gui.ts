@@ -31,15 +31,15 @@ export class Gui {
       towerChoice: this.#gameState.towerChoice,
     });
 
-    this.#isXPressed = b.isPressed("x");
-    this.#isOPressed = b.isPressed("o");
+    this.#isXPressed = b.isPressed("a");
+    this.#isOPressed = b.isPressed("b");
   }
 
   update(): void {
     // We check it here and not in `draw` in order to avoid buttons changing their
     //   state during pause menu, when `draw` is called but `update` is not.
-    this.#isXPressed = b.isPressed("x");
-    this.#isOPressed = b.isPressed("o");
+    this.#isXPressed = b.isPressed("a");
+    this.#isOPressed = b.isPressed("b");
   }
 
   draw(params: { isButtonXEnabled: boolean }): void {
@@ -66,7 +66,7 @@ export class Gui {
       b.print(
         buildText,
         v_(
-          g.canvasSize.x - g.warzoneBorder - u.measureText(buildText).x,
+          g.canvasSize.x - g.warzoneBorder - u.measureText(buildText)[1].x,
           g.canvasSize.y - g.warzoneBorder + 2
         ),
         this.#isXPressed ? p8c.lightGrey : p8c.mauve
@@ -84,7 +84,7 @@ export class Gui {
       this.#towerInfo.draw();
 
       const moneyText = this.#gameState.money.available.toFixed(0);
-      const moneyTextSize = u.measureText(moneyText);
+      const moneyTextSize = u.measureText(moneyText)[1];
       b.print(
         moneyText,
         v_(g.canvasSize.x - g.warzoneBorder - moneyTextSize.x, 2),
@@ -131,7 +131,7 @@ export class Gui {
       this.#towerInfo.draw();
 
       const moneyText = this.#gameState.money.available.toFixed(0);
-      const moneyTextSize = u.measureText(moneyText);
+      const moneyTextSize = u.measureText(moneyText)[1];
       b.print(
         moneyText,
         v_(g.canvasSize.x - g.warzoneBorder - moneyTextSize.x, 2),
@@ -164,7 +164,7 @@ export class Gui {
       b.print(
         placeText,
         v_(
-          g.canvasSize.x - g.warzoneBorder - u.measureText(placeText).x,
+          g.canvasSize.x - g.warzoneBorder - u.measureText(placeText)[1].x,
           g.canvasSize.y - g.warzoneBorder + 2
         ),
         params.isButtonXEnabled
@@ -192,7 +192,12 @@ export class Gui {
         g.canvasSize
           .sub(g.warzoneBorder)
           .add(
-            v_(-u.measureText(placeText).x - 3 - u.measureText(dollarText).x, 2)
+            v_(
+              -u.measureText(placeText)[1].x -
+                3 -
+                u.measureText(dollarText)[1].x,
+              2
+            )
           ),
         params.isButtonXEnabled ? p8c.lavender : p8c.darkerGrey
       );
@@ -205,11 +210,11 @@ export class Gui {
           .sub(g.warzoneBorder)
           .add(
             v_(
-              -u.measureText(placeText).x -
+              -u.measureText(placeText)[1].x -
                 3 -
-                u.measureText(dollarText).x -
+                u.measureText(dollarText)[1].x -
                 2 -
-                u.measureText(costText).x,
+                u.measureText(costText)[1].x,
               2
             )
           ),

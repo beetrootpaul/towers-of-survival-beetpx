@@ -1,11 +1,11 @@
-import { v_, Vector2d } from "@beetpx/beetpx";
+import { BpxVector2d, v_ } from "@beetpx/beetpx";
 import { b, g, p8c } from "../globals";
 
 export class Fight {
-  readonly #lasers: Array<{ xy1: Vector2d; xy2: Vector2d }> = [];
+  readonly #lasers: Array<{ xy1: BpxVector2d; xy2: BpxVector2d }> = [];
   readonly #beams: Array<{ tileX: number }> = [];
 
-  showLaser(laser: { xy1: Vector2d; xy2: Vector2d }): void {
+  showLaser(laser: { xy1: BpxVector2d; xy2: BpxVector2d }): void {
     this.#lasers.push(laser);
   }
 

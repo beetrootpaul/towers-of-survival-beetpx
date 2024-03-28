@@ -1,6 +1,6 @@
-import { ImageUrl, Sprite, Vector2d, v_ } from "@beetpx/beetpx";
+import { BpxImageUrl, BpxSprite, BpxVector2d, v_ } from "@beetpx/beetpx";
 
-export function spro_(imageUrl: ImageUrl) {
+export function spro_(imageUrl: BpxImageUrl) {
   return (
     x1: number,
     y1: number,
@@ -22,16 +22,16 @@ export function spro_(imageUrl: ImageUrl) {
   };
 }
 
-export class SpriteWithOffset extends Sprite {
-  readonly offset: Vector2d;
-  readonly hitboxOffset: Vector2d;
+export class SpriteWithOffset extends BpxSprite {
+  readonly offset: BpxVector2d;
+  readonly hitboxOffset: BpxVector2d;
 
   constructor(
-    imageUrl: ImageUrl,
-    xy1: Vector2d,
-    xy2: Vector2d,
-    offset: Vector2d,
-    hitboxOffset: Vector2d
+    imageUrl: BpxImageUrl,
+    xy1: BpxVector2d,
+    xy2: BpxVector2d,
+    offset: BpxVector2d,
+    hitboxOffset: BpxVector2d
   ) {
     super(imageUrl, xy1, xy2);
     this.offset = offset;

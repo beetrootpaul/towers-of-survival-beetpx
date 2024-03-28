@@ -1,9 +1,9 @@
-import { Vector2d } from "@beetpx/beetpx";
+import { BpxVector2d } from "@beetpx/beetpx";
 import { g, u } from "../globals";
 import { Path } from "../warzone/Path";
 
 export class PathProgression {
-  readonly #pathPoints: Vector2d[];
+  readonly #pathPoints: BpxVector2d[];
 
   readonly #framesPerPoint: number;
   #counter: number;
@@ -17,7 +17,7 @@ export class PathProgression {
     this.#pointIndex = 1;
   }
 
-  currentXy(): Vector2d {
+  currentXy(): BpxVector2d {
     return (
       this.#pathPoints[this.#pointIndex] ??
       u.throwError(

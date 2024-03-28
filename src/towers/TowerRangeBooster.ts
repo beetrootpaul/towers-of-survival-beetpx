@@ -1,4 +1,4 @@
-import { SolidColor, Vector2d, v_ } from "@beetpx/beetpx";
+import { BpxRgbColor, BpxVector2d, v_ } from "@beetpx/beetpx";
 import { b, g } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Warzone } from "../warzone/Warzone";
@@ -18,7 +18,7 @@ export class TowerRangeBooster implements TowerRange {
 
   readonly #tile: Tile;
   readonly #warzone: Warzone;
-  readonly #xy: Vector2d;
+  readonly #xy: BpxVector2d;
 
   constructor(params: { tile: Tile; warzone: Warzone }) {
     this.#tile = params.tile;
@@ -32,7 +32,7 @@ export class TowerRangeBooster implements TowerRange {
     );
   }
 
-  draw(color1: SolidColor, color2: SolidColor) {
+  draw(color1: BpxRgbColor, color2: BpxRgbColor) {
     b.setClippingRegion(
       v_(0, g.warzoneBorder),
       g.canvasSize.sub(0, 2 * g.warzoneBorder)

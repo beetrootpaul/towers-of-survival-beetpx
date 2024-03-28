@@ -1,24 +1,25 @@
 import {
-  CharSprite,
-  ImageUrl,
-  Sprite,
-  Vector2d,
+  BpxCharSprite,
+  BpxImageUrl,
+  BpxSprite,
+  BpxVector2d,
   spr_,
-  type Font,
-  type FontId,
+  v_0_0_,
+  type BpxFont,
+  type BpxFontId,
 } from "@beetpx/beetpx";
 import { g } from "./globals";
 
-function c_(x1: number, y1: number, w: number = 3, h: number = 4): Sprite {
+function c_(x1: number, y1: number, w: number = 3, h: number = 4): BpxSprite {
   return spr_(g.assets.spritesheet)(x1, y1, w, h);
 }
 
-export class TinyFont implements Font {
-  readonly id: FontId = g.assets.tinyFont;
+export class TinyFont implements BpxFont {
+  readonly id: BpxFontId = g.assets.tinyFont;
 
-  readonly imageUrl: ImageUrl = g.assets.spritesheet;
+  readonly imageUrl: BpxImageUrl = g.assets.spritesheet;
 
-  static #sprites: Record<string, Sprite> = {
+  static #sprites: Record<string, BpxSprite> = {
     [" "]: c_(126, 32, 2), // space
     //
     ["1"]: c_(0, 40, 2),
@@ -69,15 +70,20 @@ export class TinyFont implements Font {
     ["@"]: c_(45, 40, 5), // skull
   };
 
-  spritesFor(text: string): CharSprite[] {
-    const charSprites: CharSprite[] = [];
-    let positionInText: Vector2d = Vector2d.zero;
+  spritesFor(text: string): BpxCharSprite[] {
+    const charSprites: BpxCharSprite[] = [];
+    let positionInText: BpxVector2d = v_0_0_;
 
     for (let i = 0; i < text.length; i += 1) {
       const char = text[i]!.toLowerCase();
       const sprite = TinyFont.#sprites[char] ?? null;
       if (sprite) {
-        charSprites.push({ positionInText, sprite, char });
+        charSprites.push({
+          char,
+          positionInText,
+          type: "image",
+          spriteXyWh: [sprite.xy1, sprite.size()],
+        });
       }
       const jumpX = (sprite ?? c_(-1, -1)).size().x + 1;
       positionInText = positionInText.add(jumpX, 0);

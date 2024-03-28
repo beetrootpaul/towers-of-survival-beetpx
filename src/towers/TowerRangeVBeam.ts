@@ -1,4 +1,4 @@
-import { FillPattern, SolidColor, v_ } from "@beetpx/beetpx";
+import { BpxPattern, BpxRgbColor, v_ } from "@beetpx/beetpx";
 import { Enemy } from "../enemies/Enemy";
 import { b, g } from "../globals";
 import { Tile } from "../misc/Tile";
@@ -21,19 +21,19 @@ export class TowerRangeVBeam implements TowerRange {
     );
   }
 
-  draw(color1: SolidColor, color2: SolidColor) {
+  draw(color1: BpxRgbColor, color2: BpxRgbColor) {
     b.setClippingRegion(
       v_(0, g.warzoneBorder),
       g.canvasSize.sub(0, 2 * g.warzoneBorder)
     );
 
-    b.setFillPattern(FillPattern.of(0b1010_0101_1010_0101));
+    b.setPattern(BpxPattern.of(0b1010_0101_1010_0101));
     b.rectFilled(
       v_(this.#x1, g.warzoneBorder),
       v_(this.#x2 - this.#x1 + 1, g.canvasSize.y - 2 * g.warzoneBorder),
       color1
     );
-    b.setFillPattern(FillPattern.primaryOnly);
+    b.setPattern(BpxPattern.primaryOnly);
 
     b.removeClippingRegion();
   }
