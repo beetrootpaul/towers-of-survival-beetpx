@@ -19,7 +19,7 @@ export class ScreenWin implements Screen {
   update(): Screen {
     let nextScreen: Screen = this;
 
-    if (this.#timer.hasFinished) {
+    if (this.#timer.hasJustFinished) {
       nextScreen = new ScreenPreGameplay();
     }
 

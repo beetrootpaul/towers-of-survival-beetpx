@@ -105,9 +105,9 @@ export class Tower {
   }
 
   update(): void {
-    if (this.#chargingTimer && this.#chargingTimer.hasFinished) {
+    if (this.#chargingTimer && this.#chargingTimer.hasJustFinished) {
       this.#chargingTimer = null;
-    } else if (this.#shootingTimer && this.#shootingTimer.hasFinished) {
+    } else if (this.#shootingTimer && this.#shootingTimer.hasJustFinished) {
       this.#shootingTimer = null;
       this.#chargingTimer = this.#newChargingTimer();
     }

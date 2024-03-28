@@ -2,7 +2,9 @@ import { BpxTimer } from "@beetpx/beetpx";
 import { g } from "../globals";
 
 export class Money {
-  #timer: BpxTimer = this.#newMoneyIncreaseTimer();
+  #timer: BpxTimer = new BpxTimer({
+    frames: g.fps * g.money.increaseSeconds,
+  });
 
   #available: number = g.money.initial;
 
@@ -10,20 +12,14 @@ export class Money {
     return this.#available;
   }
 
-  #newMoneyIncreaseTimer(): BpxTimer {
-    return new BpxTimer({
-      frames: g.fps * g.money.increaseSeconds,
-    });
-  }
-
   subtract(amount: number): void {
     this.#available -= amount;
   }
 
   update(): void {
-    if (this.#timer.hasFinished) {
+    if (this.#timer.hasJustFinished) {
       this.#available += 1;
-      this.#timer = this.#newMoneyIncreaseTimer();
+      this.#timer.restart();
     }
     this.#timer.update();
   }

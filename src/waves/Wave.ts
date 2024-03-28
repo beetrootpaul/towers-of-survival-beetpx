@@ -44,13 +44,12 @@ export class Wave {
 
   update(): void {
     this.#spawnTimers = this.#spawnTimers.filter(({ timer, enemyType }) => {
-      const finished = timer.hasFinished;
-      if (finished) {
+      if (timer.hasJustFinished) {
         this.#enemies.spawn(enemyType);
       } else {
         timer.update();
       }
-      return !finished;
+      return !timer.hasFinished;
     });
 
     this.#progressTimer.update();

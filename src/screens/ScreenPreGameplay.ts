@@ -23,7 +23,7 @@ export class ScreenPreGameplay implements Screen {
   update(): Screen {
     let nextScreen: Screen = this;
 
-    if (this.#timer.hasFinished) {
+    if (this.#timer.hasJustFinished) {
       nextScreen = new ScreenGameplay({
         gameState: this.#gameState,
         warzone: this.#warzone,
