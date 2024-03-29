@@ -1,4 +1,4 @@
-import { BpxPattern, BpxRgbColor, v_ } from "@beetpx/beetpx";
+import { BpxDrawingPattern, BpxRgbColor, v_ } from "@beetpx/beetpx";
 import { Enemy } from "../enemies/Enemy";
 import { b, g } from "../globals";
 import { Tile } from "../misc/Tile";
@@ -27,13 +27,13 @@ export class TowerRangeVBeam implements TowerRange {
       g.canvasSize.sub(0, 2 * g.warzoneBorder)
     );
 
-    b.setPattern(BpxPattern.of(0b1010_0101_1010_0101));
-    b.rectFilled(
+    b.setDrawingPattern(BpxDrawingPattern.of(0b1010_0101_1010_0101));
+    b.drawRectFilled(
       v_(this.#x1, g.warzoneBorder),
       v_(this.#x2 - this.#x1 + 1, g.canvasSize.y - 2 * g.warzoneBorder),
       color1
     );
-    b.setPattern(BpxPattern.primaryOnly);
+    b.setDrawingPattern(BpxDrawingPattern.primaryOnly);
 
     b.removeClippingRegion();
   }

@@ -17,7 +17,7 @@ export class TowerChoiceGui {
       const xy = g.canvasSize
         .sub(g.warzoneBorder)
         .add(-(towers.length - index) * (g.tileSize + 2) + 1, 2);
-      b.sprite(tower.sprite, xy);
+      b.drawSprite(tower.sprite, xy);
       if (tower.type === this.#towerChoice.chosenTower.type) {
         this.#chosenTowerBorder.draw(xy);
       }

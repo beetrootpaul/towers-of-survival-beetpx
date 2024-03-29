@@ -53,8 +53,8 @@ export class Game {
       b.setOnStarted(() => {
         b.setFont(g.assets.tinyFont);
 
-        b.setRepeating("a", false);
-        b.setRepeating("b", false);
+        b.setButtonRepeating("a", false);
+        b.setButtonRepeating("b", false);
 
         Game.isPaused = false;
         this.#pauseMenu = new PauseMenu();
@@ -67,7 +67,7 @@ export class Game {
       });
 
       b.setOnUpdate(() => {
-        if (b.wasJustPressed("menu")) {
+        if (b.wasButtonJustPressed("menu")) {
           Game.isPaused = !Game.isPaused;
         }
 
@@ -105,9 +105,9 @@ export class Game {
         }
 
         if (b.debug) {
-          const fps = b.renderFps.toFixed(0);
-          b.print(fps, v_0_0_, p8c.mauve);
-          const audioState = b.__internal__audioContext().state;
+          const fps = b.renderingFps.toFixed(0);
+          b.drawText(fps, v_0_0_, p8c.mauve);
+          const audioState = b.getAudioContext().state;
           const audioStateText =
             audioState === "suspended"
               ? "s"
@@ -116,7 +116,7 @@ export class Game {
               : audioState === "closed"
               ? "c"
               : "@";
-          b.print(
+          b.drawText(
             audioStateText,
             v_(g.canvasSize.x - u.measureText(audioStateText)[1].x, 0),
             p8c.mauve
@@ -132,63 +132,66 @@ export class Game {
     // SFXs exported from PICO-8 have full length of 32 notes, even though in the game they are defined as 24 notes
     const durationMs = (fullSoundDurationMs: number) =>
       (fullSoundDurationMs * 24) / 32;
-    b.playSoundSequence({
-      intro: [
-        [{ url: g.assets.musicBg1, durationMs }],
-        [{ url: g.assets.musicBg1, durationMs }],
-        [{ url: g.assets.musicBg2, durationMs }],
-        [{ url: g.assets.musicBg2, durationMs }],
-      ],
-      loop: [
-        // 1st four
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody1 },
+    // TODO: why do I need to unmute immediately?
+    b.unmutePlayback(
+      b.startPlaybackSequence({
+        intro: [
+          [{ url: g.assets.musicBg1, durationMs }],
+          [{ url: g.assets.musicBg1, durationMs }],
+          [{ url: g.assets.musicBg2, durationMs }],
+          [{ url: g.assets.musicBg2, durationMs }],
         ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody2 },
+        loop: [
+          // 1st four
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody1 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody2 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody1 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody2 },
+          ],
+          // 2nd four
+          [
+            { url: g.assets.musicBg3, durationMs },
+            { url: g.assets.musicMelody3 },
+          ],
+          [
+            { url: g.assets.musicBg3, durationMs },
+            { url: g.assets.musicMelody4 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody1 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody2 },
+          ],
+          // 3rd four
+          [
+            { url: g.assets.musicBg4, durationMs },
+            { url: g.assets.musicMelody5 },
+          ],
+          [
+            { url: g.assets.musicBg4, durationMs },
+            { url: g.assets.musicMelody6 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody7 },
+          ],
+          [{ url: g.assets.musicBg2, durationMs }],
         ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody1 },
-        ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody2 },
-        ],
-        // 2nd four
-        [
-          { url: g.assets.musicBg3, durationMs },
-          { url: g.assets.musicMelody3 },
-        ],
-        [
-          { url: g.assets.musicBg3, durationMs },
-          { url: g.assets.musicMelody4 },
-        ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody1 },
-        ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody2 },
-        ],
-        // 3rd four
-        [
-          { url: g.assets.musicBg4, durationMs },
-          { url: g.assets.musicMelody5 },
-        ],
-        [
-          { url: g.assets.musicBg4, durationMs },
-          { url: g.assets.musicMelody6 },
-        ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody7 },
-        ],
-        [{ url: g.assets.musicBg2, durationMs }],
-      ],
-    });
+      })
+    );
   }
 }

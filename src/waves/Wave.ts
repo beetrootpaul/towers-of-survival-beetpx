@@ -1,4 +1,4 @@
-import { BpxTimer } from "@beetpx/beetpx";
+import { BpxTimer, timer_ } from "@beetpx/beetpx";
 import { Enemies, EnemyType } from "../enemies/Enemies";
 import { g, u } from "../globals";
 
@@ -20,7 +20,7 @@ export class Wave {
     spawns.forEach((spawn, index) => {
       if (spawn !== "-") {
         this.#spawnTimers.push({
-          timer: new BpxTimer({ frames: g.fps * index }),
+          timer: timer_(g.fps * index),
           enemyType:
             spawn === "s"
               ? "small"
@@ -33,9 +33,7 @@ export class Wave {
       }
     });
 
-    this.#progressTimer = new BpxTimer({
-      frames: g.fps * (spawns.length - 1),
-    });
+    this.#progressTimer = timer_(g.fps * (spawns.length - 1));
   }
 
   progress(): number {

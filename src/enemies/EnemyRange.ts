@@ -23,7 +23,7 @@ export class EnemyRange {
       g.canvasSize.sub(0, g.warzoneBorder)
     );
 
-    b.ellipse(
+    b.drawEllipse(
       this.#center.sub(this.#r),
       v_(this.#r, this.#r).mul(2).add(1),
       color

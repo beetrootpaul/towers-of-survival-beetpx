@@ -1,4 +1,4 @@
-import { BpxTimer, BpxVector2d } from "@beetpx/beetpx";
+import { BpxTimer, BpxVector2d, timer_ } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
@@ -65,12 +65,11 @@ export class Tower {
   #newShootingTimer(): BpxTimer | null {
     if (this.#descriptor.shootingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
-      return new BpxTimer({
-        frames:
-          g.fps *
+      return timer_(
+        g.fps *
           (this.#descriptor.shootingTime +
-            boosts * (this.#descriptor.shootingTimeBoost ?? 0)),
-      });
+            boosts * (this.#descriptor.shootingTimeBoost ?? 0))
+      );
     }
     return null;
   }
@@ -78,12 +77,11 @@ export class Tower {
   #newChargingTimer(): BpxTimer | null {
     if (this.#descriptor.chargingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
-      return new BpxTimer({
-        frames:
-          g.fps *
+      return timer_(
+        g.fps *
           (this.#descriptor.chargingTime +
-            boosts * (this.#descriptor.chargingTimeBoost ?? 0)),
-      });
+            boosts * (this.#descriptor.chargingTimeBoost ?? 0))
+      );
     }
     return null;
   }
@@ -155,9 +153,11 @@ export class Tower {
         this.#shootingTimer = this.#newShootingTimer();
         //             if s.type == "laser" then
         if (this.type === "laser") {
-          b.playSoundOnce(g.assets.sfxLaser);
+          // TODO: why do I need to unmute immediately?
+          b.unmutePlayback(b.startPlayback(g.assets.sfxLaser));
         } else if (this.type === "v_beam") {
-          b.playSoundOnce(g.assets.sfxVBeam);
+          // TODO: why do I need to unmute immediately?
+          b.unmutePlayback(b.startPlayback(g.assets.sfxVBeam));
         }
       }
     }
@@ -167,7 +167,7 @@ export class Tower {
   }
 
   draw(): void {
-    b.sprite(
+    b.drawSprite(
       this.#descriptor.sprite,
       this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
     );

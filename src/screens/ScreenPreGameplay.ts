@@ -1,4 +1,4 @@
-import { BpxTimer, v_ } from "@beetpx/beetpx";
+import { timer_, v_ } from "@beetpx/beetpx";
 import { GameState } from "../game_state/GameState";
 import { b, g } from "../globals";
 import { Warzone } from "../warzone/Warzone";
@@ -6,9 +6,7 @@ import { Screen } from "./Screen";
 import { ScreenGameplay } from "./ScreenGameplay";
 
 export class ScreenPreGameplay implements Screen {
-  readonly #timer = new BpxTimer({
-    frames: 0.5 * g.fps,
-  });
+  readonly #timer = timer_(0.5 * g.fps);
 
   readonly #gameState: GameState;
   readonly #warzone: Warzone;

@@ -1,10 +1,8 @@
-import { BpxTimer } from "@beetpx/beetpx";
+import { BpxTimer, timer_ } from "@beetpx/beetpx";
 import { g } from "../globals";
 
 export class Money {
-  #timer: BpxTimer = new BpxTimer({
-    frames: g.fps * g.money.increaseSeconds,
-  });
+  #timer: BpxTimer = timer_(g.fps * g.money.increaseSeconds);
 
   #available: number = g.money.initial;
 

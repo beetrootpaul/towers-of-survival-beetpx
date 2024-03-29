@@ -22,7 +22,7 @@ export class ButtonGlyph {
       ])
     );
 
-    b.sprite(this.#glyphSprite, xy);
+    b.drawSprite(this.#glyphSprite, xy);
 
     b.setSpriteColorMapping(prevMapping);
   }

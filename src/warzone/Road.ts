@@ -79,7 +79,7 @@ export class Road {
           const sprite: BpxSprite =
             g.road.sprites[spriteName] ??
             u.throwError(`No "road.sprites.${spriteName}" sprite defined.`);
-          b.sprite(
+          b.drawSprite(
             sprite,
             v_(tileX, tileY).add(g.warzoneBorderTiles).mul(g.tileSize)
           );
@@ -90,7 +90,7 @@ export class Road {
     if (b.debug) {
       let colorToggle = true;
       for (const point of this.path.points) {
-        b.pixel(point, colorToggle ? p8c.white : p8c.blue);
+        b.drawPixel(point, colorToggle ? p8c.white : p8c.blue);
         colorToggle = !colorToggle;
       }
     }

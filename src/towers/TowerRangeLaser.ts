@@ -32,7 +32,7 @@ export class TowerRangeLaser implements TowerRange {
       v_(0, g.warzoneBorder),
       g.canvasSize.sub(0, 2 * g.warzoneBorder)
     );
-    b.ellipse(
+    b.drawEllipse(
       this.#xy.sub(this.#r),
       v_(this.#r, this.#r).mul(2).add(1),
       color1

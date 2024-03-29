@@ -16,20 +16,20 @@ export class PauseMenu {
   #pressedIndex = -1;
 
   update(): void {
-    if (b.isPressed("a") || b.isPressed("b")) {
+    if (b.isButtonPressed("a") || b.isButtonPressed("b")) {
       this.#pressedIndex = this.#selected;
     } else {
       this.#pressedIndex = -1;
     }
 
-    if (b.wasJustPressed("up")) {
+    if (b.wasButtonJustPressed("up")) {
       this.#selected = Math.max(0, this.#selected - 1);
     }
-    if (b.wasJustPressed("down")) {
+    if (b.wasButtonJustPressed("down")) {
       this.#selected = Math.min(1, this.#selected + 1);
     }
 
-    if (b.wasJustReleased("a") || b.wasJustReleased("b")) {
+    if (b.wasButtonJustReleased("a") || b.wasButtonJustReleased("b")) {
       if (this.#selected === 0) {
         Game.isPaused = false;
       } else if (this.#selected === 1) {
@@ -54,10 +54,10 @@ export class PauseMenu {
     const xy = g.canvasSize.sub(wh).div(2);
 
     b.takeCanvasSnapshot();
-    b.rectFilled(
+    b.drawRectFilled(
       xy.sub(2),
       wh.add(4),
-      new BpxCanvasSnapshotColorMapping((rgbColor) =>
+      BpxCanvasSnapshotColorMapping.of((rgbColor) =>
         rgbColor
           ? rgbColor.r + rgbColor.g + rgbColor.b > (0x100 * 3) / 2
             ? p8c.darkerBlue
@@ -65,8 +65,8 @@ export class PauseMenu {
           : rgbColor
       )
     );
-    b.rect(xy.sub(1), wh.add(2), p8c.white);
-    b.print(
+    b.drawRect(xy.sub(1), wh.add(2), p8c.white);
+    b.drawText(
       "continue",
       xy.add(
         padding + (this.#selected === 0 ? 1 : 0),
@@ -74,7 +74,7 @@ export class PauseMenu {
       ),
       this.#pressedIndex === 0 ? p8c.peach : p8c.white
     );
-    b.print(
+    b.drawText(
       "restart",
       xy.add(
         padding + (this.#selected === 1 ? 1 : 0),
@@ -86,7 +86,7 @@ export class PauseMenu {
       this.#pressedIndex === 1 ? p8c.peach : p8c.white
     );
     for (const offset of PauseMenu.#arrowPixelsOffsets) {
-      b.pixel(
+      b.drawPixel(
         xy
           .add(
             padding,

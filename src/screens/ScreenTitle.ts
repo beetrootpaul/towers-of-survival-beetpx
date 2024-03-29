@@ -1,12 +1,10 @@
-import { BpxTimer, spr_, v_, v_0_0_ } from "@beetpx/beetpx";
+import { spr_, timer_, v_, v_0_0_ } from "@beetpx/beetpx";
 import { b, g } from "../globals";
 import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
 export class ScreenTitle implements Screen {
-  readonly #timer = new BpxTimer({
-    frames: 2.8 * g.fps,
-  });
+  readonly #timer = timer_(2.8 * g.fps);
 
   update(): Screen {
     let nextScreen: Screen = this;
@@ -25,7 +23,7 @@ export class ScreenTitle implements Screen {
     const clipY = Math.floor(clipProgress * (g.canvasSize.y / 2));
 
     b.setClippingRegion(v_(0, clipY), g.canvasSize.sub(0, 2 * clipY));
-    b.sprite(
+    b.drawSprite(
       spr_(g.assets.spritesheet)(0, 64, g.canvasSize.x, g.canvasSize.y),
       v_0_0_
     );

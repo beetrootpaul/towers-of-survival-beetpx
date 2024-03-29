@@ -22,13 +22,13 @@ export class Fight {
     for (const laser of this.#lasers) {
       const xy = laser.xy1;
       const wh = laser.xy2.sub(laser.xy1);
-      b.line(xy, wh.add(wh.sign()), p8c.limeGreen);
+      b.drawLine(xy, wh.add(wh.sign()), p8c.limeGreen);
     }
 
     for (const beam of this.#beams) {
       const x = (g.warzoneBorderTiles + beam.tileX) * g.tileSize + 1;
       for (let offset = 0; offset < 2; offset++) {
-        b.line(
+        b.drawLine(
           v_(x + offset, g.warzoneBorder),
           v_(1, g.canvasSize.y - 2 * g.warzoneBorder),
           p8c.white

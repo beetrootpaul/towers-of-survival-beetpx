@@ -11,7 +11,7 @@ export class TowerInfo {
 
   draw(): void {
     const chosenTower = this.#towerChoice.chosenTower;
-    b.sprite(chosenTower.sprite, v_(2, 2));
-    b.print(chosenTower.label, v_(g.warzoneBorder, 2), p8c.lavender);
+    b.drawSprite(chosenTower.sprite, v_(2, 2));
+    b.drawText(chosenTower.label, v_(g.warzoneBorder, 2), p8c.lavender);
   }
 }

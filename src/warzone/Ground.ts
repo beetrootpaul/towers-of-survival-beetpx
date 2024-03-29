@@ -46,7 +46,7 @@ export class Ground {
     forEachIntXyWithinRectOf(v_0_0_, g.warzoneSizeTiles, (tileXy) => {
       const sprite = this.#sprites[`${tileXy.x}|${tileXy.y}`];
       if (sprite) {
-        b.sprite(sprite, tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
+        b.drawSprite(sprite, tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
       }
     });
   }

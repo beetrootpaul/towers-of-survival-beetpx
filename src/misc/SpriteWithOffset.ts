@@ -22,9 +22,10 @@ export function spro_(imageUrl: BpxImageUrl) {
   };
 }
 
-export class SpriteWithOffset extends BpxSprite {
+export class SpriteWithOffset {
   readonly offset: BpxVector2d;
   readonly hitboxOffset: BpxVector2d;
+  readonly sprite: BpxSprite;
 
   constructor(
     imageUrl: BpxImageUrl,
@@ -33,7 +34,7 @@ export class SpriteWithOffset extends BpxSprite {
     offset: BpxVector2d,
     hitboxOffset: BpxVector2d
   ) {
-    super(imageUrl, xy1, xy2);
+    this.sprite = BpxSprite.of(imageUrl, xy1, xy2);
     this.offset = offset;
     this.hitboxOffset = hitboxOffset;
   }

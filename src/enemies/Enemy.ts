@@ -83,11 +83,11 @@ export class Enemy {
     //
     const sprite = this.#currentSprite();
     const position = this.#pathProgression.currentXy();
-    b.sprite(sprite, position.add(sprite.offset));
+    b.drawSprite(sprite.sprite, position.add(sprite.offset));
 
     if (b.debug && this.#health.value > 0) {
       const healthBarLength = Math.ceil(this.#health.value / 4);
-      b.line(position.add(0, -2), v_(healthBarLength, 1), p8c.darkRed);
+      b.drawLine(position.add(0, -2), v_(healthBarLength, 1), p8c.darkRed);
     }
 
     if (b.debug) {
@@ -96,7 +96,7 @@ export class Enemy {
 
     if (this.#isTakingDamage) {
       const damageSprite = this.#currentDamageSprite();
-      b.sprite(damageSprite, position.add(damageSprite.offset));
+      b.drawSprite(damageSprite.sprite, position.add(damageSprite.offset));
     }
   }
 

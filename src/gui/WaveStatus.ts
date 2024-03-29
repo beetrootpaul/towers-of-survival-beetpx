@@ -18,13 +18,13 @@ export class WaveStatus {
         g.warzoneBorder - 2
       );
 
-      b.print(waveLabel, xy1.sub(0, waveLabelSize.y + 1), p8c.mauve);
+      b.drawText(waveLabel, xy1.sub(0, waveLabelSize.y + 1), p8c.mauve);
 
       const progressW = Math.floor(
         this.#waves.wait.progress() * waveLabelSize.x
       );
       if (progressW > 0) {
-        b.line(xy1, v_(progressW, 1), p8c.mauve);
+        b.drawLine(xy1, v_(progressW, 1), p8c.mauve);
       }
     } else if (this.#waves.wave) {
       const waveLabel = `wave ${this.#waves.waveNumber}`;
@@ -34,18 +34,18 @@ export class WaveStatus {
         g.warzoneBorder - 2
       );
 
-      b.print(waveLabel, xy1.sub(0, waveLabelSize.y + 1), p8c.lightGrey);
+      b.drawText(waveLabel, xy1.sub(0, waveLabelSize.y + 1), p8c.lightGrey);
 
       const progressW = Math.floor(
         this.#waves.wave.progress() * waveLabelSize.x
       );
       if (progressW > 0) {
-        b.line(xy1, v_(progressW, 1), p8c.darkPeach);
+        b.drawLine(xy1, v_(progressW, 1), p8c.darkPeach);
       }
 
       const gap = 1;
       if (waveLabelSize.x - progressW - gap > 0) {
-        b.line(
+        b.drawLine(
           xy1.add(progressW + gap, 0),
           v_(waveLabelSize.x - progressW - gap, 1),
           p8c.mauve

@@ -38,7 +38,11 @@ export class TowerRangeBooster implements TowerRange {
       g.canvasSize.sub(0, 2 * g.warzoneBorder)
     );
 
-    b.rect(this.#xy.sub(g.tileSize), v_(g.tileSize, g.tileSize).mul(3), color2);
+    b.drawRect(
+      this.#xy.sub(g.tileSize),
+      v_(g.tileSize, g.tileSize).mul(3),
+      color2
+    );
 
     b.removeClippingRegion();
 
@@ -47,7 +51,7 @@ export class TowerRangeBooster implements TowerRange {
       const xy = neighbourTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize);
       if (this.#warzone.canHaveTowerAt(neighbourTile)) {
         b.setClippingRegion(xy, v_(g.tileSize, g.tileSize));
-        b.rect(
+        b.drawRect(
           this.#xy.sub(g.tileSize),
           v_(g.tileSize, g.tileSize).mul(3),
           color1
