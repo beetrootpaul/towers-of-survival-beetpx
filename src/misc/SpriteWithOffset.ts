@@ -34,7 +34,8 @@ export class SpriteWithOffset {
     offset: BpxVector2d,
     hitboxOffset: BpxVector2d
   ) {
-    this.sprite = BpxSprite.of(imageUrl, xy1, xy2);
+    const wh = xy2.sub(xy1);
+    this.sprite = BpxSprite.from(imageUrl, wh.x, wh.y, xy1.x, xy1.y);
     this.offset = offset;
     this.hitboxOffset = hitboxOffset;
   }

@@ -53,12 +53,12 @@ export const g = {
 
   buttonSprites: {
     x: {
-      raised: s(115, 32, 5, 6),
-      pressed: s(115, 40, 5, 6),
+      raised: s(5, 6, 115, 32),
+      pressed: s(5, 6, 115, 40),
     },
     o: {
-      raised: s(109, 32, 5, 6),
-      pressed: s(109, 40, 5, 6),
+      raised: s(5, 6, 109, 32),
+      pressed: s(5, 6, 109, 40),
     },
   },
 
@@ -72,43 +72,43 @@ export const g = {
 
   ground: {
     sprites: {
-      textured: s(0, 8, tileSize, tileSize),
-      plain: s(4, 8, tileSize, tileSize),
+      textured: s(tileSize, tileSize, 0, 8),
+      plain: s(tileSize, tileSize, 4, 8),
     } as Record<string, BpxSprite>,
   },
 
   road: {
     sprites: {
-      main: s(0, 24, tileSize, tileSize),
-      bottomEdge: s(0, 28, tileSize, tileSize),
+      main: s(tileSize, tileSize, 0, 24),
+      bottomEdge: s(tileSize, tileSize, 0, 28),
     } as Record<string, BpxSprite>,
   },
 
   cores: [
     {
       y: 4,
-      spriteHealthy: s(120, 0, 8, 8),
-      spriteBroken: s(112, 0, 8, 8),
+      spriteHealthy: s(8, 8, 120, 0),
+      spriteBroken: s(8, 8, 112, 0),
     },
     {
       y: 11,
-      spriteHealthy: s(120, 8, 8, 8),
-      spriteBroken: s(112, 8, 8, 8),
+      spriteHealthy: s(8, 8, 120, 8),
+      spriteBroken: s(8, 8, 112, 8),
     },
     {
       y: 25,
-      spriteHealthy: s(120, 8, 8, 8),
-      spriteBroken: s(112, 8, 8, 8),
+      spriteHealthy: s(8, 8, 120, 8),
+      spriteBroken: s(8, 8, 112, 8),
     },
     {
       y: 32,
-      spriteHealthy: s(120, 16, 8, 8),
-      spriteBroken: s(112, 16, 8, 8),
+      spriteHealthy: s(8, 8, 120, 16),
+      spriteBroken: s(8, 8, 112, 16),
     },
     {
       y: 39,
-      spriteHealthy: s(120, 24, 8, 8),
-      spriteBroken: s(112, 24, 8, 8),
+      spriteHealthy: s(8, 8, 120, 24),
+      spriteBroken: s(8, 8, 112, 24),
     },
   ],
 
@@ -116,7 +116,7 @@ export const g = {
     laser: {
       label: "laser",
       cost: 20,
-      sprite: s(48, 0, tileSize, tileSize),
+      sprite: s(tileSize, tileSize, 48, 0),
       dps: 20,
       chargingTime: 0.9,
       shootingTime: 0.1,
@@ -126,12 +126,12 @@ export const g = {
     booster: {
       label: "booster",
       cost: 30,
-      sprite: s(48, 8, tileSize, tileSize),
+      sprite: s(tileSize, tileSize, 48, 8),
     },
     v_beam: {
       label: "v-beam",
       cost: 70,
-      sprite: s(48, 16, tileSize, tileSize),
+      sprite: s(tileSize, tileSize, 48, 16),
       dps: 40,
       chargingTime: 2,
       shootingTime: 0.5,

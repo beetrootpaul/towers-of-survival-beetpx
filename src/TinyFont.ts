@@ -11,7 +11,7 @@ import {
 import { g } from "./globals";
 
 function c_(x1: number, y1: number, w: number = 3, h: number = 4): BpxSprite {
-  return spr_(g.assets.spritesheet)(x1, y1, w, h);
+  return spr_(g.assets.spritesheet)(w, h, x1, y1);
 }
 
 export class TinyFont implements BpxFont {
@@ -82,10 +82,10 @@ export class TinyFont implements BpxFont {
           char,
           positionInText,
           type: "image",
-          spriteXyWh: [sprite.xy1, sprite.size()],
+          spriteXyWh: [sprite.xy, sprite.size],
         });
       }
-      const jumpX = (sprite ?? c_(-1, -1)).size().x + 1;
+      const jumpX = (sprite ?? c_(-1, -1)).size.x + 1;
       positionInText = positionInText.add(jumpX, 0);
     }
 
