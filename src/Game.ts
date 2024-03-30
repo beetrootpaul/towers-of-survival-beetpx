@@ -132,66 +132,63 @@ export class Game {
     // SFXs exported from PICO-8 have full length of 32 notes, even though in the game they are defined as 24 notes
     const durationMs = (fullSoundDurationMs: number) =>
       (fullSoundDurationMs * 24) / 32;
-    // TODO: why do I need to unmute immediately?
-    b.unmutePlayback(
-      b.startPlaybackSequence({
-        intro: [
-          [{ url: g.assets.musicBg1, durationMs }],
-          [{ url: g.assets.musicBg1, durationMs }],
-          [{ url: g.assets.musicBg2, durationMs }],
-          [{ url: g.assets.musicBg2, durationMs }],
+    b.startPlaybackSequence({
+      intro: [
+        [{ url: g.assets.musicBg1, durationMs }],
+        [{ url: g.assets.musicBg1, durationMs }],
+        [{ url: g.assets.musicBg2, durationMs }],
+        [{ url: g.assets.musicBg2, durationMs }],
+      ],
+      loop: [
+        // 1st four
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody1 },
         ],
-        loop: [
-          // 1st four
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody1 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody2 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody1 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody2 },
-          ],
-          // 2nd four
-          [
-            { url: g.assets.musicBg3, durationMs },
-            { url: g.assets.musicMelody3 },
-          ],
-          [
-            { url: g.assets.musicBg3, durationMs },
-            { url: g.assets.musicMelody4 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody1 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody2 },
-          ],
-          // 3rd four
-          [
-            { url: g.assets.musicBg4, durationMs },
-            { url: g.assets.musicMelody5 },
-          ],
-          [
-            { url: g.assets.musicBg4, durationMs },
-            { url: g.assets.musicMelody6 },
-          ],
-          [
-            { url: g.assets.musicBg1, durationMs },
-            { url: g.assets.musicMelody7 },
-          ],
-          [{ url: g.assets.musicBg2, durationMs }],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody2 },
         ],
-      })
-    );
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody1 },
+        ],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody2 },
+        ],
+        // 2nd four
+        [
+          { url: g.assets.musicBg3, durationMs },
+          { url: g.assets.musicMelody3 },
+        ],
+        [
+          { url: g.assets.musicBg3, durationMs },
+          { url: g.assets.musicMelody4 },
+        ],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody1 },
+        ],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody2 },
+        ],
+        // 3rd four
+        [
+          { url: g.assets.musicBg4, durationMs },
+          { url: g.assets.musicMelody5 },
+        ],
+        [
+          { url: g.assets.musicBg4, durationMs },
+          { url: g.assets.musicMelody6 },
+        ],
+        [
+          { url: g.assets.musicBg1, durationMs },
+          { url: g.assets.musicMelody7 },
+        ],
+        [{ url: g.assets.musicBg2, durationMs }],
+      ],
+    });
   }
 }

@@ -153,11 +153,9 @@ export class Tower {
         this.#shootingTimer = this.#newShootingTimer();
         //             if s.type == "laser" then
         if (this.type === "laser") {
-          // TODO: why do I need to unmute immediately?
-          b.unmutePlayback(b.startPlayback(g.assets.sfxLaser));
+          b.startPlayback(g.assets.sfxLaser);
         } else if (this.type === "v_beam") {
-          // TODO: why do I need to unmute immediately?
-          b.unmutePlayback(b.startPlayback(g.assets.sfxVBeam));
+          b.startPlayback(g.assets.sfxVBeam);
         }
       }
     }

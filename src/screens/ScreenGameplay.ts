@@ -42,8 +42,7 @@ export class ScreenGameplay implements Screen {
     this.#enemies = new Enemies({
       path: this.#warzone.path(),
       onEnemyReachedPathEnd: () => {
-        // TODO: why do I need to unmute immediately?
-        b.unmutePlayback(b.startPlayback(g.assets.sfxLiveLost));
+        b.startPlayback(g.assets.sfxLiveLost);
         this.#gameState.lives.takeOne();
       },
     });
@@ -94,8 +93,7 @@ export class ScreenGameplay implements Screen {
       }
     }
     if (b.wasButtonJustReleased("a")) {
-      // TODO: why do I need to unmute immediately?
-      b.unmutePlayback(b.startPlayback(g.assets.sfxButtonPress));
+      b.startPlayback(g.assets.sfxButtonPress);
 
       if (this.#gameState.buildingState === "idle") {
         this.#gameState.buildingState = "tower-choice";
@@ -110,8 +108,7 @@ export class ScreenGameplay implements Screen {
         this.#isButtonXEnabled = this.#placement.canBuild();
       } else if (this.#gameState.buildingState === "tower-placement") {
         if (this.#placement?.canBuild()) {
-          // TODO: why do I need to unmute immediately?
-          b.unmutePlayback(b.startPlayback(g.assets.sfxTowerPlaced));
+          b.startPlayback(g.assets.sfxTowerPlaced);
           this.#gameState.money.subtract(
             this.#gameState.towerChoice.chosenTower.cost
           );
@@ -122,8 +119,7 @@ export class ScreenGameplay implements Screen {
           this.#gameState.buildingState = "idle";
           this.#placement = null;
         } else {
-          // TODO: why do I need to unmute immediately?
-          b.unmutePlayback(b.startPlayback(g.assets.sfxCannotPlace));
+          b.startPlayback(g.assets.sfxCannotPlace);
         }
       }
     }
@@ -167,12 +163,10 @@ export class ScreenGameplay implements Screen {
       this.#isButtonXEnabled = this.#placement.canBuild();
     } else if (this.#gameState.buildingState === "tower-choice") {
       if (direction.x > 0) {
-        // TODO: why do I need to unmute immediately?
-        b.unmutePlayback(b.startPlayback(g.assets.sfxButtonPress));
+        b.startPlayback(g.assets.sfxButtonPress);
         this.#gameState.towerChoice.chooseNextTower();
       } else if (direction.x < 0) {
-        // TODO: why do I need to unmute immediately?
-        b.unmutePlayback(b.startPlayback(g.assets.sfxButtonPress));
+        b.startPlayback(g.assets.sfxButtonPress);
         this.#gameState.towerChoice.choosePrevTower();
       }
     } else {
