@@ -14,14 +14,20 @@ export class ScreenWin implements Screen {
   readonly #text2Size = u.measureText(this.#text2)[1];
   readonly #text3Size = u.measureText(this.#text3)[1];
 
+  pauseTimers(): void {
+    this.#timer.pause();
+  }
+
+  resumeTimers(): void {
+    this.#timer.resume();
+  }
+
   update(): Screen {
     let nextScreen: Screen = this;
 
     if (this.#timer.hasJustFinished) {
       nextScreen = new ScreenPreGameplay();
     }
-
-    this.#timer.update();
 
     return nextScreen;
   }

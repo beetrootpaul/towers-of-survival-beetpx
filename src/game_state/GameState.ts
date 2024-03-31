@@ -12,6 +12,14 @@ export class GameState {
     return this.lives.left <= 0;
   }
 
+  pauseTimers(): void {
+    this.money.pauseTimers();
+  }
+
+  resumeTimers(): void {
+    this.money.resumeTimers();
+  }
+
   update(): void {
     this.money.update();
   }

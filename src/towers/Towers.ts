@@ -68,6 +68,18 @@ export class Towers {
     ).length;
   }
 
+  pauseTimers(): void {
+    for (const tower of this.#towers) {
+      tower.pauseTimers();
+    }
+  }
+
+  resumeTimers(): void {
+    for (const tower of this.#towers) {
+      tower.resumeTimers();
+    }
+  }
+
   update(): void {
     for (const tower of this.#towers) {
       tower.update();

@@ -66,6 +66,18 @@ export class ScreenGameplay implements Screen {
     });
   }
 
+  pauseTimers(): void {
+    this.#gameState.pauseTimers();
+    this.#waves.pauseTimers();
+    this.#towers.pauseTimers();
+  }
+
+  resumeTimers(): void {
+    this.#gameState.resumeTimers();
+    this.#waves.resumeTimers();
+    this.#towers.resumeTimers();
+  }
+
   update(): Screen {
     let nextScreen: Screen = this;
 

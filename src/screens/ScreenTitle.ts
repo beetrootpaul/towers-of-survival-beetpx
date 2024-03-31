@@ -6,14 +6,20 @@ import { ScreenPreGameplay } from "./ScreenPreGameplay";
 export class ScreenTitle implements Screen {
   readonly #timer = timer_(2.8 * g.fps);
 
+  pauseTimers(): void {
+    this.#timer.pause();
+  }
+
+  resumeTimers(): void {
+    this.#timer.resume();
+  }
+
   update(): Screen {
     let nextScreen: Screen = this;
 
     if (this.#timer.hasJustFinished) {
       nextScreen = new ScreenPreGameplay();
     }
-
-    this.#timer.update();
 
     return nextScreen;
   }

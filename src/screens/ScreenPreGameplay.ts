@@ -18,6 +18,14 @@ export class ScreenPreGameplay implements Screen {
     });
   }
 
+  pauseTimers(): void {
+    this.#timer.pause();
+  }
+
+  resumeTimers(): void {
+    this.#timer.resume();
+  }
+
   update(): Screen {
     let nextScreen: Screen = this;
 
@@ -27,8 +35,6 @@ export class ScreenPreGameplay implements Screen {
         warzone: this.#warzone,
       });
     }
-
-    this.#timer.update();
 
     return nextScreen;
   }

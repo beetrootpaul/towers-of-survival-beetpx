@@ -12,14 +12,20 @@ export class ScreenOver implements Screen {
     this.#timer = timer_(3 * g.fps);
   }
 
+  pauseTimers(): void {
+    this.#timer.pause();
+  }
+
+  resumeTimers(): void {
+    this.#timer.resume();
+  }
+
   update(): Screen {
     let nextScreen: Screen = this;
 
     if (this.#timer.hasJustFinished) {
       nextScreen = new ScreenPreGameplay();
     }
-
-    this.#timer.update();
 
     return nextScreen;
   }

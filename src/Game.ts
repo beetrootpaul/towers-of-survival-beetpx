@@ -72,12 +72,14 @@ export class Game {
         }
 
         if (Game.isPaused) {
+          this.#currentScreen?.pauseTimers();
           this.#pauseMenu?.update();
         } else {
           // We intentionally reassign screen on the next update iteration
           //   then the current one, because we still need to use the previous one
           //   for a drawing.
           this.#currentScreen = this.#nextScreen;
+          this.#currentScreen?.resumeTimers();
           this.#nextScreen = this.#currentScreen?.update();
         }
       });
