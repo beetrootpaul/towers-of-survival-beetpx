@@ -1,6 +1,6 @@
 import { BpxCanvasSnapshotColorMapping, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
-import { b, g, p8c, u } from "../globals";
+import { b, g, p8c } from "../globals";
 
 export class PauseMenu {
   static #arrowPixelsOffsets = [
@@ -41,8 +41,8 @@ export class PauseMenu {
   draw(): void {
     const textContinue = "continue";
     const textRestart = "restart";
-    const textContinueWh = u.measureText(textContinue)[1];
-    const textRestartWh = u.measureText(textRestart)[1];
+    const textContinueWh = b.measureText(textContinue).wh;
+    const textRestartWh = b.measureText(textRestart).wh;
 
     const padding = 6;
     const gapBetweenLines = 4;

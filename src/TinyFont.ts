@@ -1,94 +1,79 @@
-import {
-  BpxCharSprite,
-  BpxImageUrl,
-  BpxSprite,
-  BpxVector2d,
-  spr_,
-  v_0_0_,
-  type BpxFont,
-  type BpxFontId,
-} from "@beetpx/beetpx";
-import { g } from "./globals";
+import { BpxFont, BpxGlyph, BpxRgbColor, spr_ } from "@beetpx/beetpx";
+import { g, p8c } from "./globals";
 
-function c_(x1: number, y1: number, w: number = 3, h: number = 4): BpxSprite {
-  return spr_(g.assets.spritesheet)(w, h, x1, y1);
-}
+export class TinyFont extends BpxFont {
+  readonly spriteSheetUrls = [g.assets.spritesheet];
 
-export class TinyFont implements BpxFont {
-  readonly id: BpxFontId = g.assets.tinyFont;
+  isSpriteSheetTextColor(color: BpxRgbColor | null): boolean {
+    return color?.cssHex === p8c.green.cssHex;
+  }
 
-  readonly imageUrl: BpxImageUrl = g.assets.spritesheet;
+  readonly ascent = 4;
+  readonly descent = 0;
+  readonly lineGap = 1;
 
-  static #sprites: Record<string, BpxSprite> = {
-    [" "]: c_(126, 32, 2), // space
+  protected mapChar(char: string): string {
+    return char.toLowerCase();
+  }
+
+  readonly glyphs = new Map<string, BpxGlyph>([
     //
-    ["1"]: c_(0, 40, 2),
-    ["2"]: c_(3, 40),
-    ["3"]: c_(7, 40),
-    ["4"]: c_(11, 40),
-    ["5"]: c_(15, 40),
-    ["6"]: c_(19, 40),
-    ["7"]: c_(23, 40),
-    ["8"]: c_(27, 40),
-    ["9"]: c_(31, 40),
-    ["0"]: c_(35, 40),
+    [" ", this.#g(126, 32, 2)],
     //
-    ["a"]: c_(0, 32),
-    ["b"]: c_(4, 32),
-    ["c"]: c_(8, 32),
-    ["d"]: c_(12, 32),
-    ["e"]: c_(16, 32),
-    ["f"]: c_(20, 32),
-    ["g"]: c_(24, 32),
-    ["h"]: c_(28, 32),
-    ["i"]: c_(32, 32, 1),
-    ["j"]: c_(34, 32, 2),
-    ["k"]: c_(37, 32),
-    ["l"]: c_(41, 32, 2),
-    ["m"]: c_(44, 32),
-    ["n"]: c_(48, 32),
-    ["o"]: c_(52, 32),
-    ["p"]: c_(56, 32),
-    ["q"]: c_(60, 32),
-    ["r"]: c_(64, 32),
-    ["s"]: c_(68, 32),
-    ["t"]: c_(72, 32),
-    ["u"]: c_(76, 32),
-    ["v"]: c_(80, 32),
-    ["w"]: c_(84, 32),
-    ["x"]: c_(88, 32),
-    ["y"]: c_(92, 32),
-    ["z"]: c_(96, 32),
+    ["-", this.#g(100, 32, 2)],
+    [".", this.#g(103, 32, 1)],
+    [":", this.#g(66, 32, 1)],
     //
-    ["-"]: c_(100, 32, 2),
-    ["."]: c_(103, 32, 1),
-    [":"]: c_(66, 32, 1),
+    ["$", this.#g(105, 32)], // currency symbol
+    ["<", this.#g(121, 32, 4, 5)], // back arrow
+    ["*", this.#g(39, 40, 5)], // star
+    ["@", this.#g(45, 40, 5)], // skull
     //
-    ["$"]: c_(105, 32), // currency symbol
-    ["<"]: c_(121, 32, 4, 5), // back arrow
-    ["*"]: c_(39, 40, 5), // star
-    ["@"]: c_(45, 40, 5), // skull
-  };
+    ["1", this.#g(0, 40, 2)],
+    ["2", this.#g(3, 40)],
+    ["3", this.#g(7, 40)],
+    ["4", this.#g(11, 40)],
+    ["5", this.#g(15, 40)],
+    ["6", this.#g(19, 40)],
+    ["7", this.#g(23, 40)],
+    ["8", this.#g(27, 40)],
+    ["9", this.#g(31, 40)],
+    ["0", this.#g(35, 40)],
+    //
+    ["a", this.#g(0, 32)],
+    ["b", this.#g(4, 32)],
+    ["c", this.#g(8, 32)],
+    ["d", this.#g(12, 32)],
+    ["e", this.#g(16, 32)],
+    ["f", this.#g(20, 32)],
+    ["g", this.#g(24, 32)],
+    ["h", this.#g(28, 32)],
+    ["i", this.#g(32, 32, 1)],
+    ["j", this.#g(34, 32, 2)],
+    ["k", this.#g(37, 32)],
+    ["l", this.#g(41, 32, 2)],
+    ["m", this.#g(44, 32)],
+    ["n", this.#g(48, 32)],
+    ["o", this.#g(52, 32)],
+    ["p", this.#g(56, 32)],
+    ["q", this.#g(60, 32)],
+    ["r", this.#g(64, 32)],
+    ["s", this.#g(68, 32)],
+    ["t", this.#g(72, 32)],
+    ["u", this.#g(76, 32)],
+    ["v", this.#g(80, 32)],
+    ["w", this.#g(84, 32)],
+    ["x", this.#g(88, 32)],
+    ["y", this.#g(92, 32)],
+    ["z", this.#g(96, 32)],
+    //
+  ]);
 
-  spritesFor(text: string): BpxCharSprite[] {
-    const charSprites: BpxCharSprite[] = [];
-    let positionInText: BpxVector2d = v_0_0_;
-
-    for (let i = 0; i < text.length; i += 1) {
-      const char = text[i]!.toLowerCase();
-      const sprite = TinyFont.#sprites[char] ?? null;
-      if (sprite) {
-        charSprites.push({
-          char,
-          positionInText,
-          type: "image",
-          spriteXyWh: [sprite.xy, sprite.size],
-        });
-      }
-      const jumpX = (sprite ?? c_(-1, -1)).size.x + 1;
-      positionInText = positionInText.add(jumpX, 0);
-    }
-
-    return charSprites;
+  #g(x: number, y: number, w: number = 3, h: number = 4): BpxGlyph {
+    return {
+      type: "sprite",
+      sprite: spr_(g.assets.spritesheet)(w, h, x, y),
+      advance: w + 1,
+    };
   }
 }

@@ -1,6 +1,6 @@
 import { v_ } from "@beetpx/beetpx";
 import { GameState } from "../game_state/GameState";
-import { b, g, p8c, u } from "../globals";
+import { b, g, p8c } from "../globals";
 import { Waves } from "../waves/Waves";
 import { ButtonGlyph } from "./ButtonGlyph";
 import { TowerChoiceGui } from "./TowerChoiceGui";
@@ -66,7 +66,7 @@ export class Gui {
       b.drawText(
         buildText,
         v_(
-          g.canvasSize.x - g.warzoneBorder - u.measureText(buildText)[1].x,
+          g.canvasSize.x - g.warzoneBorder - b.measureText(buildText).wh.x,
           g.canvasSize.y - g.warzoneBorder + 2
         ),
         this.#isXPressed ? p8c.lightGrey : p8c.mauve
@@ -84,7 +84,7 @@ export class Gui {
       this.#towerInfo.draw();
 
       const moneyText = this.#gameState.money.available.toFixed(0);
-      const moneyTextSize = u.measureText(moneyText)[1];
+      const moneyTextSize = b.measureText(moneyText).wh;
       b.drawText(
         moneyText,
         v_(g.canvasSize.x - g.warzoneBorder - moneyTextSize.x, 2),
@@ -131,7 +131,7 @@ export class Gui {
       this.#towerInfo.draw();
 
       const moneyText = this.#gameState.money.available.toFixed(0);
-      const moneyTextSize = u.measureText(moneyText)[1];
+      const moneyTextSize = b.measureText(moneyText).wh;
       b.drawText(
         moneyText,
         v_(g.canvasSize.x - g.warzoneBorder - moneyTextSize.x, 2),
@@ -164,7 +164,7 @@ export class Gui {
       b.drawText(
         placeText,
         v_(
-          g.canvasSize.x - g.warzoneBorder - u.measureText(placeText)[1].x,
+          g.canvasSize.x - g.warzoneBorder - b.measureText(placeText).wh.x,
           g.canvasSize.y - g.warzoneBorder + 2
         ),
         params.isButtonXEnabled
@@ -193,9 +193,9 @@ export class Gui {
           .sub(g.warzoneBorder)
           .add(
             v_(
-              -u.measureText(placeText)[1].x -
+              -b.measureText(placeText).wh.x -
                 3 -
-                u.measureText(dollarText)[1].x,
+                b.measureText(dollarText).wh.x,
               2
             )
           ),
@@ -210,11 +210,11 @@ export class Gui {
           .sub(g.warzoneBorder)
           .add(
             v_(
-              -u.measureText(placeText)[1].x -
+              -b.measureText(placeText).wh.x -
                 3 -
-                u.measureText(dollarText)[1].x -
+                b.measureText(dollarText).wh.x -
                 2 -
-                u.measureText(costText)[1].x,
+                b.measureText(costText).wh.x,
               2
             )
           ),

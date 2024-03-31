@@ -1,5 +1,5 @@
 import { BpxTimer, timer_, v_ } from "@beetpx/beetpx";
-import { b, g, p8c, u } from "../globals";
+import { b, g, p8c } from "../globals";
 import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
@@ -31,14 +31,14 @@ export class ScreenOver implements Screen {
   }
 
   draw(): void {
-    const textDefeat = "@ defeat @";
+    const textDefeat = "[c1]@[c0] defeat [c1]@";
     const textWaves1 = "survived";
     const textWaves2 = this.#wavesSurvived.toFixed(0);
     const textWaves3 = this.#wavesSurvived === 1 ? "wave" : "waves";
-    const textDefeatSize = u.measureText(textDefeat)[1];
-    const textWaves1Size = u.measureText(textWaves1)[1];
-    const textWaves2Size = u.measureText(textWaves2)[1];
-    const textWaves3Size = u.measureText(textWaves3)[1];
+    const { wh: textDefeatSize } = b.measureText(textDefeat);
+    const { wh: textWaves1Size } = b.measureText(textWaves1);
+    const { wh: textWaves2Size } = b.measureText(textWaves2);
+    const { wh: textWaves3Size } = b.measureText(textWaves3);
 
     const clipProgress = Math.max(0, 6 * this.#timer.progress - 5);
     const clipY = Math.floor(
@@ -55,7 +55,13 @@ export class ScreenOver implements Screen {
       g.canvasSize
         .div(2)
         .add(-textDefeatSize.x / 2, -2.5 * (textDefeatSize.y + 1)),
-      ({ char }) => (char === "@" ? p8c.darkRed : p8c.red)
+      p8c.red,
+      {
+        colorMarkers: {
+          c0: p8c.red,
+          c1: p8c.darkRed,
+        },
+      }
     );
     b.drawText(
       textWaves1,

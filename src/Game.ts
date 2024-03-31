@@ -1,6 +1,6 @@
 import { BpxSpriteColorMapping, v_, v_0_0_ } from "@beetpx/beetpx";
 import { TinyFont } from "./TinyFont";
-import { b, g, p8c, u } from "./globals";
+import { b, g, p8c } from "./globals";
 import { PauseMenu } from "./gui/PauseMenu";
 import { Screen } from "./screens/Screen";
 import { ScreenTitle } from "./screens/ScreenTitle";
@@ -18,38 +18,29 @@ export class Game {
       gameCanvasSize: "64x64",
       fixedTimestep: "30fps",
       debugMode: !BEETPX__IS_PROD,
-      assets: {
-        images: [{ url: g.assets.spritesheet }],
-        fonts: [
-          {
-            font: new TinyFont(),
-            spriteTextColor: p8c.green,
-          },
-        ],
-        sounds: [
-          { url: g.assets.musicBg1 },
-          { url: g.assets.musicBg2 },
-          { url: g.assets.musicBg3 },
-          { url: g.assets.musicBg4 },
-          { url: g.assets.musicMelody1 },
-          { url: g.assets.musicMelody2 },
-          { url: g.assets.musicMelody3 },
-          { url: g.assets.musicMelody4 },
-          { url: g.assets.musicMelody5 },
-          { url: g.assets.musicMelody6 },
-          { url: g.assets.musicMelody7 },
-          { url: g.assets.sfxLiveLost },
-          { url: g.assets.sfxCannotPlace },
-          { url: g.assets.sfxTowerPlaced },
-          { url: g.assets.sfxButtonPress },
-          { url: g.assets.sfxVBeam },
-          { url: g.assets.sfxLaser },
-        ],
-        jsons: [],
-      },
+      assets: [
+        g.assets.spritesheet,
+        g.assets.musicBg1,
+        g.assets.musicBg2,
+        g.assets.musicBg3,
+        g.assets.musicBg4,
+        g.assets.musicMelody1,
+        g.assets.musicMelody2,
+        g.assets.musicMelody3,
+        g.assets.musicMelody4,
+        g.assets.musicMelody5,
+        g.assets.musicMelody6,
+        g.assets.musicMelody7,
+        g.assets.sfxLiveLost,
+        g.assets.sfxCannotPlace,
+        g.assets.sfxTowerPlaced,
+        g.assets.sfxButtonPress,
+        g.assets.sfxVBeam,
+        g.assets.sfxLaser,
+      ],
     }).then(({ startGame }) => {
       b.setOnStarted(() => {
-        b.setFont(g.assets.tinyFont);
+        b.useFont(new TinyFont());
 
         b.setButtonRepeating("a", false);
         b.setButtonRepeating("b", false);
@@ -118,7 +109,7 @@ export class Game {
               : "@";
           b.drawText(
             audioStateText,
-            v_(g.canvasSize.x - u.measureText(audioStateText)[1].x, 0),
+            v_(g.canvasSize.x - b.measureText(audioStateText).wh.x, 0),
             p8c.mauve
           );
         }

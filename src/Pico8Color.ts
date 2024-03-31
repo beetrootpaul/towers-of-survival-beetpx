@@ -1,4 +1,4 @@
-import { BpxRgbColor } from "@beetpx/beetpx";
+import { rgb_ } from "@beetpx/beetpx";
 
 // noinspection JSUnusedGlobalSymbols
 export class Pico8Colors {
@@ -6,45 +6,45 @@ export class Pico8Colors {
 
   // standard colors
   // 0 - 3
-  static black = BpxRgbColor.fromCssHex("#000000");
-  static darkBlue = BpxRgbColor.fromCssHex("#1D2B53");
-  static darkPurple = BpxRgbColor.fromCssHex("#7E2553");
-  static darkGreen = BpxRgbColor.fromCssHex("#008751");
+  static black = rgb_("#000000");
+  static darkBlue = rgb_("#1D2B53");
+  static darkPurple = rgb_("#7E2553");
+  static darkGreen = rgb_("#008751");
   // 4 - 7
-  static brown = BpxRgbColor.fromCssHex("#AB5236");
-  static darkGrey = BpxRgbColor.fromCssHex("#5F574F");
-  static lightGrey = BpxRgbColor.fromCssHex("#C2C3C7");
-  static white = BpxRgbColor.fromCssHex("#FFF1E8");
+  static brown = rgb_("#AB5236");
+  static darkGrey = rgb_("#5F574F");
+  static lightGrey = rgb_("#C2C3C7");
+  static white = rgb_("#FFF1E8");
   // 8 - 11
-  static red = BpxRgbColor.fromCssHex("#FF004D");
-  static orange = BpxRgbColor.fromCssHex("#FFA300");
-  static yellow = BpxRgbColor.fromCssHex("#FFEC27");
-  static green = BpxRgbColor.fromCssHex("#00E436");
+  static red = rgb_("#FF004D");
+  static orange = rgb_("#FFA300");
+  static yellow = rgb_("#FFEC27");
+  static green = rgb_("#00E436");
   // 12 - 15
-  static blue = BpxRgbColor.fromCssHex("#29ADFF");
-  static lavender = BpxRgbColor.fromCssHex("#83769C");
-  static pink = BpxRgbColor.fromCssHex("#FF77A8");
-  static lightPeach = BpxRgbColor.fromCssHex("#FFCCAA");
+  static blue = rgb_("#29ADFF");
+  static lavender = rgb_("#83769C");
+  static pink = rgb_("#FF77A8");
+  static lightPeach = rgb_("#FFCCAA");
 
   // "secret" colors
   // 128 - 131
-  static brownishBlack = BpxRgbColor.fromCssHex("#291814");
-  static darkerBlue = BpxRgbColor.fromCssHex("#111D35");
-  static darkerPurple = BpxRgbColor.fromCssHex("#422136");
-  static blueGreen = BpxRgbColor.fromCssHex("#125359");
+  static brownishBlack = rgb_("#291814");
+  static darkerBlue = rgb_("#111D35");
+  static darkerPurple = rgb_("#422136");
+  static blueGreen = rgb_("#125359");
   // 132 - 135
-  static darkBrown = BpxRgbColor.fromCssHex("#742F29");
-  static darkerGrey = BpxRgbColor.fromCssHex("#49333B");
-  static mediumGrey = BpxRgbColor.fromCssHex("#A28879");
-  static lightYellow = BpxRgbColor.fromCssHex("#F3EF7D");
+  static darkBrown = rgb_("#742F29");
+  static darkerGrey = rgb_("#49333B");
+  static mediumGrey = rgb_("#A28879");
+  static lightYellow = rgb_("#F3EF7D");
   // 136 - 139
-  static darkRed = BpxRgbColor.fromCssHex("#BE1250");
-  static darkOrange = BpxRgbColor.fromCssHex("#FF6C24");
-  static limeGreen = BpxRgbColor.fromCssHex("#A8E72E");
-  static mediumGreen = BpxRgbColor.fromCssHex("#00B543");
+  static darkRed = rgb_("#BE1250");
+  static darkOrange = rgb_("#FF6C24");
+  static limeGreen = rgb_("#A8E72E");
+  static mediumGreen = rgb_("#00B543");
   // 140 - 143
-  static trueBlue = BpxRgbColor.fromCssHex("#065AB5");
-  static mauve = BpxRgbColor.fromCssHex("#754665");
-  static darkPeach = BpxRgbColor.fromCssHex("#FF6E59");
-  static peach = BpxRgbColor.fromCssHex("#FF9D81");
+  static trueBlue = rgb_("#065AB5");
+  static mauve = rgb_("#754665");
+  static darkPeach = rgb_("#FF6E59");
+  static peach = rgb_("#FF9D81");
 }
