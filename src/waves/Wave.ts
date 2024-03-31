@@ -56,7 +56,7 @@ export class Wave {
 
   update(): void {
     this.#spawnTimers = this.#spawnTimers.filter(({ timer, enemyType }) => {
-      if (timer.hasJustFinished) {
+      if (timer.hasFinished) {
         this.#enemies.spawn(enemyType);
       }
       return !timer.hasFinished;
