@@ -14,13 +14,11 @@ export class Game {
   #nextScreen: Screen | undefined;
 
   start(): void {
-    b.init(
-      {
-        gameCanvasSize: "64x64",
-        desiredUpdateFps: g.fps,
-        debugFeatures: !BEETPX__IS_PROD,
-      },
-      {
+    b.init({
+      gameCanvasSize: "64x64",
+      fixedTimestep: "30fps",
+      debugMode: !BEETPX__IS_PROD,
+      assets: {
         images: [{ url: g.assets.spritesheet }],
         fonts: [
           {
@@ -48,8 +46,8 @@ export class Game {
           { url: g.assets.sfxLaser },
         ],
         jsons: [],
-      }
-    ).then(({ startGame }) => {
+      },
+    }).then(({ startGame }) => {
       b.setOnStarted(() => {
         b.setFont(g.assets.tinyFont);
 
