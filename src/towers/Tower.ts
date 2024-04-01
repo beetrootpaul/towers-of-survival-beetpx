@@ -68,7 +68,7 @@ export class Tower {
       return timer_(
         g.fps *
           (this.#descriptor.shootingTime +
-            boosts * (this.#descriptor.shootingTimeBoost ?? 0))
+            boosts * (this.#descriptor.shootingTimeBoost ?? 0)),
       );
     }
     return null;
@@ -80,7 +80,7 @@ export class Tower {
       return timer_(
         g.fps *
           (this.#descriptor.chargingTime +
-            boosts * (this.#descriptor.chargingTimeBoost ?? 0))
+            boosts * (this.#descriptor.chargingTimeBoost ?? 0)),
       );
     }
     return null;
@@ -129,7 +129,7 @@ export class Tower {
           this.#range instanceof TowerRangeLaser
             ? this.#range
             : u.throwError(
-                "Laser tower got assigned a range of a non-laser type"
+                "Laser tower got assigned a range of a non-laser type",
               );
         this.#enemies.forEachFromFurthest((enemy) => {
           if (!isAttacking && range.touchesEnemy(enemy)) {
@@ -146,7 +146,7 @@ export class Tower {
           this.#range instanceof TowerRangeVBeam
             ? this.#range
             : u.throwError(
-                "V-beam tower got assigned a range of a non-v-beam type"
+                "V-beam tower got assigned a range of a non-v-beam type",
               );
         this.#enemies.forEachFromFurthest((enemy) => {
           if (range.touchesEnemy(enemy)) {
@@ -174,7 +174,7 @@ export class Tower {
   draw(): void {
     b.drawSprite(
       this.#descriptor.sprite,
-      this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
+      this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize),
     );
 
     if (b.debug) {

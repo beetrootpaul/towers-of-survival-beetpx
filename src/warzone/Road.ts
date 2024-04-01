@@ -34,7 +34,7 @@ export class Road {
     Road.#serializedTiles.forEach((st, index) => {
       let tileXy = v_(
         parseInt(st.split("|")[0]!, 10),
-        parseInt(st.split("|")[1]!, 10)
+        parseInt(st.split("|")[1]!, 10),
       );
       if (index === 0) {
         tileXy = tileXy.sub(1, 0);
@@ -49,7 +49,7 @@ export class Road {
 
   isAt(tileToCheck: Tile): boolean {
     return Road.#serializedTiles.some(
-      (st) => st === `${tileToCheck.xy.x}|${tileToCheck.xy.y}`
+      (st) => st === `${tileToCheck.xy.x}|${tileToCheck.xy.y}`,
     );
   }
 
@@ -81,7 +81,7 @@ export class Road {
             u.throwError(`No "road.sprites.${spriteName}" sprite defined.`);
           b.drawSprite(
             sprite,
-            v_(tileX, tileY).add(g.warzoneBorderTiles).mul(g.tileSize)
+            v_(tileX, tileY).add(g.warzoneBorderTiles).mul(g.tileSize),
           );
         }
       }

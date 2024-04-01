@@ -81,7 +81,7 @@ export class Waves {
       u.throwError(
         `Tried to access non-existent wave descriptor at index ${
           this.waveNumber - 1
-        }.`
+        }.`,
       )
     );
   }

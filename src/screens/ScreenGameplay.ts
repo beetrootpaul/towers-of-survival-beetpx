@@ -122,7 +122,7 @@ export class ScreenGameplay implements Screen {
         if (this.#placement?.canBuild()) {
           b.startPlayback(g.assets.sfxTowerPlaced);
           this.#gameState.money.subtract(
-            this.#gameState.towerChoice.chosenTower.cost
+            this.#gameState.towerChoice.chosenTower.cost,
           );
           this.#towers.buildTower({
             tile: this.#placement.chosenTile,
@@ -168,7 +168,7 @@ export class ScreenGameplay implements Screen {
     const direction: BpxVector2d =
       ScreenGameplay.#arrowButtonsToDirections[arrowButton] ??
       u.throwError(
-        `There is no direction defined for arrow button "${arrowButton}"`
+        `There is no direction defined for arrow button "${arrowButton}"`,
       );
     if (this.#placement) {
       this.#placement.moveChosenTile(direction);

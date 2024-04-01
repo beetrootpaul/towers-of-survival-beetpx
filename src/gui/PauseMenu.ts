@@ -49,7 +49,7 @@ export class PauseMenu {
 
     const wh = v_(
       Math.max(textContinueWh.x, textRestartWh.x) + 2 * padding,
-      textContinueWh.y + textRestartWh.y + 2 * padding + gapBetweenLines
+      textContinueWh.y + textRestartWh.y + 2 * padding + gapBetweenLines,
     );
     const xy = g.canvasSize.sub(wh).div(2);
 
@@ -62,17 +62,17 @@ export class PauseMenu {
           ? rgbColor.r + rgbColor.g + rgbColor.b > (0x100 * 3) / 2
             ? p8c.darkerBlue
             : p8c.black
-          : rgbColor
-      )
+          : rgbColor,
+      ),
     );
     b.drawRect(xy.sub(1), wh.add(2), p8c.white);
     b.drawText(
       "continue",
       xy.add(
         padding + (this.#selected === 0 ? 1 : 0),
-        padding + (this.#pressedIndex === 0 ? 1 : 0)
+        padding + (this.#pressedIndex === 0 ? 1 : 0),
       ),
-      this.#pressedIndex === 0 ? p8c.peach : p8c.white
+      this.#pressedIndex === 0 ? p8c.peach : p8c.white,
     );
     b.drawText(
       "restart",
@@ -81,9 +81,9 @@ export class PauseMenu {
         padding +
           textContinueWh.y +
           gapBetweenLines +
-          (this.#pressedIndex === 1 ? 1 : 0)
+          (this.#pressedIndex === 1 ? 1 : 0),
       ),
-      this.#pressedIndex === 1 ? p8c.peach : p8c.white
+      this.#pressedIndex === 1 ? p8c.peach : p8c.white,
     );
     for (const offset of PauseMenu.#arrowPixelsOffsets) {
       b.drawPixel(
@@ -91,11 +91,11 @@ export class PauseMenu {
           .add(
             padding,
             padding +
-              (this.#selected === 1 ? textContinueWh.y + gapBetweenLines : 0)
+              (this.#selected === 1 ? textContinueWh.y + gapBetweenLines : 0),
           )
           .sub(4, 0)
           .add(offset),
-        p8c.white
+        p8c.white,
       );
     }
   }

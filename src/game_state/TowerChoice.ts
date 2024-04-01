@@ -24,7 +24,7 @@ export class TowerChoice {
       const t =
         g.towers[type] ??
         u.throwError(
-          `Tried to access info about non-existent tower type "${type}".`
+          `Tried to access info about non-existent tower type "${type}".`,
         );
       return {
         type,
@@ -52,7 +52,7 @@ export class TowerChoice {
     return (
       this.#towers[this.#chosen] ??
       u.throwError(
-        `Tried to access non-existent tower choice at index ${this.#chosen}.`
+        `Tried to access non-existent tower choice at index ${this.#chosen}.`,
       )
     );
   }

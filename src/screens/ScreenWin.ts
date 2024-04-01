@@ -35,12 +35,12 @@ export class ScreenWin implements Screen {
   draw(): void {
     const clipProgress = Math.max(0, 6 * this.#timer.progress - 5);
     const clipY = Math.floor(
-      clipProgress * ((g.canvasSize.y - 2 * g.warzoneBorder) / 2)
+      clipProgress * ((g.canvasSize.y - 2 * g.warzoneBorder) / 2),
     );
 
     b.setClippingRegion(
       v_(0, g.warzoneBorder + clipY),
-      g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY)
+      g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY),
     );
 
     b.drawText(
@@ -48,7 +48,7 @@ export class ScreenWin implements Screen {
       g.canvasSize
         .div(2)
         .add(-this.#text1Size.x / 2, -2.5 * (this.#text1Size.y + 1)),
-      p8c.darkPeach
+      p8c.darkPeach,
     );
     b.drawText(
       this.#text2,
@@ -61,14 +61,14 @@ export class ScreenWin implements Screen {
           c0: p8c.lightYellow,
           c1: p8c.darkPeach,
         },
-      }
+      },
     );
     b.drawText(
       this.#text3,
       g.canvasSize
         .div(2)
         .add(-this.#text3Size.x / 2, 1.5 * (this.#text3Size.y + 1)),
-      p8c.darkPeach
+      p8c.darkPeach,
     );
 
     b.removeClippingRegion();

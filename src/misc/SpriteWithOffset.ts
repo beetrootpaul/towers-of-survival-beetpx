@@ -9,7 +9,7 @@ export function spro_(imageUrl: BpxImageUrl) {
     offsetX: number,
     offsetY: number,
     hitboxOffsetX?: number,
-    hitboxOffsetY?: number
+    hitboxOffsetY?: number,
   ) => {
     const xy1 = v_(x1, y1);
     return new SpriteWithOffset(
@@ -17,7 +17,7 @@ export function spro_(imageUrl: BpxImageUrl) {
       xy1,
       xy1.add(v_(w, h)),
       v_(offsetX, offsetY),
-      v_(hitboxOffsetX ?? 0, hitboxOffsetY ?? 0)
+      v_(hitboxOffsetX ?? 0, hitboxOffsetY ?? 0),
     );
   };
 }
@@ -32,7 +32,7 @@ export class SpriteWithOffset {
     xy1: BpxVector2d,
     xy2: BpxVector2d,
     offset: BpxVector2d,
-    hitboxOffset: BpxVector2d
+    hitboxOffset: BpxVector2d,
   ) {
     const wh = xy2.sub(xy1);
     this.sprite = BpxSprite.from(imageUrl, wh.x, wh.y, xy1.x, xy1.y);

@@ -20,13 +20,13 @@ export class EnemyRange {
   draw(color: BpxRgbColor): void {
     b.setClippingRegion(
       v_(0, g.warzoneBorder),
-      g.canvasSize.sub(0, g.warzoneBorder)
+      g.canvasSize.sub(0, g.warzoneBorder),
     );
 
     b.drawEllipse(
       this.#center.sub(this.#r),
       v_(this.#r, this.#r).mul(2).add(1),
-      color
+      color,
     );
 
     b.removeClippingRegion();

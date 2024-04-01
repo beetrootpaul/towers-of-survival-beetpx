@@ -115,7 +115,7 @@ export class Game {
             [p8c.green, p8c.mediumGreen],
             [p8c.pink, p8c.mauve],
             [p8c.lightPeach, p8c.mediumGrey],
-          ])
+          ]),
         );
 
         self.#currentScreen?.draw();
@@ -129,14 +129,14 @@ export class Game {
             audioState === "suspended"
               ? "s"
               : audioState === "running"
-              ? "r"
-              : audioState === "closed"
-              ? "c"
-              : "@";
+                ? "r"
+                : audioState === "closed"
+                  ? "c"
+                  : "@";
           b.drawText(
             audioStateText,
             v_(g.canvasSize.x - b.measureText(audioStateText).wh.x, 0),
-            p8c.mauve
+            p8c.mauve,
           );
         }
       },

@@ -31,7 +31,7 @@ export class Fight {
         b.drawLine(
           v_(x + offset, g.warzoneBorder),
           v_(1, g.canvasSize.y - 2 * g.warzoneBorder),
-          p8c.white
+          p8c.white,
         );
       }
     }

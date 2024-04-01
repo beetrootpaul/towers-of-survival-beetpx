@@ -20,7 +20,7 @@ export class Enemies {
         type,
         path: this.#path,
         onReachedPathEnd: this.#onEnemyReachedPathEnd,
-      })
+      }),
     );
   }
 

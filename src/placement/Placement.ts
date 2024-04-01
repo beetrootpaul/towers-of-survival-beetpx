@@ -68,7 +68,7 @@ export class Placement {
 
     const collidingTowers = this.#otherTowers.findCollidingTowers(
       this.#chosenTower.type,
-      this.#chosenTile
+      this.#chosenTile,
     );
     if (collidingTowers.length > 0) {
       result.canBuild = false;
@@ -93,7 +93,7 @@ export class Placement {
   moveChosenTile(direction: BpxVector2d): void {
     this.#chosenTile = this.#chosenTile.plus(direction);
     this.#chosenTile = new Tile(
-      this.#chosenTile.xy.clamp(v_0_0_, g.warzoneSizeTiles.sub(1))
+      this.#chosenTile.xy.clamp(v_0_0_, g.warzoneSizeTiles.sub(1)),
     );
 
     this.#towerRange = this.#newTowerRange();
@@ -104,7 +104,7 @@ export class Placement {
   draw(): void {
     b.drawSprite(
       this.#chosenTower.sprite,
-      this.#chosenTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize)
+      this.#chosenTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize),
     );
 
     this.#towerRange.draw(p8c.white, p8c.darkGrey);

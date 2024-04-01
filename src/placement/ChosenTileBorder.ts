@@ -31,7 +31,7 @@ export class ChosenTileBorder {
     for (const offset of ChosenTileBorder.#offsets) {
       b.drawPixel(
         this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize).add(offset),
-        canBuild ? p8c.mediumGreen : p8c.red
+        canBuild ? p8c.mediumGreen : p8c.red,
       );
     }
   }

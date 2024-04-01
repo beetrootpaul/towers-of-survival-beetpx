@@ -51,7 +51,7 @@ export class Towers {
         enemies: this.#enemies,
         fight: this.#fight,
         warzone: this.#warzone,
-      })
+      }),
     );
     this.#warzone.ground.makePlainAtAndAround(params.tile);
   }
@@ -63,8 +63,8 @@ export class Towers {
         (t.range instanceof TowerRangeBooster
           ? t.range.reaches(tile)
           : u.throwError(
-              "Booster tower got assigned a range of a non-booster type"
-            ))
+              "Booster tower got assigned a range of a non-booster type",
+            )),
     ).length;
   }
 

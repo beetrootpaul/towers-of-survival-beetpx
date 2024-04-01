@@ -14,7 +14,7 @@ export class Cores {
       const coreNumber = index + 1;
       b.drawSprite(
         this.#lives.left >= coreNumber ? core.spriteHealthy : core.spriteBroken,
-        v_(g.canvasSize.x - g.warzoneBorder, g.warzoneBorder + core.y)
+        v_(g.canvasSize.x - g.warzoneBorder, g.warzoneBorder + core.y),
       );
     });
   }

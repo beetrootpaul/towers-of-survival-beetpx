@@ -30,12 +30,12 @@ export class TowerRangeLaser implements TowerRange {
   draw(color1: BpxRgbColor, color2: BpxRgbColor): void {
     b.setClippingRegion(
       v_(0, g.warzoneBorder),
-      g.canvasSize.sub(0, 2 * g.warzoneBorder)
+      g.canvasSize.sub(0, 2 * g.warzoneBorder),
     );
     b.drawEllipse(
       this.#xy.sub(this.#r),
       v_(this.#r, this.#r).mul(2).add(1),
-      color1
+      color1,
     );
     b.removeClippingRegion();
   }

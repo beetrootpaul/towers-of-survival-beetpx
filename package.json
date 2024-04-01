@@ -26,12 +26,12 @@
     "itch": "npm run build && beetpx zip"
   },
   "devDependencies": {
-    "@beetpx/beetpx": "0.36.0-fix1",
+    "@beetpx/beetpx": "0.36.1-fix1",
+    "@types/node": "20.12.2",
     "husky": "8.0.3",
-    "npm-check-updates": "^16.13.1",
-    "prettier": "2.8.8",
+    "prettier": "3.2.5",
     "prettier-plugin-organize-imports": "3.2.4",
-    "rimraf": "5.0.0",
-    "typescript": "5.0.4"
+    "rimraf": "5.0.5",
+    "typescript": "5.4.3"
   }
 }

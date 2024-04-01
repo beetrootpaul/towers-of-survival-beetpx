@@ -42,12 +42,12 @@ export class ScreenOver implements Screen {
 
     const clipProgress = Math.max(0, 6 * this.#timer.progress - 5);
     const clipY = Math.floor(
-      clipProgress * ((g.canvasSize.y - 2 * g.warzoneBorder) / 2)
+      clipProgress * ((g.canvasSize.y - 2 * g.warzoneBorder) / 2),
     );
 
     b.setClippingRegion(
       v_(0, g.warzoneBorder + clipY),
-      g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY)
+      g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY),
     );
 
     b.drawText(
@@ -61,28 +61,28 @@ export class ScreenOver implements Screen {
           c0: p8c.red,
           c1: p8c.darkRed,
         },
-      }
+      },
     );
     b.drawText(
       textWaves1,
       g.canvasSize
         .div(2)
         .add(-textWaves1Size.x / 2, -0.5 * (textWaves1Size.y + 1)),
-      p8c.mauve
+      p8c.mauve,
     );
     b.drawText(
       textWaves2,
       g.canvasSize
         .div(2)
         .add(-textWaves2Size.x / 2, 0.5 * (textWaves2Size.y + 1)),
-      p8c.darkRed
+      p8c.darkRed,
     );
     b.drawText(
       textWaves3,
       g.canvasSize
         .div(2)
         .add(-textWaves3Size.x / 2, 1.5 * (textWaves3Size.y + 1)),
-      p8c.mauve
+      p8c.mauve,
     );
 
     b.removeClippingRegion();

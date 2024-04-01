@@ -42,12 +42,12 @@ export class ScreenPreGameplay implements Screen {
   draw(): void {
     const clipProgress = 1 - this.#timer.progress;
     const clipY = Math.floor(
-      clipProgress * (g.canvasSize.y / 2 - g.warzoneBorder)
+      clipProgress * (g.canvasSize.y / 2 - g.warzoneBorder),
     );
 
     b.setClippingRegion(
       v_(0, g.warzoneBorder + clipY),
-      g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY)
+      g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY),
     );
 
     this.#warzone.draw();

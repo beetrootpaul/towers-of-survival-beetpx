@@ -28,20 +28,20 @@ export class TowerRangeBooster implements TowerRange {
 
   reaches(anotherTile: Tile): boolean {
     return TowerRangeBooster.#offsets.some((offset) =>
-      anotherTile.isSameAs(this.#tile.plus(offset))
+      anotherTile.isSameAs(this.#tile.plus(offset)),
     );
   }
 
   draw(color1: BpxRgbColor, color2: BpxRgbColor) {
     b.setClippingRegion(
       v_(0, g.warzoneBorder),
-      g.canvasSize.sub(0, 2 * g.warzoneBorder)
+      g.canvasSize.sub(0, 2 * g.warzoneBorder),
     );
 
     b.drawRect(
       this.#xy.sub(g.tileSize),
       v_(g.tileSize, g.tileSize).mul(3),
-      color2
+      color2,
     );
 
     b.removeClippingRegion();
@@ -54,7 +54,7 @@ export class TowerRangeBooster implements TowerRange {
         b.drawRect(
           this.#xy.sub(g.tileSize),
           v_(g.tileSize, g.tileSize).mul(3),
-          color1
+          color1,
         );
         b.removeClippingRegion();
       }

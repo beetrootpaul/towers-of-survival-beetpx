@@ -31,7 +31,7 @@ export class ScreenTitle implements Screen {
     b.setClippingRegion(v_(0, clipY), g.canvasSize.sub(0, 2 * clipY));
     b.drawSprite(
       spr_(g.assets.spritesheet)(g.canvasSize.x, g.canvasSize.y, 0, 64),
-      v_0_0_
+      v_0_0_,
     );
 
     b.removeClippingRegion();

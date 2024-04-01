@@ -19,7 +19,7 @@ export class ButtonGlyph {
         [g.buttonTemplateColor1, color1],
         [g.buttonTemplateColor2, color2],
         [p8c.black, null],
-      ])
+      ]),
     );
 
     b.drawSprite(this.#glyphSprite, xy);

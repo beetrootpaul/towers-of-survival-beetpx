@@ -21,7 +21,7 @@ export class PathProgression {
     return (
       this.#pathPoints[this.#pointIndex] ??
       u.throwError(
-        `Tried to access non-existent path point at index ${this.#pointIndex}.`
+        `Tried to access non-existent path point at index ${this.#pointIndex}.`,
       )
     );
   }
@@ -45,7 +45,7 @@ export class PathProgression {
     if (this.#counter === 0) {
       this.#pointIndex = Math.min(
         this.#pointIndex + 1,
-        this.#pathPoints.length - 1
+        this.#pathPoints.length - 1,
       );
     }
     this.#counter = (this.#counter + 1) % this.#framesPerPoint;

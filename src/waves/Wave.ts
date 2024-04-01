@@ -25,10 +25,12 @@ export class Wave {
             spawn === "s"
               ? "small"
               : spawn === "m"
-              ? "medium"
-              : spawn === "b"
-              ? "big"
-              : u.throwError(`Unexpected spawn descriptor found: "${spawn}".`),
+                ? "medium"
+                : spawn === "b"
+                  ? "big"
+                  : u.throwError(
+                      `Unexpected spawn descriptor found: "${spawn}".`,
+                    ),
         });
       }
     });
