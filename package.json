@@ -22,11 +22,11 @@
     "tsc:watch": "tsc --watch",
     "start": "beetpx dev --open --htmlTitle \"[dev] Towers of Survival\"",
     "build": "npm run cleanup && npm run tsc && beetpx build --htmlTitle \"[dev] Towers of Survival\"",
-    "prod": "npm run build && beetpx preview",
+    "prod": "npm run build && beetpx preview --open",
     "itch": "npm run build && beetpx zip"
   },
   "devDependencies": {
-    "@beetpx/beetpx": "0.31.0-fix2",
+    "@beetpx/beetpx": "0.32.0-fix1",
     "husky": "8.0.3",
     "npm-check-updates": "^16.13.1",
     "prettier": "2.8.8",

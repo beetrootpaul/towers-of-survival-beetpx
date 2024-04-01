@@ -17,7 +17,7 @@ export class Game {
     b.init({
       gameCanvasSize: "64x64",
       fixedTimestep: "30fps",
-      debugMode: !BEETPX__IS_PROD,
+      debugMode: !window.BEETPX__IS_PROD,
       assets: [
         g.assets.spritesheet,
         g.assets.musicBg1,
