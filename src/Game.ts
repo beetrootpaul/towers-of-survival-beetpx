@@ -52,8 +52,22 @@ export class Game {
       b.setOnStarted(() => {
         b.useFont(new TinyFont());
 
-        b.setButtonRepeating("a", false);
-        b.setButtonRepeating("b", false);
+        b.setButtonRepeating("left", {
+          firstRepeatFrames: 8,
+          loopedRepeatFrames: 4,
+        });
+        b.setButtonRepeating("right", {
+          firstRepeatFrames: 8,
+          loopedRepeatFrames: 4,
+        });
+        b.setButtonRepeating("up", {
+          firstRepeatFrames: 8,
+          loopedRepeatFrames: 4,
+        });
+        b.setButtonRepeating("down", {
+          firstRepeatFrames: 8,
+          loopedRepeatFrames: 4,
+        });
 
         Game.isPaused = false;
         this.#pauseMenu = new PauseMenu();
