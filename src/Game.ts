@@ -14,46 +14,42 @@ export class Game {
   #nextScreen: Screen | undefined;
 
   start(): void {
-    const self = this;
-
     b.init({
-      config: {
-        gameCanvasSize: "64x64",
-        fixedTimestep: "30fps",
-        assets: [
-          g.assets.spritesheet,
-          g.assets.musicBg1,
-          g.assets.musicBg2,
-          g.assets.musicBg3,
-          g.assets.musicBg4,
-          g.assets.musicMelody1,
-          g.assets.musicMelody2,
-          g.assets.musicMelody3,
-          g.assets.musicMelody4,
-          g.assets.musicMelody5,
-          g.assets.musicMelody6,
-          g.assets.musicMelody7,
-          g.assets.sfxLiveLost,
-          g.assets.sfxCannotPlace,
-          g.assets.sfxTowerPlaced,
-          g.assets.sfxButtonPress,
-          g.assets.sfxVBeam,
-          g.assets.sfxLaser,
-        ],
-        debugMode: {
-          available: !window.BEETPX__IS_PROD,
-          fpsDisplay: {
-            enabled: true,
-            placement: "top-left",
-            color: p8c.mauve,
-          },
-        },
-        frameByFrame: {
-          available: !window.BEETPX__IS_PROD,
+      canvasSize: "64x64",
+      fixedTimestep: "30fps",
+      assets: [
+        g.assets.spritesheet,
+        g.assets.musicBg1,
+        g.assets.musicBg2,
+        g.assets.musicBg3,
+        g.assets.musicBg4,
+        g.assets.musicMelody1,
+        g.assets.musicMelody2,
+        g.assets.musicMelody3,
+        g.assets.musicMelody4,
+        g.assets.musicMelody5,
+        g.assets.musicMelody6,
+        g.assets.musicMelody7,
+        g.assets.sfxLiveLost,
+        g.assets.sfxCannotPlace,
+        g.assets.sfxTowerPlaced,
+        g.assets.sfxButtonPress,
+        g.assets.sfxVBeam,
+        g.assets.sfxLaser,
+      ],
+      debugMode: {
+        available: !window.BEETPX__IS_PROD,
+        fpsDisplay: {
+          enabled: true,
+          placement: "top-left",
+          color: p8c.mauve,
         },
       },
-
-      onStarted() {
+      frameByFrame: {
+        available: !window.BEETPX__IS_PROD,
+      },
+    }).then(async ({ startGame }) => {
+      b.setOnStarted(() => {
         b.useFont(new TinyFont());
 
         b.setButtonRepeating("left", {
@@ -74,34 +70,34 @@ export class Game {
         });
 
         Game.isPaused = false;
-        self.#pauseMenu = new PauseMenu();
+        this.#pauseMenu = new PauseMenu();
 
-        self.#nextScreen = new ScreenTitle();
-        self.#currentScreen = self.#nextScreen;
+        this.#nextScreen = new ScreenTitle();
+        this.#currentScreen = this.#nextScreen;
 
         b.stopAllPlaybacks();
-        self.#startMusic();
-      },
+        this.#startMusic();
+      });
 
-      onUpdate() {
+      b.setOnUpdate(() => {
         if (b.wasButtonJustPressed("menu")) {
           Game.isPaused = !Game.isPaused;
         }
 
         if (Game.isPaused) {
-          self.#currentScreen?.pauseTimers();
-          self.#pauseMenu?.update();
+          this.#currentScreen?.pauseTimers();
+          this.#pauseMenu?.update();
         } else {
           // We intentionally reassign screen on the next update iteration
           //   then the current one, because we still need to use the previous one
           //   for a drawing.
-          self.#currentScreen = self.#nextScreen;
-          self.#currentScreen?.resumeTimers();
-          self.#nextScreen = self.#currentScreen?.update();
+          this.#currentScreen = this.#nextScreen;
+          this.#currentScreen?.resumeTimers();
+          this.#nextScreen = this.#currentScreen?.update();
         }
-      },
+      });
 
-      onDraw() {
+      b.setOnDraw(() => {
         b.clearCanvas(p8c.brownishBlack);
 
         b.setSpriteColorMapping(
@@ -118,9 +114,9 @@ export class Game {
           ]),
         );
 
-        self.#currentScreen?.draw();
+        this.#currentScreen?.draw();
         if (Game.isPaused) {
-          self.#pauseMenu?.draw();
+          this.#pauseMenu?.draw();
         }
 
         if (b.debug) {
@@ -139,7 +135,9 @@ export class Game {
             p8c.mauve,
           );
         }
-      },
+      });
+
+      await startGame();
     });
   }
 
