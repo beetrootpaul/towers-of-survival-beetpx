@@ -1,4 +1,4 @@
-import { BpxSpriteColorMapping, v_, v_0_0_ } from "@beetpx/beetpx";
+import { BpxSpriteColorMapping, v_ } from "@beetpx/beetpx";
 import { TinyFont } from "./TinyFont";
 import { b, g, p8c } from "./globals";
 import { PauseMenu } from "./gui/PauseMenu";
@@ -17,7 +17,6 @@ export class Game {
     b.init({
       gameCanvasSize: "64x64",
       fixedTimestep: "30fps",
-      debugMode: !window.BEETPX__IS_PROD,
       assets: [
         g.assets.spritesheet,
         g.assets.musicBg1,
@@ -38,6 +37,17 @@ export class Game {
         g.assets.sfxVBeam,
         g.assets.sfxLaser,
       ],
+      debugMode: {
+        available: !window.BEETPX__IS_PROD,
+        fpsDisplay: {
+          enabled: true,
+          placement: "top-left",
+          color: p8c.mauve,
+        },
+      },
+      frameByFrame: {
+        available: !window.BEETPX__IS_PROD,
+      },
     }).then(({ startGame }) => {
       b.setOnStarted(() => {
         b.useFont(new TinyFont());
@@ -96,8 +106,6 @@ export class Game {
         }
 
         if (b.debug) {
-          const fps = b.renderingFps.toFixed(0);
-          b.drawText(fps, v_0_0_, p8c.mauve);
           const audioState = b.getAudioContext().state;
           const audioStateText =
             audioState === "suspended"
