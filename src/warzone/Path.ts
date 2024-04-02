@@ -9,7 +9,7 @@ export class Path {
     if (!prev) return;
     this.points.push(prev);
 
-    params.waypoints.slice(1).forEach((waypoint) => {
+    params.waypoints.slice(1).forEach(waypoint => {
       next = waypoint;
 
       if (prev) {

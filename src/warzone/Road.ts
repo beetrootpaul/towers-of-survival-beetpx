@@ -25,7 +25,7 @@ export class Road {
     ["9|3", "10|3"],
     ["10|4"],
     ["10|5", "11|5", "12|5", "13|5"],
-  ].flatMap((t) => t);
+  ].flatMap(t => t);
 
   readonly path: Path;
 
@@ -49,13 +49,13 @@ export class Road {
 
   isAt(tileToCheck: Tile): boolean {
     return Road.#serializedTiles.some(
-      (st) => st === `${tileToCheck.xy.x}|${tileToCheck.xy.y}`,
+      st => st === `${tileToCheck.xy.x}|${tileToCheck.xy.y}`,
     );
   }
 
   draw(): void {
     const tt: Record<string, boolean> = {};
-    Road.#serializedTiles.forEach((st) => {
+    Road.#serializedTiles.forEach(st => {
       tt[st] = true;
     });
 

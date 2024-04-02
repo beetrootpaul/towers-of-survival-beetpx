@@ -57,12 +57,12 @@ export class PauseMenu {
     b_.drawRectFilled(
       xy.sub(2),
       wh.add(4),
-      BpxCanvasSnapshotColorMapping.of((rgbColor) =>
-        rgbColor
-          ? rgbColor.r + rgbColor.g + rgbColor.b > (0x100 * 3) / 2
-            ? p8c.darkerBlue
-            : p8c.black
-          : rgbColor,
+      BpxCanvasSnapshotColorMapping.of(rgbColor =>
+        rgbColor ?
+          rgbColor.r + rgbColor.g + rgbColor.b > (0x100 * 3) / 2 ?
+            p8c.darkerBlue
+          : p8c.black
+        : rgbColor,
       ),
     );
     b_.drawRect(xy.sub(1), wh.add(2), p8c.white);

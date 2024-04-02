@@ -35,15 +35,15 @@ export class Enemies {
   }
 
   preUpdate(): void {
-    this.#enemies.forEach((enemy) => {
+    this.#enemies.forEach(enemy => {
       enemy.preUpdate();
     });
   }
 
   update(): void {
     this.#enemies = this.#enemies
-      .filter((enemy) => !enemy.hasFinished())
-      .map((enemy) => {
+      .filter(enemy => !enemy.hasFinished())
+      .map(enemy => {
         enemy.update();
         return enemy;
       });

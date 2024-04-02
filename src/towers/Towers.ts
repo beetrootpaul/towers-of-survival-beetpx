@@ -58,13 +58,13 @@ export class Towers {
 
   countReachingBoosters(tile: Tile): number {
     return this.#towers.filter(
-      (t) =>
+      t =>
         t.type === "booster" &&
-        (t.range instanceof TowerRangeBooster
-          ? t.range.reaches(tile)
-          : u_.throwError(
-              "Booster tower got assigned a range of a non-booster type",
-            )),
+        (t.range instanceof TowerRangeBooster ?
+          t.range.reaches(tile)
+        : u_.throwError(
+            "Booster tower got assigned a range of a non-booster type",
+          )),
     ).length;
   }
 

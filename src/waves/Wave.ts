@@ -22,15 +22,10 @@ export class Wave {
         this.#spawnTimers.push({
           timer: timer_(g.fps * index),
           enemyType:
-            spawn === "s"
-              ? "small"
-              : spawn === "m"
-                ? "medium"
-                : spawn === "b"
-                  ? "big"
-                  : u_.throwError(
-                      `Unexpected spawn descriptor found: "${spawn}".`,
-                    ),
+            spawn === "s" ? "small"
+            : spawn === "m" ? "medium"
+            : spawn === "b" ? "big"
+            : u_.throwError(`Unexpected spawn descriptor found: "${spawn}".`),
         });
       }
     });

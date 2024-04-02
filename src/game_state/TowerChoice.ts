@@ -20,7 +20,7 @@ export class TowerChoice {
 
   constructor() {
     const types: TowerType[] = ["laser", "booster", "v_beam"];
-    this.#towers = types.map((type) => {
+    this.#towers = types.map(type => {
       const t =
         g.towers[type] ??
         u_.throwError(

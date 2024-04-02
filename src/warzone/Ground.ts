@@ -20,7 +20,7 @@ export class Ground {
 
   constructor() {
     this.#sprites = {};
-    forEachIntXyWithinRectOf(v_0_0_, g.warzoneSizeTiles, (xy) => {
+    forEachIntXyWithinRectOf(v_0_0_, g.warzoneSizeTiles, xy => {
       this.#sprites[`${xy.x}|${xy.y}`] =
         g.ground.sprites.textured ??
         u_.throwError(`No "ground.sprites.textured" sprite defined.`);
@@ -43,7 +43,7 @@ export class Ground {
   }
 
   draw(): void {
-    forEachIntXyWithinRectOf(v_0_0_, g.warzoneSizeTiles, (tileXy) => {
+    forEachIntXyWithinRectOf(v_0_0_, g.warzoneSizeTiles, tileXy => {
       const sprite = this.#sprites[`${tileXy.x}|${tileXy.y}`];
       if (sprite) {
         b_.drawSprite(sprite, tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));

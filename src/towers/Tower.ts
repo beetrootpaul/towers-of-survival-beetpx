@@ -126,12 +126,12 @@ export class Tower {
       const dps = this.#descriptor.dps;
       if (this.type === "laser" && dps) {
         const range: TowerRangeLaser =
-          this.#range instanceof TowerRangeLaser
-            ? this.#range
-            : u_.throwError(
-                "Laser tower got assigned a range of a non-laser type",
-              );
-        this.#enemies.forEachFromFurthest((enemy) => {
+          this.#range instanceof TowerRangeLaser ?
+            this.#range
+          : u_.throwError(
+              "Laser tower got assigned a range of a non-laser type",
+            );
+        this.#enemies.forEachFromFurthest(enemy => {
           if (!isAttacking && range.touchesEnemy(enemy)) {
             isAttacking = true;
             enemy.takeDamage(dps / g.fps);
@@ -143,12 +143,12 @@ export class Tower {
         });
       } else if (this.type === "v_beam" && dps) {
         const range: TowerRangeVBeam =
-          this.#range instanceof TowerRangeVBeam
-            ? this.#range
-            : u_.throwError(
-                "V-beam tower got assigned a range of a non-v-beam type",
-              );
-        this.#enemies.forEachFromFurthest((enemy) => {
+          this.#range instanceof TowerRangeVBeam ?
+            this.#range
+          : u_.throwError(
+              "V-beam tower got assigned a range of a non-v-beam type",
+            );
+        this.#enemies.forEachFromFurthest(enemy => {
           if (range.touchesEnemy(enemy)) {
             isAttacking = true;
             enemy.takeDamage(dps / g.fps);

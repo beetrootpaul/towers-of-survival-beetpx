@@ -120,11 +120,11 @@ export class Gui {
       );
       chooseButton.draw(
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
-        params.isButtonXEnabled
-          ? this.#isXPressed
-            ? p8c.lightGrey
-            : p8c.lavender
-          : p8c.darkerGrey,
+        params.isButtonXEnabled ?
+          this.#isXPressed ?
+            p8c.lightGrey
+          : p8c.lavender
+        : p8c.darkerGrey,
         p8c.darkerGrey,
       );
     } else if (this.#gameState.buildingState === "tower-placement") {
@@ -167,11 +167,11 @@ export class Gui {
           g.canvasSize.x - g.warzoneBorder - b_.measureText(placeText).wh.x,
           g.canvasSize.y - g.warzoneBorder + 2,
         ),
-        params.isButtonXEnabled
-          ? this.#isXPressed
-            ? p8c.lightGrey
-            : p8c.lavender
-          : p8c.darkerGrey,
+        params.isButtonXEnabled ?
+          this.#isXPressed ?
+            p8c.lightGrey
+          : p8c.lavender
+        : p8c.darkerGrey,
       );
 
       const placeButton = new ButtonGlyph(
@@ -179,11 +179,11 @@ export class Gui {
       );
       placeButton.draw(
         g.canvasSize.add(-g.warzoneBorder + 2, -g.warzoneBorder + 1),
-        params.isButtonXEnabled
-          ? this.#isXPressed
-            ? p8c.lightGrey
-            : p8c.lavender
-          : p8c.darkerGrey,
+        params.isButtonXEnabled ?
+          this.#isXPressed ?
+            p8c.lightGrey
+          : p8c.lavender
+        : p8c.darkerGrey,
         p8c.darkerGrey,
       );
 
@@ -218,12 +218,14 @@ export class Gui {
               2,
             ),
           ),
-        this.#gameState.money.available >=
-          this.#gameState.towerChoice.chosenTower.cost
-          ? params.isButtonXEnabled
-            ? p8c.lightGrey
-            : p8c.darkerGrey
-          : p8c.darkRed,
+        (
+          this.#gameState.money.available >=
+            this.#gameState.towerChoice.chosenTower.cost
+        ) ?
+          params.isButtonXEnabled ?
+            p8c.lightGrey
+          : p8c.darkerGrey
+        : p8c.darkRed,
       );
     }
   }

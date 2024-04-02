@@ -27,7 +27,7 @@ export class TowerRangeBooster implements TowerRange {
   }
 
   reaches(anotherTile: Tile): boolean {
-    return TowerRangeBooster.#offsets.some((offset) =>
+    return TowerRangeBooster.#offsets.some(offset =>
       anotherTile.isSameAs(this.#tile.plus(offset)),
     );
   }

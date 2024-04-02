@@ -1,6 +1,6 @@
 import { BpxSprite, spr_, v_ } from "@beetpx/beetpx";
-import { spro_ } from "./misc/SpriteWithOffset";
 import { Pico8Colors } from "./Pico8Color";
+import { spro_ } from "./misc/SpriteWithOffset";
 import { WaveDescriptor } from "./waves/Wave";
 
 export const p8c = Pico8Colors;

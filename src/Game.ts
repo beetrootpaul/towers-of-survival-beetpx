@@ -122,13 +122,10 @@ export class Game {
         if (b_.debug) {
           const audioState = b_.getAudioContext().state;
           const audioStateText =
-            audioState === "suspended"
-              ? "s"
-              : audioState === "running"
-                ? "r"
-                : audioState === "closed"
-                  ? "c"
-                  : "@";
+            audioState === "suspended" ? "s"
+            : audioState === "running" ? "r"
+            : audioState === "closed" ? "c"
+            : "@";
           b_.drawText(
             audioStateText,
             v_(g.canvasSize.x - b_.measureText(audioStateText).wh.x, 0),
