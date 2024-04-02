@@ -2,20 +2,23 @@
 
 > a low-rez tower defense [BeetPx](https://github.com/beetrootpaul/beetpx) game
 
-The original version was created by [Beetroot Paul](https://beetrootpaul.com) in PICO-8 and submitted for the [LOWREZJAM 2022](https://itch.io/jam/lowrezjam-2022) – a game jam which requires games
-to have resolution of 64x64px.
+The original version was created by [Beetroot Paul](https://beetrootpaul.com) in
+PICO-8 and submitted for the
+[LOWREZJAM 2022](https://itch.io/jam/lowrezjam-2022) – a game jam which requires
+games to have resolution of 64x64px.
 
 ---
 
-This game is available to play in your browser
-on https://beetrootpaul.itch.io/towers-of-survival-beetpx
+This game is available to play in your browser on
+https://beetrootpaul.itch.io/towers-of-survival-beetpx
 
 **Controls**
 
-- `X` on a keyboard or on a screen (on touch devices) - enter tower building / choose
-  a selected tower / place a tower
+- `X` on a keyboard or on a screen (on touch devices) - enter tower building /
+  choose a selected tower / place a tower
 - `Z` on a keyboard or `O` on a screen (on touch devices) - open menu / cancel
-- keyboard arrows or `WSAD` or `WSAD` on a screen (on touch devices) - select next or previous tower / choose a place for a tower
+- keyboard arrows or `WSAD` or `WSAD` on a screen (on touch devices) - select
+  next or previous tower / choose a place for a tower
 
 ---
 
