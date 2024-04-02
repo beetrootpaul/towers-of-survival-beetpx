@@ -1,9 +1,9 @@
-import { BpxVector2d, v_ } from "@beetpx/beetpx";
-import { Game } from "../Game";
+import { b_, BpxVector2d, u_, v_ } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
+import { Game } from "../Game";
 import { GameState } from "../game_state/GameState";
-import { b, g, u } from "../globals";
+import { g } from "../globals";
 import { Gui } from "../gui/Gui";
 import { Placement } from "../placement/Placement";
 import { Towers } from "../towers/Towers";
@@ -42,7 +42,7 @@ export class ScreenGameplay implements Screen {
     this.#enemies = new Enemies({
       path: this.#warzone.path(),
       onEnemyReachedPathEnd: () => {
-        b.startPlayback(g.assets.sfxLiveLost);
+        b_.startPlayback(g.assets.sfxLiveLost);
         this.#gameState.lives.takeOne();
       },
     });
@@ -94,7 +94,7 @@ export class ScreenGameplay implements Screen {
 
     this.#enemies.preUpdate();
 
-    if (b.wasButtonJustReleased("b")) {
+    if (b_.wasButtonJustReleased("b")) {
       if (this.#gameState.buildingState === "idle") {
         Game.isPaused = true;
       } else if (this.#gameState.buildingState === "tower-choice") {
@@ -104,8 +104,8 @@ export class ScreenGameplay implements Screen {
         this.#placement = null;
       }
     }
-    if (b.wasButtonJustReleased("a")) {
-      b.startPlayback(g.assets.sfxButtonPress);
+    if (b_.wasButtonJustReleased("a")) {
+      b_.startPlayback(g.assets.sfxButtonPress);
 
       if (this.#gameState.buildingState === "idle") {
         this.#gameState.buildingState = "tower-choice";
@@ -120,7 +120,7 @@ export class ScreenGameplay implements Screen {
         this.#isButtonXEnabled = this.#placement.canBuild();
       } else if (this.#gameState.buildingState === "tower-placement") {
         if (this.#placement?.canBuild()) {
-          b.startPlayback(g.assets.sfxTowerPlaced);
+          b_.startPlayback(g.assets.sfxTowerPlaced);
           this.#gameState.money.subtract(
             this.#gameState.towerChoice.chosenTower.cost,
           );
@@ -131,21 +131,21 @@ export class ScreenGameplay implements Screen {
           this.#gameState.buildingState = "idle";
           this.#placement = null;
         } else {
-          b.startPlayback(g.assets.sfxCannotPlace);
+          b_.startPlayback(g.assets.sfxCannotPlace);
         }
       }
     }
 
-    if (b.wasButtonJustPressed("left")) {
+    if (b_.wasButtonJustPressed("left")) {
       this.#applyArrowButtonInput("left");
     }
-    if (b.wasButtonJustPressed("right")) {
+    if (b_.wasButtonJustPressed("right")) {
       this.#applyArrowButtonInput("right");
     }
-    if (b.wasButtonJustPressed("up")) {
+    if (b_.wasButtonJustPressed("up")) {
       this.#applyArrowButtonInput("up");
     }
-    if (b.wasButtonJustPressed("down")) {
+    if (b_.wasButtonJustPressed("down")) {
       this.#applyArrowButtonInput("down");
     }
 
@@ -167,7 +167,7 @@ export class ScreenGameplay implements Screen {
   #applyArrowButtonInput(arrowButton: "left" | "right" | "up" | "down"): void {
     const direction: BpxVector2d =
       ScreenGameplay.#arrowButtonsToDirections[arrowButton] ??
-      u.throwError(
+      u_.throwError(
         `There is no direction defined for arrow button "${arrowButton}"`,
       );
     if (this.#placement) {
@@ -175,10 +175,10 @@ export class ScreenGameplay implements Screen {
       this.#isButtonXEnabled = this.#placement.canBuild();
     } else if (this.#gameState.buildingState === "tower-choice") {
       if (direction.x > 0) {
-        b.startPlayback(g.assets.sfxButtonPress);
+        b_.startPlayback(g.assets.sfxButtonPress);
         this.#gameState.towerChoice.chooseNextTower();
       } else if (direction.x < 0) {
-        b.startPlayback(g.assets.sfxButtonPress);
+        b_.startPlayback(g.assets.sfxButtonPress);
         this.#gameState.towerChoice.choosePrevTower();
       }
     } else {

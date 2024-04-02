@@ -1,8 +1,8 @@
-import { BpxTimer, BpxVector2d, timer_ } from "@beetpx/beetpx";
+import { b_, BpxTimer, BpxVector2d, timer_, u_ } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
-import { b, g, p8c, u } from "../globals";
+import { g, p8c } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Warzone } from "../warzone/Warzone";
 import { TowerRange } from "./TowerRange";
@@ -128,7 +128,7 @@ export class Tower {
         const range: TowerRangeLaser =
           this.#range instanceof TowerRangeLaser
             ? this.#range
-            : u.throwError(
+            : u_.throwError(
                 "Laser tower got assigned a range of a non-laser type",
               );
         this.#enemies.forEachFromFurthest((enemy) => {
@@ -145,7 +145,7 @@ export class Tower {
         const range: TowerRangeVBeam =
           this.#range instanceof TowerRangeVBeam
             ? this.#range
-            : u.throwError(
+            : u_.throwError(
                 "V-beam tower got assigned a range of a non-v-beam type",
               );
         this.#enemies.forEachFromFurthest((enemy) => {
@@ -163,21 +163,21 @@ export class Tower {
         this.#shootingTimer = this.#newShootingTimer();
         //             if s.type == "laser" then
         if (this.type === "laser") {
-          b.startPlayback(g.assets.sfxLaser);
+          b_.startPlayback(g.assets.sfxLaser);
         } else if (this.type === "v_beam") {
-          b.startPlayback(g.assets.sfxVBeam);
+          b_.startPlayback(g.assets.sfxVBeam);
         }
       }
     }
   }
 
   draw(): void {
-    b.drawSprite(
+    b_.drawSprite(
       this.#descriptor.sprite,
       this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize),
     );
 
-    if (b.debug) {
+    if (b_.debug) {
       this.#range.draw(p8c.trueBlue, p8c.brownishBlack);
     }
   }

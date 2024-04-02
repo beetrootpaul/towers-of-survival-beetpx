@@ -1,5 +1,5 @@
-import { BpxVector2d } from "@beetpx/beetpx";
-import { g, u } from "../globals";
+import { BpxVector2d, u_ } from "@beetpx/beetpx";
+import { g } from "../globals";
 import { Path } from "../warzone/Path";
 
 export class PathProgression {
@@ -20,7 +20,7 @@ export class PathProgression {
   currentXy(): BpxVector2d {
     return (
       this.#pathPoints[this.#pointIndex] ??
-      u.throwError(
+      u_.throwError(
         `Tried to access non-existent path point at index ${this.#pointIndex}.`,
       )
     );

@@ -1,5 +1,5 @@
-import { v_ } from "@beetpx/beetpx";
-import { b, g, p8c } from "../globals";
+import { b_, v_ } from "@beetpx/beetpx";
+import { g, p8c } from "../globals";
 import { Tile } from "../misc/Tile";
 
 export class ChosenTileBorder {
@@ -29,7 +29,7 @@ export class ChosenTileBorder {
 
   draw(canBuild: boolean): void {
     for (const offset of ChosenTileBorder.#offsets) {
-      b.drawPixel(
+      b_.drawPixel(
         this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize).add(offset),
         canBuild ? p8c.mediumGreen : p8c.red,
       );

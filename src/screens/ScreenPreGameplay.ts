@@ -1,6 +1,6 @@
-import { timer_, v_ } from "@beetpx/beetpx";
+import { b_, timer_, v_ } from "@beetpx/beetpx";
 import { GameState } from "../game_state/GameState";
-import { b, g } from "../globals";
+import { g } from "../globals";
 import { Warzone } from "../warzone/Warzone";
 import { Screen } from "./Screen";
 import { ScreenGameplay } from "./ScreenGameplay";
@@ -45,13 +45,13 @@ export class ScreenPreGameplay implements Screen {
       clipProgress * (g.canvasSize.y / 2 - g.warzoneBorder),
     );
 
-    b.setClippingRegion(
+    b_.setClippingRegion(
       v_(0, g.warzoneBorder + clipY),
       g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY),
     );
 
     this.#warzone.draw();
 
-    b.removeClippingRegion();
+    b_.removeClippingRegion();
   }
 }

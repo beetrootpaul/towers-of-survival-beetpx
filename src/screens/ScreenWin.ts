@@ -1,5 +1,5 @@
-import { timer_, v_ } from "@beetpx/beetpx";
-import { b, g, p8c } from "../globals";
+import { b_, timer_, v_ } from "@beetpx/beetpx";
+import { g, p8c } from "../globals";
 import { Screen } from "./Screen";
 import { ScreenPreGameplay } from "./ScreenPreGameplay";
 
@@ -10,9 +10,9 @@ export class ScreenWin implements Screen {
   readonly #text2 = "[c1]*[c0] victory [c1]*";
   readonly #text3 = "* * *";
 
-  readonly #text1Size = b.measureText(this.#text1).wh;
-  readonly #text2Size = b.measureText(this.#text2).wh;
-  readonly #text3Size = b.measureText(this.#text3).wh;
+  readonly #text1Size = b_.measureText(this.#text1).wh;
+  readonly #text2Size = b_.measureText(this.#text2).wh;
+  readonly #text3Size = b_.measureText(this.#text3).wh;
 
   pauseTimers(): void {
     this.#timer.pause();
@@ -38,19 +38,19 @@ export class ScreenWin implements Screen {
       clipProgress * ((g.canvasSize.y - 2 * g.warzoneBorder) / 2),
     );
 
-    b.setClippingRegion(
+    b_.setClippingRegion(
       v_(0, g.warzoneBorder + clipY),
       g.canvasSize.sub(0, 2 * g.warzoneBorder + 2 * clipY),
     );
 
-    b.drawText(
+    b_.drawText(
       this.#text1,
       g.canvasSize
         .div(2)
         .add(-this.#text1Size.x / 2, -2.5 * (this.#text1Size.y + 1)),
       p8c.darkPeach,
     );
-    b.drawText(
+    b_.drawText(
       this.#text2,
       g.canvasSize
         .div(2)
@@ -63,7 +63,7 @@ export class ScreenWin implements Screen {
         },
       },
     );
-    b.drawText(
+    b_.drawText(
       this.#text3,
       g.canvasSize
         .div(2)
@@ -71,6 +71,6 @@ export class ScreenWin implements Screen {
       p8c.darkPeach,
     );
 
-    b.removeClippingRegion();
+    b_.removeClippingRegion();
   }
 }

@@ -1,6 +1,6 @@
-import { v_ } from "@beetpx/beetpx";
+import { b_, v_ } from "@beetpx/beetpx";
 import { TowerChoice } from "../game_state/TowerChoice";
-import { b, g, p8c } from "../globals";
+import { g, p8c } from "../globals";
 
 export class TowerInfo {
   readonly #towerChoice: TowerChoice;
@@ -11,7 +11,7 @@ export class TowerInfo {
 
   draw(): void {
     const chosenTower = this.#towerChoice.chosenTower;
-    b.drawSprite(chosenTower.sprite, v_(2, 2));
-    b.drawText(chosenTower.label, v_(g.warzoneBorder, 2), p8c.lavender);
+    b_.drawSprite(chosenTower.sprite, v_(2, 2));
+    b_.drawText(chosenTower.label, v_(g.warzoneBorder, 2), p8c.lavender);
   }
 }

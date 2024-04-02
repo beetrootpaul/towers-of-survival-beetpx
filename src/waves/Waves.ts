@@ -1,5 +1,6 @@
+import { u_ } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
-import { g, u } from "../globals";
+import { g } from "../globals";
 import { Wait } from "./Wait";
 import { Wave, WaveDescriptor } from "./Wave";
 
@@ -78,7 +79,7 @@ export class Waves {
   #currentWaveDescriptor(): WaveDescriptor {
     return (
       g.waves[this.waveNumber - 1] ??
-      u.throwError(
+      u_.throwError(
         `Tried to access non-existent wave descriptor at index ${
           this.waveNumber - 1
         }.`,

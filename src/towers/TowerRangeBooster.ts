@@ -1,5 +1,5 @@
-import { BpxRgbColor, BpxVector2d, v_ } from "@beetpx/beetpx";
-import { b, g } from "../globals";
+import { b_, BpxRgbColor, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { g } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Warzone } from "../warzone/Warzone";
 import { TowerRange } from "./TowerRange";
@@ -33,30 +33,30 @@ export class TowerRangeBooster implements TowerRange {
   }
 
   draw(color1: BpxRgbColor, color2: BpxRgbColor) {
-    b.setClippingRegion(
+    b_.setClippingRegion(
       v_(0, g.warzoneBorder),
       g.canvasSize.sub(0, 2 * g.warzoneBorder),
     );
 
-    b.drawRect(
+    b_.drawRect(
       this.#xy.sub(g.tileSize),
       v_(g.tileSize, g.tileSize).mul(3),
       color2,
     );
 
-    b.removeClippingRegion();
+    b_.removeClippingRegion();
 
     for (const offset of TowerRangeBooster.#offsets) {
       const neighbourTile = this.#tile.plus(offset);
       const xy = neighbourTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize);
       if (this.#warzone.canHaveTowerAt(neighbourTile)) {
-        b.setClippingRegion(xy, v_(g.tileSize, g.tileSize));
-        b.drawRect(
+        b_.setClippingRegion(xy, v_(g.tileSize, g.tileSize));
+        b_.drawRect(
           this.#xy.sub(g.tileSize),
           v_(g.tileSize, g.tileSize).mul(3),
           color1,
         );
-        b.removeClippingRegion();
+        b_.removeClippingRegion();
       }
     }
   }

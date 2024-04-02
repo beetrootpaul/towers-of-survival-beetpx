@@ -1,6 +1,6 @@
-import { v_ } from "@beetpx/beetpx";
+import { b_, v_ } from "@beetpx/beetpx";
 import { GameState } from "../game_state/GameState";
-import { b, g, p8c } from "../globals";
+import { g, p8c } from "../globals";
 import { Waves } from "../waves/Waves";
 import { ButtonGlyph } from "./ButtonGlyph";
 import { TowerChoiceGui } from "./TowerChoiceGui";
@@ -31,15 +31,15 @@ export class Gui {
       towerChoice: this.#gameState.towerChoice,
     });
 
-    this.#isXPressed = b.isButtonPressed("a");
-    this.#isOPressed = b.isButtonPressed("b");
+    this.#isXPressed = b_.isButtonPressed("a");
+    this.#isOPressed = b_.isButtonPressed("b");
   }
 
   update(): void {
     // We check it here and not in `draw` in order to avoid buttons changing their
     //   state during pause menu, when `draw` is called but `update` is not.
-    this.#isXPressed = b.isButtonPressed("a");
-    this.#isOPressed = b.isButtonPressed("b");
+    this.#isXPressed = b_.isButtonPressed("a");
+    this.#isOPressed = b_.isButtonPressed("b");
   }
 
   draw(params: { isButtonXEnabled: boolean }): void {
@@ -47,7 +47,7 @@ export class Gui {
       this.#waveStatus.draw();
 
       const menuText = "menu";
-      b.drawText(
+      b_.drawText(
         menuText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
         this.#isOPressed ? p8c.lightGrey : p8c.mauve,
@@ -63,10 +63,10 @@ export class Gui {
       );
 
       const buildText = "build";
-      b.drawText(
+      b_.drawText(
         buildText,
         v_(
-          g.canvasSize.x - g.warzoneBorder - b.measureText(buildText).wh.x,
+          g.canvasSize.x - g.warzoneBorder - b_.measureText(buildText).wh.x,
           g.canvasSize.y - g.warzoneBorder + 2,
         ),
         this.#isXPressed ? p8c.lightGrey : p8c.mauve,
@@ -84,21 +84,21 @@ export class Gui {
       this.#towerInfo.draw();
 
       const moneyText = this.#gameState.money.available.toFixed(0);
-      const moneyTextSize = b.measureText(moneyText).wh;
-      b.drawText(
+      const moneyTextSize = b_.measureText(moneyText).wh;
+      b_.drawText(
         moneyText,
         v_(g.canvasSize.x - g.warzoneBorder - moneyTextSize.x, 2),
         p8c.lightGrey,
       );
       const dollarText = "$";
-      b.drawText(
+      b_.drawText(
         dollarText,
         v_(g.canvasSize.x - g.warzoneBorder + 2, 2),
         p8c.lavender,
       );
 
       const backText = "<";
-      b.drawText(
+      b_.drawText(
         backText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
         this.#isOPressed ? p8c.lightGrey : p8c.mauve,
@@ -131,21 +131,21 @@ export class Gui {
       this.#towerInfo.draw();
 
       const moneyText = this.#gameState.money.available.toFixed(0);
-      const moneyTextSize = b.measureText(moneyText).wh;
-      b.drawText(
+      const moneyTextSize = b_.measureText(moneyText).wh;
+      b_.drawText(
         moneyText,
         v_(g.canvasSize.x - g.warzoneBorder - moneyTextSize.x, 2),
         p8c.lightGrey,
       );
       const dollarText = "$";
-      b.drawText(
+      b_.drawText(
         dollarText,
         v_(g.canvasSize.x - g.warzoneBorder + 2, 2),
         p8c.lavender,
       );
 
       const backText = "<";
-      b.drawText(
+      b_.drawText(
         backText,
         v_(g.warzoneBorder, g.canvasSize.y - g.warzoneBorder + 2),
         this.#isOPressed ? p8c.lightGrey : p8c.mauve,
@@ -161,10 +161,10 @@ export class Gui {
       );
 
       const placeText = "place";
-      b.drawText(
+      b_.drawText(
         placeText,
         v_(
-          g.canvasSize.x - g.warzoneBorder - b.measureText(placeText).wh.x,
+          g.canvasSize.x - g.warzoneBorder - b_.measureText(placeText).wh.x,
           g.canvasSize.y - g.warzoneBorder + 2,
         ),
         params.isButtonXEnabled
@@ -187,15 +187,15 @@ export class Gui {
         p8c.darkerGrey,
       );
 
-      b.drawText(
+      b_.drawText(
         dollarText,
         g.canvasSize
           .sub(g.warzoneBorder)
           .add(
             v_(
-              -b.measureText(placeText).wh.x -
+              -b_.measureText(placeText).wh.x -
                 3 -
-                b.measureText(dollarText).wh.x,
+                b_.measureText(dollarText).wh.x,
               2,
             ),
           ),
@@ -204,17 +204,17 @@ export class Gui {
       const costText = `-${this.#gameState.towerChoice.chosenTower.cost.toFixed(
         0,
       )}`;
-      b.drawText(
+      b_.drawText(
         costText,
         g.canvasSize
           .sub(g.warzoneBorder)
           .add(
             v_(
-              -b.measureText(placeText).wh.x -
+              -b_.measureText(placeText).wh.x -
                 3 -
-                b.measureText(dollarText).wh.x -
+                b_.measureText(dollarText).wh.x -
                 2 -
-                b.measureText(costText).wh.x,
+                b_.measureText(costText).wh.x,
               2,
             ),
           ),

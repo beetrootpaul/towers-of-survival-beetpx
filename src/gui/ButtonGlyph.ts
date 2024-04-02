@@ -1,10 +1,11 @@
 import {
+  b_,
   BpxRgbColor,
   BpxSprite,
   BpxSpriteColorMapping,
   BpxVector2d,
 } from "@beetpx/beetpx";
-import { b, g, p8c } from "../globals";
+import { g, p8c } from "../globals";
 
 export class ButtonGlyph {
   readonly #glyphSprite: BpxSprite;
@@ -14,7 +15,7 @@ export class ButtonGlyph {
   }
 
   draw(xy: BpxVector2d, color1: BpxRgbColor, color2: BpxRgbColor): void {
-    const prevMapping = b.setSpriteColorMapping(
+    const prevMapping = b_.setSpriteColorMapping(
       BpxSpriteColorMapping.from([
         [g.buttonTemplateColor1, color1],
         [g.buttonTemplateColor2, color2],
@@ -22,8 +23,8 @@ export class ButtonGlyph {
       ]),
     );
 
-    b.drawSprite(this.#glyphSprite, xy);
+    b_.drawSprite(this.#glyphSprite, xy);
 
-    b.setSpriteColorMapping(prevMapping);
+    b_.setSpriteColorMapping(prevMapping);
   }
 }

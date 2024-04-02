@@ -1,5 +1,5 @@
-import { BpxSprite, BpxVector2d, v_ } from "@beetpx/beetpx";
-import { b, g, p8c, u } from "../globals";
+import { b_, BpxSprite, BpxVector2d, u_, v_ } from "@beetpx/beetpx";
+import { g, p8c } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Path } from "./Path";
 
@@ -78,8 +78,8 @@ export class Road {
         if (spriteName) {
           const sprite: BpxSprite =
             g.road.sprites[spriteName] ??
-            u.throwError(`No "road.sprites.${spriteName}" sprite defined.`);
-          b.drawSprite(
+            u_.throwError(`No "road.sprites.${spriteName}" sprite defined.`);
+          b_.drawSprite(
             sprite,
             v_(tileX, tileY).add(g.warzoneBorderTiles).mul(g.tileSize),
           );
@@ -87,10 +87,10 @@ export class Road {
       }
     }
 
-    if (b.debug) {
+    if (b_.debug) {
       let colorToggle = true;
       for (const point of this.path.points) {
-        b.drawPixel(point, colorToggle ? p8c.white : p8c.blue);
+        b_.drawPixel(point, colorToggle ? p8c.white : p8c.blue);
         colorToggle = !colorToggle;
       }
     }

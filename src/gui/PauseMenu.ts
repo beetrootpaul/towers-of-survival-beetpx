@@ -1,6 +1,6 @@
-import { BpxCanvasSnapshotColorMapping, v_ } from "@beetpx/beetpx";
+import { b_, BpxCanvasSnapshotColorMapping, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
-import { b, g, p8c } from "../globals";
+import { g, p8c } from "../globals";
 
 export class PauseMenu {
   static #arrowPixelsOffsets = [
@@ -16,24 +16,24 @@ export class PauseMenu {
   #pressedIndex = -1;
 
   update(): void {
-    if (b.isButtonPressed("a") || b.isButtonPressed("b")) {
+    if (b_.isButtonPressed("a") || b_.isButtonPressed("b")) {
       this.#pressedIndex = this.#selected;
     } else {
       this.#pressedIndex = -1;
     }
 
-    if (b.wasButtonJustPressed("up")) {
+    if (b_.wasButtonJustPressed("up")) {
       this.#selected = Math.max(0, this.#selected - 1);
     }
-    if (b.wasButtonJustPressed("down")) {
+    if (b_.wasButtonJustPressed("down")) {
       this.#selected = Math.min(1, this.#selected + 1);
     }
 
-    if (b.wasButtonJustReleased("a") || b.wasButtonJustReleased("b")) {
+    if (b_.wasButtonJustReleased("a") || b_.wasButtonJustReleased("b")) {
       if (this.#selected === 0) {
         Game.isPaused = false;
       } else if (this.#selected === 1) {
-        b.restart();
+        b_.restart();
       }
     }
   }
@@ -41,8 +41,8 @@ export class PauseMenu {
   draw(): void {
     const textContinue = "continue";
     const textRestart = "restart";
-    const textContinueWh = b.measureText(textContinue).wh;
-    const textRestartWh = b.measureText(textRestart).wh;
+    const textContinueWh = b_.measureText(textContinue).wh;
+    const textRestartWh = b_.measureText(textRestart).wh;
 
     const padding = 6;
     const gapBetweenLines = 4;
@@ -53,8 +53,8 @@ export class PauseMenu {
     );
     const xy = g.canvasSize.sub(wh).div(2);
 
-    b.takeCanvasSnapshot();
-    b.drawRectFilled(
+    b_.takeCanvasSnapshot();
+    b_.drawRectFilled(
       xy.sub(2),
       wh.add(4),
       BpxCanvasSnapshotColorMapping.of((rgbColor) =>
@@ -65,8 +65,8 @@ export class PauseMenu {
           : rgbColor,
       ),
     );
-    b.drawRect(xy.sub(1), wh.add(2), p8c.white);
-    b.drawText(
+    b_.drawRect(xy.sub(1), wh.add(2), p8c.white);
+    b_.drawText(
       "continue",
       xy.add(
         padding + (this.#selected === 0 ? 1 : 0),
@@ -74,7 +74,7 @@ export class PauseMenu {
       ),
       this.#pressedIndex === 0 ? p8c.peach : p8c.white,
     );
-    b.drawText(
+    b_.drawText(
       "restart",
       xy.add(
         padding + (this.#selected === 1 ? 1 : 0),
@@ -86,7 +86,7 @@ export class PauseMenu {
       this.#pressedIndex === 1 ? p8c.peach : p8c.white,
     );
     for (const offset of PauseMenu.#arrowPixelsOffsets) {
-      b.drawPixel(
+      b_.drawPixel(
         xy
           .add(
             padding,

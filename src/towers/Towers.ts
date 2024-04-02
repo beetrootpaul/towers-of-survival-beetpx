@@ -1,8 +1,8 @@
-import { v_ } from "@beetpx/beetpx";
+import { u_, v_ } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
-import { g, u } from "../globals";
+import { g } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Warzone } from "../warzone/Warzone";
 import { Tower, TowerType } from "./Tower";
@@ -62,7 +62,7 @@ export class Towers {
         t.type === "booster" &&
         (t.range instanceof TowerRangeBooster
           ? t.range.reaches(tile)
-          : u.throwError(
+          : u_.throwError(
               "Booster tower got assigned a range of a non-booster type",
             )),
     ).length;

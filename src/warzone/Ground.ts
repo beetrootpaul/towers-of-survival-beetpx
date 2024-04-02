@@ -1,7 +1,7 @@
-import { BpxSprite, v_, v_0_0_ } from "@beetpx/beetpx";
-import { b, g, u } from "../globals";
-import { Tile } from "../misc/Tile";
+import { b_, BpxSprite, u_, v_, v_0_0_ } from "@beetpx/beetpx";
+import { g } from "../globals";
 import { forEachIntXyWithinRectOf } from "../misc/forEachIntXyWithinRectOf";
+import { Tile } from "../misc/Tile";
 
 export class Ground {
   static readonly #plainOffsets = [
@@ -23,7 +23,7 @@ export class Ground {
     forEachIntXyWithinRectOf(v_0_0_, g.warzoneSizeTiles, (xy) => {
       this.#sprites[`${xy.x}|${xy.y}`] =
         g.ground.sprites.textured ??
-        u.throwError(`No "ground.sprites.textured" sprite defined.`);
+        u_.throwError(`No "ground.sprites.textured" sprite defined.`);
     });
   }
 
@@ -37,7 +37,7 @@ export class Ground {
       if (this.#sprites[`${t.xy.x}|${t.xy.y}`]) {
         this.#sprites[`${t.xy.x}|${t.xy.y}`] =
           g.ground.sprites.plain ??
-          u.throwError(`No "ground.sprites.plain" sprite defined.`);
+          u_.throwError(`No "ground.sprites.plain" sprite defined.`);
       }
     }
   }
@@ -46,7 +46,7 @@ export class Ground {
     forEachIntXyWithinRectOf(v_0_0_, g.warzoneSizeTiles, (tileXy) => {
       const sprite = this.#sprites[`${tileXy.x}|${tileXy.y}`];
       if (sprite) {
-        b.drawSprite(sprite, tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
+        b_.drawSprite(sprite, tileXy.add(g.warzoneBorderTiles).mul(g.tileSize));
       }
     });
   }

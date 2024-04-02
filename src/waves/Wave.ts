@@ -1,6 +1,6 @@
-import { BpxTimer, timer_ } from "@beetpx/beetpx";
+import { BpxTimer, timer_, u_ } from "@beetpx/beetpx";
 import { Enemies, EnemyType } from "../enemies/Enemies";
-import { g, u } from "../globals";
+import { g } from "../globals";
 
 export type WaveDescriptor = {
   wait: number;
@@ -28,7 +28,7 @@ export class Wave {
                 ? "medium"
                 : spawn === "b"
                   ? "big"
-                  : u.throwError(
+                  : u_.throwError(
                       `Unexpected spawn descriptor found: "${spawn}".`,
                     ),
         });

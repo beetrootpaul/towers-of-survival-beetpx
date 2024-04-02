@@ -1,13 +1,9 @@
-import { BeetPx, BpxSprite, BpxUtils, spr_, v_ } from "@beetpx/beetpx";
-import { Pico8Colors } from "./Pico8Color";
+import { BpxSprite, spr_, v_ } from "@beetpx/beetpx";
 import { spro_ } from "./misc/SpriteWithOffset";
+import { Pico8Colors } from "./Pico8Color";
 import { WaveDescriptor } from "./waves/Wave";
 
 export const p8c = Pico8Colors;
-
-export const b = BeetPx;
-
-export const u = BpxUtils;
 
 const tileSize = 4;
 const warzoneBorderTiles = 2;
