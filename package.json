@@ -14,7 +14,7 @@
     "node": ">=14.18.0"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "checkForDepedencyUpdates": "npm-check-updates",
     "cleanup": "rimraf ./.beetpx/ ./index.html ./itch_io_simulation.html",
     "format": "prettier --ignore-path .gitignore --write src/ README.md",
@@ -28,7 +28,7 @@
   "devDependencies": {
     "@beetpx/beetpx": "0.37.0-fix1",
     "@types/node": "20.12.2",
-    "husky": "8.0.3",
+    "husky": "9.0.11",
     "prettier": "3.2.5",
     "prettier-plugin-organize-imports": "3.2.4",
     "rimraf": "5.0.5",
