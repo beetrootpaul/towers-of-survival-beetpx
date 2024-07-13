@@ -75,7 +75,6 @@ export class Game {
         this.#nextScreen = new ScreenTitle();
         this.#currentScreen = this.#nextScreen;
 
-        b_.stopAllPlaybacks();
         this.#startMusic();
       });
 
