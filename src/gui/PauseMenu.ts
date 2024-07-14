@@ -1,5 +1,4 @@
 import { b_, BpxCanvasSnapshotColorMapping, v_ } from "@beetpx/beetpx";
-import { Game } from "../Game";
 import { g, p8c } from "../globals";
 
 export class PauseMenu {
@@ -31,7 +30,7 @@ export class PauseMenu {
 
     if (b_.wasButtonJustReleased("a") || b_.wasButtonJustReleased("b")) {
       if (this.#selected === 0) {
-        Game.isPaused = false;
+        b_.resume();
       } else if (this.#selected === 1) {
         b_.restart();
       }

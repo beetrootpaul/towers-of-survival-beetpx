@@ -14,14 +14,6 @@ export class ScreenWin implements Screen {
   readonly #text2Size = b_.measureText(this.#text2).wh;
   readonly #text3Size = b_.measureText(this.#text3).wh;
 
-  pauseTimers(): void {
-    this.#timer.pause();
-  }
-
-  resumeTimers(): void {
-    this.#timer.resume();
-  }
-
   update(): Screen {
     let nextScreen: Screen = this;
 

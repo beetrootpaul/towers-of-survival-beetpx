@@ -43,16 +43,6 @@ export class Waves {
     return this.isLastWave() && this.wave && this.wave.progress() >= 1;
   }
 
-  pauseTimers(): void {
-    this.#wait?.pauseTimers();
-    this.#wave?.pauseTimers();
-  }
-
-  resumeTimers(): void {
-    this.#wait?.resumeTimers();
-    this.#wave?.resumeTimers();
-  }
-
   update(): void {
     const waitHasEnded = this.#wait && this.#wait.progress() >= 1;
     const waveHasEnded = this.#wave && this.#wave.progress() >= 1;

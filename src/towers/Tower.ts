@@ -102,16 +102,6 @@ export class Tower {
     return this.#range;
   }
 
-  pauseTimers(): void {
-    this.#chargingTimer?.pause();
-    this.#shootingTimer?.pause();
-  }
-
-  resumeTimers(): void {
-    this.#chargingTimer?.resume();
-    this.#shootingTimer?.resume();
-  }
-
   update(): void {
     if (this.#chargingTimer && this.#chargingTimer.hasJustFinished) {
       this.#chargingTimer = null;

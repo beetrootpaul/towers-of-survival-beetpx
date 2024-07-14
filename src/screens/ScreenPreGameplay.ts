@@ -18,14 +18,6 @@ export class ScreenPreGameplay implements Screen {
     });
   }
 
-  pauseTimers(): void {
-    this.#timer.pause();
-  }
-
-  resumeTimers(): void {
-    this.#timer.resume();
-  }
-
   update(): Screen {
     let nextScreen: Screen = this;
 

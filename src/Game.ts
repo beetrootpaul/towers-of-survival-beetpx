@@ -6,8 +6,6 @@ import { ScreenTitle } from "./screens/ScreenTitle";
 import { TinyFont } from "./TinyFont";
 
 export class Game {
-  static isPaused: boolean = false;
-
   #pauseMenu: PauseMenu | undefined;
 
   #currentScreen: Screen | undefined;
@@ -17,6 +15,9 @@ export class Game {
     b_.init({
       canvasSize: "64x64",
       fixedTimestep: "30fps",
+      globalPause: {
+        available: true,
+      },
       assets: [
         g.assets.spritesheet,
         g.assets.musicBg1,
@@ -69,7 +70,6 @@ export class Game {
           loopedRepeatFrames: 4,
         });
 
-        Game.isPaused = false;
         this.#pauseMenu = new PauseMenu();
 
         this.#nextScreen = new ScreenTitle();
@@ -79,19 +79,13 @@ export class Game {
       });
 
       b_.setOnUpdate(() => {
-        if (b_.wasButtonJustPressed("menu")) {
-          Game.isPaused = !Game.isPaused;
-        }
-
-        if (Game.isPaused) {
-          this.#currentScreen?.pauseTimers();
+        if (b_.isPaused) {
           this.#pauseMenu?.update();
         } else {
           // We intentionally reassign screen on the next update iteration
           //   then the current one, because we still need to use the previous one
           //   for a drawing.
           this.#currentScreen = this.#nextScreen;
-          this.#currentScreen?.resumeTimers();
           this.#nextScreen = this.#currentScreen?.update();
         }
       });
@@ -114,7 +108,7 @@ export class Game {
         );
 
         this.#currentScreen?.draw();
-        if (Game.isPaused) {
+        if (b_.isPaused) {
           this.#pauseMenu?.draw();
         }
 
@@ -141,63 +135,68 @@ export class Game {
     // SFXs exported from PICO-8 have full length of 32 notes, even though in the game they are defined as 24 notes
     const durationMs = (fullSoundDurationMs: number) =>
       (fullSoundDurationMs * 24) / 32;
-    b_.startPlaybackSequence({
-      intro: [
-        [{ url: g.assets.musicBg1, durationMs }],
-        [{ url: g.assets.musicBg1, durationMs }],
-        [{ url: g.assets.musicBg2, durationMs }],
-        [{ url: g.assets.musicBg2, durationMs }],
-      ],
-      loop: [
-        // 1st four
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody1 },
+    b_.startPlaybackSequence(
+      {
+        intro: [
+          [{ url: g.assets.musicBg1, durationMs }],
+          [{ url: g.assets.musicBg1, durationMs }],
+          [{ url: g.assets.musicBg2, durationMs }],
+          [{ url: g.assets.musicBg2, durationMs }],
         ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody2 },
+        loop: [
+          // 1st four
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody1 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody2 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody1 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody2 },
+          ],
+          // 2nd four
+          [
+            { url: g.assets.musicBg3, durationMs },
+            { url: g.assets.musicMelody3 },
+          ],
+          [
+            { url: g.assets.musicBg3, durationMs },
+            { url: g.assets.musicMelody4 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody1 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody2 },
+          ],
+          // 3rd four
+          [
+            { url: g.assets.musicBg4, durationMs },
+            { url: g.assets.musicMelody5 },
+          ],
+          [
+            { url: g.assets.musicBg4, durationMs },
+            { url: g.assets.musicMelody6 },
+          ],
+          [
+            { url: g.assets.musicBg1, durationMs },
+            { url: g.assets.musicMelody7 },
+          ],
+          [{ url: g.assets.musicBg2, durationMs }],
         ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody1 },
-        ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody2 },
-        ],
-        // 2nd four
-        [
-          { url: g.assets.musicBg3, durationMs },
-          { url: g.assets.musicMelody3 },
-        ],
-        [
-          { url: g.assets.musicBg3, durationMs },
-          { url: g.assets.musicMelody4 },
-        ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody1 },
-        ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody2 },
-        ],
-        // 3rd four
-        [
-          { url: g.assets.musicBg4, durationMs },
-          { url: g.assets.musicMelody5 },
-        ],
-        [
-          { url: g.assets.musicBg4, durationMs },
-          { url: g.assets.musicMelody6 },
-        ],
-        [
-          { url: g.assets.musicBg1, durationMs },
-          { url: g.assets.musicMelody7 },
-        ],
-        [{ url: g.assets.musicBg2, durationMs }],
-      ],
-    });
+      },
+      {
+        onGamePause: "ignore",
+      },
+    );
   }
 }

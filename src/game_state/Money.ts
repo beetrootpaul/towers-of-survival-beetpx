@@ -14,14 +14,6 @@ export class Money {
     this.#available -= amount;
   }
 
-  pauseTimers(): void {
-    this.#timer.pause();
-  }
-
-  resumeTimers(): void {
-    this.#timer.resume();
-  }
-
   update(): void {
     if (this.#timer.hasJustFinished) {
       this.#available += 1;

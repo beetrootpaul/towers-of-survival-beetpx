@@ -37,20 +37,6 @@ export class Wave {
     return this.#progressTimer.progress;
   }
 
-  pauseTimers(): void {
-    this.#spawnTimers.forEach(({ timer }) => {
-      timer.pause();
-    });
-    this.#progressTimer.pause();
-  }
-
-  resumeTimers(): void {
-    this.#spawnTimers.forEach(({ timer }) => {
-      timer.resume();
-    });
-    this.#progressTimer.resume();
-  }
-
   update(): void {
     this.#spawnTimers = this.#spawnTimers.filter(({ timer, enemyType }) => {
       if (timer.hasFinished) {

@@ -1,7 +1,6 @@
 import { b_, BpxVector2d, u_, v_ } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
-import { Game } from "../Game";
 import { GameState } from "../game_state/GameState";
 import { g } from "../globals";
 import { Gui } from "../gui/Gui";
@@ -66,18 +65,6 @@ export class ScreenGameplay implements Screen {
     });
   }
 
-  pauseTimers(): void {
-    this.#gameState.pauseTimers();
-    this.#waves.pauseTimers();
-    this.#towers.pauseTimers();
-  }
-
-  resumeTimers(): void {
-    this.#gameState.resumeTimers();
-    this.#waves.resumeTimers();
-    this.#towers.resumeTimers();
-  }
-
   update(): Screen {
     let nextScreen: Screen = this;
 
@@ -96,7 +83,7 @@ export class ScreenGameplay implements Screen {
 
     if (b_.wasButtonJustReleased("b")) {
       if (this.#gameState.buildingState === "idle") {
-        Game.isPaused = true;
+        b_.pause();
       } else if (this.#gameState.buildingState === "tower-choice") {
         this.#gameState.buildingState = "idle";
       } else if (this.#gameState.buildingState === "tower-placement") {
