@@ -3,7 +3,7 @@ import { g, p8c } from "./globals";
 import { PauseMenu } from "./gui/PauseMenu";
 import { Screen } from "./screens/Screen";
 import { ScreenTitle } from "./screens/ScreenTitle";
-import { TinyFont } from "./TinyFont";
+import { tinyFont } from "./tinyFont";
 
 export class Game {
   #pauseMenu: PauseMenu | undefined;
@@ -51,7 +51,7 @@ export class Game {
       },
     }).then(async ({ startGame }) => {
       b_.setOnStarted(() => {
-        b_.useFont(new TinyFont());
+        b_.useFont(tinyFont);
 
         b_.setButtonRepeating("left", {
           firstRepeatFrames: 8,
