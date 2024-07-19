@@ -6,7 +6,7 @@ export const tinyFont = font_({
   descent: 0,
   lineGap: 1,
 
-  mapChar: (char: string): string => char.toLowerCase(),
+  mapGrapheme: (grapheme: string): string => grapheme.toLowerCase(),
 
   glyphs: new Map<string, BpxGlyph>([
     //
