@@ -1,4 +1,4 @@
-import { b_, BpxDrawingPattern, BpxVector2d, v_, v_0_0_ } from "@beetpx/beetpx";
+import { $d, $v, $v_0_0, BpxDrawingPattern, BpxVector2d } from "@beetpx/beetpx";
 import { Money } from "../game_state/Money";
 import { TowerChoice, TowerDescriptor } from "../game_state/TowerChoice";
 import { g, p8c } from "../globals";
@@ -35,7 +35,7 @@ export class Placement {
     this.#otherTowers = params.otherTowers;
     this.#money = params.money;
 
-    this.#chosenTile = new Tile(v_(4, 5));
+    this.#chosenTile = new Tile($v(4, 5));
 
     this.#chosenTileBorder = new ChosenTileBorder(this.#chosenTile);
 
@@ -93,7 +93,7 @@ export class Placement {
   moveChosenTile(direction: BpxVector2d): void {
     this.#chosenTile = this.#chosenTile.plus(direction);
     this.#chosenTile = new Tile(
-      this.#chosenTile.xy.clamp(v_0_0_, g.warzoneSizeTiles.sub(1)),
+      this.#chosenTile.xy.clamp($v_0_0, g.warzoneSizeTiles.sub(1)),
     );
 
     this.#towerRange = this.#newTowerRange();
@@ -102,7 +102,7 @@ export class Placement {
   }
 
   draw(): void {
-    b_.drawSprite(
+    $d.sprite(
       this.#chosenTower.sprite,
       this.#chosenTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize),
     );
@@ -112,9 +112,9 @@ export class Placement {
     const canBuildCheckResult = this.#checkIfCanBuild();
 
     for (const collidingTower of canBuildCheckResult.collidingTowers) {
-      b_.setDrawingPattern(BpxDrawingPattern.of(0b1010_0101_1010_0101));
-      b_.drawRectFilled(collidingTower.xy, v_(g.tileSize, g.tileSize), p8c.red);
-      b_.setDrawingPattern(BpxDrawingPattern.primaryOnly);
+      $d.setDrawingPattern(BpxDrawingPattern.of(0b1010_0101_1010_0101));
+      $d.rectFilled(collidingTower.xy, $v(g.tileSize, g.tileSize), p8c.red);
+      $d.setDrawingPattern(BpxDrawingPattern.primaryOnly);
     }
 
     this.#chosenTileBorder.draw(canBuildCheckResult.canBuild);

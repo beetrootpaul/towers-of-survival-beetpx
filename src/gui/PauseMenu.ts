@@ -1,38 +1,38 @@
-import { b_, BpxCanvasSnapshotColorMapping, v_ } from "@beetpx/beetpx";
+import { $, $d, $v, BpxCanvasSnapshotColorMapping } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 
 export class PauseMenu {
   static #arrowPixelsOffsets = [
-    v_(0, 0),
-    v_(0, 1),
-    v_(0, 2),
-    v_(0, 3),
-    v_(1, 1),
-    v_(1, 2),
+    $v(0, 0),
+    $v(0, 1),
+    $v(0, 2),
+    $v(0, 3),
+    $v(1, 1),
+    $v(1, 2),
   ];
 
   #selected = 0;
   #pressedIndex = -1;
 
   update(): void {
-    if (b_.isButtonPressed("a") || b_.isButtonPressed("b")) {
+    if ($.isButtonPressed("a") || $.isButtonPressed("b")) {
       this.#pressedIndex = this.#selected;
     } else {
       this.#pressedIndex = -1;
     }
 
-    if (b_.wasButtonJustPressed("up")) {
+    if ($.wasButtonJustPressed("up")) {
       this.#selected = Math.max(0, this.#selected - 1);
     }
-    if (b_.wasButtonJustPressed("down")) {
+    if ($.wasButtonJustPressed("down")) {
       this.#selected = Math.min(1, this.#selected + 1);
     }
 
-    if (b_.wasButtonJustReleased("a") || b_.wasButtonJustReleased("b")) {
+    if ($.wasButtonJustReleased("a") || $.wasButtonJustReleased("b")) {
       if (this.#selected === 0) {
-        b_.resume();
+        $.resume();
       } else if (this.#selected === 1) {
-        b_.restart();
+        $.restart();
       }
     }
   }
@@ -40,20 +40,20 @@ export class PauseMenu {
   draw(): void {
     const textContinue = "continue";
     const textRestart = "restart";
-    const textContinueWh = b_.measureText(textContinue).wh;
-    const textRestartWh = b_.measureText(textRestart).wh;
+    const textContinueWh = $d.measureText(textContinue).wh;
+    const textRestartWh = $d.measureText(textRestart).wh;
 
     const padding = 6;
     const gapBetweenLines = 4;
 
-    const wh = v_(
+    const wh = $v(
       Math.max(textContinueWh.x, textRestartWh.x) + 2 * padding,
       textContinueWh.y + textRestartWh.y + 2 * padding + gapBetweenLines,
     );
     const xy = g.canvasSize.sub(wh).div(2);
 
-    b_.takeCanvasSnapshot();
-    b_.drawRectFilled(
+    $d.takeCanvasSnapshot();
+    $d.rectFilled(
       xy.sub(2),
       wh.add(4),
       BpxCanvasSnapshotColorMapping.of(rgbColor =>
@@ -64,8 +64,8 @@ export class PauseMenu {
         : rgbColor,
       ),
     );
-    b_.drawRect(xy.sub(1), wh.add(2), p8c.white);
-    b_.drawText(
+    $d.rect(xy.sub(1), wh.add(2), p8c.white);
+    $d.text(
       "continue",
       xy.add(
         padding + (this.#selected === 0 ? 1 : 0),
@@ -73,7 +73,7 @@ export class PauseMenu {
       ),
       this.#pressedIndex === 0 ? p8c.peach : p8c.white,
     );
-    b_.drawText(
+    $d.text(
       "restart",
       xy.add(
         padding + (this.#selected === 1 ? 1 : 0),
@@ -85,7 +85,7 @@ export class PauseMenu {
       this.#pressedIndex === 1 ? p8c.peach : p8c.white,
     );
     for (const offset of PauseMenu.#arrowPixelsOffsets) {
-      b_.drawPixel(
+      $d.pixel(
         xy
           .add(
             padding,

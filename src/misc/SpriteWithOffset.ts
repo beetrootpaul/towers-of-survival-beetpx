@@ -1,6 +1,6 @@
-import { BpxImageUrl, BpxSprite, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { $v, BpxImageUrl, BpxSprite, BpxVector2d } from "@beetpx/beetpx";
 
-export function spro_(imageUrl: BpxImageUrl) {
+export function $spro(imageUrl: BpxImageUrl) {
   return (
     x1: number,
     y1: number,
@@ -11,13 +11,13 @@ export function spro_(imageUrl: BpxImageUrl) {
     hitboxOffsetX?: number,
     hitboxOffsetY?: number,
   ) => {
-    const xy1 = v_(x1, y1);
+    const xy1 = $v(x1, y1);
     return new SpriteWithOffset(
       imageUrl,
       xy1,
-      xy1.add(v_(w, h)),
-      v_(offsetX, offsetY),
-      v_(hitboxOffsetX ?? 0, hitboxOffsetY ?? 0),
+      xy1.add($v(w, h)),
+      $v(offsetX, offsetY),
+      $v(hitboxOffsetX ?? 0, hitboxOffsetY ?? 0),
     );
   };
 }

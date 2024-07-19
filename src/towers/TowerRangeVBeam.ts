@@ -1,4 +1,4 @@
-import { b_, BpxDrawingPattern, BpxRgbColor, v_ } from "@beetpx/beetpx";
+import { $d, $v, BpxDrawingPattern, BpxRgbColor } from "@beetpx/beetpx";
 import { Enemy } from "../enemies/Enemy";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
@@ -22,19 +22,19 @@ export class TowerRangeVBeam implements TowerRange {
   }
 
   draw(color1: BpxRgbColor, color2: BpxRgbColor) {
-    b_.setClippingRegion(
-      v_(0, g.warzoneBorder),
+    $d.setClippingRegion(
+      $v(0, g.warzoneBorder),
       g.canvasSize.sub(0, 2 * g.warzoneBorder),
     );
 
-    b_.setDrawingPattern(BpxDrawingPattern.of(0b1010_0101_1010_0101));
-    b_.drawRectFilled(
-      v_(this.#x1, g.warzoneBorder),
-      v_(this.#x2 - this.#x1 + 1, g.canvasSize.y - 2 * g.warzoneBorder),
+    $d.setDrawingPattern(BpxDrawingPattern.of(0b1010_0101_1010_0101));
+    $d.rectFilled(
+      $v(this.#x1, g.warzoneBorder),
+      $v(this.#x2 - this.#x1 + 1, g.canvasSize.y - 2 * g.warzoneBorder),
       color1,
     );
-    b_.setDrawingPattern(BpxDrawingPattern.primaryOnly);
+    $d.setDrawingPattern(BpxDrawingPattern.primaryOnly);
 
-    b_.removeClippingRegion();
+    $d.removeClippingRegion();
   }
 }

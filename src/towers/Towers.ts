@@ -1,4 +1,4 @@
-import { u_, v_ } from "@beetpx/beetpx";
+import { $u, $v } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
@@ -31,7 +31,7 @@ export class Towers {
       if (chosenTowerType === "v_beam" || tower.type === "v_beam") {
         for (let tileY = 0; tileY < g.warzoneSizeTiles.y; tileY++) {
           if (
-            tower.isAt(new Tile(v_(chosenTile.xy.x, tileY))) &&
+            tower.isAt(new Tile($v(chosenTile.xy.x, tileY))) &&
             !tower.isAt(chosenTile)
           ) {
             colliding.push(tower);
@@ -62,7 +62,7 @@ export class Towers {
         t.type === "booster" &&
         (t.range instanceof TowerRangeBooster ?
           t.range.reaches(tile)
-        : u_.throwError(
+        : $u.throwError(
             "Booster tower got assigned a range of a non-booster type",
           )),
     ).length;

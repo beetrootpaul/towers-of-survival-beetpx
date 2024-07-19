@@ -1,4 +1,4 @@
-import { BpxSprite, u_ } from "@beetpx/beetpx";
+import { $u, BpxSprite } from "@beetpx/beetpx";
 import { g } from "../globals";
 import { TowerType } from "../towers/Tower";
 
@@ -23,7 +23,7 @@ export class TowerChoice {
     this.#towers = types.map(type => {
       const t =
         g.towers[type] ??
-        u_.throwError(
+        $u.throwError(
           `Tried to access info about non-existent tower type "${type}".`,
         );
       return {
@@ -51,7 +51,7 @@ export class TowerChoice {
   get chosenTower(): TowerDescriptor {
     return (
       this.#towers[this.#chosen] ??
-      u_.throwError(
+      $u.throwError(
         `Tried to access non-existent tower choice at index ${this.#chosen}.`,
       )
     );

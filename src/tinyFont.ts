@@ -1,7 +1,7 @@
-import { BpxGlyph, font_, spr_ } from "@beetpx/beetpx";
+import { $font, $spr, BpxGlyph } from "@beetpx/beetpx";
 import { g, p8c } from "./globals";
 
-export const tinyFont = font_({
+export const tinyFont = $font({
   ascent: 4,
   descent: 0,
   lineGap: 1,
@@ -65,7 +65,7 @@ export const tinyFont = font_({
 function gl(x: number, y: number, w: number = 3, h: number = 4): BpxGlyph {
   return {
     type: "sprite",
-    sprite: spr_(g.assets.spritesheet)(w, h, x, y),
+    sprite: $spr(g.assets.spritesheet)(w, h, x, y),
     isTextColor: spriteSheetColor =>
       spriteSheetColor?.cssHex === p8c.green.cssHex,
     advance: w + 1,

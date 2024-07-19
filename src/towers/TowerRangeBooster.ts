@@ -1,4 +1,4 @@
-import { b_, BpxRgbColor, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { $d, $v, BpxRgbColor, BpxVector2d } from "@beetpx/beetpx";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Warzone } from "../warzone/Warzone";
@@ -6,14 +6,14 @@ import { TowerRange } from "./TowerRange";
 
 export class TowerRangeBooster implements TowerRange {
   static readonly #offsets = [
-    v_(-1, -1),
-    v_(0, -1),
-    v_(1, -1),
-    v_(1, 0),
-    v_(1, 1),
-    v_(0, 1),
-    v_(-1, 1),
-    v_(-1, 0),
+    $v(-1, -1),
+    $v(0, -1),
+    $v(1, -1),
+    $v(1, 0),
+    $v(1, 1),
+    $v(0, 1),
+    $v(-1, 1),
+    $v(-1, 0),
   ];
 
   readonly #tile: Tile;
@@ -33,30 +33,30 @@ export class TowerRangeBooster implements TowerRange {
   }
 
   draw(color1: BpxRgbColor, color2: BpxRgbColor) {
-    b_.setClippingRegion(
-      v_(0, g.warzoneBorder),
+    $d.setClippingRegion(
+      $v(0, g.warzoneBorder),
       g.canvasSize.sub(0, 2 * g.warzoneBorder),
     );
 
-    b_.drawRect(
+    $d.rect(
       this.#xy.sub(g.tileSize),
-      v_(g.tileSize, g.tileSize).mul(3),
+      $v(g.tileSize, g.tileSize).mul(3),
       color2,
     );
 
-    b_.removeClippingRegion();
+    $d.removeClippingRegion();
 
     for (const offset of TowerRangeBooster.#offsets) {
       const neighbourTile = this.#tile.plus(offset);
       const xy = neighbourTile.xy.add(g.warzoneBorderTiles).mul(g.tileSize);
       if (this.#warzone.canHaveTowerAt(neighbourTile)) {
-        b_.setClippingRegion(xy, v_(g.tileSize, g.tileSize));
-        b_.drawRect(
+        $d.setClippingRegion(xy, $v(g.tileSize, g.tileSize));
+        $d.rect(
           this.#xy.sub(g.tileSize),
-          v_(g.tileSize, g.tileSize).mul(3),
+          $v(g.tileSize, g.tileSize).mul(3),
           color1,
         );
-        b_.removeClippingRegion();
+        $d.removeClippingRegion();
       }
     }
   }

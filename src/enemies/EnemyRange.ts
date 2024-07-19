@@ -1,4 +1,4 @@
-import { b_, BpxRgbColor, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { $d, $v, BpxRgbColor, BpxVector2d } from "@beetpx/beetpx";
 import { g } from "../globals";
 
 export class EnemyRange {
@@ -18,17 +18,17 @@ export class EnemyRange {
   }
 
   draw(color: BpxRgbColor): void {
-    b_.setClippingRegion(
-      v_(0, g.warzoneBorder),
+    $d.setClippingRegion(
+      $v(0, g.warzoneBorder),
       g.canvasSize.sub(0, g.warzoneBorder),
     );
 
-    b_.drawEllipse(
+    $d.ellipse(
       this.#center.sub(this.#r),
-      v_(this.#r, this.#r).mul(2).add(1),
+      $v(this.#r, this.#r).mul(2).add(1),
       color,
     );
 
-    b_.removeClippingRegion();
+    $d.removeClippingRegion();
   }
 }

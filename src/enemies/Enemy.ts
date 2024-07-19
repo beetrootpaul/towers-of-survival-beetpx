@@ -1,4 +1,4 @@
-import { b_, BpxVector2d, u_, v_ } from "@beetpx/beetpx";
+import { $, $d, $u, $v, BpxVector2d } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 import { SpriteWithOffset } from "../misc/SpriteWithOffset";
 import { Path } from "../warzone/Path";
@@ -69,7 +69,7 @@ export class Enemy {
 
     if (this.#pathProgression.hasReachedEnd()) {
       this.#onReachedPathEnd();
-      this.#onReachedPathEnd = u_.noop;
+      this.#onReachedPathEnd = $u.noop;
     }
 
     this.#range = new EnemyRange(this.#center(), g.enemies[this.#type].hitboxR);
@@ -83,20 +83,20 @@ export class Enemy {
     //
     const sprite = this.#currentSprite();
     const position = this.#pathProgression.currentXy();
-    b_.drawSprite(sprite.sprite, position.add(sprite.offset));
+    $d.sprite(sprite.sprite, position.add(sprite.offset));
 
-    if (b_.debug && this.#health.value > 0) {
+    if ($.debug && this.#health.value > 0) {
       const healthBarLength = Math.ceil(this.#health.value / 4);
-      b_.drawLine(position.add(0, -2), v_(healthBarLength, 1), p8c.darkRed);
+      $d.line(position.add(0, -2), $v(healthBarLength, 1), p8c.darkRed);
     }
 
-    if (b_.debug) {
+    if ($.debug) {
       this.#range.draw(p8c.lightYellow);
     }
 
     if (this.#isTakingDamage) {
       const damageSprite = this.#currentDamageSprite();
-      b_.drawSprite(damageSprite.sprite, position.add(damageSprite.offset));
+      $d.sprite(damageSprite.sprite, position.add(damageSprite.offset));
     }
   }
 

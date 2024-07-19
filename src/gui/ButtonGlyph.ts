@@ -1,5 +1,5 @@
 import {
-  b_,
+  $d,
   BpxRgbColor,
   BpxSprite,
   BpxSpriteColorMapping,
@@ -15,7 +15,7 @@ export class ButtonGlyph {
   }
 
   draw(xy: BpxVector2d, color1: BpxRgbColor, color2: BpxRgbColor): void {
-    const prevMapping = b_.setSpriteColorMapping(
+    const prevMapping = $d.setSpriteColorMapping(
       BpxSpriteColorMapping.from([
         [g.buttonTemplateColor1, color1],
         [g.buttonTemplateColor2, color2],
@@ -23,8 +23,8 @@ export class ButtonGlyph {
       ]),
     );
 
-    b_.drawSprite(this.#glyphSprite, xy);
+    $d.sprite(this.#glyphSprite, xy);
 
-    b_.setSpriteColorMapping(prevMapping);
+    $d.setSpriteColorMapping(prevMapping);
   }
 }

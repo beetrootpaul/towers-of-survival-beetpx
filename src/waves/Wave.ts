@@ -1,4 +1,4 @@
-import { BpxTimer, timer_, u_ } from "@beetpx/beetpx";
+import { $timer, $u, BpxTimer } from "@beetpx/beetpx";
 import { Enemies, EnemyType } from "../enemies/Enemies";
 import { g } from "../globals";
 
@@ -20,17 +20,17 @@ export class Wave {
     spawns.forEach((spawn, index) => {
       if (spawn !== "-") {
         this.#spawnTimers.push({
-          timer: timer_(g.fps * index),
+          timer: $timer(g.fps * index),
           enemyType:
             spawn === "s" ? "small"
             : spawn === "m" ? "medium"
             : spawn === "b" ? "big"
-            : u_.throwError(`Unexpected spawn descriptor found: "${spawn}".`),
+            : $u.throwError(`Unexpected spawn descriptor found: "${spawn}".`),
         });
       }
     });
 
-    this.#progressTimer = timer_(g.fps * (spawns.length - 1));
+    this.#progressTimer = $timer(g.fps * (spawns.length - 1));
   }
 
   progress(): number {

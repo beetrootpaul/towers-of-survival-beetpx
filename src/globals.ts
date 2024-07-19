@@ -1,6 +1,6 @@
-import { BpxSprite, spr_, v_ } from "@beetpx/beetpx";
+import { $spr, $v, BpxSprite } from "@beetpx/beetpx";
 import { Pico8Colors } from "./Pico8Color";
-import { spro_ } from "./misc/SpriteWithOffset";
+import { $spro } from "./misc/SpriteWithOffset";
 import { WaveDescriptor } from "./waves/Wave";
 
 export const p8c = Pico8Colors;
@@ -9,14 +9,14 @@ const tileSize = 4;
 const warzoneBorderTiles = 2;
 
 const spritesheetUrl = "spritesheet.png";
-const s = spr_(spritesheetUrl);
-const so = spro_(spritesheetUrl);
+const s = $spr(spritesheetUrl);
+const so = $spro(spritesheetUrl);
 
 export const g = {
   fps: 30 as const,
 
-  canvasSize: v_(64),
-  warzoneSizeTiles: v_(12),
+  canvasSize: $v(64),
+  warzoneSizeTiles: $v(12),
   tileSize,
 
   warzoneBorderTiles,

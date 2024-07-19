@@ -1,4 +1,4 @@
-import { b_, BpxSprite, BpxVector2d, u_, v_ } from "@beetpx/beetpx";
+import { $, $d, $u, $v, BpxSprite, BpxVector2d } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Path } from "./Path";
@@ -32,7 +32,7 @@ export class Road {
   constructor() {
     const waypoints: BpxVector2d[] = [];
     Road.#serializedTiles.forEach((st, index) => {
-      let tileXy = v_(
+      let tileXy = $v(
         parseInt(st.split("|")[0]!, 10),
         parseInt(st.split("|")[1]!, 10),
       );
@@ -78,19 +78,19 @@ export class Road {
         if (spriteName) {
           const sprite: BpxSprite =
             g.road.sprites[spriteName] ??
-            u_.throwError(`No "road.sprites.${spriteName}" sprite defined.`);
-          b_.drawSprite(
+            $u.throwError(`No "road.sprites.${spriteName}" sprite defined.`);
+          $d.sprite(
             sprite,
-            v_(tileX, tileY).add(g.warzoneBorderTiles).mul(g.tileSize),
+            $v(tileX, tileY).add(g.warzoneBorderTiles).mul(g.tileSize),
           );
         }
       }
     }
 
-    if (b_.debug) {
+    if ($.debug) {
       let colorToggle = true;
       for (const point of this.path.points) {
-        b_.drawPixel(point, colorToggle ? p8c.white : p8c.blue);
+        $d.pixel(point, colorToggle ? p8c.white : p8c.blue);
         colorToggle = !colorToggle;
       }
     }

@@ -1,4 +1,4 @@
-import { b_, v_ } from "@beetpx/beetpx";
+import { $d, $v } from "@beetpx/beetpx";
 import { Lives } from "../game_state/Lives";
 import { g } from "../globals";
 
@@ -12,9 +12,9 @@ export class Cores {
   draw(): void {
     g.cores.forEach((core, index) => {
       const coreNumber = index + 1;
-      b_.drawSprite(
+      $d.sprite(
         this.#lives.left >= coreNumber ? core.spriteHealthy : core.spriteBroken,
-        v_(g.canvasSize.x - g.warzoneBorder, g.warzoneBorder + core.y),
+        $v(g.canvasSize.x - g.warzoneBorder, g.warzoneBorder + core.y),
       );
     });
   }

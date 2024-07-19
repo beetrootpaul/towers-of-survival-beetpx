@@ -1,4 +1,4 @@
-import { b_, BpxTimer, BpxVector2d, timer_, u_ } from "@beetpx/beetpx";
+import { $, $d, $timer, $u, BpxTimer, BpxVector2d } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
@@ -65,7 +65,7 @@ export class Tower {
   #newShootingTimer(): BpxTimer | null {
     if (this.#descriptor.shootingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
-      return timer_(
+      return $timer(
         g.fps *
           (this.#descriptor.shootingTime +
             boosts * (this.#descriptor.shootingTimeBoost ?? 0)),
@@ -77,7 +77,7 @@ export class Tower {
   #newChargingTimer(): BpxTimer | null {
     if (this.#descriptor.chargingTime) {
       const boosts = this.#otherTowers.countReachingBoosters(this.#tile);
-      return timer_(
+      return $timer(
         g.fps *
           (this.#descriptor.chargingTime +
             boosts * (this.#descriptor.chargingTimeBoost ?? 0)),
@@ -118,7 +118,7 @@ export class Tower {
         const range: TowerRangeLaser =
           this.#range instanceof TowerRangeLaser ?
             this.#range
-          : u_.throwError(
+          : $u.throwError(
               "Laser tower got assigned a range of a non-laser type",
             );
         this.#enemies.forEachFromFurthest(enemy => {
@@ -135,7 +135,7 @@ export class Tower {
         const range: TowerRangeVBeam =
           this.#range instanceof TowerRangeVBeam ?
             this.#range
-          : u_.throwError(
+          : $u.throwError(
               "V-beam tower got assigned a range of a non-v-beam type",
             );
         this.#enemies.forEachFromFurthest(enemy => {
@@ -153,21 +153,21 @@ export class Tower {
         this.#shootingTimer = this.#newShootingTimer();
         //             if s.type == "laser" then
         if (this.type === "laser") {
-          b_.startPlayback(g.assets.sfxLaser);
+          $.startPlayback(g.assets.sfxLaser);
         } else if (this.type === "v_beam") {
-          b_.startPlayback(g.assets.sfxVBeam);
+          $.startPlayback(g.assets.sfxVBeam);
         }
       }
     }
   }
 
   draw(): void {
-    b_.drawSprite(
+    $d.sprite(
       this.#descriptor.sprite,
       this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize),
     );
 
-    if (b_.debug) {
+    if ($.debug) {
       this.#range.draw(p8c.trueBlue, p8c.brownishBlack);
     }
   }

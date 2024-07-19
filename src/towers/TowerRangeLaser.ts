@@ -1,4 +1,4 @@
-import { b_, BpxRgbColor, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { $d, $v, BpxRgbColor, BpxVector2d } from "@beetpx/beetpx";
 import { Enemy } from "../enemies/Enemy";
 import { g } from "../globals";
 import { Tile } from "../misc/Tile";
@@ -28,15 +28,15 @@ export class TowerRangeLaser implements TowerRange {
   }
 
   draw(color1: BpxRgbColor, color2: BpxRgbColor): void {
-    b_.setClippingRegion(
-      v_(0, g.warzoneBorder),
+    $d.setClippingRegion(
+      $v(0, g.warzoneBorder),
       g.canvasSize.sub(0, 2 * g.warzoneBorder),
     );
-    b_.drawEllipse(
+    $d.ellipse(
       this.#xy.sub(this.#r),
-      v_(this.#r, this.#r).mul(2).add(1),
+      $v(this.#r, this.#r).mul(2).add(1),
       color1,
     );
-    b_.removeClippingRegion();
+    $d.removeClippingRegion();
   }
 }

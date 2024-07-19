@@ -1,4 +1,4 @@
-import { BpxVector2d, v_ } from "@beetpx/beetpx";
+import { $v, BpxVector2d } from "@beetpx/beetpx";
 
 export function forEachIntXyWithinRectOf(
   xy1Inclusive: BpxVector2d,
@@ -7,7 +7,7 @@ export function forEachIntXyWithinRectOf(
 ): void {
   for (let x = xy1Inclusive.x; x < xy2Exclusive.x; x++) {
     for (let y = xy1Inclusive.y; y < xy2Exclusive.y; y++) {
-      cb(v_(x, y));
+      cb($v(x, y));
     }
   }
 }

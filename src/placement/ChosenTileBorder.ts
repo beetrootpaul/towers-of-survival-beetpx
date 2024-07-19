@@ -1,24 +1,24 @@
-import { b_, v_ } from "@beetpx/beetpx";
+import { $d, $v } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 import { Tile } from "../misc/Tile";
 
 export class ChosenTileBorder {
   static readonly #offsets = [
-    v_(-1, 0),
-    v_(-1, -1),
-    v_(0, -1),
+    $v(-1, 0),
+    $v(-1, -1),
+    $v(0, -1),
     //
-    v_(g.tileSize - 1, -1),
-    v_(g.tileSize, -1),
-    v_(g.tileSize, 0),
+    $v(g.tileSize - 1, -1),
+    $v(g.tileSize, -1),
+    $v(g.tileSize, 0),
     //
-    v_(g.tileSize, g.tileSize - 1),
-    v_(g.tileSize, g.tileSize),
-    v_(g.tileSize - 1, g.tileSize),
+    $v(g.tileSize, g.tileSize - 1),
+    $v(g.tileSize, g.tileSize),
+    $v(g.tileSize - 1, g.tileSize),
     //
-    v_(0, g.tileSize),
-    v_(-1, g.tileSize),
-    v_(-1, g.tileSize - 1),
+    $v(0, g.tileSize),
+    $v(-1, g.tileSize),
+    $v(-1, g.tileSize - 1),
   ];
 
   readonly #tile: Tile;
@@ -29,7 +29,7 @@ export class ChosenTileBorder {
 
   draw(canBuild: boolean): void {
     for (const offset of ChosenTileBorder.#offsets) {
-      b_.drawPixel(
+      $d.pixel(
         this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize).add(offset),
         canBuild ? p8c.mediumGreen : p8c.red,
       );

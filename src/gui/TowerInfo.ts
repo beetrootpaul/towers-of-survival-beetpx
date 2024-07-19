@@ -1,4 +1,4 @@
-import { b_, v_ } from "@beetpx/beetpx";
+import { $d, $v } from "@beetpx/beetpx";
 import { TowerChoice } from "../game_state/TowerChoice";
 import { g, p8c } from "../globals";
 
@@ -11,7 +11,7 @@ export class TowerInfo {
 
   draw(): void {
     const chosenTower = this.#towerChoice.chosenTower;
-    b_.drawSprite(chosenTower.sprite, v_(2, 2));
-    b_.drawText(chosenTower.label, v_(g.warzoneBorder, 2), p8c.lavender);
+    $d.sprite(chosenTower.sprite, $v(2, 2));
+    $d.text(chosenTower.label, $v(g.warzoneBorder, 2), p8c.lavender);
   }
 }

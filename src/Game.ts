@@ -1,4 +1,4 @@
-import { b_, BpxSpriteColorMapping, v_ } from "@beetpx/beetpx";
+import { $, $d, $v, BpxSpriteColorMapping } from "@beetpx/beetpx";
 import { g, p8c } from "./globals";
 import { PauseMenu } from "./gui/PauseMenu";
 import { Screen } from "./screens/Screen";
@@ -12,7 +12,7 @@ export class Game {
   #nextScreen: Screen | undefined;
 
   start(): void {
-    b_.init({
+    $.init({
       canvasSize: "64x64",
       fixedTimestep: "30fps",
       globalPause: {
@@ -50,22 +50,22 @@ export class Game {
         available: !window.BEETPX__IS_PROD,
       },
     }).then(async ({ startGame }) => {
-      b_.setOnStarted(() => {
-        b_.useFont(tinyFont);
+      $.setOnStarted(() => {
+        $d.useFont(tinyFont);
 
-        b_.setButtonRepeating("left", {
+        $.setButtonRepeating("left", {
           firstRepeatFrames: 8,
           loopedRepeatFrames: 4,
         });
-        b_.setButtonRepeating("right", {
+        $.setButtonRepeating("right", {
           firstRepeatFrames: 8,
           loopedRepeatFrames: 4,
         });
-        b_.setButtonRepeating("up", {
+        $.setButtonRepeating("up", {
           firstRepeatFrames: 8,
           loopedRepeatFrames: 4,
         });
-        b_.setButtonRepeating("down", {
+        $.setButtonRepeating("down", {
           firstRepeatFrames: 8,
           loopedRepeatFrames: 4,
         });
@@ -78,8 +78,8 @@ export class Game {
         this.#startMusic();
       });
 
-      b_.setOnUpdate(() => {
-        if (b_.isPaused) {
+      $.setOnUpdate(() => {
+        if ($.isPaused) {
           this.#pauseMenu?.update();
         } else {
           // We intentionally reassign screen on the next update iteration
@@ -90,10 +90,10 @@ export class Game {
         }
       });
 
-      b_.setOnDraw(() => {
-        b_.clearCanvas(p8c.brownishBlack);
+      $.setOnDraw(() => {
+        $d.clearCanvas(p8c.brownishBlack);
 
-        b_.setSpriteColorMapping(
+        $d.setSpriteColorMapping(
           BpxSpriteColorMapping.from([
             [p8c.black, null],
             [p8c.darkBlue, p8c.trueBlue],
@@ -108,20 +108,20 @@ export class Game {
         );
 
         this.#currentScreen?.draw();
-        if (b_.isPaused) {
+        if ($.isPaused) {
           this.#pauseMenu?.draw();
         }
 
-        if (b_.debug) {
-          const audioState = b_.getAudioContext().state;
+        if ($.debug) {
+          const audioState = $.getAudioContext().state;
           const audioStateText =
             audioState === "suspended" ? "s"
             : audioState === "running" ? "r"
             : audioState === "closed" ? "c"
             : "@";
-          b_.drawText(
+          $d.text(
             audioStateText,
-            v_(g.canvasSize.x - b_.measureText(audioStateText).wh.x, 0),
+            $v(g.canvasSize.x - $d.measureText(audioStateText).wh.x, 0),
             p8c.mauve,
           );
         }
@@ -135,7 +135,7 @@ export class Game {
     // SFXs exported from PICO-8 have full length of 32 notes, even though in the game they are defined as 24 notes
     const durationMs = (fullSoundDurationMs: number) =>
       (fullSoundDurationMs * 24) / 32;
-    b_.startPlaybackSequence(
+    $.startPlaybackSequence(
       {
         intro: [
           [{ url: g.assets.musicBg1, durationMs }],
