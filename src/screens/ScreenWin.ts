@@ -7,16 +7,11 @@ export class ScreenWin implements Screen {
   readonly #timer = $timer(3 * g.fps);
 
   readonly #text1 = "* * *";
-  readonly #text2 = "[c1]*[c0] victory [c1]*";
+  readonly #text2 = "[c_ly]*[c_dp] victory [c_ly]*";
   readonly #text3 = "* * *";
 
   readonly #text1Size = $d.measureText(this.#text1).wh;
-  readonly #text2Size = $d.measureText(this.#text2, {
-    colorMarkers: {
-      c0: p8c.lightYellow,
-      c1: p8c.darkPeach,
-    },
-  }).wh;
+  readonly #text2Size = $d.measureText(this.#text2).wh;
   readonly #text3Size = $d.measureText(this.#text3).wh;
 
   update(): Screen {
@@ -53,12 +48,6 @@ export class ScreenWin implements Screen {
         .div(2)
         .add(-this.#text2Size.x / 2, -0.5 * (this.#text2Size.y + 1)),
       p8c.lightYellow,
-      {
-        colorMarkers: {
-          c0: p8c.lightYellow,
-          c1: p8c.darkPeach,
-        },
-      },
     );
     $d.text(
       this.#text3,

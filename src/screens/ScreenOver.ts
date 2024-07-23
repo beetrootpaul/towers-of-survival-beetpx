@@ -23,16 +23,11 @@ export class ScreenOver implements Screen {
   }
 
   draw(): void {
-    const textDefeat = "[c1]@[c0] defeat [c1]@";
+    const textDefeat = "[c_r]@[c_dr] defeat [c_r]@";
     const textWaves1 = "survived";
     const textWaves2 = this.#wavesSurvived.toFixed(0);
     const textWaves3 = this.#wavesSurvived === 1 ? "wave" : "waves";
-    const { wh: textDefeatSize } = $d.measureText(textDefeat, {
-      colorMarkers: {
-        c0: p8c.red,
-        c1: p8c.darkRed,
-      },
-    });
+    const { wh: textDefeatSize } = $d.measureText(textDefeat);
     const { wh: textWaves1Size } = $d.measureText(textWaves1);
     const { wh: textWaves2Size } = $d.measureText(textWaves2);
     const { wh: textWaves3Size } = $d.measureText(textWaves3);
@@ -53,12 +48,6 @@ export class ScreenOver implements Screen {
         .div(2)
         .add(-textDefeatSize.x / 2, -2.5 * (textDefeatSize.y + 1)),
       p8c.red,
-      {
-        colorMarkers: {
-          c0: p8c.red,
-          c1: p8c.darkRed,
-        },
-      },
     );
     $d.text(
       textWaves1,

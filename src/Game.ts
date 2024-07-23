@@ -52,6 +52,12 @@ export class Game {
     }).then(async ({ startGame }) => {
       $.setOnStarted(() => {
         $d.useFont(tinyFont);
+        $d.setTextColorMarkers({
+          c_r: p8c.red,
+          c_dr: p8c.darkRed,
+          c_ly: p8c.lightYellow,
+          c_dp: p8c.darkPeach,
+        });
 
         $.setButtonRepeating("left", {
           firstRepeatFrames: 8,
