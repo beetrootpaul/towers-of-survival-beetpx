@@ -11,7 +11,12 @@ export class ScreenWin implements Screen {
   readonly #text3 = "* * *";
 
   readonly #text1Size = $d.measureText(this.#text1).wh;
-  readonly #text2Size = $d.measureText(this.#text2).wh;
+  readonly #text2Size = $d.measureText(this.#text2, {
+    colorMarkers: {
+      c0: p8c.lightYellow,
+      c1: p8c.darkPeach,
+    },
+  }).wh;
   readonly #text3Size = $d.measureText(this.#text3).wh;
 
   update(): Screen {

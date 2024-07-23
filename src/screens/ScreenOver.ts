@@ -27,7 +27,12 @@ export class ScreenOver implements Screen {
     const textWaves1 = "survived";
     const textWaves2 = this.#wavesSurvived.toFixed(0);
     const textWaves3 = this.#wavesSurvived === 1 ? "wave" : "waves";
-    const { wh: textDefeatSize } = $d.measureText(textDefeat);
+    const { wh: textDefeatSize } = $d.measureText(textDefeat, {
+      colorMarkers: {
+        c0: p8c.red,
+        c1: p8c.darkRed,
+      },
+    });
     const { wh: textWaves1Size } = $d.measureText(textWaves1);
     const { wh: textWaves2Size } = $d.measureText(textWaves2);
     const { wh: textWaves3Size } = $d.measureText(textWaves3);
