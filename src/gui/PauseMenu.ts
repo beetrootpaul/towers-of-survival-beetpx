@@ -15,7 +15,7 @@ export class PauseMenu {
   #pressedIndex = -1;
 
   update(): void {
-    if ($.isButtonPressed("a") || $.isButtonPressed("b")) {
+    if ($.isButtonPressed("O") || $.isButtonPressed("X")) {
       this.#pressedIndex = this.#selected;
     } else {
       this.#pressedIndex = -1;
@@ -28,7 +28,7 @@ export class PauseMenu {
       this.#selected = Math.min(1, this.#selected + 1);
     }
 
-    if ($.wasButtonJustReleased("a") || $.wasButtonJustReleased("b")) {
+    if ($.wasButtonJustReleased("O") || $.wasButtonJustReleased("X")) {
       if (this.#selected === 0) {
         $.resume();
       } else if (this.#selected === 1) {

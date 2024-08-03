@@ -31,15 +31,15 @@ export class Gui {
       towerChoice: this.#gameState.towerChoice,
     });
 
-    this.#isXPressed = $.isButtonPressed("a");
-    this.#isOPressed = $.isButtonPressed("b");
+    this.#isXPressed = $.isButtonPressed("O");
+    this.#isOPressed = $.isButtonPressed("X");
   }
 
   update(): void {
     // We check it here and not in `draw` in order to avoid buttons changing their
     //   state during pause menu, when `draw` is called but `update` is not.
-    this.#isXPressed = $.isButtonPressed("a");
-    this.#isOPressed = $.isButtonPressed("b");
+    this.#isXPressed = $.isButtonPressed("O");
+    this.#isOPressed = $.isButtonPressed("X");
   }
 
   draw(params: { isButtonXEnabled: boolean }): void {

@@ -14,11 +14,11 @@ https://beetrootpaul.itch.io/towers-of-survival-beetpx
 
 **Controls**
 
-- `X` on a keyboard or on a screen (on touch devices) - enter tower building /
+- `C` on a keyboard or `O` on a touch device screen - enter tower building /
   choose a selected tower / place a tower
-- `Z` on a keyboard or `O` on a screen (on touch devices) - open menu / cancel
-- keyboard arrows or `WSAD` or `WSAD` on a screen (on touch devices) - select
-  next or previous tower / choose a place for a tower
+- `X` on a keyboard or `X` on a touch device screen - open menu / cancel
+- keyboard arrows or `WSAD` or d-pad on a touch device screen - select next or
+  previous tower / choose a place for a tower
 
 ---
 

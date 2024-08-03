@@ -81,7 +81,7 @@ export class ScreenGameplay implements Screen {
 
     this.#enemies.preUpdate();
 
-    if ($.wasButtonJustReleased("b")) {
+    if ($.wasButtonJustReleased("X")) {
       if (this.#gameState.buildingState === "idle") {
         $.pause();
       } else if (this.#gameState.buildingState === "tower-choice") {
@@ -91,7 +91,7 @@ export class ScreenGameplay implements Screen {
         this.#placement = null;
       }
     }
-    if ($.wasButtonJustReleased("a")) {
+    if ($.wasButtonJustReleased("O")) {
       $.startPlayback(g.assets.sfxButtonPress);
 
       if (this.#gameState.buildingState === "idle") {
