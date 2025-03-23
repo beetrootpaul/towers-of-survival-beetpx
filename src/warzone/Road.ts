@@ -1,4 +1,4 @@
-import { $, $d, $u, $v, BpxSprite, BpxVector2d } from "@beetpx/beetpx";
+import { $d, $u, $v, $x, BpxSprite, BpxVector2d } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 import { Tile } from "../misc/Tile";
 import { Path } from "./Path";
@@ -87,7 +87,7 @@ export class Road {
       }
     }
 
-    if ($.debug) {
+    if ($x.debug) {
       let colorToggle = true;
       for (const point of this.path.points) {
         $d.pixel(point, colorToggle ? p8c.white : p8c.blue);

@@ -1,4 +1,4 @@
-import { $, $d, $v, BpxCanvasSnapshotColorMapping } from "@beetpx/beetpx";
+import { $d, $v, $x, BpxCanvasSnapshotColorMapping } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 
 export class PauseMenu {
@@ -15,24 +15,24 @@ export class PauseMenu {
   #pressedIndex = -1;
 
   update(): void {
-    if ($.isButtonPressed("O") || $.isButtonPressed("X")) {
+    if ($x.isButtonPressed("O") || $x.isButtonPressed("X")) {
       this.#pressedIndex = this.#selected;
     } else {
       this.#pressedIndex = -1;
     }
 
-    if ($.wasButtonJustPressed("up")) {
+    if ($x.wasButtonJustPressed("up")) {
       this.#selected = Math.max(0, this.#selected - 1);
     }
-    if ($.wasButtonJustPressed("down")) {
+    if ($x.wasButtonJustPressed("down")) {
       this.#selected = Math.min(1, this.#selected + 1);
     }
 
-    if ($.wasButtonJustReleased("O") || $.wasButtonJustReleased("X")) {
+    if ($x.wasButtonJustReleased("O") || $x.wasButtonJustReleased("X")) {
       if (this.#selected === 0) {
-        $.resume();
+        $x.resume();
       } else if (this.#selected === 1) {
-        $.restart();
+        $x.restart();
       }
     }
   }

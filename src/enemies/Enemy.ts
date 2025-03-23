@@ -1,4 +1,4 @@
-import { $, $d, $u, $v, BpxVector2d } from "@beetpx/beetpx";
+import { $d, $u, $v, $x, BpxVector2d } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 import { SpriteWithOffset } from "../misc/SpriteWithOffset";
 import { Path } from "../warzone/Path";
@@ -85,12 +85,12 @@ export class Enemy {
     const position = this.#pathProgression.currentXy();
     $d.sprite(sprite.sprite, position.add(sprite.offset));
 
-    if ($.debug && this.#health.value > 0) {
+    if ($x.debug && this.#health.value > 0) {
       const healthBarLength = Math.ceil(this.#health.value / 4);
       $d.line(position.add(0, -2), $v(healthBarLength, 1), p8c.darkRed);
     }
 
-    if ($.debug) {
+    if ($x.debug) {
       this.#range.draw(p8c.lightYellow);
     }
 

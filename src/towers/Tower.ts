@@ -1,4 +1,4 @@
-import { $, $d, $timer, $u, BpxTimer, BpxVector2d } from "@beetpx/beetpx";
+import { $d, $timer, $u, $x, BpxTimer, BpxVector2d } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { TowerDescriptor } from "../game_state/TowerChoice";
@@ -153,9 +153,9 @@ export class Tower {
         this.#shootingTimer = this.#newShootingTimer();
         //             if s.type == "laser" then
         if (this.type === "laser") {
-          $.startPlayback(g.assets.sfxLaser);
+          $x.startPlayback(g.assets.sfxLaser);
         } else if (this.type === "v_beam") {
-          $.startPlayback(g.assets.sfxVBeam);
+          $x.startPlayback(g.assets.sfxVBeam);
         }
       }
     }
@@ -167,7 +167,7 @@ export class Tower {
       this.#tile.xy.add(g.warzoneBorderTiles).mul(g.tileSize),
     );
 
-    if ($.debug) {
+    if ($x.debug) {
       this.#range.draw(p8c.trueBlue, p8c.brownishBlack);
     }
   }

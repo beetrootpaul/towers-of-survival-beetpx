@@ -1,4 +1,4 @@
-import { $, $u, $v, BpxVector2d } from "@beetpx/beetpx";
+import { $u, $v, $x, BpxVector2d } from "@beetpx/beetpx";
 import { Enemies } from "../enemies/Enemies";
 import { Fight } from "../fight/Fight";
 import { GameState } from "../game_state/GameState";
@@ -41,7 +41,7 @@ export class ScreenGameplay implements Screen {
     this.#enemies = new Enemies({
       path: this.#warzone.path(),
       onEnemyReachedPathEnd: () => {
-        $.startPlayback(g.assets.sfxLiveLost);
+        $x.startPlayback(g.assets.sfxLiveLost);
         this.#gameState.lives.takeOne();
       },
     });
@@ -81,9 +81,9 @@ export class ScreenGameplay implements Screen {
 
     this.#enemies.preUpdate();
 
-    if ($.wasButtonJustReleased("X")) {
+    if ($x.wasButtonJustReleased("X")) {
       if (this.#gameState.buildingState === "idle") {
-        $.pause();
+        $x.pause();
       } else if (this.#gameState.buildingState === "tower-choice") {
         this.#gameState.buildingState = "idle";
       } else if (this.#gameState.buildingState === "tower-placement") {
@@ -91,8 +91,8 @@ export class ScreenGameplay implements Screen {
         this.#placement = null;
       }
     }
-    if ($.wasButtonJustReleased("O")) {
-      $.startPlayback(g.assets.sfxButtonPress);
+    if ($x.wasButtonJustReleased("O")) {
+      $x.startPlayback(g.assets.sfxButtonPress);
 
       if (this.#gameState.buildingState === "idle") {
         this.#gameState.buildingState = "tower-choice";
@@ -107,7 +107,7 @@ export class ScreenGameplay implements Screen {
         this.#isButtonXEnabled = this.#placement.canBuild();
       } else if (this.#gameState.buildingState === "tower-placement") {
         if (this.#placement?.canBuild()) {
-          $.startPlayback(g.assets.sfxTowerPlaced);
+          $x.startPlayback(g.assets.sfxTowerPlaced);
           this.#gameState.money.subtract(
             this.#gameState.towerChoice.chosenTower.cost,
           );
@@ -118,21 +118,21 @@ export class ScreenGameplay implements Screen {
           this.#gameState.buildingState = "idle";
           this.#placement = null;
         } else {
-          $.startPlayback(g.assets.sfxCannotPlace);
+          $x.startPlayback(g.assets.sfxCannotPlace);
         }
       }
     }
 
-    if ($.wasButtonJustPressed("left")) {
+    if ($x.wasButtonJustPressed("left")) {
       this.#applyArrowButtonInput("left");
     }
-    if ($.wasButtonJustPressed("right")) {
+    if ($x.wasButtonJustPressed("right")) {
       this.#applyArrowButtonInput("right");
     }
-    if ($.wasButtonJustPressed("up")) {
+    if ($x.wasButtonJustPressed("up")) {
       this.#applyArrowButtonInput("up");
     }
-    if ($.wasButtonJustPressed("down")) {
+    if ($x.wasButtonJustPressed("down")) {
       this.#applyArrowButtonInput("down");
     }
 
@@ -162,10 +162,10 @@ export class ScreenGameplay implements Screen {
       this.#isButtonXEnabled = this.#placement.canBuild();
     } else if (this.#gameState.buildingState === "tower-choice") {
       if (direction.x > 0) {
-        $.startPlayback(g.assets.sfxButtonPress);
+        $x.startPlayback(g.assets.sfxButtonPress);
         this.#gameState.towerChoice.chooseNextTower();
       } else if (direction.x < 0) {
-        $.startPlayback(g.assets.sfxButtonPress);
+        $x.startPlayback(g.assets.sfxButtonPress);
         this.#gameState.towerChoice.choosePrevTower();
       }
     } else {

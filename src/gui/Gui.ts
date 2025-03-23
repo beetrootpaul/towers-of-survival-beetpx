@@ -1,4 +1,4 @@
-import { $, $d, $v } from "@beetpx/beetpx";
+import { $d, $v, $x } from "@beetpx/beetpx";
 import { GameState } from "../game_state/GameState";
 import { g, p8c } from "../globals";
 import { Waves } from "../waves/Waves";
@@ -31,15 +31,15 @@ export class Gui {
       towerChoice: this.#gameState.towerChoice,
     });
 
-    this.#isXPressed = $.isButtonPressed("O");
-    this.#isOPressed = $.isButtonPressed("X");
+    this.#isXPressed = $x.isButtonPressed("O");
+    this.#isOPressed = $x.isButtonPressed("X");
   }
 
   update(): void {
     // We check it here and not in `draw` in order to avoid buttons changing their
     //   state during pause menu, when `draw` is called but `update` is not.
-    this.#isXPressed = $.isButtonPressed("O");
-    this.#isOPressed = $.isButtonPressed("X");
+    this.#isXPressed = $x.isButtonPressed("O");
+    this.#isOPressed = $x.isButtonPressed("X");
   }
 
   draw(params: { isButtonXEnabled: boolean }): void {

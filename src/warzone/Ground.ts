@@ -4,17 +4,7 @@ import { Tile } from "../misc/Tile";
 import { forEachIntXyWithinRectOf } from "../misc/forEachIntXyWithinRectOf";
 
 export class Ground {
-  static readonly #plainOffsets = [
-    $v(0, 0),
-    $v(-1, -1),
-    $v(0, -1),
-    $v(1, -1),
-    $v(1, 0),
-    $v(1, 1),
-    $v(0, 1),
-    $v(-1, 1),
-    $v(-1, 0),
-  ];
+  static readonly #plainOffsets = [...$u.adjacent8(), $v(0, 0)];
 
   readonly #sprites: Record<string, BpxSprite>;
 

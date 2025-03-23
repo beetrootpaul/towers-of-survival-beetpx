@@ -1,4 +1,4 @@
-import { $, $d, $v, BpxSpriteColorMapping } from "@beetpx/beetpx";
+import { $d, $v, $x, BpxSpriteColorMapping } from "@beetpx/beetpx";
 import { g, p8c } from "./globals";
 import { PauseMenu } from "./gui/PauseMenu";
 import { Screen } from "./screens/Screen";
@@ -12,7 +12,7 @@ export class Game {
   #nextScreen: Screen | undefined;
 
   start(): void {
-    $.setOnStarted(() => {
+    $x.setOnStarted(() => {
       $d.setFont(tinyFont);
       $d.setTextColorMarkers({
         c_r: p8c.red,
@@ -21,19 +21,19 @@ export class Game {
         c_dp: p8c.darkPeach,
       });
 
-      $.setButtonRepeating("left", {
+      $x.setButtonRepeating("left", {
         firstRepeatFrames: 8,
         loopedRepeatFrames: 4,
       });
-      $.setButtonRepeating("right", {
+      $x.setButtonRepeating("right", {
         firstRepeatFrames: 8,
         loopedRepeatFrames: 4,
       });
-      $.setButtonRepeating("up", {
+      $x.setButtonRepeating("up", {
         firstRepeatFrames: 8,
         loopedRepeatFrames: 4,
       });
-      $.setButtonRepeating("down", {
+      $x.setButtonRepeating("down", {
         firstRepeatFrames: 8,
         loopedRepeatFrames: 4,
       });
@@ -46,8 +46,8 @@ export class Game {
       this.#startMusic();
     });
 
-    $.setOnUpdate(() => {
-      if ($.isPaused) {
+    $x.setOnUpdate(() => {
+      if ($x.isPaused) {
         this.#pauseMenu?.update();
       } else {
         // We intentionally reassign screen on the next update iteration
@@ -58,7 +58,7 @@ export class Game {
       }
     });
 
-    $.setOnDraw(() => {
+    $x.setOnDraw(() => {
       $d.clearCanvas(p8c.brownishBlack);
 
       $d.setSpriteColorMapping(
@@ -76,12 +76,12 @@ export class Game {
       );
 
       this.#currentScreen?.draw();
-      if ($.isPaused) {
+      if ($x.isPaused) {
         this.#pauseMenu?.draw();
       }
 
-      if ($.debug) {
-        const audioState = $.getAudioContext().state;
+      if ($x.debug) {
+        const audioState = $x.getAudioContext().state;
         const audioStateText =
           audioState === "suspended" ? "s"
           : audioState === "running" ? "r"
@@ -95,7 +95,7 @@ export class Game {
       }
     });
 
-    $.start({
+    $x.start({
       gameId: "towers-of-survival-beetpx",
       canvasSize: "64x64",
       fixedTimestep: "30fps",
@@ -144,7 +144,7 @@ export class Game {
     // SFXs exported from PICO-8 have full length of 32 notes, even though in the game they are defined as 24 notes
     const durationMs = (fullSoundDurationMs: number) =>
       (fullSoundDurationMs * 24) / 32;
-    $.startPlaybackSequence(
+    $x.startPlaybackSequence(
       {
         intro: [
           [{ url: g.assets.musicBg1, durationMs }],
